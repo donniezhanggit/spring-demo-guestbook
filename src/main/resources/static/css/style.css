@@ -1,0 +1,92 @@
+@CHARSET "UTF-8";
+
+body, .container, input {
+    font-family: "Ubuntu Mono", sans-serif;
+}
+
+body {
+    background-color: #383838;
+    background-image: url("/images/bg.png");
+    text-shadow: #000 1px 1px 1px;
+    padding: 10px 10px;
+}
+
+header {
+    font-size: xx-large;
+    color: #6CA0A3;
+    text-align: center;
+    padding: 10px 10px;
+}
+
+.container {
+    background-color: #202020;
+    width: 600px;
+    color: #aaa;
+    border: 1px solid;
+    border-color: #101010;
+    border-radius: 5px;
+    margin: auto;
+}
+
+.name {
+    color: #cc9393;
+}
+
+.date {
+    color: #7f9f7f;
+    float: right;
+}
+
+.comment, form.new {
+    border-top-width: 1px;
+    border-top-style: dotted;
+    border-top-color: #707070;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.comments, form.new {
+	margin: 10px 20px;
+}
+
+.error {
+    color: #cc9393;
+}
+
+input {
+    background-color: #ccc;
+}
+
+input[type=text] {
+    padding: 5px;
+    font-size: 1.0em;
+    border: 2px solid #ccc;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input[type=submit] {
+    padding: 5px 15px;
+    font-size: 1.0em;
+    border: 0 none;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input[type=text].fieldError {
+	border: 2px solid #cc9393;
+	box-shadow: 0px 1px 3px #cc9393 inset;
+}
+
+@media all and (max-width: 699px) {
+    div.container {
+        width: 90%;
+    }
+
+    a.fork {
+        display: none;
+    }
+}
