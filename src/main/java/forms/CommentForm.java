@@ -6,7 +6,7 @@ public class CommentForm {
 	@Length(min=1, max=20)
 	private String name;
 
-	@Length(min=1, max=4096)
+	@Length(min=1, max=2048)
 	private String message;
 
 	public String getName() {
