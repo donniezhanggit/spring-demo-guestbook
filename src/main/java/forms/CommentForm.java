@@ -1,4 +1,4 @@
-package forms;
+package demo.forms;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -8,6 +8,7 @@ public class CommentForm {
 
 	@Length(min=1, max=2048)
 	private String message;
+
 
 	public String getName() {
 		return name;
@@ -29,5 +30,4 @@ public class CommentForm {
 	public String toString() {
 		return "CommentForm [name=" + name + ", message=" + message + "]";
 	}
-
 }

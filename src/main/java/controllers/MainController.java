@@ -1,10 +1,8 @@
-package demo;
+package demo.controllers;
 
 import java.text.SimpleDateFormat;
 
 import javax.validation.Valid;
-
-import models.Comment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,16 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import forms.CommentForm;
-import repos.CommentReposotory;
+import demo.models.Comment;
+import demo.forms.CommentForm;
+import demo.repos.CommentReposotory;
 
 
 @Controller
 public class MainController extends WebMvcConfigurerAdapter {
-	@Autowired
+        private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+
+        @Autowired
 	private CommentReposotory commentsRepo;
-	
-	private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
 
 	public ModelAndView generateView(String viewname, CommentForm commentForm) {
 		ModelAndView view = new ModelAndView(viewname);
@@ -42,12 +41,11 @@ public class MainController extends WebMvcConfigurerAdapter {
 
 	@RequestMapping(value="/", method=RequestMethod.POST)
 	public ModelAndView addComment(@Valid CommentForm commentForm, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) 
+		if(bindingResult.hasErrors())
 			return this.generateView("list", commentForm);
-		
+
 		this.commentsRepo.save(new Comment(commentForm));
 
 		return new ModelAndView("redirect:/");
 	}
-
 }

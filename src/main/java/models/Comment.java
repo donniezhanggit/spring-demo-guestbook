@@ -1,35 +1,32 @@
-package models;
+package demo.models;
 
 import java.util.Date;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import forms.CommentForm;
+import demo.forms.CommentForm;
 
 @Entity
 @Table(name="comments")
 public class Comment {
 	@Id
-	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	@NotNull
-	@Column(name="created")
 	private Date created = new Date();
 
 	@NotNull
-	@Column(name="name")
 	private String name;
 
 	@NotNull
-	@Column(name="message")
 	private String message;
+
 
 	public Comment() {
 	}
-	
+
 	public Comment(CommentForm cf) {
 		this.name = cf.getName();
 		this.message = cf.getMessage();
