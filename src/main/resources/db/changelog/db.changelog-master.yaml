@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2016043001
+      author: Whitesquall
+      changes:
+        - createTable:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: created
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: message
+                  type: varchar(2048)
+                  constraints:
+                    nullable: false
