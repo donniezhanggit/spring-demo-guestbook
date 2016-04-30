@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 2016043001
+      id: 2016043002
       author: Whitesquall
       changes:
         - createTable:
