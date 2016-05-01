@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import demo.models.Comment;
 
 
-public interface CommentReposotory extends CrudRepository<Comment, Long> {
+@Repository
+public interface CommentRepository extends CrudRepository<Comment, Long> {
 	List<Comment> findByName(String name);
 }

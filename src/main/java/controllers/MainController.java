@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import demo.models.Comment;
 import demo.forms.CommentForm;
-import demo.repos.CommentReposotory;
+import demo.repos.CommentRepository;
 
 
 @Controller
@@ -22,7 +22,7 @@ public class MainController extends WebMvcConfigurerAdapter {
         private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
 
         @Autowired
-	private CommentReposotory commentsRepo;
+	private CommentRepository commentsRepo;
 
 	public ModelAndView generateView(String viewname, CommentForm commentForm) {
 		ModelAndView view = new ModelAndView(viewname);
