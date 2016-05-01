@@ -32,6 +32,10 @@ header {
     color: #cc9393;
 }
 
+.anon {
+    color: #f0dfaf;
+}
+
 .date {
     color: #7f9f7f;
     float: right;
