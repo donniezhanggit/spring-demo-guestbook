@@ -3,6 +3,7 @@
 	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+
   <groupId>org.guestbook</groupId>
   <artifactId>demo-guestbook</artifactId>
   <version>0.0.1-SNAPSHOT</version>
@@ -32,7 +33,6 @@
   </build>
 
   <dependencies>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -63,27 +63,21 @@
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-core</artifactId>
     </dependency>
-
   </dependencies>
 
   <repositories>
-
     <repository>
       <id>spring-releases</id>
       <name>Spring Releases</name>
       <url>https://repo.spring.io/libs-release</url>
     </repository>
-
   </repositories>
 
   <pluginRepositories>
-
     <pluginRepository>
       <id>spring-releases</id>
       <name>Spring Releases</name>
       <url>https://repo.spring.io/libs-release</url>
     </pluginRepository>
-
   </pluginRepositories>
-
 </project>
