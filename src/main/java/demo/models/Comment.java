@@ -5,8 +5,6 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import demo.forms.CommentForm;
 
 
@@ -15,7 +13,6 @@ import demo.forms.CommentForm;
 public class Comment {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@JsonIgnore
 	private int id;
 
 	@NotNull
