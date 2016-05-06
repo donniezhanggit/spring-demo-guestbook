@@ -13,7 +13,7 @@ import demo.forms.CommentForm;
 public class Comment {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 
 	@NotNull
 	private Date created = new Date();

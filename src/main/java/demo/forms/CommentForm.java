@@ -2,6 +2,7 @@ package demo.forms;
 
 import org.hibernate.validator.constraints.Length;
 
+
 public class CommentForm {
 	@Length(min=1, max=20)
 	private String name;

@@ -14,7 +14,7 @@ import demo.repos.CommentRepository;
 public class RestCommentController {
 	@Autowired
 	private CommentRepository commentRepo;
-	
+
 	@RequestMapping(method=RequestMethod.GET)
 	Iterable<Comment> getComments() {
 		return this.commentRepo.findAllByOrderByCreatedAsc();
