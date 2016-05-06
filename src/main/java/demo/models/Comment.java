@@ -33,12 +33,8 @@ public class Comment {
 		this.message = cf.getMessage();
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public Date getCreated() {
