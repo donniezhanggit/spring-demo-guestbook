@@ -20,9 +20,12 @@ import demo.repos.CommentRepository;
 @Controller
 public class MainController extends WebMvcConfigurerAdapter {
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+	private final CommentRepository commentsRepo;
 
         @Autowired
-	private CommentRepository commentsRepo;
+        public MainController(CommentRepository repo) {
+            this.commentsRepo = repo;
+        }
 
 	public ModelAndView generateView(String viewname, CommentForm commentForm) {
 		ModelAndView view = new ModelAndView(viewname);
