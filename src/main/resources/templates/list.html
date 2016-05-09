@@ -10,12 +10,25 @@
       <header>Welcome to my guestbook!</header>
 
       <div class="comments">
+
         <div class="comment" th:each="c: ${comments}">
-          <div class="date" th:text="${dateFormat.format(c.created)}">2000-01-01 00:00:00</div>
+          <div class="date" th:text="${dateFormat.format(c.created)}">
+            2000-01-01 00:00:00
+          </div><!-- date -->
           <div class="name" th:text="${c.name}">name</div>
-          <p class="message" th:text="${c.message}">message</p>
+
+          <div class="wrap">
+            <div class="avatar">
+              <img th:src="@{/images/guyfawkes.png}"></img>
+            </div><!-- avatar -->
+            <div class="message" th:text="${c.message}">
+              message
+            </div><!-- message -->
+          </div><!-- wrap -->
+          <div style="clear:both;"></div>
         </div>
-      </div>
+
+      </div><!-- comments -->
 
       <form class="new" th:action="@{/}" th:object="${commentForm}" method="post">
 	<p>Name</p>
@@ -30,7 +43,8 @@
 
 	<p></p><input type="submit" value="Submit"></input>
       </form>
-    </div>
+
+    </div><!-- container -->
 
     <a class="fork" th:href="@{https://github.com/abstractionlayer/spring-demo-guestbook}">
       <img style="position: absolute; top: 0; right: 0; border: 0;" th:src="@{/images/forkme_right_white_ffffff.png}" alt="Fork me on GitHub"></img>
