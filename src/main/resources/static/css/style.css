@@ -39,7 +39,7 @@ header {
     float: right;
 }
 
-.comment, form.new {
+.comment, form.new, form.login {
     border-top-width: 1px;
     border-top-style: dotted;
     border-top-color: #707070;
@@ -84,7 +84,7 @@ input {
     margin-bottom: 10px;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
     padding: 5px;
     font-size: 1.0em;
     border: 2px solid #ccc;
