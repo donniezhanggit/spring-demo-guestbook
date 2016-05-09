@@ -13,5 +13,5 @@ import demo.models.Comment;
 @Transactional
 public interface CommentRepository extends CrudRepository<Comment, Long> {
 	List<Comment> findByName(String name);
-        List<Comment> findAllByOrderByCreatedAsc();
+    List<Comment> findAllByOrderByCreatedAsc();
 }

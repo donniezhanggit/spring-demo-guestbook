@@ -20,7 +20,7 @@ public class RestCommentController {
 	Iterable<Comment> getComments() {
 		return this.commentRepo.findAllByOrderByCreatedAsc();
 	}
-	
+
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	Comment getComment(@PathVariable("id") Long id) {
 		return this.commentRepo.findOne(id);
