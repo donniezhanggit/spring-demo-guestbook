@@ -34,8 +34,7 @@ public class MainController extends WebMvcConfigurerAdapter {
 	public ModelAndView generateView(String viewname, CommentForm commentForm) {
 		ModelAndView view = new ModelAndView(viewname);
 		view.addObject("commentForm", commentForm);
-		view.addObject("comments",
-                        this.commentsRepo.findAllByOrderByCreatedAsc());
+		view.addObject("comments", this.commentsRepo.findAllByOrderByCreatedAsc());
 		view.addObject("dateFormat", this.dateFormat);
 
 		return view;
