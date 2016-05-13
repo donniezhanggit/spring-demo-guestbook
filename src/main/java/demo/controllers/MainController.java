@@ -51,10 +51,10 @@ public class MainController extends WebMvcConfigurerAdapter {
 		if(bindingResult.hasErrors())
 			return this.generateView("list", commentForm);
 
+		this.commentsRepo.save(new Comment(commentForm));
+
 		logger.info("Comment " + commentForm.toString()
 				+ " has been added from ip: " + request.getRemoteAddr());
-
-		this.commentsRepo.save(new Comment(commentForm));
 
 		return new ModelAndView("redirect:/");
 	}
