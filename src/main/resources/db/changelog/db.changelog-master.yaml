@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 2016043002
+      id: 2016043001
       author: Whitesquall
       changes:
         - createTable:
-            tableName: comments
+            tableName: comment
             columns:
               - column:
                   name: id

@@ -9,7 +9,6 @@ import demo.forms.CommentForm;
 
 
 @Entity
-@Table(name="comments")
 public class Comment {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

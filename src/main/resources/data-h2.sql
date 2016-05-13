@@ -1,6 +1,6 @@
 -- Database setup script for h2.
 
-INSERT INTO comments
+INSERT INTO comment
     (created, name, message)
 VALUES
     ('2015-09-19 14:00:00', 'admin', 'Welcome to this demo application.'),
