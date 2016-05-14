@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import demo.forms.CommentForm;
 
 
@@ -22,6 +24,10 @@ public class Comment {
 
 	@NotNull
 	private String message;
+
+	@JsonIgnore
+	@ManyToOne
+	private User user;
 
 
 	public Comment() {
@@ -58,6 +64,14 @@ public class Comment {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
