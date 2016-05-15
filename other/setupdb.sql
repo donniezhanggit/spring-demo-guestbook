@@ -3,14 +3,7 @@
 
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS comment;
-
-CREATE TABLE comment (
-       id SERIAL PRIMARY KEY,
-       created TIMESTAMP NOT NULL,
-       name VARCHAR(20) NOT NULL,
-       message VARCHAR(2048) NOT NULL
-);
+DELETE FROM comment;
 
 INSERT INTO comment (created, name, message)
        VALUES ('2015-09-19 14:00:00', 'admin', 'Welcome to this demo application.'),
