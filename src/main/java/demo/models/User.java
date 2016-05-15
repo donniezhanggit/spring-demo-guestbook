@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
+@Table(name="user")
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -82,15 +83,15 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	
+
 	public List<Comment> getComments() {
 		return this.comments;
 	}
-	
+
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-	
+
 	public void addComment(Comment comment) {
 		this.comments.add(comment);
 	}

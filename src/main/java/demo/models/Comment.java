@@ -27,6 +27,7 @@ public class Comment {
 
 	@JsonIgnore
 	@ManyToOne
+	@JoinColumn(name="gbuser_id")
 	private User user;
 
 

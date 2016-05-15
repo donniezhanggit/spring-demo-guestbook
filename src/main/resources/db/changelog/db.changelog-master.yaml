@@ -34,7 +34,7 @@ databaseChangeLog:
       comment: Added table for users
       changes:
         - createTable:
-            tableName: user
+            tableName: gbuser
             columns:
               - column:
                   name: id
@@ -80,10 +80,10 @@ databaseChangeLog:
             tableName: comment
             columns:
               - column:
-                  name: user_id
+                  name: gbuser_id
                   type: int
                   constraints:
                     nullable: true
-                    references: user(id)
-                    foreignKeyName: fk_user_comment
+                    references: gbuser(id)
+                    foreignKeyName: fk_gbuser_comment
                     deleteCascade: true
