@@ -1,23 +1,23 @@
-package demo.models;
+package demo.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Immutable;
 
-import demo.forms.CommentForm;
+import demo.dto.CommentInput;
 
 
 @Entity
-public class Comment {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+@Immutable
+public class Comment extends DomainEntity {
+	private static final long serialVersionUID = 1L;
 
 	@NotNull
-	private Date created = new Date();
+	private LocalDateTime created = LocalDateTime.now();
 
 	@NotNull
 	private String name;
@@ -25,29 +25,39 @@ public class Comment {
 	@NotNull
 	private String message;
 
-	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="gbuser_id")
 	private User user;
 
 
-	public Comment() {
-	}
+	protected Comment() {}
 
-	public Comment(CommentForm cf) {
-		this.name = cf.getName();
-		this.message = cf.getMessage();
+	public Comment(@NotNull CommentInput input) {
+		this.name = input.getName();
+		this.message = input.getMessage();
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public Date getCreated() {
+	public Short getVersion() {
+		return version;
+	}
+	
+	public LocalDateTime getCreated() {
 		return created;
 	}
 
-	public void setCreated(Date date) {
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	public void setVersion(short version) {
+		this.version = version;
+	}
+	
+	public void setCreated(@NotNull LocalDateTime date) {
 		this.created = date;
 	}
 
@@ -67,6 +77,7 @@ public class Comment {
 		this.message = message;
 	}
 
+	@Nullable
 	public User getUser() {
 		return this.user;
 	}
@@ -75,6 +86,8 @@ public class Comment {
 		this.user = user;
 	}
 
+	
+	@NotNull
 	@Override
 	public String toString() {
 		return "Comment [id=" + id + ", created=" + created + ", name=" + name

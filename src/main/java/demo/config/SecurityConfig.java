@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .withUser("admin").password("password").roles("ADMIN");
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http
@@ -40,19 +41,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	    .logout().permitAll();
     }
 
-    private SecurityExpressionHandler<FilterInvocation> webExpressionHandler() {
-    	DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
+
+    private SecurityExpressionHandler<FilterInvocation> 
+    webExpressionHandler() {
+    	DefaultWebSecurityExpressionHandler handler = 
+    			new DefaultWebSecurityExpressionHandler();
 
     	handler.setRoleHierarchy(this.roleHierarchy());
 
     	return handler;
     }
 
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    
     @Bean
     public RoleHierarchyImpl roleHierarchy() {
     	RoleHierarchyImpl rh = new RoleHierarchyImpl();

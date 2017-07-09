@@ -1,9 +1,11 @@
-package demo.forms;
+package demo.dto;
+
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 
-public class CommentForm {
+public class CommentInput {
 	@Length(min=1, max=20)
 	private String name;
 
@@ -27,8 +29,10 @@ public class CommentForm {
 		this.message = message;
 	}
 
+	
+	@NotNull
 	@Override
 	public String toString() {
-		return "CommentForm [name=" + name + ", message=" + message + "]";
+		return "CommentInput [name=" + name + ", message=" + message + "]";
 	}
 }

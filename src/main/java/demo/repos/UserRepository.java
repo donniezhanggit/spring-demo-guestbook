@@ -1,14 +1,16 @@
 package demo.repos;
 
+import java.util.Optional;
+
+import javax.annotation.Nonnull;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import demo.models.User;
+import demo.model.User;
 
 
 @Repository
-@Transactional
 public interface UserRepository extends CrudRepository<User, Long> {
-	User findByUsername(String username);
+	Optional<User> findByUsername(@Nonnull String username);
 }

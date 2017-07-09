@@ -1,29 +1,24 @@
-package demo.models;
+package demo.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.validator.constraints.Email;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name="user")
-public class User {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+@Table(name="gbuser")
+public class User extends DomainEntity {
+	private static final long serialVersionUID = 1L;
 
-	@NaturalId
 	@NotNull
 	private String username;
 
-	@JsonIgnore
 	@NotNull
 	private String password;
 
@@ -32,18 +27,30 @@ public class User {
 	private String email;
 
 	@NotNull
-	private Date created = new Date();
+	private LocalDateTime created = LocalDateTime.now(); 
 
 	@NotNull
 	boolean active = true;
 
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
+	@OneToMany(fetch=FetchType.LAZY, orphanRemoval=true)
+	@JoinColumn(name="user")
 	List<Comment> comments;
 
-	public Long getId() {
-		return id;
-	}
+	
+	protected User() {}
+	
+	
+	public User(@Valid @NotNull UserBuilder ub) {
+		this.username = ub.username;
+		this.password = ub.password;
+		this.email = ub.email;
+		this.created = ub.created;
+		this.active = ub.active;
+		this.comments = ub.comments;
 
+	}
+	
+	
 	public String getUsername() {
 		return username;
 	}
@@ -68,12 +75,8 @@ public class User {
 		this.email = email;
 	}
 
-	public Date getCreated() {
+	public LocalDateTime getCreated() {
 		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
 	}
 
 	public boolean isActive() {
@@ -88,11 +91,11 @@ public class User {
 		return this.comments;
 	}
 
-	public void setComments(List<Comment> comments) {
+	public void setComments(@Nullable List<Comment> comments) {
 		this.comments = comments;
 	}
 
-	public void addComment(Comment comment) {
+	public void addComment(@Valid @NotNull Comment comment) {
 		this.comments.add(comment);
 	}
 

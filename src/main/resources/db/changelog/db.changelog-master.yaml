@@ -1,6 +1,16 @@
 databaseChangeLog:
   - changeSet:
-      id: 2016043001
+      id: 2017-07-09-01
+      author: Whitesquall
+      changes:
+        - createSequence:
+            sequenceName: hibernate_sequence
+            incrementBy: 1
+            startValue: 10000
+
+  
+  - changeSet:
+      id: 2017-07-09-02
       author: Whitesquall
       changes:
         - createTable:
@@ -8,28 +18,34 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: int
-                  autoIncrement: true
+                  type: bigint
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: version
+                  type: smallint
+                  constraints:
+                    nullable: false
+              - column:
                   name: created
-                  type: datetime
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:
                   name: name
                   type: varchar(20)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: message
                   type: varchar(2048)
                   constraints:
                     nullable: false
+                    
+                    
   - changeSet:
-      id: 2016050301
+      id: 2017-07-09-03
       author: Whitesquall
       comment: Added table for users
       changes:
@@ -38,10 +54,14 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: int
-                  autoIncrement: true
+                  type: bigint
                   constraints:
                     primaryKey: true
+                    nullable: false
+              - column: 
+                  name: version
+                  type: smallint
+                  constraints:
                     nullable: false
               - column:
                   name: username
@@ -61,7 +81,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: created
-                  type: datetime
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:
@@ -71,8 +91,9 @@ databaseChangeLog:
                   constraints:
                     nullable: false
 
+
   - changeSet:
-      id: 2016051301
+      id: 2017-07-09-04
       author: Whitesquall
       comment: Added user's foreign key to comment table
       changes:

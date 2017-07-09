@@ -1,65 +1,75 @@
 package demo.controllers;
 
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import demo.models.Comment;
-import demo.forms.CommentForm;
+import demo.api.CommentsApi;
+import demo.dto.CommentInput;
 import demo.repos.CommentRepository;
 
 
 @Controller
 public class MainController extends WebMvcConfigurerAdapter {
-	private static final Logger logger = LoggerFactory.getLogger(MainController.class.getName());
-	private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
-	private final CommentRepository commentsRepo;
+	private final Logger logger = LoggerFactory
+			.getLogger(this.getClass().getName());
+	private final DateTimeFormatter dateFormat =
+			DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
+	private final CommentsApi commentsApi;
 
-    @Autowired
-    public MainController(CommentRepository repo) {
-        this.commentsRepo = repo;
+	
+    public MainController(@NotNull CommentRepository repo, 
+    		@NotNull CommentsApi commentsApi) {
+        this.commentsApi = commentsApi;
     }
 
-	public ModelAndView generateView(String viewname, CommentForm commentForm) {
+    
+	@NotNull
+	public ModelAndView generateView(@NotNull String viewname, 
+			@NotNull CommentInput commentForm) {
 		ModelAndView view = new ModelAndView(viewname);
+		
 		view.addObject("commentForm", commentForm);
-		view.addObject("comments", this.commentsRepo.findAllByOrderByCreatedAsc());
+		view.addObject("comments", this.commentsApi.getComments());
 		view.addObject("dateFormat", this.dateFormat);
 
 		return view;
 	}
 
-	@RequestMapping(value="/", method=RequestMethod.GET)
+	
+	@GetMapping(value="/")
 	public ModelAndView listComments() {
-		return this.generateView("list", new CommentForm());
+		return this.generateView("list", new CommentInput());
 	}
 
-	@RequestMapping(value="/", method=RequestMethod.POST)
-	public ModelAndView addComment(@Valid CommentForm commentForm,
+	
+	@PostMapping(value="/")
+	public ModelAndView addComment(@Valid CommentInput commentInput,
 			BindingResult bindingResult, HttpServletRequest request) {
 		if(bindingResult.hasErrors())
-			return this.generateView("list", commentForm);
+			return this.generateView("list", commentInput);
 
-		this.commentsRepo.save(new Comment(commentForm));
+		this.commentsApi.createComment(commentInput);
 
-		logger.info("Comment " + commentForm.toString()
+		this.logger.info("Comment " + commentInput.toString()
 				+ " has been added from ip: " + request.getRemoteAddr());
 
 		return new ModelAndView("redirect:/");
 	}
 
-	@RequestMapping(value="/login", method=RequestMethod.GET)
+	
+	@GetMapping(value="/login")
 	public ModelAndView login() {
 		return new ModelAndView("login");
 	}
