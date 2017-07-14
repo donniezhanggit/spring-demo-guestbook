@@ -1,6 +1,7 @@
 package demo.repos;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -14,4 +15,5 @@ import demo.model.Comment;
 public interface CommentRepository extends CrudRepository<Comment, Long> {
 	List<Comment> findByName(@Nonnull String name);
     List<Comment> findAllByOrderByCreatedAsc();
+    Optional<Comment> findById(long id);
 }

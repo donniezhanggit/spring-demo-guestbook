@@ -17,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import demo.api.CommentsApi;
 import demo.dto.CommentInput;
-import demo.repos.CommentRepository;
 
 
 @Controller
@@ -29,8 +28,7 @@ public class MainController extends WebMvcConfigurerAdapter {
 	private final CommentsApi commentsApi;
 
 	
-    public MainController(@NotNull CommentRepository repo, 
-    		@NotNull CommentsApi commentsApi) {
+    public MainController(@NotNull CommentsApi commentsApi) {
         this.commentsApi = commentsApi;
     }
 

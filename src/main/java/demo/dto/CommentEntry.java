@@ -77,7 +77,7 @@ public class CommentEntry {
 	
 	@Nullable
 	public static CommentEntry from(@Nullable final Comment comment) {
-		if(comment == null) {
+		if(null == comment) {
 			return null;
 		}
 		

@@ -1,6 +1,7 @@
 package demo.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,13 +36,13 @@ public class RestCommentController {
 	
 	@GetMapping(value="/{id}")
 	ResponseEntity<CommentEntry> getComment(@PathVariable("id") final Long id) {
-		final CommentEntry entry = this.commentsApi.getComment(id); 
+		final Optional<CommentEntry> entry = this.commentsApi.getComment(id); 
 		
-		if(entry == null) {
+		if(!entry.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 		
-		return ResponseEntity.ok(entry);
+		return ResponseEntity.ok(entry.get());
 	}
 	
 	

@@ -2,6 +2,7 @@ package demo.api;
 
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
@@ -42,10 +43,10 @@ public class CommentsApi {
 	
 	
 	@Nullable
-	public CommentEntry getComment(final long id) {
-		final Comment comment = this.commentRepo.findOne(id);
-				
-		return CommentEntry.from(comment);
+	public Optional<CommentEntry> getComment(final long id) {
+		final Optional<Comment> comment = this.commentRepo.findById(id);
+
+		return comment.map(CommentEntry::from);
 	}
 	
 	

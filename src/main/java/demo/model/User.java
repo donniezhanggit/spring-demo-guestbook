@@ -43,11 +43,10 @@ public class User extends DomainEntity {
 	public User(@Valid @NotNull UserBuilder ub) {
 		this.username = ub.username;
 		this.password = ub.password;
-		this.email = ub.email;
-		this.created = ub.created;
-		this.active = ub.active;
+		this.email    = ub.email;
+		this.created  = ub.created;
+		this.active   = ub.active;
 		this.comments = ub.comments;
-
 	}
 	
 	
