@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -42,7 +41,7 @@ public class CommentsApi {
     }
 
 
-    @Nullable
+    @NotNull
     public Optional<CommentEntry> getComment(final long id) {
         final Optional<Comment> comment = this.commentRepo.findOne(id);
 
@@ -50,6 +49,7 @@ public class CommentsApi {
     }
 
 
+    @NotNull
     @Transactional
     public CommentEntry createComment(
         @NotNull @Valid final CommentInput input) {
