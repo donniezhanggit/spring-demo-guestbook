@@ -21,54 +21,54 @@ import demo.dto.CommentInput;
 
 @Controller
 public class MainController extends WebMvcConfigurerAdapter {
-	private final Logger logger = LoggerFactory
-			.getLogger(this.getClass().getName());
-	private final DateTimeFormatter dateFormat =
-			DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
-	private final CommentsApi commentsApi;
+    private final Logger logger = LoggerFactory
+        .getLogger(this.getClass().getName());
+    private final DateTimeFormatter dateFormat =
+        DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
+    private final CommentsApi commentsApi;
 
-	
-    public MainController(@NotNull CommentsApi commentsApi) {
+
+    public MainController(@NotNull final CommentsApi commentsApi) {
         this.commentsApi = commentsApi;
     }
 
-    
-	@NotNull
-	public ModelAndView generateView(@NotNull String viewname, 
-			@NotNull CommentInput commentForm) {
-		ModelAndView view = new ModelAndView(viewname);
-		
-		view.addObject("commentForm", commentForm);
-		view.addObject("comments", this.commentsApi.getComments());
-		view.addObject("dateFormat", this.dateFormat);
 
-		return view;
-	}
+    @NotNull
+    public ModelAndView generateView(@NotNull final String viewname,
+                                     @NotNull final CommentInput commentForm) {
+        final ModelAndView view = new ModelAndView(viewname);
 
-	
-	@GetMapping(value="/")
-	public ModelAndView listComments() {
-		return this.generateView("list", new CommentInput());
-	}
+        view.addObject("commentForm", commentForm);
+        view.addObject("comments", this.commentsApi.getComments());
+        view.addObject("dateFormat", this.dateFormat);
 
-	
-	@PostMapping(value="/")
-	public ModelAndView addComment(@Valid CommentInput commentInput,
-			BindingResult bindingResult, HttpServletRequest request) {
-		if(bindingResult.hasErrors())
-			return this.generateView("list", commentInput);
+        return view;
+    }
 
-		this.commentsApi.createComment(commentInput);
 
-		this.logger.info("Comment " + commentInput.toString()
-				+ " has been added from ip: " + request.getRemoteAddr());
+    @GetMapping(value="/")
+    public ModelAndView listComments() {
+        return this.generateView("list", new CommentInput());
+    }
 
-		return new ModelAndView("redirect:/");
-	}
 
-	
-	@GetMapping(value="/login")
-	public ModelAndView login() {
-		return new ModelAndView("login");
-	}
+    @PostMapping(value="/")
+    public ModelAndView addComment(@Valid final CommentInput commentInput,
+            final BindingResult bindingResult, final HttpServletRequest request) {
+        if(bindingResult.hasErrors())
+            return this.generateView("list", commentInput);
+
+        this.commentsApi.createComment(commentInput);
+
+        this.logger.info("Comment " + commentInput.toString()
+                         + " has been added from ip: " + request.getRemoteAddr());
+
+        return new ModelAndView("redirect:/");
+    }
+
+
+    @GetMapping(value="/login")
+    public ModelAndView login() {
+        return new ModelAndView("login");
+    }
 }

@@ -14,94 +14,94 @@ import org.hibernate.validator.constraints.Email;
 @Entity
 @Table(name="gbuser")
 public class User extends DomainEntity {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@NotNull
-	private String username;
+    @NotNull
+    private String username;
 
-	@NotNull
-	private String password;
+    @NotNull
+    private String password;
 
-	@NotNull
-	@Email
-	private String email;
+    @NotNull
+    @Email
+    private String email;
 
-	@NotNull
-	private LocalDateTime created = LocalDateTime.now(); 
+    @NotNull
+    private LocalDateTime created = LocalDateTime.now();
 
-	@NotNull
-	boolean active = true;
+    @NotNull
+    boolean active = true;
 
-	@OneToMany(fetch=FetchType.LAZY, orphanRemoval=true)
-	@JoinColumn(name="user")
-	List<Comment> comments;
+    @OneToMany(fetch=FetchType.LAZY, orphanRemoval=true)
+    @JoinColumn(name="user")
+    List<Comment> comments;
 
-	
-	protected User() {}
-	
-	
-	public User(@Valid @NotNull UserBuilder ub) {
-		this.username = ub.username;
-		this.password = ub.password;
-		this.email    = ub.email;
-		this.created  = ub.created;
-		this.active   = ub.active;
-		this.comments = ub.comments;
-	}
-	
-	
-	public String getUsername() {
-		return username;
-	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    protected User() {}
 
-	public String getPassword() {
-		return password;
-	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public User(@Valid @NotNull UserBuilder ub) {
+        this.username = ub.username;
+        this.password = ub.password;
+        this.email    = ub.email;
+        this.created  = ub.created;
+        this.active   = ub.active;
+        this.comments = ub.comments;
+    }
 
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public LocalDateTime getCreated() {
-		return created;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public boolean isActive() {
-		return active;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public List<Comment> getComments() {
-		return this.comments;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setComments(@Nullable List<Comment> comments) {
-		this.comments = comments;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void addComment(@Valid @NotNull Comment comment) {
-		this.comments.add(comment);
-	}
+    public LocalDateTime getCreated() {
+        return created;
+    }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password="
-				+ password + ", email=" + email + ", created=" + created
-				+ ", active=" + active + "]";
-	}
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public List<Comment> getComments() {
+        return this.comments;
+    }
+
+    public void setComments(@Nullable List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void addComment(@Valid @NotNull Comment comment) {
+        this.comments.add(comment);
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", username=" + username + ", password="
+            + password + ", email=" + email + ", created=" + created
+            + ", active=" + active + "]";
+    }
 }

@@ -3,6 +3,8 @@ package demo.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,36 +22,36 @@ import demo.dto.CommentInput;
 @RestController
 @RequestMapping("/api/comments")
 public class RestCommentController {
-	private final CommentsApi commentsApi;
-	
-	
-	public RestCommentController(final CommentsApi commentsApi) {
-		this.commentsApi = commentsApi;
-	}
+    private final CommentsApi commentsApi;
 
-	
-	@GetMapping()
-	ResponseEntity<List<CommentEntry>> getComments() {
-		return ResponseEntity.ok(this.commentsApi.getComments());
-	}
 
-	
-	@GetMapping(value="/{id}")
-	ResponseEntity<CommentEntry> getComment(@PathVariable("id") final Long id) {
-		final Optional<CommentEntry> entry = this.commentsApi.getComment(id); 
-		
-		if(!entry.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
-		
-		return ResponseEntity.ok(entry.get());
-	}
-	
-	
-	@PostMapping
-	ResponseEntity<Long> createComment(@RequestBody final CommentInput input) {
-		final CommentEntry entry = this.commentsApi.createComment(input);
-		
-		return ResponseEntity.ok(entry.getId());
-	}
+    public RestCommentController(@NotNull final CommentsApi commentsApi) {
+        this.commentsApi = commentsApi;
+    }
+
+
+    @GetMapping()
+    ResponseEntity<List<CommentEntry>> getComments() {
+        return ResponseEntity.ok(this.commentsApi.getComments());
+    }
+
+
+    @GetMapping(value="/{id}")
+    ResponseEntity<CommentEntry> getComment(@PathVariable("id") final Long id) {
+        final Optional<CommentEntry> entry = this.commentsApi.getComment(id);
+
+        if(!entry.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        return ResponseEntity.ok(entry.get());
+    }
+
+
+    @PostMapping
+    ResponseEntity<Long> createComment(@RequestBody final CommentInput input) {
+        final CommentEntry entry = this.commentsApi.createComment(input);
+
+        return ResponseEntity.ok(entry.getId());
+    }
 }

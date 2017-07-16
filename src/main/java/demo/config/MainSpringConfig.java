@@ -17,41 +17,43 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Configuration
 public class MainSpringConfig {
-	private final String jacksonDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-	
-	@Value("${spring.jackson.serialization.INDENT_OUTPUT}") 
-	private boolean prettyPrint;
-	
-	@Bean
-	@Primary
-	public ObjectMapper objectMapper() {
-	    final ObjectMapper mapper = new ObjectMapper();
+        private final String jacksonDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
-		// Serialize LocalDateTime to format available for javascript.
-	    mapper.registerModule(new JavaTimeModule());
-	    mapper.setDateFormat(new SimpleDateFormat(this.jacksonDateFormat));
-	    
-	    // Enable pretty print.
-	    if(this.prettyPrint) {
-	    	mapper.enable(SerializationFeature.INDENT_OUTPUT);
-	    }
-	    
-	    return mapper;
-	}
-	
-	
-	@Value("${spring.security.cors.api.origin}")
-	private String origin;
-	
+        @Value("${spring.jackson.serialization.INDENT_OUTPUT}")
+        private boolean prettyPrint;
+
+        @Bean
+        @Primary
+        public ObjectMapper objectMapper() {
+            final ObjectMapper mapper = new ObjectMapper();
+
+                // Serialize LocalDateTime to format available for javascript.
+            mapper.registerModule(new JavaTimeModule());
+            mapper.setDateFormat(new SimpleDateFormat(this.jacksonDateFormat));
+
+            // Enable pretty print.
+            if(this.prettyPrint) {
+                mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            }
+
+            return mapper;
+        }
+
+
+        @Value("${spring.security.cors.api.origin}")
+        private String origin;
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
-    	
-    	// CORS setup.
+
+        // CORS setup.
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                .allowedOrigins(origin);
+                .allowedOrigins(origin)
+                .allowedMethods("GET", "POST", "UPDATE", "DELETE", "OPTIONS")
+                .maxAge(60 * 60);
             }
         };
     }

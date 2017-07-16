@@ -24,11 +24,11 @@
   </properties>
 
   <build>
-  	<pluginManagement>
+    <pluginManagement>
       <plugins>
         <plugin>
-	      <groupId>org.springframework.boot</groupId>
-		  <artifactId>spring-boot-maven-plugin</artifactId>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-maven-plugin</artifactId>
           <configuration>
             <jvmArguments>
               -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9898
@@ -42,47 +42,37 @@
             </execution>
           </executions>
         </plugin>
-      
-        <plugin>
-  		  <groupId>jp.skypencil</groupId>
-  		  <artifactId>jsr305-maven-plugin</artifactId>
-  		  <version>1.2</version>
-  		  <executions>
-  		    <execution>
-  			  <goals>
-  			    <goal>enhance</goal>
-  			  </goals>
-  			  <configuration>
-  			    <nullCheck>
-  		          <targetScope>PRIVATE</targetScope>
-  		          <level>PERMISSIVE</level>
-  		          <exception>java.lang.IllegalArgumentException</exception>
-  	            </nullCheck>
-  			  </configuration>
-  		    </execution>
-  		  </executions>
-  	    </plugin>
-  	    
-  	    <plugin>
+
+  	<plugin>
           <groupId>org.hibernate.orm.tooling</groupId>
           <artifactId>hibernate-enhance-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <phase>compile</phase>
-                <goals>
-                  <goal>enhance</goal>
-                </goals>
-              </execution>
-           </executions>
+          <executions>
+            <execution>
+              <phase>compile</phase>
+              <goals>
+                <goal>enhance</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
-  	  </plugins>
-  	</pluginManagement>
+      </plugins>
+    </pluginManagement>
   </build>
 
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -133,7 +123,7 @@
       <artifactId>jackson-datatype-jsr310</artifactId>
     </dependency>
 
-	<dependency>
+    <dependency>
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>jsr305</artifactId>
       <version>3.0.2</version>

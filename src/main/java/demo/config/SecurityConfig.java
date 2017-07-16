@@ -23,48 +23,49 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .inMemoryAuthentication()
             .withUser("user").password("password").roles("USER")
           .and()
-            .withUser("admin").password("password").roles("ADMIN");
+            .withUser("admin").password("password")
+            .roles("ADMIN", "ACTUATOR");
     }
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	http
+        http
           .authorizeRequests()
             .expressionHandler(this.webExpressionHandler())
-            .antMatchers("/comments").hasRole("USER")
-    	    .antMatchers("/", "/css/**", "/images/**").permitAll()
-    	    .anyRequest().authenticated()
-    	  .and()
-    	    .formLogin().loginPage("/login").permitAll()
-    	  .and()
-    	    .logout().permitAll();
+            .antMatchers("/api/comments").hasRole("USER")
+            .antMatchers("/", "/css/**", "/images/**").permitAll()
+            .anyRequest().authenticated()
+          .and()
+            .formLogin().loginPage("/login").permitAll()
+          .and()
+            .logout().permitAll();
     }
 
 
-    private SecurityExpressionHandler<FilterInvocation> 
+    private SecurityExpressionHandler<FilterInvocation>
     webExpressionHandler() {
-    	DefaultWebSecurityExpressionHandler handler = 
-    			new DefaultWebSecurityExpressionHandler();
+        DefaultWebSecurityExpressionHandler handler =
+                        new DefaultWebSecurityExpressionHandler();
 
-    	handler.setRoleHierarchy(this.roleHierarchy());
+        handler.setRoleHierarchy(this.roleHierarchy());
 
-    	return handler;
+        return handler;
     }
 
-    
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    
+
     @Bean
     public RoleHierarchyImpl roleHierarchy() {
-    	RoleHierarchyImpl rh = new RoleHierarchyImpl();
+        RoleHierarchyImpl rh = new RoleHierarchyImpl();
 
-    	rh.setHierarchy("ROLE_ADMIN > ROLE_USER");
+        rh.setHierarchy("ROLE_ADMIN > ROLE_USER");
 
-    	return rh;
+        return rh;
     }
 }
