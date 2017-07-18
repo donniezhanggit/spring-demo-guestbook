@@ -3,7 +3,6 @@ package demo.dto;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 
 import demo.model.Comment;
@@ -75,12 +74,8 @@ public class CommentEntry {
     }
 
 
-    @Nullable
-    public static CommentEntry from(@Nullable final Comment comment) {
-        if(null == comment) {
-            return null;
-        }
-
+    @NotNull
+    public static CommentEntry from(@NotNull final Comment comment) {
         final CommentEntry entry = new CommentEntry();
 
         entry.setId(comment.getId());
@@ -89,9 +84,9 @@ public class CommentEntry {
         entry.setMessage(comment.getMessage());
         entry.setAnonName(comment.getName());
 
-        if(null != comment.getUser()) {
-            entry.setUsername(comment.getUser().getUsername());
-        }
+        comment.getUser().ifPresent(user ->
+            entry.setUsername(user.getUsername())
+        );
 
         return entry;
     }

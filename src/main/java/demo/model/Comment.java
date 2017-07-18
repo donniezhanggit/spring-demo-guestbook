@@ -1,8 +1,8 @@
 package demo.model;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
-import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -77,9 +77,9 @@ public class Comment extends DomainEntity {
         this.message = message;
     }
 
-    @Nullable
-    public User getUser() {
-        return this.user;
+    @NotNull
+    public Optional<User> getUser() {
+        return Optional.ofNullable(this.user);
     }
 
     public void setUser(User user) {

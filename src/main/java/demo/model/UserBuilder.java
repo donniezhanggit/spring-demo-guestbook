@@ -29,7 +29,6 @@ public class UserBuilder {
     }
 
 
-    // TODO: Change to array of char
     public UserBuilder password(@NotNull String password) {
         this.password = password;
         return this;
