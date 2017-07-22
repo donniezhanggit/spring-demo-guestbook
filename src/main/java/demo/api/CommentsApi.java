@@ -40,7 +40,6 @@ public class CommentsApi {
     }
 
 
-    @NotNull
     public Optional<CommentEntry> getComment(final long id) {
         final Optional<Comment> comment = this.commentRepo.findOne(id);
 

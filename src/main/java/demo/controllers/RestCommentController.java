@@ -37,8 +37,7 @@ public class RestCommentController {
 
 
     @GetMapping(value="/{id}")
-    ResponseEntity<CommentEntry> getComment(
-            @PathVariable("id") final Long id) {
+    ResponseEntity<CommentEntry> getComment(@PathVariable final Long id) {
         final Optional<CommentEntry> entry = this.commentsApi.getComment(id);
 
         return entry.isPresent()
