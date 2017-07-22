@@ -11,16 +11,17 @@ import org.springframework.data.repository.Repository;
 
 
 /**
- * Interface for generic CRUD operations on a repository for a specific type.
+ * Interface for generic CRUD operations on a repository
+ * for a specific type.
  *
  */
 @NoRepositoryBean
 public interface DataRepository<T, ID extends Serializable>
     extends Repository<T, ID>{
     /**
-     * Saves a given entity. Use the returned instance for further operations
-     * as the save operation might have changed the
-     * entity instance completely.
+     * Saves a given entity. Use the returned instance for further
+     * operations as the save operation might have changed the entity
+     * instance completely.
      *
      * @param entity
      * @return the saved entity
@@ -42,7 +43,7 @@ public interface DataRepository<T, ID extends Serializable>
      *
      * @param id must not be {@literal null}.
      * @return the Optional of entity with the given id or
-     * Optional.empty if none found
+     *         Optional.empty if none found
      * @throws IllegalArgumentException if {@code id} is {@literal null}
      */
     Optional<T> findOne(ID id);
@@ -52,7 +53,7 @@ public interface DataRepository<T, ID extends Serializable>
      *
      * @param id must not be {@literal null}.
      * @return true if an entity with the given id exists, {@literal false}
-     * otherwise
+     *         otherwise
      * @throws IllegalArgumentException if {@code id} is {@literal null}
      */
     boolean exists(ID id);
@@ -84,7 +85,7 @@ public interface DataRepository<T, ID extends Serializable>
      *
      * @param id must not be {@literal null}.
      * @throws IllegalArgumentException in case the given {@code id} is
-     * {@literal null}
+     *         {@literal null}
      */
     void delete(ID id);
 
@@ -93,7 +94,7 @@ public interface DataRepository<T, ID extends Serializable>
      *
      * @param entity
      * @throws IllegalArgumentException in case the given entity is
-     * {@literal null}.
+     *         {@literal null}
      */
     void delete(T entity);
 
@@ -102,7 +103,7 @@ public interface DataRepository<T, ID extends Serializable>
      *
      * @param entities
      * @throws IllegalArgumentException in case the given {@link Iterable}
-     * is {@literal null}.
+     *         is {@literal null}
      */
     void delete(Iterable<? extends T> entities);
 
