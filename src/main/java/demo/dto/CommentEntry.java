@@ -66,11 +66,11 @@ public class CommentEntry {
     }
 
 
-    @NotNull
     @Override
     public String toString() {
-        return "CommentEntry [created=" + created + ", name=" + anonName
-            + ", message=" + message + ", username=" + username + "]";
+        return "CommentEntry [id=" + id + ", version=" + version 
+                + ", created=" + created + ", anonName=" + anonName
+                + ", message=" + message + ", username=" + username + "]";
     }
 
 

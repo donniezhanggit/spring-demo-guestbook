@@ -19,7 +19,6 @@ public class Comment extends DomainEntity {
     @NotNull
     private LocalDateTime created = LocalDateTime.now();
 
-    @NotNull
     private String name;
 
     @NotNull
@@ -32,9 +31,16 @@ public class Comment extends DomainEntity {
 
     protected Comment() {}
 
-    public Comment(@NotNull CommentInput input) {
+    public Comment(@NotNull final CommentInput input) {
         this.name = input.getName();
         this.message = input.getMessage();
+    }
+
+    public Comment(@NotNull final CommentBuilder cb) {
+        this.created = cb.created;
+        this.name = cb.name;
+        this.message = cb.message;
+        this.user = cb.user;
     }
 
     public Long getId() {
@@ -77,7 +83,6 @@ public class Comment extends DomainEntity {
         this.message = message;
     }
 
-    @NotNull
     public Optional<User> getUser() {
         return Optional.ofNullable(this.user);
     }
