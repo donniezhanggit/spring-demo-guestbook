@@ -1,28 +1,20 @@
 package demo.api;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import demo.config.GuestBookProfiles;
+import demo.common.BaseRecreatePerClassITCase;
 import demo.dto.CommentEntry;
 import demo.model.CommentBuilder;
 import demo.repos.CommentRepository;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@ActiveProfiles(profiles = { GuestBookProfiles.H2_INTEGRATION_TESTING})
-public class CommentsApiTests {
+public class CommentsApiTests  extends BaseRecreatePerClassITCase {
 
     @Autowired
     private CommentsApi commentsApi;
@@ -33,6 +25,7 @@ public class CommentsApiTests {
     private static final String name = "anon";
     private static final String message = "message";
     private static final LocalDateTime created = LocalDateTime.now();
+
 
     @Before
     public void setup() {
