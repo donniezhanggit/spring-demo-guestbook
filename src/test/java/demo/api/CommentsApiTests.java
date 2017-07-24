@@ -14,7 +14,10 @@ import demo.model.CommentBuilder;
 import demo.repos.CommentRepository;
 
 
-public class CommentsApiTests  extends BaseRecreatePerClassITCase {
+public class CommentsApiTests extends BaseRecreatePerClassITCase {
+    private static final String NAME = "anon";
+    private static final String MESSAGE = "message";
+    private static final LocalDateTime CREATED = LocalDateTime.now();
 
     @Autowired
     private CommentsApi commentsApi;
@@ -22,29 +25,27 @@ public class CommentsApiTests  extends BaseRecreatePerClassITCase {
     @Autowired
     private CommentRepository commentRepo;
 
-    private static final String name = "anon";
-    private static final String message = "message";
-    private static final LocalDateTime created = LocalDateTime.now();
 
 
     @Before
     public void setup() {
         commentRepo.save(
                 new CommentBuilder()
-                .created(created)
-                .name(name)
-                .message(message)
+                .created(CREATED)
+                .name(NAME)
+                .message(MESSAGE)
                 .build()
         );
 
         commentRepo.save(
                 new CommentBuilder()
-                .created(created)
-                .name(name)
-                .message(message)
+                .created(CREATED)
+                .name(NAME)
+                .message(MESSAGE)
                 .build()
         );
     }
+
 
     @Test
     public void testGetComments() {
@@ -53,20 +54,20 @@ public class CommentsApiTests  extends BaseRecreatePerClassITCase {
         assertTrue(comments.size() == 2);
     }
 
+
     @Test
     public void testGetComment() {
         final Optional<CommentEntry> comment = this.commentsApi.getComment(1);
 
-
         assertTrue(comment.isPresent());
 
         comment.ifPresent(c -> {
-            assertTrue("created", c.getCreated().compareTo(created) == 0);
-            assertTrue("message", c.getMessage().equals(message));
-            assertTrue("anonname", c.getAnonName().equals(name));
+            assertTrue("created",  c.getCreated().compareTo(CREATED) == 0);
+            assertTrue("message",  c.getMessage().equals(MESSAGE));
+            assertTrue("anonname", c.getAnonName().equals(NAME));
             assertTrue("username", c.getUsername() == null);
-            assertTrue("version", c.getVersion() == 0);
-            assertTrue("id", c.getId() == 1);
+            assertTrue("version",  c.getVersion() == 0);
+            assertTrue("id",       c.getId() == 1);
         });
     }
 }
