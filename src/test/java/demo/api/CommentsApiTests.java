@@ -5,15 +5,21 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.transaction.BeforeTransaction;
+import org.springframework.transaction.annotation.Transactional;
+
 import demo.common.BaseRecreatePerClassITCase;
 import demo.dto.CommentEntry;
+import demo.dto.CommentInput;
+import demo.dto.CommentInputBuilder;
 import demo.model.CommentBuilder;
 import demo.repos.CommentRepository;
 
-
+//@Transactional
 public class CommentsApiTests extends BaseRecreatePerClassITCase {
     private static final String NAME = "anon";
     private static final String MESSAGE = "message";
@@ -25,38 +31,33 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     @Autowired
     private CommentRepository commentRepo;
 
+    @BeforeTransaction
+    @Override
+    public void predefinedDataTx() {
 
-
-    @Before
-    public void setup() {
-        commentRepo.save(
-                new CommentBuilder()
-                .created(CREATED)
-                .name(NAME)
-                .message(MESSAGE)
-                .build()
+        // TODO: implement this initialization as creating bean.
+        // When context will be rebuilt a bean will be also recreated.
+        // And predefined data will be also stored.
+        commentRepo.save(new CommentBuilder()
+                .created(CREATED).name(NAME).message(MESSAGE).build()
         );
 
-        commentRepo.save(
-                new CommentBuilder()
-                .created(CREATED)
-                .name(NAME)
-                .message(MESSAGE)
-                .build()
+        commentRepo.save(new CommentBuilder()
+                .created(CREATED).name(NAME).message(MESSAGE).build()
         );
     }
 
 
     @Test
-    public void testGetComments() {
+    public void CommentsShouldBeFetched() {
         final List<CommentEntry> comments = this.commentsApi.getComments();
 
-        assertTrue(comments.size() == 2);
+        assertTrue(comments.size() > 0);
     }
 
 
     @Test
-    public void testGetComment() {
+    public void CommentByIdShouldBeFetched() {
         final Optional<CommentEntry> comment = this.commentsApi.getComment(1);
 
         assertTrue(comment.isPresent());
@@ -68,6 +69,31 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
             assertTrue("username", c.getUsername() == null);
             assertTrue("version",  c.getVersion() == 0);
             assertTrue("id",       c.getId() == 1);
+        });
+    }
+
+
+    @Test
+    public void CommentShouldBeCreated() {
+        // Arrange.
+        final CommentInput input = new CommentInputBuilder()
+                .name(NAME).message(MESSAGE).build();
+
+        // Act.
+        final CommentEntry entry = this.commentsApi.createComment(input);
+        final Optional<CommentEntry> actual = this.commentsApi
+                .getComment(entry.getId());
+
+        // Assert.
+        assertTrue(actual.isPresent());
+
+        actual.ifPresent(a -> {
+            assertTrue("created",  a.getCreated() != null);
+            assertTrue("message",  a.getMessage().equals(MESSAGE));
+            assertTrue("anonname", a.getAnonName().equals(NAME));
+            assertTrue("username", a.getUsername() == null);
+            assertTrue("version",  a.getVersion() == 0);
+            assertTrue("id",       a.getId() == entry.getId());
         });
     }
 }
