@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.transaction.BeforeTransaction;
-import org.springframework.transaction.annotation.Transactional;
 
 import demo.common.BaseRecreatePerClassITCase;
 import demo.dto.CommentEntry;
@@ -19,7 +17,7 @@ import demo.dto.CommentInputBuilder;
 import demo.model.CommentBuilder;
 import demo.repos.CommentRepository;
 
-//@Transactional
+
 public class CommentsApiTests extends BaseRecreatePerClassITCase {
     private static final String NAME = "anon";
     private static final String MESSAGE = "message";
@@ -31,13 +29,9 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     @Autowired
     private CommentRepository commentRepo;
 
-    @BeforeTransaction
+
     @Override
     public void predefinedDataTx() {
-
-        // TODO: implement this initialization as creating bean.
-        // When context will be rebuilt a bean will be also recreated.
-        // And predefined data will be also stored.
         commentRepo.save(new CommentBuilder()
                 .created(CREATED).name(NAME).message(MESSAGE).build()
         );
