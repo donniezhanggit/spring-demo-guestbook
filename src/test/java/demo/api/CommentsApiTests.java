@@ -8,8 +8,6 @@ import java.util.Optional;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.transaction.BeforeTransaction;
-
 import demo.common.BaseRecreatePerClassITCase;
 import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
@@ -52,7 +50,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
     @Test
     public void CommentByIdShouldBeFetched() {
-        final Optional<CommentEntry> comment = this.commentsApi.getComment(1);
+        final Optional<CommentEntry> comment = this.commentsApi.getComment(10000);
 
         assertTrue(comment.isPresent());
 
@@ -62,7 +60,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
             assertTrue("anonname", c.getAnonName().equals(NAME));
             assertTrue("username", c.getUsername() == null);
             assertTrue("version",  c.getVersion() == 0);
-            assertTrue("id",       c.getId() == 1);
+            assertTrue("id",       c.getId() == 10000);
         });
     }
 
@@ -82,12 +80,15 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
         assertTrue(actual.isPresent());
 
         actual.ifPresent(a -> {
+            System.out.println(a.getId());
+            System.out.println(entry.getId());
+
             assertTrue("created",  a.getCreated() != null);
             assertTrue("message",  a.getMessage().equals(MESSAGE));
             assertTrue("anonname", a.getAnonName().equals(NAME));
             assertTrue("username", a.getUsername() == null);
             assertTrue("version",  a.getVersion() == 0);
-            assertTrue("id",       a.getId() == entry.getId());
+            assertTrue("id",       a.getId().equals(entry.getId()));
         });
     }
 }
