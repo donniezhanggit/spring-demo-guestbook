@@ -1,10 +1,8 @@
 package demo.api;
 
-import static org.junit.Assert.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,8 @@ import demo.dto.CommentInput;
 import demo.dto.CommentInputBuilder;
 import demo.model.CommentBuilder;
 import demo.repos.CommentRepository;
+
+import static org.assertj.core.api.Assertions.*;
 
 
 public class CommentsApiTests extends BaseRecreatePerClassITCase {
@@ -44,7 +44,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     public void CommentsShouldBeFetched() {
         final List<CommentEntry> comments = this.commentsApi.getComments();
 
-        assertTrue(comments.size() > 0);
+        assertThat(comments.size()).isGreaterThan(0);
     }
 
 
@@ -52,15 +52,15 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     public void CommentByIdShouldBeFetched() {
         final Optional<CommentEntry> comment = this.commentsApi.getComment(10000);
 
-        assertTrue(comment.isPresent());
+        assertThat(comment.isPresent()).isTrue();
 
         comment.ifPresent(c -> {
-            assertTrue("created",  c.getCreated().compareTo(CREATED) == 0);
-            assertTrue("message",  c.getMessage().equals(MESSAGE));
-            assertTrue("anonname", c.getAnonName().equals(NAME));
-            assertTrue("username", c.getUsername() == null);
-            assertTrue("version",  c.getVersion() == 0);
-            assertTrue("id",       c.getId() == 10000);
+            assertThat(c.getCreated()).isEqualByComparingTo(CREATED);
+            assertThat(c.getMessage()).isEqualTo(MESSAGE);
+            assertThat(c.getAnonName()).isEqualTo(NAME);
+            assertThat(c.getUsername()).isNull();
+            assertThat(c.getVersion()).isEqualTo((short) 0);
+            assertThat(c.getId()).isEqualTo(10000);
         });
     }
 
@@ -77,18 +77,15 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
                 .getComment(entry.getId());
 
         // Assert.
-        assertTrue(actual.isPresent());
-
+        assertThat(actual.isPresent()).isTrue();
+        
         actual.ifPresent(a -> {
-            System.out.println(a.getId());
-            System.out.println(entry.getId());
-
-            assertTrue("created",  a.getCreated() != null);
-            assertTrue("message",  a.getMessage().equals(MESSAGE));
-            assertTrue("anonname", a.getAnonName().equals(NAME));
-            assertTrue("username", a.getUsername() == null);
-            assertTrue("version",  a.getVersion() == 0);
-            assertTrue("id",       a.getId().equals(entry.getId()));
+            assertThat(a.getCreated()).isNotNull();
+            assertThat(a.getMessage()).isEqualTo(MESSAGE);
+            assertThat(a.getAnonName()).isEqualTo(NAME);
+            assertThat(a.getUsername()).isNull();
+            assertThat(a.getVersion()).isEqualTo((short) 0);
+            assertThat(a.getId()).isEqualTo(entry.getId());
         });
     }
 }

@@ -1,6 +1,6 @@
 package demo.dto;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.time.LocalDateTime;
 
@@ -40,9 +40,10 @@ public class CommentEntryTests {
 
     private void assertCommentEntry(
             final CommentEntry expected, final CommentEntry actual) {
-        assertTrue(expected.getCreated().equals(actual.getCreated()));
-        assertTrue(expected.getAnonName().equals(actual.getAnonName()));
-        assertTrue(expected.getMessage().equals(actual.getMessage()));
-        assertNull(actual.getUsername());
+        assertThat(expected.getCreated())
+            .isEqualByComparingTo(actual.getCreated());
+        assertThat(expected.getAnonName()).isEqualTo(actual.getAnonName());
+        assertThat(expected.getMessage()).isEqualTo(actual.getMessage());
+        assertThat(actual.getUsername()).isNull();
     }
 }
