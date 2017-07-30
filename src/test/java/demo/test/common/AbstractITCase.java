@@ -2,6 +2,8 @@ package demo.test.common;
 
 import javax.annotation.PostConstruct;
 
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,17 +16,21 @@ import demo.config.GuestBookProfiles;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles(profiles = {GuestBookProfiles.PG_INTEGRATION_TESTING})
+@ActiveProfiles(profiles = {GuestBookProfiles.H2_INTEGRATION_TESTING})
 public abstract class AbstractITCase {
     private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
     @Autowired
     private DataInitializationChecker dataInitializationChecker;
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+
     @PostConstruct
     private void runContextPostConstruct() {
         if(this.dataInitializationChecker.getAndSet()) return;
-        
+
         logger.info("Setting up predefined data. Running predefinedData");
 
         this.predefinedData();

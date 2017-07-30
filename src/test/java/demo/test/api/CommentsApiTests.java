@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.ValidationException;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import demo.api.CommentsApi;
@@ -79,7 +81,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
         // Assert.
         assertThat(actual.isPresent()).isTrue();
-        
+
         actual.ifPresent(a -> {
             assertThat(a.getCreated()).isNotNull();
             assertThat(a.getMessage()).isEqualTo(MESSAGE);
@@ -88,5 +90,17 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
             assertThat(a.getVersion()).isEqualTo((short) 0);
             assertThat(a.getId()).isEqualTo(entry.getId());
         });
+    }
+
+
+    @Test
+    public void WhenNameIsLongerValidationExceptionShouldBeThrown() {
+        // Arrange.
+        final CommentInput input = new CommentInputBuilder()
+                .name("123456789012345678901").message(MESSAGE).build();
+
+        // Act and assert.
+        thrown.expect(ValidationException.class);
+        this.commentsApi.createComment(input);
     }
 }
