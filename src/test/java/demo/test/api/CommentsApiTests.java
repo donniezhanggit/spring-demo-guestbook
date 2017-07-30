@@ -1,6 +1,7 @@
 package demo.test.api;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,11 +36,12 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
     @Override
     public void predefinedData() {
-        final Comment comment = new CommentBuilder()
-                 .created(CREATED).name(NAME).message(MESSAGE).build();
+        final CommentBuilder cb = new CommentBuilder()
+                .created(CREATED).name(NAME).message(MESSAGE);
+        final Comment comment1 = cb.build();
+        final Comment comment2 = cb.build();
 
-        commentRepo.save(comment);
-        commentRepo.save(comment);
+        commentRepo.save(Arrays.asList(comment1, comment2));
     }
 
 
