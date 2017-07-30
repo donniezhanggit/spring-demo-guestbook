@@ -8,7 +8,7 @@ databaseChangeLog:
             incrementBy: 1
             startValue: 10000
 
-  
+
   - changeSet:
       id: 2017-07-09-02
       author: Whitesquall
@@ -42,8 +42,8 @@ databaseChangeLog:
                   type: varchar(2048)
                   constraints:
                     nullable: false
-                    
-                    
+
+
   - changeSet:
       id: 2017-07-09-03
       author: Whitesquall
@@ -58,7 +58,7 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
-              - column: 
+              - column:
                   name: version
                   type: smallint
                   constraints:

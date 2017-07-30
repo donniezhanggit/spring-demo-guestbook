@@ -18,10 +18,11 @@ import demo.config.GuestBookProfiles;
 @RunWith(SpringRunner.class)
 @ActiveProfiles(profiles = {GuestBookProfiles.H2_INTEGRATION_TESTING})
 public abstract class AbstractITCase {
-    private Logger logger = LoggerFactory.getLogger(getClass().getName());
+    final private Logger logger = LoggerFactory
+            .getLogger(getClass().getName());
 
     @Autowired
-    private DataInitializationChecker dataInitializationChecker;
+    private InitOnceChecker initOnceChecker;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -29,7 +30,7 @@ public abstract class AbstractITCase {
 
     @PostConstruct
     private void runPostConstruct() {
-        if(this.dataInitializationChecker.getAndSet()) return;
+        if(this.initOnceChecker.getAndSet()) return;
 
         logger.info("Setting up predefined data for "
                 + getClass().getSimpleName());

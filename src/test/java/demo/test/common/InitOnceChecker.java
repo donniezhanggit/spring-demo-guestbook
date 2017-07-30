@@ -4,13 +4,13 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-final class DataInitializationChecker {
+final class InitOnceChecker {
     private boolean isInitialized = false;
-    
-    public boolean getAndSet() {
+
+    public synchronized boolean getAndSet() {
         final boolean previousState = this.isInitialized;
         this.isInitialized = true;
-        
+
         return previousState;
     }
 }
