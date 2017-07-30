@@ -1,4 +1,4 @@
-package demo.dto;
+package demo.test.dto;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 import org.junit.Test;
 
+import demo.dto.CommentEntry;
 import demo.model.Comment;
 import demo.model.CommentBuilder;
 

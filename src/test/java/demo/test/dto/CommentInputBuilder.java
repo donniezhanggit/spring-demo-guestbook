@@ -1,6 +1,8 @@
-package demo.dto;
+package demo.test.dto;
 
 import javax.validation.constraints.NotNull;
+
+import demo.dto.CommentInput;
 
 public class CommentInputBuilder {
     private CommentInput input = new CommentInput();

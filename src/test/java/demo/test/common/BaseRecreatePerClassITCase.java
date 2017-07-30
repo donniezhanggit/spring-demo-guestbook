@@ -1,4 +1,4 @@
-package demo.common;
+package demo.test.common;
 
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.DirtiesContext;

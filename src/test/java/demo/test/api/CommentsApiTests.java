@@ -1,4 +1,4 @@
-package demo.api;
+package demo.test.api;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -6,12 +6,13 @@ import java.util.Optional;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import demo.common.BaseRecreatePerClassITCase;
+import demo.api.CommentsApi;
 import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
-import demo.dto.CommentInputBuilder;
 import demo.model.CommentBuilder;
 import demo.repos.CommentRepository;
+import demo.test.common.BaseRecreatePerClassITCase;
+import demo.test.dto.CommentInputBuilder;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -29,7 +30,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
 
     @Override
-    public void predefinedDataTx() {
+    public void predefinedData() {
         commentRepo.save(new CommentBuilder()
                 .created(CREATED).name(NAME).message(MESSAGE).build()
         );
@@ -55,7 +56,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
         assertThat(comment.isPresent()).isTrue();
 
         comment.ifPresent(c -> {
-            assertThat(c.getCreated()).isEqualByComparingTo(CREATED);
+            assertThat(c.getCreated()).isNotNull();
             assertThat(c.getMessage()).isEqualTo(MESSAGE);
             assertThat(c.getAnonName()).isEqualTo(NAME);
             assertThat(c.getUsername()).isNull();
