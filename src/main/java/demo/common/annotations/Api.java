@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package demo.common.annotations;
 
@@ -20,9 +20,9 @@ import org.springframework.validation.annotation.Validated;
 @Service
 @Validated
 /**
- * This annotation is signaling that annotated class is an entry point 
+ * This annotation is signaling that annotated class is an entry point
  * for an API.
- * 
+ *
  * @author Whitesquall
  *
  */
