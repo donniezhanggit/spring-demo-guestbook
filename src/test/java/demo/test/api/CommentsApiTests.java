@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import demo.api.CommentsApi;
 import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
+import demo.model.Comment;
 import demo.model.CommentBuilder;
 import demo.repos.CommentRepository;
 import demo.test.common.BaseRecreatePerClassITCase;
