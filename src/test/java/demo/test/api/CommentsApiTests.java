@@ -44,7 +44,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
 
     @Test
-    public void CommentsShouldBeFetched() {
+    public void Comments_should_be_fetched() {
         final List<CommentEntry> comments = this.commentsApi.getComments();
 
         assertThat(comments.size()).isGreaterThan(0);
@@ -52,8 +52,9 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
 
     @Test
-    public void CommentByIdShouldBeFetched() {
-        final Optional<CommentEntry> comment = this.commentsApi.getComment(10000);
+    public void A_comment_by_id_should_be_fetched() {
+        final Optional<CommentEntry> comment = this.commentsApi
+                .getComment(10000);
 
         assertThat(comment.isPresent()).isTrue();
 
@@ -69,7 +70,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
 
     @Test
-    public void CommentShouldBeCreated() {
+    public void A_comment_should_be_created() {
         // Arrange.
         final CommentInput input = new CommentInputBuilder()
                 .name(NAME).message(MESSAGE).build();
@@ -94,7 +95,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
 
     @Test
-    public void WhenNameIsLongerValidationExceptionShouldBeThrown() {
+    public void When_name_is_longer_than_max_expect_ValidationException() {
         // Arrange.
         final CommentInput input = new CommentInputBuilder()
                 .name("123456789012345678901").message(MESSAGE).build();
@@ -102,5 +103,18 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
         // Act and assert.
         thrown.expect(ValidationException.class);
         this.commentsApi.createComment(input);
+    }
+
+    @Test
+    public void When_name_is_max_comment_should_be_saved() {
+        //Arrange.
+        final CommentInput input = new CommentInputBuilder()
+                .name("12345678901234567890").message(MESSAGE).build();
+
+        // Act.
+        final CommentEntry entry = this.commentsApi.createComment(input);
+
+        // Assert.
+        assertThat(entry.getId()).isNotNull();
     }
 }

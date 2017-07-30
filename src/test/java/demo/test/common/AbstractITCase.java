@@ -28,10 +28,11 @@ public abstract class AbstractITCase {
 
 
     @PostConstruct
-    private void runContextPostConstruct() {
+    private void runPostConstruct() {
         if(this.dataInitializationChecker.getAndSet()) return;
 
-        logger.info("Setting up predefined data. Running predefinedData");
+        logger.info("Setting up predefined data for "
+                + getClass().getSimpleName());
 
         this.predefinedData();
     }
