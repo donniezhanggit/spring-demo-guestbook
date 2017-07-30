@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Immutable;
+import org.hibernate.validator.constraints.Length;
 
 import demo.dto.CommentInput;
 
@@ -19,12 +20,24 @@ import demo.dto.CommentInput;
 public class Comment extends DomainEntity {
     private static final long serialVersionUID = 1L;
 
+    public static final String CREATED_PROPERTY = "created";
+    public static final String NAME_PROPERTY = "name";
+    public static final String MESSAGE_PROPERTY = "message";
+    public static final String USER_PROPERTY = "user";
+
+    public static final int NAME_MIN_LENGTH = 2;
+    public static final int NAME_MAX_LENGTH = 20;
+    public static final int MESSAGE_MIN_LENGTH = 1;
+    public static final int MESSAGE_MAX_LENGTH = 2048;
+
     @NotNull
     private LocalDateTime created = LocalDateTime.now();
 
+    @Length(min=NAME_MIN_LENGTH, max=NAME_MAX_LENGTH)
     private String name;
 
     @NotNull
+    @Length(min=MESSAGE_MIN_LENGTH, max=MESSAGE_MAX_LENGTH)
     private String message;
 
     @ManyToOne(fetch=FetchType.LAZY)

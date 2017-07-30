@@ -4,14 +4,15 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import demo.model.Comment;
+
 
 public class CommentInput {
-    @Length(min=1, max=20)
+    @Length(min=Comment.NAME_MIN_LENGTH, max=Comment.NAME_MAX_LENGTH)
     private String name;
 
-    @Length(min=1, max=2048)
+    @Length(min=Comment.MESSAGE_MIN_LENGTH, max=Comment.MESSAGE_MAX_LENGTH)
     private String message;
-
 
     public String getName() {
         return name;
