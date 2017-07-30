@@ -7,18 +7,15 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
-
+import demo.common.annotations.Api;
 import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
 import demo.model.Comment;
 import demo.repos.CommentRepository;
 
 
-@Component
-@Validated
+@Api
 @Transactional(readOnly=true)
 public class CommentsApi {
     private final CommentRepository commentRepo;
