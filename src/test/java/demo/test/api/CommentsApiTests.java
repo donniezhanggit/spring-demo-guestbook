@@ -66,15 +66,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
         // Assert.
         assertThat(comment.isPresent()).isTrue();
-
-        comment.ifPresent(c -> {
-            assertThat(c.getCreated()).isNotNull();
-            assertThat(c.getMessage()).isEqualTo(MESSAGE);
-            assertThat(c.getAnonName()).isEqualTo(NAME);
-            assertThat(c.getUsername()).isNull();
-            assertThat(c.getVersion()).isEqualTo(MIN_VERSION);
-            assertThat(c.getId()).isEqualTo(commentId);
-        });
+        comment.ifPresent(c -> this.assertCommentEntry(c, commentId));
     }
 
 
@@ -91,15 +83,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
         // Assert.
         assertThat(actual.isPresent()).isTrue();
-
-        actual.ifPresent(a -> {
-            assertThat(a.getCreated()).isNotNull();
-            assertThat(a.getMessage()).isEqualTo(MESSAGE);
-            assertThat(a.getAnonName()).isEqualTo(NAME);
-            assertThat(a.getUsername()).isNull();
-            assertThat(a.getVersion()).isEqualTo(MIN_VERSION);
-            assertThat(a.getId()).isEqualTo(entry.getId());
-        });
+        actual.ifPresent(a -> this.assertCommentEntry(a, entry.getId()));
     }
 
 
@@ -126,5 +110,16 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
         // Assert.
         assertThat(entry.getId()).isNotNull();
+    }
+    
+    
+    private void assertCommentEntry(
+            final CommentEntry actual, final long expectedId) {
+        assertThat(actual.getCreated()).isNotNull();
+        assertThat(actual.getMessage()).isEqualTo(MESSAGE);
+        assertThat(actual.getAnonName()).isEqualTo(NAME);
+        assertThat(actual.getUsername()).isNull();
+        assertThat(actual.getVersion()).isEqualTo(MIN_VERSION);
+        assertThat(actual.getId()).isEqualTo(expectedId);
     }
 }
