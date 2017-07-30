@@ -23,6 +23,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     private static final String NAME = "anon";
     private static final String MESSAGE = "message";
     private static final LocalDateTime CREATED = LocalDateTime.now();
+    private static final Short MIN_VERSION = 0;
 
     @Autowired
     private CommentsApi commentsApi;
@@ -33,29 +34,34 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
     @Override
     public void predefinedData() {
-        commentRepo.save(new CommentBuilder()
-                .created(CREATED).name(NAME).message(MESSAGE).build()
-        );
+        final Comment comment = new CommentBuilder()
+                 .created(CREATED).name(NAME).message(MESSAGE).build();
 
-        commentRepo.save(new CommentBuilder()
-                .created(CREATED).name(NAME).message(MESSAGE).build()
-        );
+        commentRepo.save(comment);
+        commentRepo.save(comment);
     }
 
 
     @Test
     public void Comments_should_be_fetched() {
+        // Arrange and act.
         final List<CommentEntry> comments = this.commentsApi.getComments();
 
+        // Assert.
         assertThat(comments.size()).isGreaterThan(0);
     }
 
 
     @Test
     public void A_comment_by_id_should_be_fetched() {
-        final Optional<CommentEntry> comment = this.commentsApi
-                .getComment(10000);
+        // Arrange.
+        final long commentId = this.commentsApi.getComments().get(0).getId();
 
+        // Act.
+        final Optional<CommentEntry> comment = this.commentsApi
+                .getComment(commentId);
+
+        // Assert.
         assertThat(comment.isPresent()).isTrue();
 
         comment.ifPresent(c -> {
@@ -63,8 +69,8 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
             assertThat(c.getMessage()).isEqualTo(MESSAGE);
             assertThat(c.getAnonName()).isEqualTo(NAME);
             assertThat(c.getUsername()).isNull();
-            assertThat(c.getVersion()).isEqualTo((short) 0);
-            assertThat(c.getId()).isEqualTo(10000);
+            assertThat(c.getVersion()).isEqualTo(MIN_VERSION);
+            assertThat(c.getId()).isEqualTo(commentId);
         });
     }
 
@@ -88,7 +94,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
             assertThat(a.getMessage()).isEqualTo(MESSAGE);
             assertThat(a.getAnonName()).isEqualTo(NAME);
             assertThat(a.getUsername()).isNull();
-            assertThat(a.getVersion()).isEqualTo((short) 0);
+            assertThat(a.getVersion()).isEqualTo(MIN_VERSION);
             assertThat(a.getId()).isEqualTo(entry.getId());
         });
     }
@@ -105,8 +111,9 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
         this.commentsApi.createComment(input);
     }
 
+
     @Test
-    public void When_name_is_max_comment_should_be_saved() {
+    public void When_name_length_is_max_comment_should_be_saved() {
         //Arrange.
         final CommentInput input = new CommentInputBuilder()
                 .name("12345678901234567890").message(MESSAGE).build();
