@@ -35,9 +35,7 @@ public class CommentsApiTests {
 
     @Before
     public void setup() {
-        final Comment comment = new CommentBuilder()
-                .id(ID).version(VERSION).created(CREATED)
-                .name(NAME).message(MESSAGE).user(null).build();
+        final Comment comment = this.buildAnonComment();
 
         when(commentRepo.save(any(Comment.class)))
             .thenReturn(comment);
@@ -47,8 +45,7 @@ public class CommentsApiTests {
     @Test
     public void An_anonymous_comment_should_be_saved_in_repository() {
         // Arrange.
-        final CommentInput input = new CommentInputBuilder()
-                .name(NAME).message(MESSAGE).build();
+        final CommentInput input = this.buildAnonCommentInput();
 
         // Act.
         this.commentsApi.createComment(input);
@@ -62,11 +59,8 @@ public class CommentsApiTests {
     @Test
     public void An_anonymous_comment_should_be_returned_when_saved() {
         // Arrange.
-        final CommentInput input = new CommentInputBuilder()
-                .name(NAME).message(MESSAGE).build();
-        final CommentEntry expected = new CommentEntryBuilder()
-                .id(ID).version(VERSION).created(CREATED)
-                .anonName(NAME).message(MESSAGE).build();
+        final CommentInput input = this.buildAnonCommentInput();
+        final CommentEntry expected = this.buildAnonCommentEntry();
 
         // Act.
         final CommentEntry actual = this.commentsApi.createComment(input);
@@ -96,5 +90,25 @@ public class CommentsApiTests {
         assertThat(comment.getUser()).isEqualTo(Optional.empty());
         assertThat(comment.getVersion()).isNull();
         assertThat(comment.getId()).isNull();
+    }
+
+
+    private CommentInput buildAnonCommentInput() {
+        return new CommentInputBuilder()
+                .name(NAME).message(MESSAGE).build();
+    }
+
+
+    private CommentEntry buildAnonCommentEntry() {
+        return new CommentEntryBuilder()
+                .id(ID).version(VERSION).created(CREATED)
+                .anonName(NAME).message(MESSAGE).build();
+    }
+
+
+    private Comment buildAnonComment() {
+        return new CommentBuilder()
+                .id(ID).version(VERSION).created(CREATED)
+                .name(NAME).message(MESSAGE).user(null).build();
     }
 }
