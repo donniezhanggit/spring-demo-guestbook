@@ -28,7 +28,7 @@ public class CommentsApiTests {
 
     private final CommentRepository commentRepo =
             mock(CommentRepository.class);
-    private ArgumentCaptor<Comment> commentCaptor =
+    private final ArgumentCaptor<Comment> commentCaptor =
             ArgumentCaptor.forClass(Comment.class);
     private final CommentsApi commentsApi = new CommentsApi(commentRepo);
 
