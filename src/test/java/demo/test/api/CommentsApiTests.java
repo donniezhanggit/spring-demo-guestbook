@@ -45,7 +45,7 @@ public class CommentsApiTests {
 
 
     @Test
-    public void A_anonymous_comment_should_be_saved_in_repository() {
+    public void An_anonymous_comment_should_be_saved_in_repository() {
         // Arrange.
         final CommentInput input = new CommentInputBuilder()
                 .name(NAME).message(MESSAGE).build();
@@ -60,7 +60,7 @@ public class CommentsApiTests {
 
 
     @Test
-    public void A_anonymous_comment_should_be_returned_when_saved() {
+    public void An_anonymous_comment_should_be_returned_when_saved() {
         // Arrange.
         final CommentInput input = new CommentInputBuilder()
                 .name(NAME).message(MESSAGE).build();
