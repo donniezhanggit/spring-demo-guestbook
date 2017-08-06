@@ -17,7 +17,7 @@ import org.springframework.data.repository.Repository;
  */
 @NoRepositoryBean
 public interface DataRepository<T, ID extends Serializable>
-    extends Repository<T, ID>{
+    extends Repository<T, ID> {
     /**
      * Saves a given entity. Use the returned instance for further
      * operations as the save operation might have changed the entity
