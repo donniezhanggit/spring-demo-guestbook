@@ -28,7 +28,7 @@ public class CommentsApiTests {
 
     private final CommentRepository commentRepo =
             mock(CommentRepository.class);
-    private ArgumentCaptor<Comment> captor =
+    private ArgumentCaptor<Comment> commentCaptor =
             ArgumentCaptor.forClass(Comment.class);
     private final CommentsApi commentsApi = new CommentsApi(commentRepo);
 
@@ -51,8 +51,8 @@ public class CommentsApiTests {
         this.commentsApi.createComment(input);
 
         // Assert.
-        verify(this.commentRepo, times(1)).save(this.captor.capture());
-        this.assertCapturedCommentForSaving(this.captor.getValue());
+        verify(this.commentRepo, times(1)).save(this.commentCaptor.capture());
+        this.assertCapturedCommentForSaving(this.commentCaptor.getValue());
     }
 
 
