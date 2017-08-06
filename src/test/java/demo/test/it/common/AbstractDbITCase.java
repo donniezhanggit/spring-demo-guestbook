@@ -17,9 +17,9 @@ import demo.config.GuestBookProfiles;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles(profiles = {GuestBookProfiles.H2_INTEGRATION_TESTING})
-public abstract class AbstractITCase {
+public abstract class AbstractDbITCase {
     final private Logger logger = LoggerFactory
-            .getLogger(getClass().getName());
+            .getLogger(AbstractDbITCase.class);
 
     @Autowired
     private InitOnceChecker initOnceChecker;

@@ -1,4 +1,4 @@
-package demo.test.api;
+package demo.test.it.api;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;

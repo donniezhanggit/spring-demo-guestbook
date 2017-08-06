@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class ITConfig {
+public class DbITConfig {
 //    @Bean
 //    DataInitializer dataInitializer() {
 //        return new DataInitializer();

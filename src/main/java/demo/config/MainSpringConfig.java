@@ -22,6 +22,7 @@ public class MainSpringConfig {
     @Value("${spring.jackson.serialization.INDENT_OUTPUT}")
     private boolean prettyPrint;
 
+
     @Bean
     @Primary
     public ObjectMapper objectMapper() {
@@ -42,6 +43,7 @@ public class MainSpringConfig {
 
     @Value("${spring.security.cors.api.origin}")
     private String origin;
+
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {

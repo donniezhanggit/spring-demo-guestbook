@@ -5,6 +5,6 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
 
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
-public abstract class BaseRecreatePerMethodITCase extends AbstractITCase {
+public abstract class BaseRecreatePerMethodITCase extends AbstractDbITCase {
 
 }

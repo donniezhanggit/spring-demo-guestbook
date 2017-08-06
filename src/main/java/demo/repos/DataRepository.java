@@ -28,6 +28,7 @@ public interface DataRepository<T, ID extends Serializable>
      */
     <S extends T> S save(S entity);
 
+
     /**
      * Saves all given entities.
      *
@@ -37,6 +38,7 @@ public interface DataRepository<T, ID extends Serializable>
      * {@literal null}.
      */
     <S extends T> Iterable<S> save(Iterable<S> entities);
+
 
     /**
      * Retrieves an entity by its id.
@@ -48,6 +50,7 @@ public interface DataRepository<T, ID extends Serializable>
      */
     Optional<T> findOne(ID id);
 
+
     /**
      * Returns whether an entity with the given id exists.
      *
@@ -58,12 +61,14 @@ public interface DataRepository<T, ID extends Serializable>
      */
     boolean exists(ID id);
 
+
     /**
      * Returns all instances of the type.
      *
      * @return all entities
      */
     Iterable<T> findAll();
+
 
     /**
      * Returns all instances of the type with the given IDs.
@@ -73,12 +78,14 @@ public interface DataRepository<T, ID extends Serializable>
      */
     Iterable<T> findAll(Iterable<ID> ids);
 
+
     /**
      * Returns the number of entities available.
      *
      * @return the number of entities
      */
     long count();
+
 
     /**
      * Deletes the entity with the given id.
@@ -89,6 +96,7 @@ public interface DataRepository<T, ID extends Serializable>
      */
     void delete(ID id);
 
+
     /**
      * Deletes a given entity.
      *
@@ -97,6 +105,7 @@ public interface DataRepository<T, ID extends Serializable>
      *         {@literal null}
      */
     void delete(T entity);
+
 
     /**
      * Deletes the given entities.
@@ -107,10 +116,12 @@ public interface DataRepository<T, ID extends Serializable>
      */
     void delete(Iterable<? extends T> entities);
 
+
     /**
      * Deletes all entities managed by the repository.
      */
     void deleteAll();
+
 
     /**
      * Returns all entities sorted by the given options.
@@ -119,6 +130,7 @@ public interface DataRepository<T, ID extends Serializable>
      * @return all entities sorted by the given options
      */
     Iterable<T> findAll(Sort sort);
+
 
     /**
      * Returns a {@link Page} of entities meeting the paging restriction
