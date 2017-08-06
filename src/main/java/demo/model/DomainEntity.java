@@ -14,8 +14,8 @@ import javax.persistence.Version;
 public class DomainEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public static final String PROPERTY_ID = "id";
-    public static final String PROPERTY_VERSION = "version";
+    public static final String ID_PROPERTY = "id";
+    public static final String VERSION_PROPERTY = "version";
 
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="hbn_seq")

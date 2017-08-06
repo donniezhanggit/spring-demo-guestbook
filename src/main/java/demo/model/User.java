@@ -20,6 +20,20 @@ import org.hibernate.validator.constraints.Email;
 public class User extends DomainEntity {
     private static final long serialVersionUID = 1L;
 
+    public static final String USERNAME_PROPERTY = "username";
+    public static final String PASSWORD_PROPERTY = "password";
+    public static final String EMAIL_PROPERTY = "email";
+    public static final String CREATED_PROPERTY = "created";
+    public static final String ACTIVE_PROPERTY = "active";
+    public static final String COMMENTS_PROPERTY = "comments";
+
+    public static final int USERNAME_MIN_LENGTH = 2;
+    public static final int USERNAME_MAX_LENGTH = 40;
+    public static final int PASSWORD_MIN_LENGTH = 8;
+    public static final int PASSWORD_MAX_LENGTH = 100;
+    public static final int EMAIL_MIN_LENGTH = 4;
+    public static final int EMAIL_MAX_LENGTH = 40;
+
     @NotNull
     private String username;
 
