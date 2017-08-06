@@ -53,10 +53,12 @@ public class Comment extends DomainEntity {
     }
 
     public Comment(@NotNull final CommentBuilder cb) {
+        this.id      = cb.id;
+        this.version = cb.version;
         this.created = cb.created;
-        this.name = cb.name;
+        this.name    = cb.name;
         this.message = cb.message;
-        this.user = cb.user;
+        this.user    = cb.user;
     }
 
     public Long getId() {

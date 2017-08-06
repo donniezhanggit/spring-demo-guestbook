@@ -6,14 +6,26 @@ import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 
 public class CommentBuilder {
+    Long id;
+    Short version;
+
     @NotNull
     LocalDateTime created = LocalDateTime.now();
-
     String name;
-
     String message;
-
     User user;
+
+
+    public CommentBuilder id(long id) {
+        this.id = id;
+        return this;
+    }
+
+
+    public CommentBuilder version(short version) {
+        this.version = version;
+        return this;
+    }
 
 
     public CommentBuilder created(@NotNull LocalDateTime created) {
