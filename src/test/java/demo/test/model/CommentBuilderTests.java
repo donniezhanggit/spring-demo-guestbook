@@ -22,7 +22,7 @@ public class CommentBuilderTests {
 
 
     @Test
-    public void A_builder_should_create_a_new_object() {
+    public void A_builder_should_return_a_new_comment() {
         // Arrange and act.
         final Comment actual = new CommentBuilder()
                 .name(NAME).message(MESSAGE).user(null)
@@ -39,7 +39,7 @@ public class CommentBuilderTests {
 
 
     @Test
-    public void A_builder_with_user_should_create_a_new_comment_with_user() {
+    public void A_builder_with_user_should_return_a_new_comment_with_user() {
         // Arrange.
         final User user = new UserBuilder()
                 .username(NAME).password("password").active(true).build();
