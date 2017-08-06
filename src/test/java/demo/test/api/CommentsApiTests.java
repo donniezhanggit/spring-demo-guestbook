@@ -10,10 +10,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import demo.api.CommentsApi;
+import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
 import demo.model.Comment;
 import demo.model.CommentBuilder;
 import demo.repos.CommentRepository;
+import demo.test.dto.CommentEntryBuilder;
 import demo.test.dto.CommentInputBuilder;
 
 
@@ -43,7 +45,7 @@ public class CommentsApiTests {
 
 
     @Test
-    public void A_anonymous_comment_should_be_created() {
+    public void A_anonymous_comment_should_be_saved_in_repository() {
         // Arrange.
         final CommentInput input = new CommentInputBuilder()
                 .name(NAME).message(MESSAGE).build();
@@ -53,11 +55,40 @@ public class CommentsApiTests {
 
         // Assert.
         verify(this.commentRepo, times(1)).save(this.captor.capture());
-        this.assertComment(this.captor.getValue());
+        this.assertCapturedCommentForSaving(this.captor.getValue());
     }
 
 
-    private void assertComment(final Comment comment) {
+    @Test
+    public void A_anonymous_comment_should_be_returned_when_saved() {
+        // Arrange.
+        final CommentInput input = new CommentInputBuilder()
+                .name(NAME).message(MESSAGE).build();
+        final CommentEntry expected = new CommentEntryBuilder()
+                .id(ID).version(VERSION).created(CREATED)
+                .anonName(NAME).message(MESSAGE).build();
+
+        // Act.
+        final CommentEntry actual = this.commentsApi.createComment(input);
+
+        // Assert.
+        this.assertReturnedCommentEntry(actual, expected);
+    }
+
+
+    private void assertReturnedCommentEntry(
+            final CommentEntry actual, final CommentEntry expected) {
+        assertThat(actual.getCreated())
+            .isEqualByComparingTo(expected.getCreated());
+        assertThat(actual.getMessage()).isEqualTo(expected.getMessage());
+        assertThat(actual.getAnonName()).isEqualTo(expected.getAnonName());
+        assertThat(actual.getUsername()).isNull();
+        assertThat(actual.getVersion()).isEqualTo(expected.getVersion());
+        assertThat(actual.getId()).isEqualTo(expected.getId());
+    }
+
+
+    private void assertCapturedCommentForSaving(final Comment comment) {
         assertThat(comment).isNotNull();
         assertThat(comment.getCreated()).isNotNull();
         assertThat(comment.getMessage()).isEqualTo(MESSAGE);

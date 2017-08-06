@@ -10,31 +10,37 @@ public class CommentEntryBuilder {
 
 
     public CommentEntryBuilder id(Long id) {
-        entry.setId(id);
+        this.entry.setId(id);
+        return this;
+    }
+
+
+    public CommentEntryBuilder version(Short version) {
+        this.entry.setVersion(version);
         return this;
     }
 
 
     public CommentEntryBuilder created(LocalDateTime created) {
-        entry.setCreated(created);
+        this.entry.setCreated(created);
         return this;
     }
 
 
     public CommentEntryBuilder anonName(String anonName) {
-        entry.setAnonName(anonName);
+        this.entry.setAnonName(anonName);
         return this;
     }
 
 
     public CommentEntryBuilder message(String message) {
-        entry.setMessage(message);
+        this.entry.setMessage(message);
         return this;
     }
 
 
     public CommentEntryBuilder username(String username) {
-        entry.setUsername(username);
+        this.entry.setUsername(username);
         return this;
     }
 
