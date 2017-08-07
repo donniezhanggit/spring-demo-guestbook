@@ -31,13 +31,14 @@ public class RestCommentController {
 
 
     @GetMapping()
-    ResponseEntity<List<CommentEntry>> getComments() {
+    public ResponseEntity<List<CommentEntry>> getComments() {
         return ResponseEntity.ok(this.commentsApi.getComments());
     }
 
 
     @GetMapping(value="/{id}")
-    ResponseEntity<CommentEntry> getComment(@PathVariable final Long id) {
+    public ResponseEntity<CommentEntry>
+    getComment(@PathVariable final Long id) {
         final Optional<CommentEntry> entry = this.commentsApi.getComment(id);
 
         return entry.isPresent()
@@ -47,7 +48,8 @@ public class RestCommentController {
 
 
     @PostMapping
-    ResponseEntity<Long> createComment(@RequestBody final CommentInput input) {
+    public ResponseEntity<Long>
+    createComment(@RequestBody final CommentInput input) {
         final CommentEntry entry = this.commentsApi.createComment(input);
 
         return ResponseEntity.ok(entry.getId());
