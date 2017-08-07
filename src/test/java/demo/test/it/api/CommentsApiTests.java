@@ -145,8 +145,6 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     }
 
 
-
-
     @Test
     public void When_message_is_longer_expect_ValidationException() {
         // Arrange.
@@ -175,10 +173,6 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
         // Assert.
         assertThat(entry.getId()).isNotNull();
     }
-
-
-
-
 
 
     private void assertCommentEntry(final CommentEntry actual) {
