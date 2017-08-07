@@ -145,6 +145,42 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     }
 
 
+
+
+    @Test
+    public void When_message_is_longer_expect_ValidationException() {
+        // Arrange.
+        final String longmessage = this.fakeStringWithLength(
+                Comment.MESSAGE_MAX_LENGTH+1);
+        final CommentInput input = this.getCommentInputBuilder()
+                .message(longmessage).build();
+
+        // Act and assert.
+        thrown.expect(ValidationException.class);
+        this.commentsApi.createComment(input);
+    }
+
+
+    @Test
+    public void When_message_length_is_max_comment_should_be_saved() {
+        //Arrange.
+        final String longmessage = this.fakeStringWithLength(
+                Comment.MESSAGE_MAX_LENGTH);
+        final CommentInput input = this.getCommentInputBuilder()
+                .message(longmessage).build();
+
+        // Act.
+        final CommentEntry entry = this.commentsApi.createComment(input);
+
+        // Assert.
+        assertThat(entry.getId()).isNotNull();
+    }
+
+
+
+
+
+
     private void assertCommentEntry(final CommentEntry actual) {
         assertThat(actual).isNotNull();
         assertThat(actual.getId()).isNotNull();
