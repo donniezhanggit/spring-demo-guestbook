@@ -17,12 +17,13 @@ import demo.model.CommentBuilder;
 import demo.repos.CommentRepository;
 import demo.test.dto.CommentInputBuilder;
 import demo.test.it.common.BaseRecreatePerClassITCase;
+import liquibase.util.StringUtils;
 
 import static org.assertj.core.api.Assertions.*;
 
 
 public class CommentsApiTests extends BaseRecreatePerClassITCase {
-    private static final String NAME = "anon";
+    private static final String ANON_NAME = "anon";
     private static final String MESSAGE = "message";
     private static final LocalDateTime CREATED = LocalDateTime.now();
     private static final Short MIN_VERSION = 0;
@@ -37,7 +38,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     @Override
     public void predefinedData() {
         final CommentBuilder cb = new CommentBuilder()
-                .created(CREATED).name(NAME).message(MESSAGE);
+                .created(CREATED).name(ANON_NAME).message(MESSAGE);
         final Comment comment1 = cb.build();
         final Comment comment2 = cb.build();
 
@@ -66,15 +67,14 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
         // Assert.
         assertThat(comment.isPresent()).isTrue();
-        comment.ifPresent(c -> this.assertCommentEntry(c, commentId));
+        comment.ifPresent(this::assertCommentEntry);
     }
 
 
     @Test
     public void A_comment_should_be_created() {
         // Arrange.
-        final CommentInput input = new CommentInputBuilder()
-                .name(NAME).message(MESSAGE).build();
+        final CommentInput input = this.getCommentInputBuilder().build();
 
         // Act.
         final CommentEntry entry = this.commentsApi.createComment(input);
@@ -83,15 +83,45 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
         // Assert.
         assertThat(actual.isPresent()).isTrue();
-        actual.ifPresent(a -> this.assertCommentEntry(a, entry.getId()));
+        actual.ifPresent(this::assertCommentEntry);
+    }
+
+
+    @Test
+    public void An_entry_should_be_returned_after_creating_new_comment() {
+        // Arrange.
+        final CommentInput input = this.getCommentInputBuilder().build();
+
+        // Act.
+        final CommentEntry actual = this.commentsApi.createComment(input);
+
+        // Assert.
+        this.assertCommentEntry(actual);
+    }
+
+
+    @Test
+    public void When_a_new_comment_added_rows_count_should_increase_by_1() {
+        // Arrange.
+        final CommentInput input = this.getCommentInputBuilder().build();
+        final long expectedQty = this.commentRepo.count() + 1;
+
+        // Act.
+        this.commentsApi.createComment(input);
+        final long actualQty = this.commentRepo.count();
+
+        // Assert.
+        assertThat(actualQty).isEqualTo(expectedQty);
     }
 
 
     @Test
     public void When_name_is_longer_than_max_expect_ValidationException() {
         // Arrange.
-        final CommentInput input = new CommentInputBuilder()
-                .name("123456789012345678901").message(MESSAGE).build();
+        final String longname = this.fakeStringWithLength(
+                Comment.NAME_MAX_LENGTH+1);
+        final CommentInput input = this.getCommentInputBuilder()
+                .name(longname).build();
 
         // Act and assert.
         thrown.expect(ValidationException.class);
@@ -102,8 +132,10 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     @Test
     public void When_name_length_is_max_comment_should_be_saved() {
         //Arrange.
-        final CommentInput input = new CommentInputBuilder()
-                .name("12345678901234567890").message(MESSAGE).build();
+        final String longname = this.fakeStringWithLength(
+                Comment.NAME_MAX_LENGTH);
+        final CommentInput input = this.getCommentInputBuilder()
+                .name(longname).build();
 
         // Act.
         final CommentEntry entry = this.commentsApi.createComment(input);
@@ -111,15 +143,26 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
         // Assert.
         assertThat(entry.getId()).isNotNull();
     }
-    
-    
-    private void assertCommentEntry(
-            final CommentEntry actual, final long expectedId) {
+
+
+    private void assertCommentEntry(final CommentEntry actual) {
+        assertThat(actual).isNotNull();
+        assertThat(actual.getId()).isNotNull();
+        assertThat(actual.getVersion()).isEqualTo(MIN_VERSION);
         assertThat(actual.getCreated()).isNotNull();
         assertThat(actual.getMessage()).isEqualTo(MESSAGE);
-        assertThat(actual.getAnonName()).isEqualTo(NAME);
+        assertThat(actual.getAnonName()).isEqualTo(ANON_NAME);
         assertThat(actual.getUsername()).isNull();
-        assertThat(actual.getVersion()).isEqualTo(MIN_VERSION);
-        assertThat(actual.getId()).isEqualTo(expectedId);
+    }
+
+
+    private CommentInputBuilder getCommentInputBuilder() {
+        return new CommentInputBuilder()
+                .name(ANON_NAME).message(MESSAGE);
+    }
+
+
+    private String fakeStringWithLength(int length) {
+        return StringUtils.repeat("A", length);
     }
 }
