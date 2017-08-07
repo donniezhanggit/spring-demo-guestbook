@@ -4,10 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.time.LocalDateTime;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
 import demo.model.Comment;
 import demo.model.CommentBuilder;
 import demo.model.User;
@@ -16,9 +13,6 @@ import demo.model.UserBuilder;
 public class CommentBuilderTests {
     private static final String NAME = "Just name";
     private static final String MESSAGE = "Just message";
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
 
     @Test
