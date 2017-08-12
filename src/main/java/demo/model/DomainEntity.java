@@ -3,11 +3,11 @@ package demo.model;
 import java.io.Serializable;
 
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
+
+import org.hibernate.annotations.*;
 
 
 @MappedSuperclass
@@ -18,10 +18,16 @@ public class DomainEntity implements Serializable {
     public static final String VERSION_PROPERTY = "version";
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="hbn_seq")
-    @SequenceGenerator(name="hbn_seq", 
-        sequenceName="hibernate_sequence",
-        allocationSize=1)
+    @GenericGenerator(
+            name="hbn_seq",
+            strategy="org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters={
+                    @Parameter(name="sequence_name",
+                            value="hibernate_sequence"),
+                    @Parameter(name="increment_size", value="1")
+            }
+    )
+    @GeneratedValue(generator="hbn_seq")
     protected Long id;
 
     @Version
