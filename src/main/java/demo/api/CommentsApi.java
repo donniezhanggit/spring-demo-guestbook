@@ -12,16 +12,16 @@ import demo.common.annotations.Api;
 import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
 import demo.model.Comment;
-import demo.repos.CommentRepository;
+import demo.repos.CommentsRepository;
 
 
 @Api
 @Transactional(readOnly=true)
 public class CommentsApi {
-    private final CommentRepository commentRepo;
+    private final CommentsRepository commentRepo;
 
 
-    public CommentsApi(@NotNull final CommentRepository commentRepo) {
+    public CommentsApi(@NotNull final CommentsRepository commentRepo) {
         this.commentRepo = commentRepo;
     }
 

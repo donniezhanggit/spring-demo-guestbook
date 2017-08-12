@@ -45,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    private SecurityExpressionHandler<FilterInvocation>
-    webExpressionHandler() {
+    private
+    SecurityExpressionHandler<FilterInvocation> webExpressionHandler() {
         DefaultWebSecurityExpressionHandler handler =
                         new DefaultWebSecurityExpressionHandler();
 

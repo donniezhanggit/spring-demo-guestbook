@@ -10,6 +10,6 @@ import demo.model.User;
 
 
 @Repository
-public interface UserRepository extends DataRepository<User, Long> {
+public interface UsersRepository extends DataRepository<User, Long> {
     Optional<User> findByUsername(@Nonnull String username);
 }

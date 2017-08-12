@@ -14,7 +14,7 @@ import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
 import demo.model.Comment;
 import demo.model.CommentBuilder;
-import demo.repos.CommentRepository;
+import demo.repos.CommentsRepository;
 import demo.test.dto.CommentEntryBuilder;
 import demo.test.dto.CommentInputBuilder;
 
@@ -26,8 +26,8 @@ public class CommentsApiTests {
     private static final String MESSAGE = "message";
     private static final LocalDateTime CREATED = LocalDateTime.now();
 
-    private final CommentRepository commentRepo =
-            mock(CommentRepository.class);
+    private final CommentsRepository commentRepo =
+            mock(CommentsRepository.class);
     private final ArgumentCaptor<Comment> commentCaptor =
             ArgumentCaptor.forClass(Comment.class);
     private final CommentsApi commentsApi = new CommentsApi(commentRepo);

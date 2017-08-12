@@ -14,7 +14,7 @@ import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
 import demo.model.Comment;
 import demo.model.CommentBuilder;
-import demo.repos.CommentRepository;
+import demo.repos.CommentsRepository;
 import demo.test.dto.CommentInputBuilder;
 import demo.test.it.common.BaseRecreatePerClassITCase;
 import liquibase.util.StringUtils;
@@ -32,7 +32,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     private CommentsApi commentsApi;
 
     @Autowired
-    private CommentRepository commentRepo;
+    private CommentsRepository commentRepo;
 
 
     @Override
@@ -72,7 +72,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
 
     @Test
-    public void A_comment_should_be_created() {
+    public void A_new_comment_should_be_persisted() {
         // Arrange.
         final CommentInput input = this.getCommentInputBuilder().build();
 

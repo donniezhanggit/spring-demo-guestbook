@@ -10,7 +10,7 @@ import demo.model.Comment;
 
 
 @Repository
-public interface CommentRepository extends DataRepository<Comment, Long> {
+public interface CommentsRepository extends DataRepository<Comment, Long> {
     List<Comment> findByName(@Nonnull String name);
     List<Comment> findAllByOrderByCreatedAsc();
 }

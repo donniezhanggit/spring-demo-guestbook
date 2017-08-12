@@ -21,11 +21,11 @@ import demo.dto.CommentInput;
 
 @RestController
 @RequestMapping("/api/comments")
-public class RestCommentController {
+public class CommentsController {
     private final CommentsApi commentsApi;
 
 
-    public RestCommentController(@NotNull final CommentsApi commentsApi) {
+    public CommentsController(@NotNull final CommentsApi commentsApi) {
         this.commentsApi = commentsApi;
     }
 
