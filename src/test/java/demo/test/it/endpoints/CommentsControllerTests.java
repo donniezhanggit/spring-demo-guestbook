@@ -30,7 +30,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import demo.api.CommentsApi;
 import demo.config.GuestBookProfiles;
 import demo.dto.CommentEntry;
@@ -113,6 +112,8 @@ public class CommentsControllerTests {
 
     @Test
     public void Creating_a_new_comment_should_return_200() throws Exception {
+        // Define a method in base class which will log serialized
+        // request body.
         final String jsonComment = this.objectMapper
                 .writeValueAsString(this.buildAnonCommentInput());
 

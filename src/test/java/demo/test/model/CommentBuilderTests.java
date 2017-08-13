@@ -9,8 +9,10 @@ import demo.model.Comment;
 import demo.model.CommentBuilder;
 import demo.model.User;
 import demo.model.UserBuilder;
+import demo.test.common.JUnitTestCase;
 
-public class CommentBuilderTests {
+
+public class CommentBuilderTests extends JUnitTestCase {
     private static final String NAME = "Just name";
     private static final String MESSAGE = "Just message";
 

@@ -11,9 +11,10 @@ import demo.model.Comment;
 import demo.model.CommentBuilder;
 import demo.model.User;
 import demo.model.UserBuilder;
+import demo.test.common.JUnitTestCase;
 
 
-public class CommentEntryTests {
+public class CommentEntryTests extends JUnitTestCase {
     private static final String ANON_NAME = "A test anon";
     private static final String USERNAME = "user";
     private static final String PASSWORD = "P4ssW0rD";

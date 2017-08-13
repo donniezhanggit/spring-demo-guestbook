@@ -15,11 +15,12 @@ import demo.dto.CommentInput;
 import demo.model.Comment;
 import demo.model.CommentBuilder;
 import demo.repos.CommentsRepository;
+import demo.test.common.JUnitTestCase;
 import demo.test.dto.CommentEntryBuilder;
 import demo.test.dto.CommentInputBuilder;
 
 
-public class CommentsApiTests {
+public class CommentsApiTests extends JUnitTestCase {
     private static final Long ID = 1L;
     private static final Short VERSION = 0;
     private static final String NAME = "anon";
