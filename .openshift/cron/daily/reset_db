@@ -1,4 +1,0 @@
-#!/bin/bash
-# This script reset a state of database.
-
-psql < ${OPENSHIFT_REPO_DIR}/other/setupdb.sql

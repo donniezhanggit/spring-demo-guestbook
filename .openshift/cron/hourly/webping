@@ -1,4 +1,0 @@
-#!/bin/sh
-# This script fetches main page preventing app leaving out of memory.
-
-wget -qO- ${OPENSHIFT_APP_DNS} > /dev/null
