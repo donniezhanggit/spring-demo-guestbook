@@ -44,10 +44,9 @@ public class CommentsApi {
     }
 
 
-    @NotNull
     @Transactional
     public
-    CommentEntry createComment(@NotNull @Valid final CommentInput input) {
+    CommentEntry createComment(@Valid final CommentInput input) {
         final Comment comment = this.commentRepo.save(new Comment(input));
 
         return CommentEntry.from(comment);

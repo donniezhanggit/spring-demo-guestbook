@@ -1,7 +1,6 @@
 package demo.test.controllers;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -30,10 +29,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import demo.api.CommentsApi;
 import demo.config.GuestBookProfiles;
 import demo.dto.CommentEntry;
+import demo.dto.CommentInput;
 import demo.test.dto.CommentEntryBuilder;
+import demo.test.dto.CommentInputBuilder;
 
 
 
@@ -62,6 +65,9 @@ public class CommentsControllerTests {
     @Autowired
     private CommentsApi commentsApi;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     private MockMvc mockMvc;
 
 
@@ -72,8 +78,8 @@ public class CommentsControllerTests {
 
         final CommentEntry commentEntry = this.buildAnonCommentEntry();
 
-//        when(this.commentsApi.createComment(any(CommentInput.class)))
-//            .thenReturn(commentEntry);
+        when(this.commentsApi.createComment(any(CommentInput.class)))
+            .thenReturn(commentEntry);
         when(this.commentsApi.getComments())
             .thenReturn(Arrays.asList(commentEntry));
         when(this.commentsApi.getComment(ID))
@@ -103,11 +109,31 @@ public class CommentsControllerTests {
     }
 
 
+    @Test
+    public void Creating_a_new_comment_should_return_200() throws Exception {
+        final String jsonComment = this.objectMapper
+                .writeValueAsString(this.buildAnonCommentInput());
+
+        this.mockMvc.perform(post(COMMENTS_API_URL)
+                .content(jsonComment)
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+            .andExpect(status().isOk())
+            .andExpect(content()
+                    .contentType(MediaType.APPLICATION_JSON_UTF8));
+    }
+
+
     private CommentEntry buildAnonCommentEntry() {
         return new CommentEntryBuilder()
                 .id(ID).created(CREATED).version(VERSION)
                 .anonName(NAME).message(MESSAGE).username(null)
                 .build();
+    }
+
+
+    private CommentInput buildAnonCommentInput() {
+        return new CommentInputBuilder()
+                .name(NAME).message(MESSAGE).build();
     }
 
 
