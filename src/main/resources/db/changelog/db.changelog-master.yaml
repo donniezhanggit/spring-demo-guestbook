@@ -102,7 +102,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: gbuser_id
-                  type: int
+                  type: bigint
                   constraints:
                     nullable: true
                     references: gbuser(id)

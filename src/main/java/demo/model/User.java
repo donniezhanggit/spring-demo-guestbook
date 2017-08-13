@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.annotation.Nullable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -50,8 +51,8 @@ public class User extends DomainEntity {
     @NotNull
     boolean active = true;
 
-    @OneToMany(fetch=FetchType.LAZY, orphanRemoval=true)
-    @JoinColumn(name="user")
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
+    @JoinColumn(name="gbuser_id")
     List<Comment> comments;
 
 

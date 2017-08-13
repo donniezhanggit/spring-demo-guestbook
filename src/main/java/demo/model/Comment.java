@@ -3,10 +3,12 @@ package demo.model;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Immutable;
@@ -40,7 +42,7 @@ public class Comment extends DomainEntity {
     @Length(min=MESSAGE_MIN_LENGTH, max=MESSAGE_MAX_LENGTH)
     private String message;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY, optional=true, targetEntity=User.class)
     @JoinColumn(name="gbuser_id")
     private User user;
 
@@ -59,14 +61,6 @@ public class Comment extends DomainEntity {
         this.name    = cb.name;
         this.message = cb.message;
         this.user    = cb.user;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Short getVersion() {
-        return version;
     }
 
     public LocalDateTime getCreated() {
