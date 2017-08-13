@@ -31,7 +31,7 @@ public class CommentsController {
     }
 
 
-    @GetMapping()
+    @GetMapping
     @ApiOperation(nickname="getComments", value="List all comments")
     public ResponseEntity<List<CommentEntry>> getComments() {
         return ResponseEntity.ok(this.commentsApi.getComments());
