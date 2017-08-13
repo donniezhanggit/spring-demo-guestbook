@@ -11,6 +11,8 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
@@ -45,6 +47,9 @@ import demo.test.dto.CommentInputBuilder;
         JpaRepositoriesAutoConfiguration.class
 })
 public class CommentsControllerTests {
+    private final Logger logger = LoggerFactory
+            .getLogger(this.getClass().getName());
+
     private static final Long ID = 1L;
     private static final Short VERSION = 0;
     private static final String NAME = "anon";
@@ -110,6 +115,8 @@ public class CommentsControllerTests {
     public void Creating_a_new_comment_should_return_200() throws Exception {
         final String jsonComment = this.objectMapper
                 .writeValueAsString(this.buildAnonCommentInput());
+
+        logger.info("CommentInput JSON: " + jsonComment);
 
         this.mockMvc.perform(post(COMMENTS_API_URL)
                 .content(jsonComment)
