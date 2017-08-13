@@ -56,6 +56,6 @@ public class CommentsController {
     createComment(@RequestBody final CommentInput input) {
         final CommentEntry entry = this.commentsApi.createComment(input);
 
-        return ResponseEntity.ok(entry);
+        return ResponseEntity.status(HttpStatus.CREATED).body(entry);
     }
 }

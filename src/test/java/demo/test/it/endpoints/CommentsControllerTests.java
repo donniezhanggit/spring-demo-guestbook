@@ -111,7 +111,7 @@ public class CommentsControllerTests {
 
 
     @Test
-    public void Creating_a_new_comment_should_return_200() throws Exception {
+    public void Creating_a_new_comment_should_return_201() throws Exception {
         // Define a method in base class which will log serialized
         // request body.
         final String jsonComment = this.objectMapper
@@ -122,7 +122,7 @@ public class CommentsControllerTests {
         this.mockMvc.perform(post(COMMENTS_API_URL)
                 .content(jsonComment)
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk())
+            .andExpect(status().isCreated())
             .andExpect(content()
                     .contentType(MediaType.APPLICATION_JSON_UTF8));
     }
