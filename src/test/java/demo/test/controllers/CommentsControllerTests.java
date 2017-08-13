@@ -15,12 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ActiveProfiles;
@@ -37,7 +35,6 @@ import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
 import demo.test.dto.CommentEntryBuilder;
 import demo.test.dto.CommentInputBuilder;
-
 
 
 @RunWith(SpringRunner.class)
@@ -145,14 +142,14 @@ public class CommentsControllerTests {
         }
 
 
-        @Bean
-        @Primary
-        public LiquibaseProperties liquibaseProperties() {
-            final LiquibaseProperties properties = new LiquibaseProperties();
-
-            properties.setEnabled(false);
-
-            return properties;
-        }
+//        @Bean
+//        @Primary
+//        public LiquibaseProperties liquibaseProperties() {
+//            final LiquibaseProperties properties = new LiquibaseProperties();
+//
+//            properties.setEnabled(false);
+//
+//            return properties;
+//        }
     }
 }
