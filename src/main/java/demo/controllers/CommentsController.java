@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import demo.api.CommentsApi;
 import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
+import io.swagger.annotations.ApiOperation;
 
 
 @RestController
@@ -31,12 +32,14 @@ public class CommentsController {
 
 
     @GetMapping()
+    @ApiOperation(nickname="getComments", value="List all comments")
     public ResponseEntity<List<CommentEntry>> getComments() {
         return ResponseEntity.ok(this.commentsApi.getComments());
     }
 
 
     @GetMapping(value="/{id}")
+    @ApiOperation(nickname="getComment", value="Get comment by ID")
     public ResponseEntity<CommentEntry>
     getComment(@PathVariable final Long id) {
         final Optional<CommentEntry> entry = this.commentsApi.getComment(id);
@@ -48,10 +51,11 @@ public class CommentsController {
 
 
     @PostMapping
-    public ResponseEntity<Long>
+    @ApiOperation(nickname="createComment", value="Create a new comment")
+    public ResponseEntity<CommentEntry>
     createComment(@RequestBody final CommentInput input) {
         final CommentEntry entry = this.commentsApi.createComment(input);
 
-        return ResponseEntity.ok(entry.getId());
+        return ResponseEntity.ok(entry);
     }
 }
