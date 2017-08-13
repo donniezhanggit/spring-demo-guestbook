@@ -67,11 +67,11 @@ public class CorsTests {
 
 
     @Test
-    public void Request_with_wrong_origin_should_return_4xx()
+    public void Request_with_wrong_origin_should_return_403()
             throws Exception {
         this.mockMvc.perform(get(COMMENTS_API_URL)
                 .header(ORIGIN_HEADER, ORIGIN_URL))
-            .andExpect(status().is4xxClientError());
+            .andExpect(status().isForbidden());
     }
 
 

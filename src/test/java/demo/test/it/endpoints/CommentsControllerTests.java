@@ -101,12 +101,12 @@ public class CommentsControllerTests {
 
 
     @Test
-    public void Getting_an_unexisted_comment_should_return_4xx()
+    public void Getting_an_unexisted_comment_should_return_404()
             throws Exception {
         final String url = COMMENTS_API_URL + NOT_EXISTING_ID;
 
         this.mockMvc.perform(get(url))
-            .andExpect(status().is4xxClientError());
+            .andExpect(status().isNotFound());
     }
 
 
