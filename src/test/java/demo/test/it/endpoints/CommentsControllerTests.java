@@ -1,4 +1,4 @@
-package demo.test.controllers;
+package demo.test.it.endpoints;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
