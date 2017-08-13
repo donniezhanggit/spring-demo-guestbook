@@ -67,7 +67,7 @@ public class CorsTests {
 
 
     @Test
-    public void Getting_a_list_of_comments_should_return_200()
+    public void Request_with_wrong_origin_should_return_4xx()
             throws Exception {
         this.mockMvc.perform(get(COMMENTS_API_URL)
                 .header(ORIGIN_HEADER, ORIGIN_URL))
