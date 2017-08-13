@@ -25,12 +25,7 @@ public class CommentBuilderTests extends JUnitTestCase {
                 .created(LocalDateTime.now()).build();
 
         // Assert.
-        assertThat(actual.getCreated()).isNotNull();
-        assertThat(actual.getName()).isEqualTo(NAME);
-        assertThat(actual.getMessage()).isEqualTo(MESSAGE);
-        assertThat(actual.getId()).isNull();
-        assertThat(actual.getVersion()).isNull();
-        assertThat(actual.getUser().isPresent()).isFalse();
+        this.assertAnonComment(actual);
     }
 
 
@@ -46,6 +41,21 @@ public class CommentBuilderTests extends JUnitTestCase {
                 .created(LocalDateTime.now()).build();
 
         // Assert.
+        this.assertUserComment(actual);
+    }
+
+
+    private void assertAnonComment(final Comment actual) {
+        assertThat(actual.getCreated()).isNotNull();
+        assertThat(actual.getName()).isEqualTo(NAME);
+        assertThat(actual.getMessage()).isEqualTo(MESSAGE);
+        assertThat(actual.getId()).isNull();
+        assertThat(actual.getVersion()).isNull();
+        assertThat(actual.getUser().isPresent()).isFalse();
+    }
+
+
+    private void assertUserComment(final Comment actual) {
         assertThat(actual.getCreated()).isNotNull();
         assertThat(actual.getName()).isEqualTo(NAME);
         assertThat(actual.getMessage()).isEqualTo(MESSAGE);
