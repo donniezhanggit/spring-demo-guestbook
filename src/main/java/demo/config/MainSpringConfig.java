@@ -54,7 +54,7 @@ public class MainSpringConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
                 .allowedOrigins(origin)
-                .allowedMethods("GET", "POST", "UPDATE", "DELETE", "OPTIONS")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .maxAge(60 * 60);
             }
         };
