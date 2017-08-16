@@ -7,31 +7,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import org.junit.Before;
+
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.Bean;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import demo.api.CommentsApi;
-import demo.config.GuestBookProfiles;
 import demo.dto.CommentEntry;
 import demo.test.dto.CommentEntryBuilder;
+import demo.test.it.common.BaseEndpointCase;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment=WebEnvironment.MOCK)
-@ActiveProfiles(profiles = GuestBookProfiles.H2_INTEGRATION_TESTING)
-public class CorsTests {
+public class CorsTests extends BaseEndpointCase {
     private static final Long ID = 1L;
     private static final Short VERSION = 0;
     private static final String NAME = "anon";
@@ -43,34 +31,22 @@ public class CorsTests {
     private static final String RIGHT_ORIGIN_URL = "http://localhost:8080";
 
     @Autowired
-    private WebApplicationContext wac;
-
-    @Autowired
-    protected MockHttpServletRequest request;
-
-    @Autowired
     private CommentsApi commentsApi;
 
-    private MockMvc mockMvc;
 
-
-    @Before
+    @Override
     public void setup() {
-        this.mockMvc = MockMvcBuilders
-                .webAppContextSetup(this.wac).build();
-
         final CommentEntry commentEntry = this.buildAnonCommentEntry();
 
         when(this.commentsApi.getComments())
             .thenReturn(Arrays.asList(commentEntry));
-
     }
 
 
     @Test
     public void Request_with_wrong_origin_should_return_403()
             throws Exception {
-        this.mockMvc.perform(get(COMMENTS_API_URL)
+        mockMvc.perform(get(COMMENTS_API_URL)
                 .header(ORIGIN_HEADER, WRONG_ORIGIN_URL))
             .andExpect(status().isForbidden());
     }

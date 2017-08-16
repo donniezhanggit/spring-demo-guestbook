@@ -10,45 +10,19 @@ import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import demo.api.CommentsApi;
-import demo.config.GuestBookProfiles;
 import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
 import demo.test.dto.CommentEntryBuilder;
 import demo.test.dto.CommentInputBuilder;
+import demo.test.it.common.BaseEndpointCase;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment=WebEnvironment.MOCK)
-@ActiveProfiles(profiles = GuestBookProfiles.H2_INTEGRATION_TESTING)
-@EnableAutoConfiguration(exclude={
-        LiquibaseAutoConfiguration.class,
-        JpaRepositoriesAutoConfiguration.class
-})
-public class CommentsControllerTests {
-    private final Logger logger = LoggerFactory
-            .getLogger(this.getClass().getName());
-
+public class CommentsControllerTests extends BaseEndpointCase {
     private static final Long ID = 1L;
     private static final Short VERSION = 0;
     private static final String NAME = "anon";
@@ -58,25 +32,11 @@ public class CommentsControllerTests {
     private static final String COMMENTS_API_URL = "/api/comments/";
 
     @Autowired
-    private WebApplicationContext wac;
-
-    @Autowired
-    protected MockHttpServletRequest request;
-
-    @Autowired
     private CommentsApi commentsApi;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    private MockMvc mockMvc;
 
 
     @Before
     public void setup() {
-        this.mockMvc = MockMvcBuilders
-                .webAppContextSetup(this.wac).build();
-
         final CommentEntry commentEntry = this.buildAnonCommentEntry();
 
         when(this.commentsApi.createComment(any(CommentInput.class)))
@@ -112,12 +72,8 @@ public class CommentsControllerTests {
 
     @Test
     public void Creating_a_new_comment_should_return_201() throws Exception {
-        // Define a method in base class which will log serialized
-        // request body.
-        final String jsonComment = this.objectMapper
-                .writeValueAsString(this.buildAnonCommentInput());
-
-        logger.info("CommentInput JSON: " + jsonComment);
+        final String jsonComment = this.jsonStringify(
+                this.buildAnonCommentInput());
 
         this.mockMvc.perform(post(COMMENTS_API_URL)
                 .content(jsonComment)
@@ -148,16 +104,5 @@ public class CommentsControllerTests {
         public CommentsApi commentsApi() {
             return mock(CommentsApi.class);
         }
-
-
-//        @Bean
-//        @Primary
-//        public LiquibaseProperties liquibaseProperties() {
-//            final LiquibaseProperties properties = new LiquibaseProperties();
-//
-//            properties.setEnabled(false);
-//
-//            return properties;
-//        }
     }
 }
