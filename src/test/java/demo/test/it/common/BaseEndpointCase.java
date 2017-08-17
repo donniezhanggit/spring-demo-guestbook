@@ -54,10 +54,8 @@ public abstract class BaseEndpointCase {
             return this.stringifyOrThrow(o);
         } catch (JsonProcessingException e) {
             // Do not force an end user to handle exceptions.
-            ReflectionUtils.rethrowRuntimeException(e);
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
 
