@@ -63,7 +63,7 @@ public abstract class BaseEndpointCase {
             throws JsonProcessingException {
         final String json = this.objectMapper.writeValueAsString(o);
 
-        logger.info("Object as JSON: " + json);
+        logger.info("Object as JSON:\n" + json);
 
         return json;
     }
