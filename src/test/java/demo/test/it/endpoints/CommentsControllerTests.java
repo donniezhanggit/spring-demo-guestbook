@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
+
 import demo.api.CommentsApi;
 import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
@@ -28,13 +29,14 @@ public class CommentsControllerTests extends BaseEndpointCase {
     private static final String NAME = "anon";
     private static final String MESSAGE = "message";
     private static final LocalDateTime CREATED = LocalDateTime.now();
-    private static final Long NOT_EXISTING_ID = 2L;
+    private static final Long NON_EXISTENT_ID = 2L;
     private static final String COMMENTS_API_URL = "/api/comments/";
 
     @Autowired
     private CommentsApi commentsApi;
 
 
+    @Override
     @Before
     public void setup() {
         final CommentEntry commentEntry = this.buildAnonCommentEntry();
@@ -45,7 +47,7 @@ public class CommentsControllerTests extends BaseEndpointCase {
             .thenReturn(Arrays.asList(commentEntry));
         when(this.commentsApi.getComment(ID))
             .thenReturn(Optional.of(commentEntry));
-        when(this.commentsApi.getComment(NOT_EXISTING_ID))
+        when(this.commentsApi.getComment(NON_EXISTENT_ID))
             .thenReturn(Optional.empty());
     }
 
@@ -63,7 +65,7 @@ public class CommentsControllerTests extends BaseEndpointCase {
     @Test
     public void Getting_an_unexisted_comment_should_return_404()
             throws Exception {
-        final String url = COMMENTS_API_URL + NOT_EXISTING_ID;
+        final String url = COMMENTS_API_URL + NON_EXISTENT_ID;
 
         this.mockMvc.perform(get(url))
             .andExpect(status().isNotFound());
@@ -72,7 +74,7 @@ public class CommentsControllerTests extends BaseEndpointCase {
 
     @Test
     public void Creating_a_new_comment_should_return_201() throws Exception {
-        final String jsonComment = this.jsonStringify(
+        final String jsonComment = this.jsonify(
                 this.buildAnonCommentInput());
 
         this.mockMvc.perform(post(COMMENTS_API_URL)

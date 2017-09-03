@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,11 +20,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import demo.config.GuestBookProfiles;
+import demo.config.MainSpringConfig;
+import demo.config.SecurityConfig;
 
 
 @RunWith(SpringRunner.class)
+@ActiveProfiles(profiles=GuestBookProfiles.NO_DB_INTEGRATION_TESTING)
+@Import({MainSpringConfig.class, SecurityConfig.class})
+@ComponentScan(basePackages="demo")
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK)
-@ActiveProfiles(profiles=GuestBookProfiles.H2_INTEGRATION_TESTING)
 public abstract class BaseEndpointCase {
     private final Logger logger = LoggerFactory
             .getLogger(BaseEndpointCase.class.getName());
@@ -48,7 +54,7 @@ public abstract class BaseEndpointCase {
     }
 
 
-    protected String jsonStringify(final Object o) {
+    protected String jsonify(final Object o) {
         try {
             return this.stringifyOrThrow(o);
         } catch (JsonProcessingException e) {
