@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import demo.api.CommentsApi;
-import demo.common.controllers.BaseController;
+import demo.common.endpoint.BaseController;
 import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
 import io.swagger.annotations.ApiOperation;

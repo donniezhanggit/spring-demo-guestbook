@@ -1,4 +1,4 @@
-package demo.common.controllers;
+package demo.common.endpoint;
 
 import java.util.Optional;
 
