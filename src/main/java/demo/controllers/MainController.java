@@ -4,8 +4,6 @@ import java.time.format.DateTimeFormatter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -28,14 +26,13 @@ public class MainController extends WebMvcConfigurerAdapter {
     private final CommentsApi commentsApi;
 
 
-    public MainController(@NotNull final CommentsApi commentsApi) {
+    public MainController(final CommentsApi commentsApi) {
         this.commentsApi = commentsApi;
     }
 
 
-    @NotNull
-    public ModelAndView generateView(@NotNull final String viewname,
-                                     @NotNull final CommentInput commentForm) {
+    public ModelAndView generateView(final String viewname,
+                                     final CommentInput commentForm) {
         final ModelAndView view = new ModelAndView(viewname);
 
         view.addObject("commentForm", commentForm);

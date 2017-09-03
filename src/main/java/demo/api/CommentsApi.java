@@ -5,8 +5,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import org.springframework.transaction.annotation.Transactional;
 import demo.common.annotations.Api;
 import demo.dto.CommentEntry;
@@ -21,12 +19,11 @@ public class CommentsApi {
     private final CommentsRepository commentRepo;
 
 
-    public CommentsApi(@NotNull final CommentsRepository commentRepo) {
+    public CommentsApi(final CommentsRepository commentRepo) {
         this.commentRepo = commentRepo;
     }
 
 
-    @NotNull
     public List<CommentEntry> getComments() {
         final List<Comment> comments = this.commentRepo
             .findAllByOrderByCreatedAsc();
