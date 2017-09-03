@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 
+import demo.common.domain.DomainEntity;
+
 
 @Entity
 @Table(name="gbuser")

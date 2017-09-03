@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.validator.constraints.Length;
 
+import demo.common.domain.DomainEntity;
 import demo.dto.CommentInput;
 
 
