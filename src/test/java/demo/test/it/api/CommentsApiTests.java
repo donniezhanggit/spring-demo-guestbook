@@ -15,9 +15,9 @@ import demo.dto.CommentInput;
 import demo.model.Comment;
 import demo.model.CommentBuilder;
 import demo.repos.CommentsRepository;
+import demo.test.common.FakeData;
 import demo.test.dto.CommentInputBuilder;
 import demo.test.it.common.BaseRecreatePerClassITCase;
-import liquibase.util.StringUtils;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -118,10 +118,10 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     @Test
     public void When_name_is_too_long_expect_ValidationException() {
         // Arrange.
-        final String longname = this.fakeStringWithLength(
+        final String tooLongName = FakeData.stringWithLength(
                 Comment.NAME_MAX_LENGTH+1);
         final CommentInput input = this.getCommentInputBuilder()
-                .name(longname).build();
+                .name(tooLongName).build();
 
         // Act and assert.
         thrown.expect(ValidationException.class);
@@ -132,10 +132,10 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     @Test
     public void When_name_length_is_max_comment_should_be_saved() {
         //Arrange.
-        final String longname = this.fakeStringWithLength(
+        final String longName = FakeData.stringWithLength(
                 Comment.NAME_MAX_LENGTH);
         final CommentInput input = this.getCommentInputBuilder()
-                .name(longname).build();
+                .name(longName).build();
 
         // Act.
         final CommentEntry entry = this.commentsApi.createComment(input);
@@ -148,10 +148,10 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     @Test
     public void When_message_is_too_long_expect_ValidationException() {
         // Arrange.
-        final String longmessage = this.fakeStringWithLength(
+        final String tooLongMessage = FakeData.stringWithLength(
                 Comment.MESSAGE_MAX_LENGTH+1);
         final CommentInput input = this.getCommentInputBuilder()
-                .message(longmessage).build();
+                .message(tooLongMessage).build();
 
         // Act and assert.
         thrown.expect(ValidationException.class);
@@ -162,10 +162,10 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     @Test
     public void When_message_length_is_max_comment_should_be_saved() {
         //Arrange.
-        final String longmessage = this.fakeStringWithLength(
+        final String longMessage = FakeData.stringWithLength(
                 Comment.MESSAGE_MAX_LENGTH);
         final CommentInput input = this.getCommentInputBuilder()
-                .message(longmessage).build();
+                .message(longMessage).build();
 
         // Act.
         final CommentEntry entry = this.commentsApi.createComment(input);
@@ -189,10 +189,5 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
     private CommentInputBuilder getCommentInputBuilder() {
         return new CommentInputBuilder()
                 .name(ANON_NAME).message(MESSAGE);
-    }
-
-
-    private String fakeStringWithLength(int length) {
-        return StringUtils.repeat("A", length);
     }
 }

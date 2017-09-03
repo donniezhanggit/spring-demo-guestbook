@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -24,12 +23,12 @@ import demo.test.it.common.BaseEndpointCase;
 
 
 public class CommentsControllerTests extends BaseEndpointCase {
-    private static final Long ID = 1L;
+    private static final Long EXISTING_ID = 1L;
+    private static final Long NON_EXISTENT_ID = 2L;
     private static final Short VERSION = 0;
     private static final String NAME = "anon";
     private static final String MESSAGE = "message";
     private static final LocalDateTime CREATED = LocalDateTime.now();
-    private static final Long NON_EXISTENT_ID = 2L;
     private static final String COMMENTS_API_URL = "/api/comments/";
 
     @Autowired
@@ -37,7 +36,6 @@ public class CommentsControllerTests extends BaseEndpointCase {
 
 
     @Override
-    @Before
     public void setup() {
         final CommentEntry commentEntry = this.buildAnonCommentEntry();
 
@@ -45,7 +43,7 @@ public class CommentsControllerTests extends BaseEndpointCase {
             .thenReturn(commentEntry);
         when(this.commentsApi.getComments())
             .thenReturn(Arrays.asList(commentEntry));
-        when(this.commentsApi.getComment(ID))
+        when(this.commentsApi.getComment(EXISTING_ID))
             .thenReturn(Optional.of(commentEntry));
         when(this.commentsApi.getComment(NON_EXISTENT_ID))
             .thenReturn(Optional.empty());
@@ -63,7 +61,19 @@ public class CommentsControllerTests extends BaseEndpointCase {
 
 
     @Test
-    public void Getting_an_unexisted_comment_should_return_404()
+    public void Getting_an_existing_comment_should_return_200()
+            throws Exception {
+        final String url = COMMENTS_API_URL + EXISTING_ID;
+
+        this.mockMvc.perform(get(url))
+        .andExpect(status().isOk())
+        .andExpect(content()
+                .contentType(MediaType.APPLICATION_JSON_UTF8));
+    }
+
+
+    @Test
+    public void Getting_a_non_existent_comment_should_return_404()
             throws Exception {
         final String url = COMMENTS_API_URL + NON_EXISTENT_ID;
 
@@ -87,7 +97,7 @@ public class CommentsControllerTests extends BaseEndpointCase {
 
     private CommentEntry buildAnonCommentEntry() {
         return new CommentEntryBuilder()
-                .id(ID).created(CREATED).version(VERSION)
+                .id(EXISTING_ID).created(CREATED).version(VERSION)
                 .anonName(NAME).message(MESSAGE).username(null)
                 .build();
     }

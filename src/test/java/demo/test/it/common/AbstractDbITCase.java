@@ -24,6 +24,7 @@ public abstract class AbstractDbITCase extends JUnitTestCase {
     @Autowired
     private InitOnceChecker initOnceChecker;
 
+
     @PostConstruct
     private void runPostConstruct() {
         if(this.initOnceChecker.getAndSet()) return;
