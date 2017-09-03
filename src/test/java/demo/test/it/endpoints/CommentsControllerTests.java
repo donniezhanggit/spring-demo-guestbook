@@ -74,8 +74,7 @@ public class CommentsControllerTests extends BaseEndpointCase {
 
     @Test
     public void Creating_a_new_comment_should_return_201() throws Exception {
-        final String jsonComment = this.jsonify(
-                this.buildAnonCommentInput());
+        final String jsonComment = this.jsonify(this.buildAnonCommentInput());
 
         this.mockMvc.perform(post(COMMENTS_API_URL)
                 .content(jsonComment)

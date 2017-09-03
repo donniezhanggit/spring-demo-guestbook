@@ -116,7 +116,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
 
     @Test
-    public void When_name_is_longer_than_max_expect_ValidationException() {
+    public void When_name_is_too_long_expect_ValidationException() {
         // Arrange.
         final String longname = this.fakeStringWithLength(
                 Comment.NAME_MAX_LENGTH+1);
@@ -146,7 +146,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
 
     @Test
-    public void When_message_is_longer_expect_ValidationException() {
+    public void When_message_is_too_long_expect_ValidationException() {
         // Arrange.
         final String longmessage = this.fakeStringWithLength(
                 Comment.MESSAGE_MAX_LENGTH+1);
