@@ -1,6 +1,9 @@
-package demo.model;
+package demo.test.model;
 
 import org.junit.Test;
+
+import demo.model.User;
+import demo.model.UserBuilder;
 
 import static org.assertj.core.api.Assertions.*;
 
