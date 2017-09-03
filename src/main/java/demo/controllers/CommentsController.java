@@ -3,8 +3,6 @@ package demo.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import demo.api.CommentsApi;
+import demo.common.controllers.BaseController;
 import demo.dto.CommentEntry;
 import demo.dto.CommentInput;
 import io.swagger.annotations.ApiOperation;
@@ -22,11 +21,11 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api/comments")
-public class CommentsController {
+public class CommentsController extends BaseController {
     private final CommentsApi commentsApi;
 
 
-    public CommentsController(@NotNull final CommentsApi commentsApi) {
+    public CommentsController(final CommentsApi commentsApi) {
         this.commentsApi = commentsApi;
     }
 
@@ -44,9 +43,7 @@ public class CommentsController {
     getComment(@PathVariable final Long id) {
         final Optional<CommentEntry> entry = this.commentsApi.getComment(id);
 
-        return entry.isPresent()
-            ? ResponseEntity.ok(entry.get())
-            : ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        return this.responseFrom(entry);
     }
 
 
