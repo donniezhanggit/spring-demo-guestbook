@@ -65,7 +65,6 @@ public class User extends DomainEntity {
         this.email    = ub.email;
         this.created  = ub.created;
         this.active   = ub.active;
-        this.comments = ub.comments;
     }
 
 
