@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 
 import org.springframework.stereotype.Repository;
 
+import demo.common.data.DataRepository;
 import demo.model.Comment;
 
 

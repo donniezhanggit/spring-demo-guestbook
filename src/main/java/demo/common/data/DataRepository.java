@@ -1,4 +1,4 @@
-package demo.repos;
+package demo.common.data;
 
 import java.io.Serializable;
 import java.util.Optional;
