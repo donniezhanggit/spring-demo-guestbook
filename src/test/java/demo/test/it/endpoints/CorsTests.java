@@ -23,7 +23,7 @@ public class CorsTests extends BaseEndpointCase {
     @Test
     public void Request_with_wrong_origin_should_return_403()
             throws Exception {
-        mockMvc.perform(get(PING_API_URL)
+        this.mockMvc.perform(get(PING_API_URL)
                 .header(ORIGIN_HEADER, WRONG_ORIGIN_URL))
             .andExpect(status().isForbidden());
     }
