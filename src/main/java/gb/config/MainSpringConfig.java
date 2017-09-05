@@ -24,7 +24,6 @@ public class MainSpringConfig {
 
 
     @Bean
-    @Primary
     public ObjectMapper objectMapper() {
         final ObjectMapper mapper = new ObjectMapper();
 
