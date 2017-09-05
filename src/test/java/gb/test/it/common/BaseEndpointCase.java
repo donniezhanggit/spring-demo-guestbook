@@ -19,6 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import gb.Application;
 import gb.config.GuestBookProfiles;
 import gb.config.MainSpringConfig;
 import gb.config.SecurityConfig;
@@ -27,7 +28,7 @@ import gb.config.SecurityConfig;
 @RunWith(SpringRunner.class)
 @ActiveProfiles(profiles=GuestBookProfiles.NO_DB_INTEGRATION_TESTING)
 @Import({MainSpringConfig.class, SecurityConfig.class})
-@ComponentScan(basePackages="gb")
+@ComponentScan(basePackageClasses=Application.class)
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK)
 public abstract class BaseEndpointCase {
     private final Logger logger = LoggerFactory
