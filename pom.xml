@@ -5,11 +5,11 @@
 
 
   <groupId>org.guestbook</groupId>
-  <artifactId>demo-guestbook</artifactId>
+  <artifactId>guestbook</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>demo-guestbook</name>
-  <description>Demo project for Spring Boot</description>
+  <name>guestbook</name>
+  <description>Guestbook</description>
 
 
   <parent>
@@ -150,8 +150,6 @@
       <artifactId>springfox-bean-validators</artifactId>
       <version>2.7.0</version>
         </dependency>
-
-
 
   </dependencies>
 
