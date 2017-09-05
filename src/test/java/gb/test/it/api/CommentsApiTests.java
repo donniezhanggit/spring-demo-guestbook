@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.ValidationException;
 
@@ -26,7 +27,6 @@ import static org.assertj.core.api.Assertions.*;
 public class CommentsApiTests extends BaseRecreatePerClassITCase {
     private static final String ANON_NAME = "anon";
     private static final String MESSAGE = "message";
-    private static final LocalDateTime CREATED = LocalDateTime.now();
     private static final Short MIN_VERSION = 0;
 
     @Autowired
@@ -38,12 +38,21 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
     @Override
     public void predefinedData() {
-        final CommentBuilder cb = new CommentBuilder()
-                .created(CREATED).name(ANON_NAME).message(MESSAGE);
-        final Comment comment1 = cb.build();
-        final Comment comment2 = cb.build();
+        final LocalDateTime created1 =
+                LocalDateTime.of(2017, 9, 1, 12, 34, 16);
+        final LocalDateTime created2 =
+                LocalDateTime.of(2017, 9, 1, 12, 33, 19);
+        final LocalDateTime created3 =
+                LocalDateTime.of(2017, 9, 1, 12, 37, 31);
 
-        commentRepo.save(Arrays.asList(comment1, comment2));
+        final CommentBuilder cb = new CommentBuilder()
+                .name(ANON_NAME).message(MESSAGE);
+
+        final Comment comment1 = cb.created(created1).build();
+        final Comment comment2 = cb.created(created2).build();
+        final Comment comment3 = cb.created(created3).build();
+
+        commentRepo.save(Arrays.asList(comment3, comment2, comment1));
     }
 
 
@@ -162,7 +171,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
     @Test
     public void When_message_length_is_max_comment_should_be_saved() {
-        //Arrange.
+        // Arrange.
         final String longMessage = FakeData.stringWithLength(
                 Comment.MESSAGE_MAX_LENGTH);
         final CommentInput input = this.getCommentInputBuilder()
@@ -173,6 +182,19 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
 
         // Assert.
         assertThat(entry.getId()).isNotNull();
+    }
+
+
+    @Test
+    public void A_list_of_comments_should_be_ordered_by_date() {
+        // Arrange and act.
+        final List<LocalDateTime> dates = this.commentsApi.getComments()
+                .stream().map(CommentEntry::getCreated)
+                .collect(Collectors.toList());
+
+        dates.forEach(System.out::println);
+
+        assertThat(dates).isSorted();
     }
 
 
