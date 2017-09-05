@@ -192,8 +192,7 @@ public class CommentsApiTests extends BaseRecreatePerClassITCase {
                 .stream().map(CommentEntry::getCreated)
                 .collect(Collectors.toList());
 
-        dates.forEach(System.out::println);
-
+        // Assert.
         assertThat(dates).isSorted();
     }
 
