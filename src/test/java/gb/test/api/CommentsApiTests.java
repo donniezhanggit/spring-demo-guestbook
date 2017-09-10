@@ -22,7 +22,8 @@ import gb.test.dto.CommentInputBuilder;
 
 
 public class CommentsApiTests extends JUnitTestCase {
-    private static final Long ID = 1L;
+    private static final Long EXISTING_ID = 1L;
+    private static final Long NON_EXISTENT_ID = -1L;
     private static final Short VERSION = 0;
     private static final String NAME = "anon";
     private static final String MESSAGE = "message";
@@ -41,6 +42,36 @@ public class CommentsApiTests extends JUnitTestCase {
 
         when(commentRepo.save(any(Comment.class)))
             .thenReturn(comment);
+        when(commentRepo.findOne(EXISTING_ID))
+            .thenReturn(Optional.of(comment));
+        when(commentRepo.findOne(NON_EXISTENT_ID))
+            .thenReturn(Optional.empty());
+    }
+
+
+    @Test
+    public void An_anonymous_comment_should_be_fetched() {
+        // Arrange.
+        final CommentEntry expected = this.buildAnonCommentEntry();
+
+        // Act.
+        final Optional<CommentEntry> actual = this.commentsApi
+                .getComment(EXISTING_ID);
+
+        // Assert.
+        assertThat(actual.isPresent()).isTrue();
+        this.assertReturnedCommentEntry(actual.get(), expected);
+    }
+
+
+    @Test
+    public void When_comment_isnt_exist_an_empty_optional_should_returned() {
+        // Arrange and act.
+        final Optional<CommentEntry> actual = this.commentsApi
+                .getComment(NON_EXISTENT_ID);
+
+        // Assert.
+        assertThat(actual.isPresent()).isFalse();
     }
 
 
@@ -103,14 +134,14 @@ public class CommentsApiTests extends JUnitTestCase {
 
     private CommentEntry buildAnonCommentEntry() {
         return new CommentEntryBuilder()
-                .id(ID).version(VERSION).created(CREATED)
+                .id(EXISTING_ID).version(VERSION).created(CREATED)
                 .anonName(NAME).message(MESSAGE).build();
     }
 
 
     private Comment buildAnonComment() {
         return new CommentBuilder()
-                .id(ID).version(VERSION).created(CREATED)
+                .id(EXISTING_ID).version(VERSION).created(CREATED)
                 .name(NAME).message(MESSAGE).user(null).build();
     }
 }
