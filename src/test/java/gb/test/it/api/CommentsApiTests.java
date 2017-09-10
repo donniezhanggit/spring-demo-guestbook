@@ -22,6 +22,7 @@ import static org.assertj.core.api.Assertions.*;
 
 
 public class CommentsApiTests extends RecreatePerClassITCase {
+    private static final Long NON_EXISTENT_ID = -1L;
     private static final String ANON_NAME = "anon";
     private static final String MESSAGE = "message";
     private static final Short MIN_VERSION = 0;
@@ -75,6 +76,17 @@ public class CommentsApiTests extends RecreatePerClassITCase {
         // Assert.
         assertThat(comment.isPresent()).isTrue();
         comment.ifPresent(this::assertCommentEntry);
+    }
+
+
+    @Test
+    public void When_comment_isnt_exist_an_empty_optional_should_returned() {
+        // Arrange and act.
+        final Optional<CommentEntry> actual = this.commentsApi
+                .getComment(NON_EXISTENT_ID);
+
+        // Assert.
+        assertThat(actual.isPresent()).isFalse();
     }
 
 
