@@ -19,12 +19,12 @@ import gb.model.CommentBuilder;
 import gb.repos.CommentsRepository;
 import gb.test.common.FakeData;
 import gb.test.dto.CommentInputBuilder;
-import gb.test.it.common.BaseRecreatePerClassITCase;
+import gb.test.it.common.RecreatePerClassITCase;
 
 import static org.assertj.core.api.Assertions.*;
 
 
-public class CommentsApiTests extends BaseRecreatePerClassITCase {
+public class CommentsApiTests extends RecreatePerClassITCase {
     private static final String ANON_NAME = "anon";
     private static final String MESSAGE = "message";
     private static final Short MIN_VERSION = 0;

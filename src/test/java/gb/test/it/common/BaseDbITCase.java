@@ -18,9 +18,9 @@ import gb.test.common.JUnitTestCase;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.NONE)
 @ActiveProfiles(profiles = {GuestBookProfiles.H2_INTEGRATION_TESTING})
-public abstract class AbstractDbITCase extends JUnitTestCase {
+public abstract class BaseDbITCase extends JUnitTestCase {
     final private Logger logger = LoggerFactory
-            .getLogger(AbstractDbITCase.class);
+            .getLogger(BaseDbITCase.class);
 
     @Autowired
     private InitOnceChecker initOnceChecker;

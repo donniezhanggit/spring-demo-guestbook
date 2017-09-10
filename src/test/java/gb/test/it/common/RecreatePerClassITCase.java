@@ -5,6 +5,7 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
 
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
-public abstract class BaseRecreatePerClassITCase extends AbstractDbITCase {
-
+public abstract class RecreatePerClassITCase extends BaseDbITCase {
+    @Override
+    protected void predefinedData() {}
 }

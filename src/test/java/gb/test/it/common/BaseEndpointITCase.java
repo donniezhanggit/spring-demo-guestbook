@@ -31,9 +31,9 @@ import gb.config.WebConfig;
 @Import({MainConfig.class, SecurityConfig.class, WebConfig.class})
 @ComponentScan(basePackageClasses=Application.class)
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK)
-public abstract class BaseEndpointCase {
+public abstract class BaseEndpointITCase {
     private final Logger logger = LoggerFactory
-            .getLogger(BaseEndpointCase.class.getName());
+            .getLogger(BaseEndpointITCase.class.getName());
 
     @Autowired
     private WebApplicationContext wac;

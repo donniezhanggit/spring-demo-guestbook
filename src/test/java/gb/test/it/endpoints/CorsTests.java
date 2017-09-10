@@ -5,17 +5,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Test;
 
-import gb.test.it.common.BaseEndpointCase;
+import gb.test.it.common.EndpointITCase;
 
 
-public class CorsTests extends BaseEndpointCase {
+public class CorsTests extends EndpointITCase {
     private static final String PING_API_URL = "/api/ping";
     private static final String ORIGIN_HEADER = "Origin";
     private static final String WRONG_ORIGIN_URL = "http://malicious.net";
     private static final String RIGHT_ORIGIN_URL = "http://localhost:8080";
-
-
-    @Override public void setup() {}
 
 
     @Test

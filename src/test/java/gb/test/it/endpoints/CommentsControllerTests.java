@@ -19,10 +19,10 @@ import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import gb.test.dto.CommentEntryBuilder;
 import gb.test.dto.CommentInputBuilder;
-import gb.test.it.common.BaseEndpointCase;
+import gb.test.it.common.EndpointITCase;
 
 
-public class CommentsControllerTests extends BaseEndpointCase {
+public class CommentsControllerTests extends EndpointITCase {
     private static final Long EXISTING_ID = 1L;
     private static final Long NON_EXISTENT_ID = 2L;
     private static final Short VERSION = 0;
