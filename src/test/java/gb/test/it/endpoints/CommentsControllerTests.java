@@ -66,9 +66,9 @@ public class CommentsControllerTests extends EndpointITCase {
         final String url = COMMENTS_API_URL + EXISTING_ID;
 
         this.mockMvc.perform(get(url))
-        .andExpect(status().isOk())
-        .andExpect(content()
-                .contentType(MediaType.APPLICATION_JSON_UTF8));
+            .andExpect(status().isOk())
+            .andExpect(content()
+                    .contentType(MediaType.APPLICATION_JSON_UTF8));
     }
 
 

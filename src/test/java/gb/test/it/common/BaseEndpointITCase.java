@@ -58,7 +58,7 @@ public abstract class BaseEndpointITCase {
 
     protected String jsonify(final Object o) {
         try {
-            return this.stringifyOrThrow(o);
+            return this.jsonifyOrThrow(o);
         } catch (JsonProcessingException e) {
             // Do not force an end user to handle exceptions.
             throw new RuntimeException(e);
@@ -66,7 +66,7 @@ public abstract class BaseEndpointITCase {
     }
 
 
-    private String stringifyOrThrow(final Object o)
+    private String jsonifyOrThrow(final Object o)
             throws JsonProcessingException {
         final String json = this.objectMapper.writeValueAsString(o);
 
