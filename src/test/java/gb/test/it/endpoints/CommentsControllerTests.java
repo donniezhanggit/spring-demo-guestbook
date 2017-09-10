@@ -24,7 +24,7 @@ import gb.test.it.common.EndpointITCase;
 
 public class CommentsControllerTests extends EndpointITCase {
     private static final Long EXISTING_ID = 1L;
-    private static final Long NON_EXISTENT_ID = 2L;
+    private static final Long NON_EXISTENT_ID = -1L;
     private static final Short VERSION = 0;
     private static final String NAME = "anon";
     private static final String MESSAGE = "message";
