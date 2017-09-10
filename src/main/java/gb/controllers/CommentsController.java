@@ -33,7 +33,9 @@ public class CommentsController extends BaseController {
     @GetMapping
     @ApiOperation(nickname="getComments", value="List all comments")
     public ResponseEntity<List<CommentEntry>> getComments() {
-        return ResponseEntity.ok(this.commentsApi.getComments());
+        final List<CommentEntry> comments = this.commentsApi.getComments();
+
+        return ResponseEntity.ok(comments);
     }
 
 
