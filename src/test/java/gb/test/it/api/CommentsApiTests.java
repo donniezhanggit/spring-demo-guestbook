@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.validation.ValidationException;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +15,6 @@ import gb.dto.CommentInput;
 import gb.model.Comment;
 import gb.model.CommentBuilder;
 import gb.repos.CommentsRepository;
-import gb.test.common.FakeData;
 import gb.test.dto.CommentInputBuilder;
 import gb.test.it.common.RecreatePerClassITCase;
 
@@ -52,7 +49,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
         final Comment comment2 = cb.created(created2).build();
         final Comment comment3 = cb.created(created3).build();
 
-        commentRepo.save(Arrays.asList(comment3, comment2, comment1));
+        commentRepo.save(Arrays.asList(comment1, comment2, comment3));
     }
 
 
@@ -122,66 +119,6 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
         // Assert.
         assertThat(actualQty).isEqualTo(expectedQty);
-    }
-
-
-    @Test
-    public void When_name_is_too_long_expect_ValidationException() {
-        // Arrange.
-        final String tooLongName = FakeData.stringWithLength(
-                Comment.NAME_MAX_LENGTH+1);
-        final CommentInput input = this.getCommentInputBuilder()
-                .name(tooLongName).build();
-
-        // Act and assert.
-        thrown.expect(ValidationException.class);
-        this.commentsApi.createComment(input);
-    }
-
-
-    @Test
-    public void When_name_length_is_max_comment_should_be_saved() {
-        //Arrange.
-        final String longName = FakeData.stringWithLength(
-                Comment.NAME_MAX_LENGTH);
-        final CommentInput input = this.getCommentInputBuilder()
-                .name(longName).build();
-
-        // Act.
-        final CommentEntry entry = this.commentsApi.createComment(input);
-
-        // Assert.
-        assertThat(entry.getId()).isNotNull();
-    }
-
-
-    @Test
-    public void When_message_is_too_long_expect_ValidationException() {
-        // Arrange.
-        final String tooLongMessage = FakeData.stringWithLength(
-                Comment.MESSAGE_MAX_LENGTH+1);
-        final CommentInput input = this.getCommentInputBuilder()
-                .message(tooLongMessage).build();
-
-        // Act and assert.
-        thrown.expect(ValidationException.class);
-        this.commentsApi.createComment(input);
-    }
-
-
-    @Test
-    public void When_message_length_is_max_comment_should_be_saved() {
-        // Arrange.
-        final String longMessage = FakeData.stringWithLength(
-                Comment.MESSAGE_MAX_LENGTH);
-        final CommentInput input = this.getCommentInputBuilder()
-                .message(longMessage).build();
-
-        // Act.
-        final CommentEntry entry = this.commentsApi.createComment(input);
-
-        // Assert.
-        assertThat(entry.getId()).isNotNull();
     }
 
 
