@@ -15,10 +15,7 @@ public class CorsTests extends BaseEndpointCase {
     private static final String RIGHT_ORIGIN_URL = "http://localhost:8080";
 
 
-    @Override
-    public void setup() {
-
-    }
+    @Override public void setup() {}
 
 
     @Test
