@@ -21,13 +21,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gb.Application;
 import gb.config.GuestBookProfiles;
-import gb.config.MainSpringConfig;
+import gb.config.MainConfig;
 import gb.config.SecurityConfig;
+import gb.config.WebConfig;
 
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles(profiles=GuestBookProfiles.NO_DB_INTEGRATION_TESTING)
-@Import({MainSpringConfig.class, SecurityConfig.class})
+@Import({MainConfig.class, SecurityConfig.class, WebConfig.class})
 @ComponentScan(basePackageClasses=Application.class)
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK)
 public abstract class BaseEndpointCase {
