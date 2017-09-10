@@ -15,8 +15,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-            .allowedOrigins(origin)
-            .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-            .maxAge(60 * 60);
+            .allowedOrigins(this.origin)
+            .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
     }
 }
