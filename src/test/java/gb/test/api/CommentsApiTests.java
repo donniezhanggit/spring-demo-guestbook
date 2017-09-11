@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -46,6 +48,8 @@ public class CommentsApiTests extends JUnitTestCase {
             .thenReturn(Optional.of(comment));
         when(commentRepo.findOne(NON_EXISTENT_ID))
             .thenReturn(Optional.empty());
+        when(commentRepo.findAllByOrderByCreatedAsc())
+            .thenReturn(Arrays.asList(comment));
     }
 
 
@@ -74,6 +78,22 @@ public class CommentsApiTests extends JUnitTestCase {
         // Assert.
         verify(this.commentRepo, times(1)).findOne(NON_EXISTENT_ID);
         assertThat(actual.isPresent()).isFalse();
+    }
+
+
+    @Test
+    public void A_list_of_comments_should_be_fetched() {
+        // Arrange.
+        final CommentEntry expected = this.buildAnonCommentEntry();
+
+        // Act.
+        final List<CommentEntry> comments = this.commentsApi
+                .getComments();
+
+        // Assert.
+        verify(this.commentRepo, times(1)).findAllByOrderByCreatedAsc();
+        assertThat(comments.size()).isGreaterThan(0);
+        this.assertReturnedCommentEntry(comments.get(0), expected);
     }
 
 
