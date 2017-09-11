@@ -26,6 +26,12 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     private static final String ANON_NAME = "anon";
     private static final String MESSAGE = "message";
     private static final Short MIN_VERSION = 0;
+    private static final LocalDateTime CREATED1 =
+            LocalDateTime.of(2017, 9, 1, 12, 34, 16);
+    private static final LocalDateTime CREATED2 =
+            LocalDateTime.of(2017, 9, 1, 12, 33, 19);
+    private static final LocalDateTime CREATED3 =
+            LocalDateTime.of(2017, 9, 1, 12, 37, 31);
 
     @Autowired
     private CommentsApi commentsApi;
@@ -36,31 +42,17 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
     @Override
     public void predefinedData() {
-        final LocalDateTime created1 =
-                LocalDateTime.of(2017, 9, 1, 12, 34, 16);
-        final LocalDateTime created2 =
-                LocalDateTime.of(2017, 9, 1, 12, 33, 19);
-        final LocalDateTime created3 =
-                LocalDateTime.of(2017, 9, 1, 12, 37, 31);
-
-        final CommentBuilder cb = new CommentBuilder()
-                .name(ANON_NAME).message(MESSAGE);
-
-        final Comment comment1 = cb.created(created1).build();
-        final Comment comment2 = cb.created(created2).build();
-        final Comment comment3 = cb.created(created3).build();
-
-        commentRepo.save(Arrays.asList(comment1, comment2, comment3));
+        commentRepo.save(this.buildCommentsList());
     }
 
 
     @Test
     public void Comments_should_be_fetched() {
         // Arrange and act.
-        final List<CommentEntry> comments = this.commentsApi.getComments();
+        final List<CommentEntry> actual = this.commentsApi.getComments();
 
         // Assert.
-        assertThat(comments.size()).isGreaterThan(0);
+        assertThat(actual.size()).isGreaterThan(0);
     }
 
 
@@ -160,5 +152,26 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     private CommentInputBuilder getCommentInputBuilder() {
         return new CommentInputBuilder()
                 .name(ANON_NAME).message(MESSAGE);
+    }
+
+
+    private List<Comment> buildCommentsList() {
+        final CommentBuilder cb = new CommentBuilder()
+                .name(ANON_NAME).message(MESSAGE);
+
+        final Comment comment1 = cb.created(CREATED1).build();
+        final Comment comment2 = cb.created(CREATED2).build();
+        final Comment comment3 = cb.created(CREATED3).build();
+
+        return Arrays.asList(comment1, comment2, comment3);
+    }
+
+
+    private List<CommentEntry> buildCommentEntriesList() {
+        final List<Comment> comments = this.buildCommentsList();
+
+        return comments.stream()
+                .map(CommentEntry::from)
+                .collect(Collectors.toList());
     }
 }
