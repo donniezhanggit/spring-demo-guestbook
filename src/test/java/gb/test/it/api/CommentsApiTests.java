@@ -165,13 +165,4 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
         return Arrays.asList(comment1, comment2, comment3);
     }
-
-
-    private List<CommentEntry> buildCommentEntriesList() {
-        final List<Comment> comments = this.buildCommentsList();
-
-        return comments.stream()
-                .map(CommentEntry::from)
-                .collect(Collectors.toList());
-    }
 }
