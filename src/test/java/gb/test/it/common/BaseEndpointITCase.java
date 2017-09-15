@@ -39,10 +39,10 @@ public abstract class BaseEndpointITCase {
     private WebApplicationContext wac;
 
     @Autowired
-    protected MockHttpServletRequest request;
+    private ObjectMapper objectMapper;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    protected MockHttpServletRequest request;
 
     protected MockMvc mockMvc;
 
