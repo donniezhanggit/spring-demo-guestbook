@@ -1,9 +1,9 @@
 package gb.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -50,12 +50,11 @@ public class User extends DomainEntity {
     @NotNull
     private LocalDateTime created = LocalDateTime.now();
 
-    @NotNull
     boolean active = true;
 
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
     @JoinColumn(name="gbuser_id")
-    List<Comment> comments;
+    List<Comment> comments = new ArrayList<>();
 
 
     protected User() {}
@@ -110,7 +109,7 @@ public class User extends DomainEntity {
         return this.comments;
     }
 
-    public void setComments(@Nullable List<Comment> comments) {
+    public void setComments(@NotNull List<Comment> comments) {
         this.comments = comments;
     }
 
