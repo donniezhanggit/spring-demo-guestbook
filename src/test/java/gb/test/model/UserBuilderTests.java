@@ -15,24 +15,49 @@ public class UserBuilderTests {
 
 
     @Test
-    public void A_builder_should_return_a_new_user() {
+    public void Check_building_a_new_active_user() {
         // Arrange and act.
         final User actual = new UserBuilder()
                 .username(USERNAME).password(PASSWORD).email(EMAIL)
                 .active(true).build();
 
         // Assert.
-        this.assertUser(actual);
+        this.assertActiveUser(actual);
     }
 
 
-    public void assertUser(final User actual) {
+    @Test
+    public void Check_building_a_new_inactive_user() {
+        // Arrange and act.
+        final User actual = new UserBuilder()
+                .username(USERNAME).password(PASSWORD).email(EMAIL)
+                .active(false).build();
+
+        // Assert.
+        this.assertInactiveUser(actual);
+    }
+
+
+    private void assertActiveUser(final User actual) {
+        this.assertUser(actual);
+
+        assertThat(actual.isActive()).isTrue();
+    }
+
+
+    private void assertInactiveUser(final User actual) {
+        this.assertUser(actual);
+
+        assertThat(actual.isActive()).isFalse();
+    }
+
+
+    private void assertUser(final User actual) {
         assertThat(actual.getId()).isNull();
         assertThat(actual.getVersion()).isNull();
         assertThat(actual.getCreated()).isNotNull();
         assertThat(actual.getUsername()).isEqualTo(USERNAME);
         assertThat(actual.getPassword()).isEqualTo(PASSWORD);
         assertThat(actual.getEmail()).isEqualTo(EMAIL);
-        assertThat(actual.isActive()).isTrue();
     }
 }
