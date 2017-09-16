@@ -117,11 +117,4 @@ public class User extends DomainEntity {
     public void addComment(@Valid @NotNull Comment comment) {
         this.comments.add(comment);
     }
-
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", username=" + username + ", password="
-            + password + ", email=" + email + ", created=" + created
-            + ", active=" + active + "]";
-    }
 }

@@ -1,7 +1,5 @@
 package gb.dto;
 
-import javax.validation.constraints.NotNull;
-
 import org.hibernate.validator.constraints.Length;
 
 import gb.model.Comment;
@@ -28,12 +26,5 @@ public class CommentInput {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-
-    @NotNull
-    @Override
-    public String toString() {
-        return "CommentInput [name=" + name + ", message=" + message + "]";
     }
 }

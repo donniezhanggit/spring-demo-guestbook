@@ -66,14 +66,6 @@ public class CommentEntry {
     }
 
 
-    @Override
-    public String toString() {
-        return "CommentEntry [id=" + id + ", version=" + version 
-                + ", created=" + created + ", anonName=" + anonName
-                + ", message=" + message + ", username=" + username + "]";
-    }
-
-
     @NotNull
     public static CommentEntry from(@NotNull final Comment comment) {
         final CommentEntry entry = new CommentEntry();
