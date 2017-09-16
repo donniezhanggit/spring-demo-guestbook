@@ -1,6 +1,7 @@
 package gb.common.data;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -67,7 +68,7 @@ public interface DataRepository<T, ID extends Serializable>
      *
      * @return all entities
      */
-    Iterable<T> findAll();
+    List<T> findAll();
 
 
     /**
@@ -76,7 +77,7 @@ public interface DataRepository<T, ID extends Serializable>
      * @param ids
      * @return
      */
-    Iterable<T> findAll(Iterable<ID> ids);
+    List<T> findAll(Iterable<ID> ids);
 
 
     /**
@@ -129,7 +130,7 @@ public interface DataRepository<T, ID extends Serializable>
      * @param sort
      * @return all entities sorted by the given options
      */
-    Iterable<T> findAll(Sort sort);
+    List<T> findAll(Sort sort);
 
 
     /**
