@@ -24,6 +24,7 @@ public class CommentTests extends RecreatePerClassITCase {
     private static final String MESSAGE = "message";
     private static final LocalDateTime CREATED = LocalDateTime.now();
 
+
     @Autowired
     CommentsRepository commentsRepo;
 
