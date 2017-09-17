@@ -51,16 +51,6 @@ public class CommentTests extends RecreatePerClassITCase {
 
 
     @Test
-    public void Comments_should_be_fetched() {
-        // Arrange and act.
-        final List<Comment> actual = this.commentsRepo.findAll();
-
-        // Assert.
-        assertThat(actual.size()).isGreaterThan(0);
-    }
-
-
-    @Test
     public void A_comment_without_message_should_throw_exception() {
         // Arrange.
         final Comment commentWithoutMessage = this.getCommentBuilder()

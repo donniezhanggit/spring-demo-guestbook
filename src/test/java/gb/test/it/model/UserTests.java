@@ -53,16 +53,6 @@ public class UserTests extends RecreatePerClassITCase {
 
 
     @Test
-    public void Users_should_be_fetched() {
-        // Arrange and act.
-        final List<User> actual = this.usersRepo.findAll();
-
-        // Assert.
-        assertThat(actual.size()).isGreaterThan(0);
-    }
-
-
-    @Test
     public void A_new_user_should_be_saved() {
         // Arrange.
         final String newUsername = "new_user1";
