@@ -2,7 +2,6 @@ package gb.test.it.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +9,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.TransactionSystemException;
 
-import gb.model.Comment;
 import gb.model.User;
 import gb.model.UserBuilder;
 import gb.repos.UsersRepository;
