@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 
 import gb.common.domain.DomainEntity;
 
@@ -38,13 +39,16 @@ public class User extends DomainEntity {
     public static final int EMAIL_MAX_LENGTH = 40;
 
     @NotNull
+    @Length(min=USERNAME_MIN_LENGTH, max=USERNAME_MAX_LENGTH)
     private String username;
 
     @NotNull
+    @Length(min=PASSWORD_MIN_LENGTH, max=PASSWORD_MAX_LENGTH)
     private String password;
 
     @NotNull
     @Email
+    @Length(min=EMAIL_MIN_LENGTH, max=EMAIL_MAX_LENGTH)
     private String email;
 
     @NotNull
