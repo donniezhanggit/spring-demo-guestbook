@@ -23,55 +23,54 @@ public class CommentTests extends RecreatePerClassITCase {
     private static final String NAME = "anon";
     private static final String MESSAGE = "message";
     private static final LocalDateTime CREATED = LocalDateTime.now();
-    
-    
+
     @Autowired
     CommentsRepository commentsRepo;
-    
-    
+
+
     @Override
     protected void predefinedData() {
         final Comment anonComment = this.buildAnonComment();
-        
+
         this.commentsRepo.save(anonComment);
     }
-    
-    
+
+
     @Test
     public void A_new_comment_should_be_saved() {
         // Arrange.
         final Comment comment = this.buildAnonComment();
-        
+
         // Act.
         final Comment actual = this.commentsRepo.save(comment);
-    
+
         // Assert.
         this.assertNewAnonymousComment(actual);
     }
-    
+
 
     @Test
-    public void A_comments_should_be_fetched() {
+    public void Comments_should_be_fetched() {
         // Arrange and act.
         final List<Comment> actual = this.commentsRepo.findAll();
-    
+
         // Assert.
         assertThat(actual.size()).isGreaterThan(0);
     }
-    
-    
+
+
     @Test
     public void A_comment_without_message_should_throw_exception() {
         // Arrange.
         final Comment commentWithoutMessage = this.getCommentBuilder()
                 .message(null).build();
-        
-        // Act and assert.        
-        thrown.expect(TransactionSystemException.class); 
+
+        // Act and assert.
+        thrown.expect(TransactionSystemException.class);
         this.commentsRepo.save(commentWithoutMessage);
     }
-    
-    
+
+
     @Test
     public void A_comment_with_max_message_should_persist() {
         // Arrange.
@@ -79,13 +78,13 @@ public class CommentTests extends RecreatePerClassITCase {
                 Comment.MESSAGE_MAX_LENGTH);
         final Comment comment = this.getCommentBuilder()
                 .message(longMessage).build();
-        
+
         // Act and assert.
         this.commentsRepo.save(comment);
-        
+
     }
 
-    
+
     @Test
     public void A_comment_with_too_long_message_should_throw_exception() {
         // Arrange.
@@ -93,13 +92,13 @@ public class CommentTests extends RecreatePerClassITCase {
                 Comment.MESSAGE_MAX_LENGTH+1);
         final Comment comment = this.getCommentBuilder()
                 .message(longMessage).build();
-        
-        // Act and assert.        
-        thrown.expect(TransactionSystemException.class); 
+
+        // Act and assert.
+        thrown.expect(TransactionSystemException.class);
         this.commentsRepo.save(comment);
     }
 
-    
+
     @Test
     public void A_comment_with_max_anon_name_should_persist() {
         // Arrange.
@@ -107,12 +106,12 @@ public class CommentTests extends RecreatePerClassITCase {
                 Comment.NAME_MAX_LENGTH);
         final Comment comment = this.getCommentBuilder()
                 .name(longAnonName).build();
-        
+
         // Act and assert.
         this.commentsRepo.save(comment);
     }
 
-    
+
     @Test
     public void A_comment_with_too_long_anon_name_should_throw_exception() {
         // Arrange.
@@ -120,33 +119,34 @@ public class CommentTests extends RecreatePerClassITCase {
                 Comment.NAME_MAX_LENGTH+1);
         final Comment comment = this.getCommentBuilder()
                 .name(longAnonName).build();
-        
-        // Act and assert.        
-        thrown.expect(TransactionSystemException.class); 
+
+        // Act and assert.
+        thrown.expect(TransactionSystemException.class);
         this.commentsRepo.save(comment);
     }
-    
-    
+
+
     @Test
     public void A_comment_without_created_date_should_throw_exception() {
         // Arrange.
         final Comment comment = this.getCommentBuilder()
                 .created(null).build();
-        
-        // Act and assert.        
-        thrown.expect(TransactionSystemException.class); 
+
+        // Act and assert.
+        thrown.expect(TransactionSystemException.class);
         this.commentsRepo.save(comment);
     }
-    
-    
+
+
+    // TODO: check user of comment!
     @Test
     public void Setters_and_getters_should_work_properly() {
         // Arrange.
         final String anotherName = "another name";
         final String anotherMessage = "another message";
-        final LocalDateTime anotherCreated = 
+        final LocalDateTime anotherCreated =
                 LocalDateTime.of(2017, 8, 1, 12, 43, 17);
-        
+
         // Fill with non-default values.
         final Comment input = this.getCommentBuilder()
                 .name(anotherName).message(anotherMessage)
@@ -156,22 +156,22 @@ public class CommentTests extends RecreatePerClassITCase {
         input.setName(NAME);
         input.setMessage(MESSAGE);
         input.setCreated(CREATED);
-        
+
         // Act.
         final Comment actual = this.commentsRepo.save(input);
-        
+
         // Assert.
         this.assertNewAnonymousComment(actual);
     }
-    
-        
+
+
     private void assertNewAnonymousComment(final Comment actual) {
         assertThat(actual.getUser()).isEqualTo(Optional.empty());
-        
+
         this.assertComment(actual);
     }
-    
-    
+
+
     private void assertComment(final Comment actual) {
         assertThat(actual.getId()).isGreaterThanOrEqualTo(MINIMAL_ID);
         assertThat(actual.getVersion()).isEqualTo(MINIMAL_VERSION);
@@ -179,13 +179,13 @@ public class CommentTests extends RecreatePerClassITCase {
         assertThat(actual.getMessage()).isEqualTo(MESSAGE);
         assertThat(actual.getCreated()).isEqualTo(CREATED);
     }
-    
-    
+
+
     private Comment buildAnonComment() {
         return this.getCommentBuilder().build();
     }
-    
-    
+
+
     private CommentBuilder getCommentBuilder() {
         return new CommentBuilder()
                 .created(CREATED).name(NAME)
