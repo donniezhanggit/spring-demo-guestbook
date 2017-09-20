@@ -11,7 +11,7 @@ import org.hibernate.annotations.*;
 
 
 @MappedSuperclass
-public class DomainEntity implements Serializable {
+public abstract class DomainEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public static final String ID_PROPERTY = "id";
