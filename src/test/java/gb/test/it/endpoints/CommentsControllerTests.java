@@ -64,8 +64,10 @@ public class CommentsControllerTests extends EndpointITCase {
     @Test
     public void Getting_a_list_of_comments_should_call_APIs_getComments()
             throws Exception {
+        // Arrange and act.
         this.mockMvc.perform(get(COMMENTS_API_URL));
 
+        // Assert.
         verify(this.commentsApi, times(1)).getComments();
         verifyNoMoreInteractions(this.commentsApi);
     }
@@ -74,8 +76,10 @@ public class CommentsControllerTests extends EndpointITCase {
     @Test
     public void Getting_an_existing_comment_should_return_200()
             throws Exception {
+        // Arrange.
         final String url = COMMENTS_API_URL + EXISTING_ID;
 
+        // Act and assert.
         this.mockMvc.perform(get(url))
             .andExpect(status().isOk())
             .andExpect(content()
@@ -86,8 +90,10 @@ public class CommentsControllerTests extends EndpointITCase {
     @Test
     public void Getting_a_non_existent_comment_should_return_404()
             throws Exception {
+        // Arrange.
         final String url = COMMENTS_API_URL + NON_EXISTENT_ID;
 
+        // Act and assert.
         this.mockMvc.perform(get(url))
             .andExpect(status().isNotFound());
     }
@@ -96,14 +102,13 @@ public class CommentsControllerTests extends EndpointITCase {
     @Test
     public void Getting_a_non_existent_comment_should_call_APIs_getComment()
             throws Exception {
+        // Arrange.
         final String url = COMMENTS_API_URL + NON_EXISTENT_ID;
 
+        // Act.
         this.mockMvc.perform(get(url));
 
-        System.out.println("CLASS CLASS CLASS");
-        System.out.println(this.commentsApi.getClass());
-        System.out.println("CLASS CLASS CLASS");
-
+        // Assert.
         verify(this.commentsApi, times(1)).getComment(NON_EXISTENT_ID);
         verifyNoMoreInteractions(this.commentsApi);
     }
@@ -111,8 +116,10 @@ public class CommentsControllerTests extends EndpointITCase {
 
     @Test
     public void Creating_a_new_comment_should_return_201() throws Exception {
+        // Arrange.
         final String jsonComment = this.jsonify(this.buildAnonCommentInput());
 
+        // Act and assert.
         this.mockMvc.perform(post(COMMENTS_API_URL)
                 .content(jsonComment)
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -125,13 +132,16 @@ public class CommentsControllerTests extends EndpointITCase {
     @Test
     public void Creating_a_new_comment_should_call_APIs_createComment()
             throws Exception {
+        // Arrange.
         final CommentInput input = this.buildAnonCommentInput();
         final String jsonComment = this.jsonify(input);
 
+        // Act. 
         this.mockMvc.perform(post(COMMENTS_API_URL)
                 .content(jsonComment)
                 .contentType(MediaType.APPLICATION_JSON_UTF8));
 
+        // Assert.
         verify(this.commentsApi, times(1))
             .createComment(any(CommentInput.class));
         verifyNoMoreInteractions(this.commentsApi);
