@@ -86,8 +86,6 @@ public class CommentsApiTests extends JUnitTestCase {
                 .getComment(NON_EXISTENT_ID);
 
         // Assert.
-        verify(this.commentRepo, times(1)).findOne(NON_EXISTENT_ID);
-        verifyNoMoreInteractions(this.commentRepo);
         assertThat(actual.isPresent()).isFalse();
     }
 
@@ -113,8 +111,6 @@ public class CommentsApiTests extends JUnitTestCase {
                 .getComments();
 
         // Assert.
-        verify(this.commentRepo, times(1)).findAllByOrderByCreatedAsc();
-        verifyNoMoreInteractions(this.commentRepo);
         assertThat(comments.size()).isGreaterThan(0);
         this.assertReturnedCommentEntry(comments.get(0), expected);
     }
