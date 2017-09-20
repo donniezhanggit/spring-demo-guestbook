@@ -25,7 +25,7 @@ import gb.test.dto.CommentInputBuilder;
 
 public class CommentsApiTests extends JUnitTestCase {
     private static final Long EXISTING_ID = 1L;
-    private static final Long NON_EXISTENT_ID = -1L;
+    private static final Long NON_EXISTENT_ID = Long.MAX_VALUE;
     private static final Short VERSION = 0;
     private static final String NAME = "anon";
     private static final String MESSAGE = "message";

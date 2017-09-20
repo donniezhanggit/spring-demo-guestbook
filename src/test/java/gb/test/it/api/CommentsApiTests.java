@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.*;
 
 
 public class CommentsApiTests extends RecreatePerClassITCase {
-    private static final Long NON_EXISTENT_ID = -1L;
+    private static final Long NON_EXISTENT_ID = Long.MAX_VALUE;
     private static final String ANON_NAME = "anon";
     private static final String MESSAGE = "message";
     private static final Short MIN_VERSION = 0;
