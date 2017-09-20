@@ -1,7 +1,10 @@
 package gb.test.it.common;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,9 @@ import gb.config.WebConfig;
 public abstract class BaseEndpointITCase {
     private final Logger logger = LoggerFactory
             .getLogger(BaseEndpointITCase.class.getName());
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Autowired
     private WebApplicationContext wac;
