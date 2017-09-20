@@ -63,9 +63,19 @@ public class CommentsApiTests extends JUnitTestCase {
                 .getComment(EXISTING_ID);
 
         // Assert.
-        verify(this.commentRepo, times(1)).findOne(EXISTING_ID);
         assertThat(actual.isPresent()).isTrue();
         this.assertReturnedCommentEntry(actual.get(), expected);
+    }
+
+
+    @Test
+    public void Fetching_comment_should_call_repo_findOne() {
+        // Arrange and act.
+        this.commentsApi.getComment(EXISTING_ID);
+
+        // Assert.
+        verify(this.commentRepo, times(1)).findOne(EXISTING_ID);
+        verifyNoMoreInteractions(this.commentRepo);
     }
 
 
@@ -77,7 +87,19 @@ public class CommentsApiTests extends JUnitTestCase {
 
         // Assert.
         verify(this.commentRepo, times(1)).findOne(NON_EXISTENT_ID);
+        verifyNoMoreInteractions(this.commentRepo);
         assertThat(actual.isPresent()).isFalse();
+    }
+
+
+    @Test
+    public void Fetching_non_existent_comment_should_call_repository() {
+        // Arrange and act.
+        this.commentsApi.getComment(NON_EXISTENT_ID);
+
+        // Assert.
+        verify(this.commentRepo, times(1)).findOne(NON_EXISTENT_ID);
+        verifyNoMoreInteractions(this.commentRepo);
     }
 
 
@@ -92,8 +114,20 @@ public class CommentsApiTests extends JUnitTestCase {
 
         // Assert.
         verify(this.commentRepo, times(1)).findAllByOrderByCreatedAsc();
+        verifyNoMoreInteractions(this.commentRepo);
         assertThat(comments.size()).isGreaterThan(0);
         this.assertReturnedCommentEntry(comments.get(0), expected);
+    }
+
+
+    @Test
+    public void Fetching_list_of_comments_should_call_repository() {
+        // Arrange and act.
+        this.commentsApi.getComments();
+
+        // Assert.
+        verify(this.commentRepo, times(1)).findAllByOrderByCreatedAsc();
+        verifyNoMoreInteractions(this.commentRepo);
     }
 
 
@@ -107,6 +141,7 @@ public class CommentsApiTests extends JUnitTestCase {
 
         // Assert.
         verify(this.commentRepo, times(1)).save(this.commentCaptor.capture());
+        verifyNoMoreInteractions(this.commentRepo);
         this.assertCapturedCommentForSaving(this.commentCaptor.getValue());
     }
 
