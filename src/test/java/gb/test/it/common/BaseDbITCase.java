@@ -1,7 +1,8 @@
 package gb.test.it.common;
 
-import javax.annotation.PostConstruct;
+import java.util.function.Supplier;
 
+import javax.annotation.PostConstruct;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,9 @@ public abstract class BaseDbITCase extends JUnitTestCase {
     @Autowired
     private InitOnceChecker initOnceChecker;
 
+    @Autowired
+    private DelegateApi delegateApi;
+
 
     @PostConstruct
     private void runPostConstruct() {
@@ -34,6 +38,11 @@ public abstract class BaseDbITCase extends JUnitTestCase {
                 + getClass().getSimpleName());
 
         this.predefinedData();
+    }
+
+
+    protected <T> T withTransaction(final Supplier<T> supplier) {
+        return this.delegateApi.doWithTransaction(supplier);
     }
 
 
