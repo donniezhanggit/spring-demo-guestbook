@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.TransactionSystemException;
 
 import gb.model.User;
@@ -28,8 +29,7 @@ public class UserTests extends RecreatePerClassITCase {
 
     @Override
     protected void predefinedData() {
-        final String username = USERNAME1;
-        final User user = this.getUserBuilder().username(username).build();
+        final User user = this.getUserBuilder().username(USERNAME1).build();
 
         this.usersRepo.save(user);
     }
@@ -205,6 +205,19 @@ public class UserTests extends RecreatePerClassITCase {
 
         // Assert.
         this.assertUser(actual, expected);
+    }
+
+
+    @Test
+    public void An_username_should_have_unique_constraint() {
+        // Arrange.
+        final String existingUsername = USERNAME1;
+        final User user = this.getUserBuilder()
+                .username(existingUsername).build();
+
+        // Act and assert.
+        thrown.expect(DataIntegrityViolationException.class);
+        this.usersRepo.save(user);
     }
 
 
