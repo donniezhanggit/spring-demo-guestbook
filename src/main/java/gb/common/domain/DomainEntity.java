@@ -40,7 +40,7 @@ public abstract class DomainEntity implements Serializable {
         return id;
     }
 
-    protected void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,7 +48,7 @@ public abstract class DomainEntity implements Serializable {
         return version;
     }
 
-    protected void setVersion(Short version) {
+    public void setVersion(Short version) {
         this.version = version;
     }
 }
