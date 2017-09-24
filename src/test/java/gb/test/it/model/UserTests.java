@@ -228,7 +228,6 @@ public class UserTests extends RecreatePerClassITCase {
             user.ifPresent(u -> u.getComments());
 
             return user;
-
         });
     }
 
@@ -241,6 +240,7 @@ public class UserTests extends RecreatePerClassITCase {
         assertThat(actual.getCreated()).isNotNull();
         assertThat(actual.getPassword()).isEqualTo(expected.getPassword());
         assertThat(actual.getEmail()).isEqualTo(expected.getEmail());
+        assertThat(actual.isActive()).isEqualTo(expected.isActive());
         assertThat(actual.getComments()).isNotNull();
     }
 
