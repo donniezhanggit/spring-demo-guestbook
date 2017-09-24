@@ -43,7 +43,8 @@ public class UserTests extends RecreatePerClassITCase {
                 .username(USERNAME1).build();
 
         // Act.
-        final Optional<User> actual = this.usersRepo.findOne(existingUserId);
+        final Optional<User> actual =
+                this.findUserWithComments(existingUserId);
 
         // Assert.
         assertThat(actual.isPresent()).isTrue();
@@ -204,6 +205,18 @@ public class UserTests extends RecreatePerClassITCase {
 
         // Assert.
         this.assertUser(actual, expected);
+    }
+
+
+    private Optional<User> findUserWithComments(final long id) {
+        return this.withTransaction(() -> {
+            final Optional<User> user = this.usersRepo.findOne(id);
+
+            user.ifPresent(u -> u.getComments());
+
+            return user;
+
+        });
     }
 
 
