@@ -44,7 +44,7 @@ public class UserTests extends RecreatePerClassITCase {
 
         // Act.
         final Optional<User> actual =
-                this.findUserWithComments(existingUserId);
+                this.fetchUserWithComments(existingUserId);
 
         // Assert.
         assertThat(actual.isPresent()).isTrue();
@@ -221,7 +221,7 @@ public class UserTests extends RecreatePerClassITCase {
     }
 
 
-    private Optional<User> findUserWithComments(final long id) {
+    private Optional<User> fetchUserWithComments(final long id) {
         return this.withTransaction(() -> {
             final Optional<User> user = this.usersRepo.findOne(id);
 
