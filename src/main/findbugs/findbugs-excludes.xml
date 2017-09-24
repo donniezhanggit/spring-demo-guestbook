@@ -1,0 +1,9 @@
+<FindBugsFilter>
+  <Match>
+    <Field name="~\$\$_hibernate.*"/>
+  </Match>
+
+  <Match>
+    <Method name="~\$\$_hibernate.*"/>
+  </Match>
+</FindBugsFilter>

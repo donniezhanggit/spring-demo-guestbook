@@ -14,11 +14,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
+    @SuppressFBWarnings(
+            value="BC_UNCONFIRMED_CAST_OF_RETURN_VALUE",
+            justification="Just let me do it!"
+    )
     public void configureGlobal(AuthenticationManagerBuilder auth)
         throws Exception {
         auth

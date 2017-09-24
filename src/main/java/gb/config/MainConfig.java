@@ -12,7 +12,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Configuration
 public class MainConfig {
-    private final String jacksonDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    private static final String JACKSON_DATE_TIME_FORMAT =
+            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
     @Value("${spring.jackson.serialization.INDENT_OUTPUT}")
     private boolean prettyPrint;
@@ -24,7 +25,7 @@ public class MainConfig {
 
         // Serialize LocalDateTime to format available for javascript.
         mapper.registerModule(new JavaTimeModule());
-        mapper.setDateFormat(new SimpleDateFormat(this.jacksonDateFormat));
+        mapper.setDateFormat(new SimpleDateFormat(JACKSON_DATE_TIME_FORMAT));
 
         // Enable pretty print.
         if(this.prettyPrint) {
