@@ -88,6 +88,21 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
+    public void Getting_an_existing_comment_should_call_APIs_getComment()
+            throws Exception {
+        // Arrange.
+        final String url = COMMENTS_API_URL + EXISTING_ID;
+
+        // Act.
+        this.mockMvc.perform(get(url));
+
+        // Assert.
+        verify(this.commentsApi, times(1)).getComment(EXISTING_ID);
+        verifyNoMoreInteractions(this.commentsApi);
+    }
+
+
+    @Test
     public void Getting_a_non_existent_comment_should_return_404()
             throws Exception {
         // Arrange.
