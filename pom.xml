@@ -28,6 +28,21 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <showWarnings>true</showWarnings>
+          <compilerArgs>
+            <arg>-Xlint:all</arg>
+            <arg>-Xlint:unchecked</arg>
+            <arg>-Werror</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
@@ -42,6 +57,27 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>se.eris</groupId>
+        <artifactId>notnull-instrumenter-maven-plugin</artifactId>
+        <version>0.6.6</version>
+        <executions>
+          <execution>
+            <id>instrument</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>instrument</goal>
+              <goal>tests-instrument</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <notNull>
+            <param>javax.annotation.Nonnull</param>
+          </notNull>
+        </configuration>
       </plugin>
 
       <plugin>
@@ -155,7 +191,23 @@
                     </goals>
                   </pluginExecutionFilter>
                   <action>
-                    <ignore/>
+                    <execute/>
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>se.eris</groupId>
+                    <artifactId>
+                      notnull-instrumenter-maven-plugin
+                    </artifactId>
+                    <versionRange>[0.6.6,)</versionRange>
+                    <goals>
+                      <goal>instrument</goal>
+                      <goal>tests-instrument</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <execute/>
                   </action>
                 </pluginExecution>
               </pluginExecutions>
