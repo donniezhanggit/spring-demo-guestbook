@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.Nonnull;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -27,7 +29,7 @@ public interface DataRepository<T, ID extends Serializable>
      * @param entity
      * @return the saved entity
      */
-    <S extends T> S save(S entity);
+    <S extends T> S save(@Nonnull S entity);
 
 
     /**
@@ -38,7 +40,7 @@ public interface DataRepository<T, ID extends Serializable>
      * @throws IllegalArgumentException in case the given entity is
      * {@literal null}.
      */
-    <S extends T> Iterable<S> save(Iterable<S> entities);
+    <S extends T> Iterable<S> save(@Nonnull Iterable<S> entities);
 
 
     /**
@@ -49,7 +51,7 @@ public interface DataRepository<T, ID extends Serializable>
      *         Optional.empty if none found
      * @throws IllegalArgumentException if {@code id} is {@literal null}
      */
-    Optional<T> findOne(ID id);
+    Optional<T> findOne(@Nonnull ID id);
 
 
     /**
@@ -60,7 +62,7 @@ public interface DataRepository<T, ID extends Serializable>
      *         otherwise
      * @throws IllegalArgumentException if {@code id} is {@literal null}
      */
-    boolean exists(ID id);
+    boolean exists(@Nonnull ID id);
 
 
     /**
@@ -77,7 +79,7 @@ public interface DataRepository<T, ID extends Serializable>
      * @param ids
      * @return
      */
-    List<T> findAll(Iterable<ID> ids);
+    List<T> findAll(@Nonnull Iterable<ID> ids);
 
 
     /**
@@ -95,7 +97,7 @@ public interface DataRepository<T, ID extends Serializable>
      * @throws IllegalArgumentException in case the given {@code id} is
      *         {@literal null}
      */
-    void delete(ID id);
+    void delete(@Nonnull ID id);
 
 
     /**
@@ -105,7 +107,7 @@ public interface DataRepository<T, ID extends Serializable>
      * @throws IllegalArgumentException in case the given entity is
      *         {@literal null}
      */
-    void delete(T entity);
+    void delete(@Nonnull T entity);
 
 
     /**
@@ -115,7 +117,7 @@ public interface DataRepository<T, ID extends Serializable>
      * @throws IllegalArgumentException in case the given {@link Iterable}
      *         is {@literal null}
      */
-    void delete(Iterable<? extends T> entities);
+    void delete(@Nonnull Iterable<? extends T> entities);
 
 
     /**
@@ -130,7 +132,7 @@ public interface DataRepository<T, ID extends Serializable>
      * @param sort
      * @return all entities sorted by the given options
      */
-    List<T> findAll(Sort sort);
+    List<T> findAll(@Nonnull Sort sort);
 
 
     /**
@@ -140,5 +142,5 @@ public interface DataRepository<T, ID extends Serializable>
      * @param pageable
      * @return a page of entities
      */
-    Page<T> findAll(Pageable pageable);
+    Page<T> findAll(@Nonnull Pageable pageable);
 }

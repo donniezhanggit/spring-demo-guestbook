@@ -3,6 +3,8 @@ package gb.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.Nonnull;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,7 @@ public class CommentsController extends BaseController {
     private final CommentsApi commentsApi;
 
 
-    public CommentsController(final CommentsApi commentsApi) {
+    public CommentsController(@Nonnull final CommentsApi commentsApi) {
         this.commentsApi = commentsApi;
     }
 

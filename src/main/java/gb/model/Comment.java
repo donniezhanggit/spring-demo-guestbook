@@ -3,6 +3,7 @@ package gb.model;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import javax.annotation.Nonnull;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -48,12 +49,12 @@ public class Comment extends DomainEntity {
 
     protected Comment() {}
 
-    public Comment(@NotNull final CommentInput input) {
+    public Comment(@Nonnull final CommentInput input) {
         this.name = input.getName();
         this.message = input.getMessage();
     }
 
-    public Comment(@NotNull final CommentBuilder cb) {
+    public Comment(@Nonnull final CommentBuilder cb) {
         this.id      = cb.id;
         this.version = cb.version;
         this.created = cb.created;

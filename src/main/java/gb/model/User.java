@@ -4,13 +4,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
@@ -64,7 +64,7 @@ public class User extends DomainEntity {
     protected User() {}
 
 
-    public User(@Valid @NotNull UserBuilder ub) {
+    public User(@Nonnull UserBuilder ub) {
         this.username = ub.username;
         this.password = ub.password;
         this.email    = ub.email;
@@ -113,11 +113,11 @@ public class User extends DomainEntity {
         return this.comments;
     }
 
-    public void setComments(@NotNull List<Comment> comments) {
+    public void setComments(@Nonnull List<Comment> comments) {
         this.comments = comments;
     }
 
-    public void addComment(@Valid @NotNull Comment comment) {
+    public void addComment(@Nonnull Comment comment) {
         this.comments.add(comment);
     }
 }

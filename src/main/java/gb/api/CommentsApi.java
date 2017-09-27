@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nonnull;
 import javax.validation.Valid;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,7 @@ public class CommentsApi {
     private final CommentsRepository commentRepo;
 
 
-    public CommentsApi(final CommentsRepository commentRepo) {
+    public CommentsApi(@Nonnull final CommentsRepository commentRepo) {
         this.commentRepo = commentRepo;
     }
 

@@ -1,6 +1,8 @@
 package gb.model;
 
 import java.time.LocalDateTime;
+
+import javax.annotation.Nonnull;
 import javax.validation.constraints.NotNull;
 
 
@@ -19,19 +21,19 @@ public class UserBuilder {
     boolean active = true;
 
 
-    public UserBuilder username(@NotNull final String username) {
+    public UserBuilder username(@Nonnull final String username) {
         this.username = username;
         return this;
     }
 
 
-    public UserBuilder password(@NotNull final String password) {
+    public UserBuilder password(@Nonnull final String password) {
         this.password = password;
         return this;
     }
 
 
-    public UserBuilder email(@NotNull final String email) {
+    public UserBuilder email(@Nonnull final String email) {
         this.email = email;
         return this;
     }

@@ -2,6 +2,7 @@ package gb.controllers;
 
 import java.time.format.DateTimeFormatter;
 
+import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ public class MainController extends WebMvcConfigurerAdapter {
     private final CommentsApi commentsApi;
 
 
-    public MainController(final CommentsApi commentsApi) {
+    public MainController(@Nonnull final CommentsApi commentsApi) {
         this.commentsApi = commentsApi;
     }
 
