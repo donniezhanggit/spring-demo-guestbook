@@ -61,7 +61,7 @@ public class MainControllerTests extends EndpointITCase {
         this.mockMvc.perform(post(ROOT_URL)
                 .content(jsonComment)
                 .contentType(MediaType.TEXT_PLAIN))
-            .andExpect(status().is3xxRedirection());
+            .andExpect(status().is2xxSuccessful());
     }
 
 
