@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
@@ -64,7 +65,7 @@ public class User extends DomainEntity {
     protected User() {}
 
 
-    public User(@Nonnull UserBuilder ub) {
+    public User(@Valid @Nonnull UserBuilder ub) {
         this.username = ub.username;
         this.password = ub.password;
         this.email    = ub.email;
