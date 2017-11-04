@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
+import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,8 +55,8 @@ public class CommentsController extends BaseController {
     @PostMapping
     @ApiOperation(nickname="createComment", value="Create a new comment")
     public ResponseEntity<CommentEntry>
-    createComment(@RequestBody final CommentInput input) {
-        final CommentEntry entry = this.commentsApi.createComment(input);
+    createComment(@Valid @RequestBody final CommentInput input) {
+       final CommentEntry entry = this.commentsApi.createComment(input);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(entry);
     }
