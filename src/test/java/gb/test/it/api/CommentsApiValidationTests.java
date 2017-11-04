@@ -84,6 +84,30 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
     }
 
 
+    @Test
+    public void When_name_is_null_expect_ValidationException() {
+        // Arrange.
+        final CommentInput input = this.getCommentInputBuilder()
+                .name(null).build();
+
+        // Act and assert.
+        thrown.expect(ValidationException.class);
+        this.commentsApi.createComment(input);
+    }
+
+
+    @Test
+    public void When_message_is_null_expect_ValidationException() {
+        // Arrange.
+        final CommentInput input = this.getCommentInputBuilder()
+                .message(null).build();
+
+        // Act and assert.
+        thrown.expect(ValidationException.class);
+        this.commentsApi.createComment(input);
+    }
+
+
     private CommentInputBuilder getCommentInputBuilder() {
         return new CommentInputBuilder()
                 .name(ANON_NAME).message(MESSAGE);
