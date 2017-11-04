@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import org.junit.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 
@@ -36,8 +35,6 @@ public class CommentsControllerTests extends EndpointITCase {
 
     @Override
     public void setup() {
-        MockitoAnnotations.initMocks(this);
-
         final CommentEntry commentEntry = this.buildAnonCommentEntry();
 
         when(this.commentsApi.createComment(any(CommentInput.class)))
