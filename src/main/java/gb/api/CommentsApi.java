@@ -6,6 +6,10 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.validation.Valid;
+
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 
 import gb.common.annotations.Api;
@@ -17,6 +21,7 @@ import gb.repos.CommentsRepository;
 
 @Api
 @Transactional(readOnly=true)
+@CacheConfig(cacheNames="comments")
 public class CommentsApi {
     private final CommentsRepository commentRepo;
 
@@ -26,6 +31,7 @@ public class CommentsApi {
     }
 
 
+    @Cacheable
     public List<CommentEntry> getComments() {
         final List<Comment> comments = this.commentRepo
             .findAllByOrderByCreatedAsc();
@@ -44,6 +50,7 @@ public class CommentsApi {
 
 
     @Transactional
+    @CacheEvict(allEntries=true)
     public
     CommentEntry createComment(@Nonnull @Valid final CommentInput input) {
         final Comment comment = this.commentRepo.save(new Comment(input));
