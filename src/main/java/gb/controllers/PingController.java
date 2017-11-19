@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/ping")
 public class PingController {
-    private static final String PONG = "[{\"data\":\"pong\"}]";
+    private static final String PONG = "{\"data\":\"pong\"}";
 
 
     @GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
