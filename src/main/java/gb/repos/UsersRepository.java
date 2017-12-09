@@ -11,6 +11,6 @@ import gb.model.User;
 
 
 @Repository
-public interface UsersRepository extends DataRepository<User, Long> {
+public interface UsersRepository extends DataRepository<User> {
     Optional<User> findByUsername(@Nonnull String username);
 }

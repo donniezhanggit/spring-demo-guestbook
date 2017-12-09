@@ -19,8 +19,8 @@ import org.springframework.data.repository.Repository;
  *
  */
 @NoRepositoryBean
-public interface DataRepository<T, ID extends Serializable>
-    extends Repository<T, ID> {
+public interface DataRepository<T>
+    extends Repository<T, Long> {
     /**
      * Saves a given entity. Use the returned instance for further
      * operations as the save operation might have changed the entity
@@ -51,7 +51,7 @@ public interface DataRepository<T, ID extends Serializable>
      *         Optional.empty if none found
      * @throws IllegalArgumentException if {@code id} is {@literal null}
      */
-    Optional<T> findOne(@Nonnull ID id);
+    Optional<T> findOne(long id);
 
 
     /**
@@ -62,7 +62,7 @@ public interface DataRepository<T, ID extends Serializable>
      *         otherwise
      * @throws IllegalArgumentException if {@code id} is {@literal null}
      */
-    boolean exists(@Nonnull ID id);
+    boolean exists(long id);
 
 
     /**
@@ -79,7 +79,7 @@ public interface DataRepository<T, ID extends Serializable>
      * @param ids
      * @return
      */
-    List<T> findAll(@Nonnull Iterable<ID> ids);
+    List<T> findAll(@Nonnull Iterable<Long> ids);
 
 
     /**
@@ -97,7 +97,7 @@ public interface DataRepository<T, ID extends Serializable>
      * @throws IllegalArgumentException in case the given {@code id} is
      *         {@literal null}
      */
-    void delete(@Nonnull ID id);
+    void delete(long id);
 
 
     /**

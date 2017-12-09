@@ -40,15 +40,7 @@ public abstract class DomainEntity implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Short getVersion() {
         return version;
-    }
-
-    public void setVersion(Short version) {
-        this.version = version;
     }
 }

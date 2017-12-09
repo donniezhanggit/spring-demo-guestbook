@@ -3,8 +3,7 @@ package gb.dto;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotNull;
-
+import javax.annotation.Nonnull;
 import gb.model.Comment;
 
 
@@ -66,8 +65,7 @@ public class CommentEntry {
     }
 
 
-    @NotNull
-    public static CommentEntry from(@NotNull final Comment comment) {
+    public static CommentEntry from(@Nonnull final Comment comment) {
         final CommentEntry entry = new CommentEntry();
 
         entry.setId(comment.getId());
