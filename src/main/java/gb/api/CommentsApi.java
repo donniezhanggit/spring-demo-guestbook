@@ -42,8 +42,6 @@ public class CommentsApi {
         final Optional<CommentEntry> entry = this.commentRepo
                 .findOneById(id, CommentEntry.class);
 
-        System.out.println(entry);
-
         return entry;
     }
 
