@@ -1,14 +1,11 @@
 package gb.test.it.api;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import javax.validation.ValidationException;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import gb.api.CommentsApi;
-import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import gb.model.Comment;
 import gb.test.common.FakeData;
@@ -47,10 +44,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
                 .name(longName).build();
 
         // Act.
-        final CommentEntry entry = this.commentsApi.createComment(input);
-
-        // Assert.
-        assertThat(entry.getId()).isNotNull();
+        this.commentsApi.createComment(input);
     }
 
 
@@ -77,10 +71,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
                 .message(longMessage).build();
 
         // Act.
-        final CommentEntry entry = this.commentsApi.createComment(input);
-
-        // Assert.
-        assertThat(entry.getId()).isNotNull();
+        this.commentsApi.createComment(input);
     }
 
 

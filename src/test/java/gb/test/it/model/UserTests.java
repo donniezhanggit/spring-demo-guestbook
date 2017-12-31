@@ -247,6 +247,7 @@ public class UserTests extends RecreatePerClassITCase {
 
     private UserBuilder getUserBuilder() {
         return new UserBuilder()
+                .username(USERNAME1)
                 .password(PASSWORD)
                 .email(EMAIL).active(true);
     }

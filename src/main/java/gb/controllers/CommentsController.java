@@ -54,10 +54,10 @@ public class CommentsController extends BaseController {
 
     @PostMapping
     @ApiOperation(nickname="createComment", value="Create a new comment")
-    public ResponseEntity<CommentEntry>
+    public ResponseEntity<Long>
     createComment(@Valid @RequestBody final CommentInput input) {
-       final CommentEntry entry = this.commentsApi.createComment(input);
+       final long id = this.commentsApi.createComment(input);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(entry);
+        return ResponseEntity.status(HttpStatus.CREATED).body(id);
     }
 }

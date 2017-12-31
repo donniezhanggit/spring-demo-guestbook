@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Immutable;
@@ -55,9 +54,7 @@ public class Comment extends DomainEntity {
         this.message = input.getMessage();
     }
 
-    public Comment(@Valid @Nonnull final CommentBuilder cb) {
-        this.id      = cb.id;
-        this.version = cb.version;
+    public Comment(@Nonnull final CommentBuilder cb) {
         this.created = cb.created;
         this.name    = cb.name;
         this.message = cb.message;
@@ -76,7 +73,7 @@ public class Comment extends DomainEntity {
         this.version = version;
     }
 
-    public void setCreated(@NotNull LocalDateTime date) {
+    public void setCreated(@Nonnull LocalDateTime date) {
         this.created = date;
     }
 
@@ -92,7 +89,7 @@ public class Comment extends DomainEntity {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(@Nonnull String message) {
         this.message = message;
     }
 

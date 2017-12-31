@@ -25,7 +25,6 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     private static final Long NON_EXISTENT_ID = Long.MAX_VALUE;
     private static final String ANON_NAME = "anon";
     private static final String MESSAGE = "message";
-    private static final Short MIN_VERSION = 0;
     private static final LocalDateTime CREATED1 =
             LocalDateTime.of(2017, 9, 1, 12, 34, 16);
     private static final LocalDateTime CREATED2 =
@@ -88,26 +87,13 @@ public class CommentsApiTests extends RecreatePerClassITCase {
         final CommentInput input = this.getCommentInputBuilder().build();
 
         // Act.
-        final CommentEntry entry = this.commentsApi.createComment(input);
+        final long id = this.commentsApi.createComment(input);
         final Optional<CommentEntry> actual = this.commentsApi
-                .getComment(entry.getId());
+                .getComment(id);
 
         // Assert.
         assertThat(actual.isPresent()).isTrue();
         actual.ifPresent(this::assertCommentEntry);
-    }
-
-
-    @Test
-    public void An_entry_should_be_returned_after_creating_new_comment() {
-        // Arrange.
-        final CommentInput input = this.getCommentInputBuilder().build();
-
-        // Act.
-        final CommentEntry actual = this.commentsApi.createComment(input);
-
-        // Assert.
-        this.assertCommentEntry(actual);
     }
 
 
@@ -140,8 +126,6 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
     private void assertCommentEntry(final CommentEntry actual) {
         assertThat(actual).isNotNull();
-        assertThat(actual.getId()).isNotNull();
-        assertThat(actual.getVersion()).isEqualTo(MIN_VERSION);
         assertThat(actual.getCreated()).isNotNull();
         assertThat(actual.getMessage()).isEqualTo(MESSAGE);
         assertThat(actual.getAnonName()).isEqualTo(ANON_NAME);

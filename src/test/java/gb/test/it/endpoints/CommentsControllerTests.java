@@ -38,7 +38,7 @@ public class CommentsControllerTests extends EndpointITCase {
         final CommentEntry commentEntry = this.buildAnonCommentEntry();
 
         when(this.commentsApi.createComment(any(CommentInput.class)))
-            .thenReturn(commentEntry);
+            .thenReturn(EXISTING_ID);
         when(this.commentsApi.getComments())
             .thenReturn(Arrays.asList(commentEntry));
         when(this.commentsApi.getComment(EXISTING_ID))

@@ -2,8 +2,6 @@ package gb.api;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
 import javax.annotation.Nonnull;
 import javax.validation.Valid;
 
@@ -33,28 +31,29 @@ public class CommentsApi {
 
     @Cacheable
     public List<CommentEntry> getComments() {
-        final List<Comment> comments = this.commentRepo
-            .findAllByOrderByCreatedAsc();
+        final List<CommentEntry> comments = this.commentRepo
+            .findAllByOrderByCreatedAsc(CommentEntry.class);
 
-        return comments.stream()
-            .map(CommentEntry::from)
-            .collect(Collectors.toList());
+        return comments;
     }
 
 
     public Optional<CommentEntry> getComment(final long id) {
-        final Optional<Comment> comment = this.commentRepo.findOne(id);
+        final Optional<CommentEntry> entry = this.commentRepo
+                .findOneById(id, CommentEntry.class);
 
-        return comment.map(CommentEntry::from);
+        System.out.println(entry);
+
+        return entry;
     }
 
 
     @Transactional
     @CacheEvict(allEntries=true)
     public
-    CommentEntry createComment(@Nonnull @Valid final CommentInput input) {
+    Long createComment(@Nonnull @Valid final CommentInput input) {
         final Comment comment = this.commentRepo.save(new Comment(input));
 
-        return CommentEntry.from(comment);
+        return comment.getId();
     }
 }

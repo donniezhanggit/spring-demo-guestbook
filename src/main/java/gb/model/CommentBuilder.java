@@ -3,44 +3,29 @@ package gb.model;
 import java.time.LocalDateTime;
 
 import javax.annotation.Nullable;
-import javax.validation.constraints.NotNull;
+
+import com.google.common.base.Preconditions;
 
 public class CommentBuilder {
-    Long id;
-    Short version;
-
-    @NotNull
     LocalDateTime created = LocalDateTime.now();
     String name;
     String message;
     User user;
 
 
-    public CommentBuilder id(long id) {
-        this.id = id;
-        return this;
-    }
-
-
-    public CommentBuilder version(short version) {
-        this.version = version;
-        return this;
-    }
-
-
-    public CommentBuilder created(@NotNull LocalDateTime created) {
+    public CommentBuilder created(LocalDateTime created) {
         this.created = created;
         return this;
     }
 
 
-    public CommentBuilder name(@NotNull String name) {
+    public CommentBuilder name(String name) {
         this.name = name;
         return this;
     }
 
 
-    public CommentBuilder message(@NotNull String message) {
+    public CommentBuilder message(String message) {
         this.message = message;
         return this;
     }
@@ -53,6 +38,9 @@ public class CommentBuilder {
 
 
     public Comment build() {
+        Preconditions.checkNotNull(this.message);
+        Preconditions.checkNotNull(this.created);
+
         return new Comment(this);
     }
 }

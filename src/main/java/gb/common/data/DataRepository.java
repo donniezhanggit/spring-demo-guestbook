@@ -1,6 +1,5 @@
 package gb.common.data;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,12 +45,33 @@ public interface DataRepository<T>
     /**
      * Retrieves an entity by its id.
      *
-     * @param id must not be {@literal null}.
+     * @param id.
      * @return the Optional of entity with the given id or
      *         Optional.empty if none found
-     * @throws IllegalArgumentException if {@code id} is {@literal null}
      */
     Optional<T> findOne(long id);
+
+
+    /**
+     * Retrieves an entity by its id and maps it to an specified type.
+     * @param <S> DTO class for mapping.
+     * @param id.
+     * @param type is a class to mapping.
+     * @return the Optional of entity with the given id or
+     *         Optional.empty if none found.
+     */
+    <S> Optional<S> findOneById(long id, Class<S> type);
+
+
+    /**
+     * Retrieves an entity by its id and version.
+     *
+     * @param id.
+     * @param version of persisted object.
+     * @return the Optional of entity with the given id and version
+     *         or Optional.empty if none found.
+     */
+    Optional<T> findOneByIdAndVersion(long id, short version);
 
 
     /**

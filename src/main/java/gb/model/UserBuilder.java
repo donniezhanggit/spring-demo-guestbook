@@ -2,18 +2,12 @@ package gb.model;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnull;
-import javax.validation.constraints.NotNull;
+import com.google.common.base.Preconditions;
 
 
 public class UserBuilder {
-    @NotNull
     String username;
-
-    @NotNull
     String password;
-
-    @NotNull
     String email;
 
     LocalDateTime created = LocalDateTime.now();
@@ -21,19 +15,19 @@ public class UserBuilder {
     boolean active = true;
 
 
-    public UserBuilder username(@Nonnull final String username) {
+    public UserBuilder username(final String username) {
         this.username = username;
         return this;
     }
 
 
-    public UserBuilder password(@Nonnull final String password) {
+    public UserBuilder password(final String password) {
         this.password = password;
         return this;
     }
 
 
-    public UserBuilder email(@Nonnull final String email) {
+    public UserBuilder email(final String email) {
         this.email = email;
         return this;
     }
@@ -46,8 +40,10 @@ public class UserBuilder {
 
 
     public User build() {
-        final User user = new User(this);
+        Preconditions.checkNotNull(this.username);
+        Preconditions.checkNotNull(this.password);
+        Preconditions.checkNotNull(this.email);
 
-        return user;
+        return new User(this);
     }
 }

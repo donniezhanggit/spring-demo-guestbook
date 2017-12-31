@@ -53,11 +53,11 @@ public class CommentTests extends RecreatePerClassITCase {
     public void A_comment_without_message_should_throw_exception() {
         // Arrange.
         final Comment commentWithoutMessage = this.getCommentBuilder()
-                .message(null).build();
+                .build();
 
         // Act and assert.
-        thrown.expect(TransactionSystemException.class);
-        this.commentsRepo.save(commentWithoutMessage);
+        thrown.expect(IllegalArgumentException.class);
+        commentWithoutMessage.setMessage(null);
     }
 
 
@@ -119,12 +119,11 @@ public class CommentTests extends RecreatePerClassITCase {
     @Test
     public void A_comment_without_created_date_should_throw_exception() {
         // Arrange.
-        final Comment comment = this.getCommentBuilder()
-                .created(null).build();
+        final Comment comment = this.getCommentBuilder().build();
 
         // Act and assert.
-        thrown.expect(TransactionSystemException.class);
-        this.commentsRepo.save(comment);
+        thrown.expect(IllegalArgumentException.class);
+        comment.setCreated(null);
     }
 
 
