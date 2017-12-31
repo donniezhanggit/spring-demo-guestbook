@@ -14,8 +14,6 @@ import gb.test.common.JUnitTestCase;
 
 
 public class CommentBuilderTests extends JUnitTestCase {
-    private static final Long ID = 1L;
-    private static final Short VERSION = 0;
     private static final String ANON_NAME = "Just name";
     private static final String MESSAGE = "Just message";
     private static final LocalDateTime CREATED = LocalDateTime.now();
@@ -65,9 +63,6 @@ public class CommentBuilderTests extends JUnitTestCase {
         assertThat(actual.getCreated()).isEqualByComparingTo(CREATED);
         assertThat(actual.getName()).isEqualTo(ANON_NAME);
         assertThat(actual.getMessage()).isEqualTo(MESSAGE);
-        assertThat(actual.getId()).isEqualTo(ID);
-        assertThat(actual.getVersion()).isEqualTo(VERSION);
-
     }
 
 
@@ -80,7 +75,6 @@ public class CommentBuilderTests extends JUnitTestCase {
 
     private CommentBuilder getCommentBuilder() {
         return new CommentBuilder()
-                .id(ID).version(VERSION)
                 .name(ANON_NAME).message(MESSAGE)
                 .user(null).created(CREATED);
     }
