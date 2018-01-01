@@ -48,8 +48,7 @@ public class CommentsApi {
 
     @Transactional
     @CacheEvict(allEntries=true)
-    public
-    Long createComment(@Nonnull @Valid final CommentInput input) {
+    public Long createComment(@Nonnull @Valid final CommentInput input) {
         final Comment comment = this.commentRepo.save(new Comment(input));
 
         return comment.getId();
