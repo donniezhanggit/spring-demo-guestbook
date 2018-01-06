@@ -43,6 +43,15 @@ public interface DataRepository<T>
 
 
     /**
+     * Retrieves a reference for an entity by its id.
+     *
+     * @param id.
+     * @return proxy reference.
+     */
+    T getOne(long id);
+
+
+    /**
      * Retrieves an entity by its id.
      *
      * @param id.

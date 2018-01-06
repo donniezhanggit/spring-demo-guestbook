@@ -17,6 +17,7 @@ public class MainConfig {
     private static final String JACKSON_DATE_TIME_FORMAT =
             "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
+
     @Value("${spring.jackson.serialization.INDENT_OUTPUT:false}")
     private boolean prettyPrint;
 

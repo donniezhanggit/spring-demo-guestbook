@@ -114,11 +114,13 @@ public class User extends DomainEntity {
         return this.comments;
     }
 
-    public void setComments(@Nonnull List<Comment> comments) {
-        this.comments = comments;
-    }
-
     public void addComment(@Nonnull Comment comment) {
         this.comments.add(comment);
+        comment.setUser(this);
+    }
+
+    public void removeComment(@Nonnull Comment comment) {
+        this.comments.remove(comment);
+        comment.setUser(null);
     }
 }
