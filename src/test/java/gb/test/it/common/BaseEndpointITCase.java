@@ -1,5 +1,7 @@
 package gb.test.it.common;
 
+import static org.mockito.Mockito.*;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
@@ -10,9 +12,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -52,12 +59,16 @@ public abstract class BaseEndpointITCase {
 
     protected MockMvc mockMvc;
 
+    @MockBean
+    protected UserDetailsService userDetailsService;
+
 
     @Before
     public void before() {
         this.mockMvc = MockMvcBuilders
                 .webAppContextSetup(this.wac).build();
 
+        this.setupAuthentication();
         this.setup();
     }
 
@@ -79,6 +90,20 @@ public abstract class BaseEndpointITCase {
         logger.info("Object as JSON:\n" + json);
 
         return json;
+    }
+
+
+    private void setupAuthentication() {
+        final Authentication authentication = mock(Authentication.class);
+        final SecurityContext securityContext = mock(SecurityContext.class);
+
+//        when(securityContext.getAuthentication())
+//            .thenReturn(authentication);
+
+        SecurityContextHolder.setContext(securityContext);
+
+//        when(this.userDetailsService.loadUserByUsername(any()))
+//            .thenReturn(null);
     }
 
 

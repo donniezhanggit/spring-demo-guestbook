@@ -8,13 +8,17 @@ import javax.validation.Valid;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import gb.common.annotations.Api;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import gb.model.Comment;
+import gb.model.User;
 import gb.repos.CommentsRepository;
+import gb.security.CustomUserDetails;
+import gb.services.CurrentPrincipalService;
 
 
 @Api
@@ -22,10 +26,13 @@ import gb.repos.CommentsRepository;
 @CacheConfig(cacheNames="comments")
 public class CommentsApi {
     private final CommentsRepository commentRepo;
+    private final CurrentPrincipalService currentPrincipalService;
 
 
-    public CommentsApi(@Nonnull final CommentsRepository commentRepo) {
+    public CommentsApi(@Nonnull final CommentsRepository commentRepo,
+            @Nonnull final CurrentPrincipalService currentPrincipalService) {
         this.commentRepo = commentRepo;
+        this.currentPrincipalService = currentPrincipalService;
     }
 
 
@@ -48,9 +55,47 @@ public class CommentsApi {
 
     @Transactional
     @CacheEvict(allEntries=true)
+    @PreAuthorize("hasRole('USER')")
     public Long createComment(@Nonnull @Valid final CommentInput input) {
-        final Comment comment = this.commentRepo.save(new Comment(input));
+        final Comment comment = this.commentRepo.save(
+                this.buildCommentFromInput(input));
 
         return comment.getId();
+    }
+
+
+    @Transactional
+    @CacheEvict(allEntries=true)
+    @PreAuthorize("hasRole('ADMIN')")
+    public void removeComment(long id) {
+        final Optional<Comment> comment = this.commentRepo.findOne(id);
+
+        comment.ifPresent(c -> this.commentRepo.delete(c));
+    }
+
+
+    private Comment buildCommentFromInput(@Nonnull final CommentInput input) {
+        final User currentUser = this.getUser();
+
+        final Comment comment = new Comment(input);
+
+        if(currentUser != null) {
+            comment.setName(null);
+            comment.setUser(currentUser);
+        }
+
+        return comment;
+    }
+
+
+    private User getUser() {
+        final Object principal = this.currentPrincipalService.getCurrentAuth()
+                .get().getPrincipal();
+
+        if(principal instanceof CustomUserDetails) {
+            return ((CustomUserDetails) principal).getUser();
+        }
+
+        return null;
     }
 }

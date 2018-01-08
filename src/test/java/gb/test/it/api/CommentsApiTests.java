@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import gb.api.CommentsApi;
 import gb.dto.CommentEntry;
@@ -82,6 +83,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_new_comment_should_be_persisted() {
         // Arrange.
         final CommentInput input = this.getCommentInputBuilder().build();
@@ -94,21 +96,6 @@ public class CommentsApiTests extends RecreatePerClassITCase {
         // Assert.
         assertThat(actual.isPresent()).isTrue();
         actual.ifPresent(this::assertCommentEntry);
-    }
-
-
-    @Test
-    public void When_a_new_comment_added_rows_count_should_increase_by_1() {
-        // Arrange.
-        final CommentInput input = this.getCommentInputBuilder().build();
-        final long expectedQty = this.commentRepo.count() + 1;
-
-        // Act.
-        this.commentsApi.createComment(input);
-        final long actualQty = this.commentRepo.count();
-
-        // Assert.
-        assertThat(actualQty).isEqualTo(expectedQty);
     }
 
 

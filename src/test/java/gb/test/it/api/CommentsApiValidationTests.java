@@ -4,6 +4,7 @@ import javax.validation.ValidationException;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import gb.api.CommentsApi;
 import gb.dto.CommentInput;
@@ -22,6 +23,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_name_is_too_long_expect_ValidationException() {
         // Arrange.
         final String tooLongName = FakeData.stringWithLength(
@@ -36,6 +38,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_name_length_is_max_comment_should_be_saved() {
         //Arrange.
         final String longName = FakeData.stringWithLength(
@@ -49,6 +52,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_message_is_too_long_expect_ValidationException() {
         // Arrange.
         final String tooLongMessage = FakeData.stringWithLength(
@@ -63,6 +67,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_message_length_is_max_comment_should_be_saved() {
         // Arrange.
         final String longMessage = FakeData.stringWithLength(
@@ -76,6 +81,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_name_is_null_expect_ValidationException() {
         // Arrange.
         final CommentInput input = this.getCommentInputBuilder()
@@ -88,6 +94,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_message_is_null_expect_ValidationException() {
         // Arrange.
         final CommentInput input = this.getCommentInputBuilder()

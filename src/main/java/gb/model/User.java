@@ -8,7 +8,6 @@ import javax.annotation.Nonnull;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
@@ -57,8 +56,8 @@ public class User extends DomainEntity {
 
     boolean active = true;
 
-    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
-    @JoinColumn(name="gbuser_id")
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL,
+            orphanRemoval=true, mappedBy="user")
     List<Comment> comments = new ArrayList<>();
 
 
@@ -122,5 +121,9 @@ public class User extends DomainEntity {
     public void removeComment(@Nonnull Comment comment) {
         this.comments.remove(comment);
         comment.setUser(null);
+    }
+
+    public void removeAllComments() {
+        this.comments.clear();
     }
 }
