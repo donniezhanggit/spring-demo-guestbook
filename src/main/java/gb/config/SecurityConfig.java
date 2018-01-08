@@ -1,5 +1,7 @@
 package gb.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,17 +18,22 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 
 
 @Configuration
-//@EnableOAuth2Sso
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private static final Logger LOG = LoggerFactory
+            .getLogger(SecurityConfig.class);
+
     @Autowired
     public UserDetailsService userDetailsService;
 
 
-    public void configureGlobal(AuthenticationManagerBuilder auth)
+    @Override
+    public void configure(AuthenticationManagerBuilder auth)
         throws Exception {
         auth.userDetailsService(this.userDetailsService);
+
+        LOG.info("Configuring of AuthenticationManagerBuilder finished");
     }
 
 
@@ -43,6 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin().loginPage("/login").permitAll()
           .and()
             .logout().permitAll();
+
+        LOG.info("Configuring of HttpSecurity finished");
     }
 
 
