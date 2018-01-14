@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+
+
+  <artifactId>gb.auth</artifactId>
+  <packaging>jar</packaging>
+  <name>guestbook module - core</name>
+  <description>Module that contains security related components</description>
+
+
+  <parent>
+    <groupId>gb</groupId>
+    <artifactId>gb</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
+  </parent>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <showWarnings>true</showWarnings>
+          <compilerArgs>
+            <arg>-Xlint:all</arg>
+            <arg>-Xlint:unchecked</arg>
+            <arg>-Werror</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <jvmArguments>
+            -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9898
+          </jvmArguments>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>se.eris</groupId>
+        <artifactId>notnull-instrumenter-maven-plugin</artifactId>
+        <version>0.6.6</version>
+        <executions>
+          <execution>
+            <id>instrument</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>instrument</goal>
+              <goal>tests-instrument</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <notNull>
+            <param>javax.annotation.Nonnull</param>
+          </notNull>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.hibernate.orm.tooling</groupId>
+        <artifactId>hibernate-enhance-maven-plugin</artifactId>
+        <version>${hibernate.version}</version>
+        <executions>
+          <execution>
+            <configuration>
+              <failOnError>true</failOnError>
+              <enableLazyInitialization>true</enableLazyInitialization>
+              <enableDirtyTracking>true</enableDirtyTracking>
+              <enableAssociationManagement>true</enableAssociationManagement>
+            </configuration>
+            <phase>compile</phase>
+            <goals>
+              <goal>enhance</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.7.9</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.5</version>
+        <configuration>
+          <!--
+              Enables analysis which takes more memory but finds more bugs.
+              If you run out of memory, changes the value of the effort element
+              to 'Low'.
+          -->
+          <effort>Max</effort>
+          <!-- Reports all bugs (other values are medium and max) -->
+          <threshold>Low</threshold>
+          <!-- Produces XML report -->
+          <xmlOutput>true</xmlOutput>
+          <!-- Configures the directory in which the XML report is created -->
+          <findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
+          <!-- Exclude filter. -->
+          <excludeFilterFile>settings/findbugs/findbugs-excludes.xml</excludeFilterFile>
+
+        </configuration>
+        <executions>
+          <!--
+              Ensures that FindBugs inspects source code when project is compiled.
+          -->
+          <execution>
+            <id>analyze-compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+
+    <pluginManagement>
+      <plugins>
+        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.hibernate.orm.tooling</groupId>
+                    <artifactId>
+                      hibernate-enhance-maven-plugin
+                    </artifactId>
+                    <versionRange>[5.0.12.Final,)</versionRange>
+                    <goals>
+                      <goal>enhance</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <execute/>
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <versionRange>[3.0.5,)</versionRange>
+                    <goals>
+                      <goal>check</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <execute/>
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>se.eris</groupId>
+                    <artifactId>
+                      notnull-instrumenter-maven-plugin
+                    </artifactId>
+                    <versionRange>[0.6.6,)</versionRange>
+                    <goals>
+                      <goal>instrument</goal>
+                      <goal>tests-instrument</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <execute/>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+  </build>
+
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
+
+	<dependency>
+	  <groupId>org.springframework.security.oauth</groupId>
+	  <artifactId>spring-security-oauth2</artifactId>
+	</dependency>
+
+	<dependency>
+    	<groupId>org.springframework.security</groupId>
+    	<artifactId>spring-security-test</artifactId>
+    	<scope>test</scope>
+	</dependency>
+
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
+    </dependency>
+
+    <!-- For java8 dates -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-java8</artifactId>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+
+	<dependency>
+    	<groupId>com.google.code.findbugs</groupId>
+    	<artifactId>annotations</artifactId>
+    	<version>3.0.1</version>
+	</dependency>
+
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>2.7.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>2.7.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-bean-validators</artifactId>
+      <version>2.7.0</version>
+    </dependency>
+
+  </dependencies>
+
+
+  <repositories>
+    <repository>
+      <id>spring-releases</id>
+      <name>Spring Releases</name>
+      <url>https://repo.spring.io/libs-release</url>
+    </repository>
+  </repositories>
+
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>spring-releases</id>
+      <name>Spring Releases</name>
+      <url>https://repo.spring.io/libs-release</url>
+    </pluginRepository>
+  </pluginRepositories>
+</project>
