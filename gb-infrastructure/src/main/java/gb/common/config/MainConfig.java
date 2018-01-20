@@ -17,8 +17,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 @EnableCaching
 public class MainConfig {
     private static final Logger LOG = LoggerFactory
-            .getLogger(MainConfig.class);    
-    
+            .getLogger(MainConfig.class);
+
     private static final String JACKSON_DATE_TIME_FORMAT =
             "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
@@ -41,7 +41,7 @@ public class MainConfig {
         }
 
         LOG.info("Configuring of ObjectMapper finished");
-        
+
         return mapper;
     }
 }
