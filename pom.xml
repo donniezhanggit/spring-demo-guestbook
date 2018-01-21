@@ -96,11 +96,6 @@
       <scope>runtime</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.liquibase</groupId>
-      <artifactId>liquibase-core</artifactId>
-    </dependency>
-
     <!-- For java8 dates -->
     <dependency>
       <groupId>org.hibernate</groupId>
