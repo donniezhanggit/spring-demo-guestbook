@@ -66,14 +66,6 @@ public class Comment extends AbstractDomainEntity {
         return created;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setVersion(short version) {
-        this.version = version;
-    }
-
     public void setCreated(@Nonnull LocalDateTime date) {
         this.created = date;
     }
