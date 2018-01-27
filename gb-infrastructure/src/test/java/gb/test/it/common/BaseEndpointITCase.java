@@ -29,16 +29,14 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-//import gb.Application;
 import gb.common.config.GuestBookProfiles;
 import gb.common.config.MainConfig;
 import gb.common.config.SecurityConfig;
-//import gb.common.config.WebConfig;
 
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles(profiles=GuestBookProfiles.NO_DB_INTEGRATION_TESTING)
-@Import({MainConfig.class, SecurityConfig.class /*, WebConfig.class*/})
+@Import({MainConfig.class, SecurityConfig.class})
 @ComponentScan(basePackages="gb")
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK)
 public abstract class BaseEndpointITCase {
