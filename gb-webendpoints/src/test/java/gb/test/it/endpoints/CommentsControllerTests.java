@@ -9,7 +9,9 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import org.junit.Test;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 
 import gb.api.CommentsApi;
@@ -148,7 +150,7 @@ public class CommentsControllerTests extends EndpointITCase {
         final CommentInput input = this.buildAnonCommentInput();
         final String jsonComment = this.jsonify(input);
 
-        // Act. 
+        // Act.
         this.mockMvc.perform(post(COMMENTS_API_URL)
                 .content(jsonComment)
                 .contentType(MediaType.APPLICATION_JSON_UTF8));
@@ -171,5 +173,14 @@ public class CommentsControllerTests extends EndpointITCase {
     private CommentInput buildAnonCommentInput() {
         return new CommentInputBuilder()
                 .name(NAME).message(MESSAGE).build();
+    }
+
+
+    @TestConfiguration
+    public static class Config {
+        @Bean
+        public CommentsApi commentsApi() {
+            return mock(CommentsApi.class);
+        }
     }
 }
