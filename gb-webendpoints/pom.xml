@@ -36,13 +36,22 @@
       </plugin>
 
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <!-- <jvmArguments> -->
+          <!--   -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9898 -->
+          <!-- </jvmArguments> -->
+          <mainClass>gb.Application</mainClass>
+        </configuration>
         <executions>
           <execution>
             <goals>
-              <goal>test-jar</goal>
+              <goal>repackage</goal>
             </goals>
+            <configuration>
+              <classifier>exec</classifier>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -165,9 +174,7 @@
                 <pluginExecution>
                   <pluginExecutionFilter>
                     <groupId>se.eris</groupId>
-                    <artifactId>
-                      notnull-instrumenter-maven-plugin
-                    </artifactId>
+                    <artifactId>notnull-instrumenter-maven-plugin</artifactId>
                     <versionRange>[0.6.6,)</versionRange>
                     <goals>
                       <goal>instrument</goal>
