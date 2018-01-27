@@ -16,7 +16,7 @@
     <module>gb-core</module>
     <module>gb-database</module>
     <module>gb-infrastructure</module>
-    <!-- <module>gb-inttests</module> -->
+    <module>gb-inttests</module>
     <module>gb-webendpoints</module>
     <!-- <module>gb-webclient</module> -->
   </modules>

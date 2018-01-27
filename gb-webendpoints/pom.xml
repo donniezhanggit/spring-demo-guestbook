@@ -7,7 +7,7 @@
 
   <artifactId>gb.webendpoints</artifactId>
   <packaging>jar</packaging>
-  <name>guestbook module - core</name>
+  <name>guestbook module - webendpoints</name>
   <description>Module that contains all web API endpoints</description>
 
 
@@ -33,6 +33,19 @@
             <arg>-Werror</arg>
           </compilerArgs>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
@@ -178,26 +191,30 @@
 
   <dependencies>
     <dependency>
-      <!-- This shouldn't be a dep which is packaging: pom -->
       <groupId>${project.groupId}</groupId>
       <artifactId>gb.common</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
-      <!-- This shouldn't be a dep which is packaging: pom -->
       <groupId>${project.groupId}</groupId>
       <artifactId>gb.core</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
-      <!-- This shouldn't be a dep which is packaging: pom -->
       <groupId>${project.groupId}</groupId>
       <artifactId>gb.database</artifactId>
       <version>${project.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>gb.core</artifactId>
+      <version>${project.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
 
   </dependencies>
 
