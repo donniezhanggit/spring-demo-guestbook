@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
 
-  <artifactId>gb.core</artifactId>
+  <artifactId>core</artifactId>
   <packaging>jar</packaging>
   <name>guestbook module - core</name>
   <description>Module that contains all Entities</description>
@@ -78,7 +78,9 @@
               <failOnError>true</failOnError>
               <enableLazyInitialization>true</enableLazyInitialization>
               <enableDirtyTracking>true</enableDirtyTracking>
-              <enableAssociationManagement>true</enableAssociationManagement>
+              <enableAssociationManagement>
+                true
+              </enableAssociationManagement>
             </configuration>
             <phase>compile</phase>
             <goals>
@@ -211,13 +213,13 @@
     <dependency>
       <!-- This shouldn't be a dep which is packaging: pom -->
       <groupId>${project.groupId}</groupId>
-      <artifactId>gb.common</artifactId>
+      <artifactId>common</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gb.common</artifactId>
+      <artifactId>common</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>

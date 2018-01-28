@@ -5,10 +5,12 @@
   <modelVersion>4.0.0</modelVersion>
 
 
-  <artifactId>gb.inttests</artifactId>
+  <artifactId>inttests</artifactId>
   <packaging>jar</packaging>
   <name>guestbook module - inttests</name>
-  <description>Module that contains integration tests which heavily uses a database</description>
+  <description>
+    Module that contains integration tests which heavily uses a database
+  </description>
 
 
   <parent>
@@ -20,33 +22,33 @@
 
   <build>
     <plugins>
-      <plugin>
-        <artifactId>maven-jar-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>default-jar</id>
-            <phase/>
-            <configuration>
-              <finalName>unwanted</finalName>
-              <classifier>unwanted</classifier>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+      <!-- <plugin> -->
+      <!--   <artifactId>maven-jar-plugin</artifactId> -->
+      <!--   <executions> -->
+      <!--     <execution> -->
+      <!--       <id>default-jar</id> -->
+      <!--       <phase/> -->
+      <!--       <configuration> -->
+      <!--         <finalName>unwanted</finalName> -->
+      <!--         <classifier>unwanted</classifier> -->
+      <!--       </configuration> -->
+      <!--     </execution> -->
+      <!--   </executions> -->
+      <!-- </plugin> -->
 
-      <plugin>
-        <artifactId>maven-install-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>default-install</id>
-            <phase/>
-            <configuration>
-              <finalName>unwanted</finalName>
-              <classifier>unwanted</classifier>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+      <!-- <plugin> -->
+      <!--   <artifactId>maven-install-plugin</artifactId> -->
+      <!--   <executions> -->
+      <!--     <execution> -->
+      <!--       <id>default-install</id> -->
+      <!--       <phase/> -->
+      <!--       <configuration> -->
+      <!--         <finalName>unwanted</finalName> -->
+      <!--         <classifier>unwanted</classifier> -->
+      <!--       </configuration> -->
+      <!--     </execution> -->
+      <!--   </executions> -->
+      <!-- </plugin> -->
 
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -74,7 +76,7 @@
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gb.common</artifactId>
+      <artifactId>common</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
@@ -82,7 +84,7 @@
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gb.core</artifactId>
+      <artifactId>core</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
@@ -90,19 +92,19 @@
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gb.webendpoints</artifactId>
+      <artifactId>webendpoints</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gb.core</artifactId>
+      <artifactId>core</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gb.database</artifactId>
+      <artifactId>database</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>

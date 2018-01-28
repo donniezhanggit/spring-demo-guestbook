@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
 
-  <artifactId>gb.database</artifactId>
+  <artifactId>database</artifactId>
   <packaging>jar</packaging>
   <name>guestbook module - database</name>
   <description>Module that contains database migrations</description>
