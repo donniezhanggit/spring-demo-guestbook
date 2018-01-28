@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
 
 
-  <artifactId>coveragereport</artifactId>
-  <name>guestbook module - coveragereport</name>
+  <artifactId>gb-coveragereport</artifactId>
+  <name>guestbook module - gb-coveragereport</name>
   <description>Module that aggregates</description>
 
 
@@ -68,28 +68,28 @@
   <dependencies>
     <dependency>
       <groupId>gb</groupId>
-      <artifactId>core</artifactId>
+      <artifactId>gb-core</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>gb</groupId>
-      <artifactId>common</artifactId>
+      <artifactId>gb-common</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>gb</groupId>
-      <artifactId>inttests</artifactId>
+      <artifactId>gb-inttests</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>gb</groupId>
-      <artifactId>webendpoints</artifactId>
+      <artifactId>gb-webendpoints</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>

@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
 
-  <artifactId>webendpoints</artifactId>
+  <artifactId>gb-webendpoints</artifactId>
   <packaging>jar</packaging>
-  <name>guestbook module - webendpoints</name>
+  <name>guestbook module - gb-webendpoints</name>
   <description>Module that contains all web API endpoints</description>
 
 
@@ -197,25 +197,25 @@
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>common</artifactId>
+      <artifactId>gb-common</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>core</artifactId>
+      <artifactId>gb-core</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>database</artifactId>
+      <artifactId>gb-database</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>core</artifactId>
+      <artifactId>gb-core</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>

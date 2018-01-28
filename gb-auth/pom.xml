@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
 
-  <artifactId>auth</artifactId>
+  <artifactId>gb-auth</artifactId>
   <packaging>jar</packaging>
-  <name>guestbook module - auth</name>
+  <name>guestbook module - gb-auth</name>
   <description>Module that contains security related components</description>
 
 

@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
 
-  <artifactId>inttests</artifactId>
+  <artifactId>gb-inttests</artifactId>
   <packaging>jar</packaging>
-  <name>guestbook module - inttests</name>
+  <name>guestbook module - gb-inttests</name>
   <description>
     Module that contains integration tests which heavily uses a database
   </description>
@@ -76,7 +76,7 @@
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>common</artifactId>
+      <artifactId>gb-common</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
@@ -84,7 +84,7 @@
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>core</artifactId>
+      <artifactId>gb-core</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
@@ -92,19 +92,19 @@
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>webendpoints</artifactId>
+      <artifactId>gb-webendpoints</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>core</artifactId>
+      <artifactId>gb-core</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>database</artifactId>
+      <artifactId>gb-database</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>

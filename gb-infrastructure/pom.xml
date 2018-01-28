@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
 
-  <artifactId>common</artifactId>
+  <artifactId>gb-common</artifactId>
   <packaging>jar</packaging>
-  <name>guestbook module - common</name>
+  <name>guestbook module - gb-common</name>
   <description>Module that contains common infrastructure classes</description>
 
 
