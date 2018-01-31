@@ -24,8 +24,8 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
           <showWarnings>true</showWarnings>
           <compilerArgs>
             <arg>-Xlint:all</arg>
@@ -50,7 +50,7 @@
       <plugin>
         <groupId>se.eris</groupId>
         <artifactId>notnull-instrumenter-maven-plugin</artifactId>
-        <version>0.6.6</version>
+        <version>${notnull.instrumenter.maven.plugin.version}</version>
         <executions>
           <execution>
             <id>instrument</id>
@@ -93,7 +93,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.7.9</version>
+        <version>${jacoco.maven.plugin.version}</version>
         <executions>
           <execution>
             <goals>
@@ -113,7 +113,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.5</version>
+        <version>${findbugs.maven.plugin.version}</version>
         <configuration>
           <!--
               Enables analysis which takes more memory but finds more bugs.
