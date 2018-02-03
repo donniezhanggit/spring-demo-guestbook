@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 
 import gb.dto.CommentInput;
 
+
 public class CommentInputBuilder {
     private CommentInput input = new CommentInput();
 
