@@ -17,7 +17,6 @@ import gb.dto.CommentInput;
 import gb.model.Comment;
 import gb.model.User;
 import gb.repos.CommentsRepository;
-import gb.security.CustomUserDetails;
 import gb.services.CurrentPrincipalService;
 
 
@@ -75,27 +74,20 @@ public class CommentsApi {
 
 
     private Comment buildCommentFromInput(@Nonnull final CommentInput input) {
-        final User currentUser = this.getUser();
+        final Optional<User> currentUser = this.getUser();
 
         final Comment comment = new Comment(input);
 
-        if(currentUser != null) {
+        currentUser.ifPresent(user -> {
             comment.setName(null);
-            comment.setUser(currentUser);
-        }
+            comment.setUser(user);
+        });
 
         return comment;
     }
 
 
-    private User getUser() {
-        final Object principal = this.currentPrincipalService.getCurrentAuth()
-                .get().getPrincipal();
-
-        if(principal instanceof CustomUserDetails) {
-            return ((CustomUserDetails) principal).getUser();
-        }
-
-        return null;
+    private Optional<User> getUser() {
+        return this.currentPrincipalService.getCurrentUser();
     }
 }
