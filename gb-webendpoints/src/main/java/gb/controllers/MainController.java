@@ -16,12 +16,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import gb.api.CommentsApi;
 import gb.dto.CommentInput;
+import lombok.extern.slf4j.Slf4j;
 
 
+@Slf4j
 @Controller
 public class MainController extends WebMvcConfigurerAdapter {
-    private final Logger logger = LoggerFactory
-        .getLogger(this.getClass().getName());
     private final DateTimeFormatter dateFormat =
         DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
     private final CommentsApi commentsApi;
@@ -58,8 +58,9 @@ public class MainController extends WebMvcConfigurerAdapter {
 
         this.commentsApi.createComment(commentInput);
 
-        this.logger.info("Comment " + commentInput.toString()
-                         + " has been added from ip: " + request.getRemoteAddr());
+        log.info("Comment {} has been added from ip: {}",
+                        commentInput,
+                        request.getRemoteAddr());
 
         return new ModelAndView("redirect:/");
     }
