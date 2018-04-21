@@ -18,6 +18,7 @@ import gb.model.Comment;
 import gb.model.User;
 import gb.repos.CommentsRepository;
 import gb.services.CurrentPrincipalService;
+import lombok.val;
 
 
 @Api
@@ -76,7 +77,7 @@ public class CommentsApi {
     private Comment buildCommentFromInput(@Nonnull final CommentInput input) {
         final Optional<User> currentUser = this.getUser();
 
-        final Comment comment = new Comment(input);
+        val comment = new Comment(input);
 
         currentUser.ifPresent(user -> {
             comment.setName(null);
