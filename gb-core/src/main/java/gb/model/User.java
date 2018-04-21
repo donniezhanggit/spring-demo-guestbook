@@ -1,8 +1,8 @@
 package gb.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.persistence.CascadeType;
@@ -62,7 +62,7 @@ public class User extends AbstractDomainEntity {
 
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL,
             orphanRemoval=true, mappedBy="user")
-    List<Comment> comments = new ArrayList<>();
+    Set<Comment> comments = new HashSet<>();
 
 
     protected User() {}
