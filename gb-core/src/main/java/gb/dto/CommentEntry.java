@@ -4,9 +4,13 @@ package gb.dto;
 import java.time.LocalDateTime;
 
 import javax.annotation.Nonnull;
+
 import gb.model.Comment;
+import lombok.Data;
+import lombok.val;
 
 
+@Data
 public class CommentEntry {
     private Long id;
     private Short version;
@@ -16,57 +20,8 @@ public class CommentEntry {
     private String username;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public Short getVersion() {
-        return version;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getAnonName() {
-        return anonName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setVersion(Short version) {
-        this.version = version;
-    }
-
-    public void setCreated(LocalDateTime date) {
-        this.created = date;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setAnonName(String name) {
-        this.anonName = name;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-
     public static CommentEntry from(@Nonnull final Comment comment) {
-        final CommentEntry entry = new CommentEntry();
+        val entry = new CommentEntry();
 
         entry.setId(comment.getId());
         entry.setVersion(comment.getVersion());

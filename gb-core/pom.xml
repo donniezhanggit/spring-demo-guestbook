@@ -28,6 +28,7 @@
           <target>${java.version}</target>
           <showWarnings>true</showWarnings>
           <compilerArgs>
+            <arg>-Xlint:-processing</arg>
             <arg>-Xlint:all</arg>
             <arg>-Xlint:unchecked</arg>
             <arg>-Werror</arg>

@@ -16,10 +16,15 @@ import org.hibernate.validator.constraints.Length;
 
 import gb.common.domain.AbstractDomainEntity;
 import gb.dto.CommentInput;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
 @Immutable
+@Getter
+@Setter
 public class Comment extends AbstractDomainEntity {
     private static final long serialVersionUID = 1L;
 
@@ -33,16 +38,21 @@ public class Comment extends AbstractDomainEntity {
     public static final int MESSAGE_MIN_LENGTH = 1;
     public static final int MESSAGE_MAX_LENGTH = 2048;
 
+    @Setter(onParam=@__(@Nonnull))
     @NotNull
     private LocalDateTime created = LocalDateTime.now();
 
+    @Setter(onParam=@__(@Nullable))
     @Length(min=NAME_MIN_LENGTH, max=NAME_MAX_LENGTH)
     private String name;
 
+    @Setter(onParam=@__(@Nonnull))
     @NotNull
     @Length(min=MESSAGE_MIN_LENGTH, max=MESSAGE_MAX_LENGTH)
     private String message;
 
+    @Getter(value=AccessLevel.NONE)
+    @Setter(onParam=@__(@Nullable))
     @ManyToOne(fetch=FetchType.LAZY, optional=true, targetEntity=User.class)
     @JoinColumn(name="gbuser_id")
     private User user;
@@ -50,10 +60,12 @@ public class Comment extends AbstractDomainEntity {
 
     protected Comment() {}
 
+
     public Comment(@Nonnull final CommentInput input) {
         this.name = input.getName();
         this.message = input.getMessage();
     }
+
 
     public Comment(@Nonnull final CommentBuilder cb) {
         this.created = cb.created;
@@ -62,35 +74,8 @@ public class Comment extends AbstractDomainEntity {
         this.user    = cb.user;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(@Nonnull LocalDateTime date) {
-        this.created = date;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(@Nullable String name) {
-        this.name = name;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(@Nonnull String message) {
-        this.message = message;
-    }
 
     public Optional<User> getUser() {
         return Optional.ofNullable(this.user);
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

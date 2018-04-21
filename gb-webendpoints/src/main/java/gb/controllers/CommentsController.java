@@ -49,7 +49,7 @@ public class CommentsController extends BaseController {
     getComment(@PathVariable final Long id) {
         final Optional<CommentEntry> entry = this.commentsApi.getComment(id);
 
-        return this.responseFrom(entry);
+        return responseFrom(entry);
     }
 
 
