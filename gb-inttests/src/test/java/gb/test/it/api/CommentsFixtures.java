@@ -36,24 +36,29 @@ public class CommentsFixtures {
 
 
     public long existingCommentId() {
-        final Comment comment = withNameAndMessage()
+        return this.existingComment().getId();
+    }
+
+
+    public Comment existingComment() {
+        final Comment comment = commentWithNameAndMessage()
                         .created(CREATED1)
                         .build();
 
-        return this.commentsRepo.save(comment).getId();
+        return this.commentsRepo.save(comment);
     }
 
 
     public Comment savedComment() {
-        final CommentBuilder cb = withNameAndMessage();
+        final CommentBuilder cb = commentWithNameAndMessage();
         final Comment comment = cb.created(CREATED1).build();
 
         return this.commentsRepo.save(comment);
     }
 
 
-    private static List<Comment> buildCommentsList() {
-        final CommentBuilder cb = withNameAndMessage();
+    public static List<Comment> buildCommentsList() {
+        final CommentBuilder cb = commentWithNameAndMessage();
         final Comment comment1 = cb.created(CREATED1).build();
         final Comment comment2 = cb.created(CREATED2).build();
         final Comment comment3 = cb.created(CREATED3).build();
@@ -62,7 +67,7 @@ public class CommentsFixtures {
     }
 
 
-    private static CommentBuilder withNameAndMessage() {
+    public static CommentBuilder commentWithNameAndMessage() {
         return new CommentBuilder().name(ANON_NAME).message(MESSAGE);
     }
 
