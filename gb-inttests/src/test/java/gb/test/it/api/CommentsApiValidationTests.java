@@ -1,5 +1,7 @@
 package gb.test.it.api;
 
+import static gb.test.it.api.CommentsFixtures.commentInputBuilderWithNameAndMessage;
+
 import javax.validation.ValidationException;
 
 import org.junit.Test;
@@ -10,14 +12,10 @@ import gb.api.CommentsApi;
 import gb.dto.CommentInput;
 import gb.model.Comment;
 import gb.test.common.FakeData;
-import gb.test.dto.CommentInputBuilder;
 import gb.test.it.common.RecreatePerClassITCase;
 
 
 public class CommentsApiValidationTests extends RecreatePerClassITCase {
-    private static final String ANON_NAME = "anon";
-    private static final String MESSAGE = "message";
-
     @Autowired
     private CommentsApi commentsApi;
 
@@ -28,7 +26,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
         // Arrange.
         final String tooLongName = FakeData.stringWithLength(
                 Comment.NAME_MAX_LENGTH+1);
-        final CommentInput input = this.getCommentInputBuilder()
+        final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .name(tooLongName).build();
 
         // Act and assert.
@@ -43,7 +41,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
         //Arrange.
         final String longName = FakeData.stringWithLength(
                 Comment.NAME_MAX_LENGTH);
-        final CommentInput input = this.getCommentInputBuilder()
+        final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .name(longName).build();
 
         // Act.
@@ -57,7 +55,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
         // Arrange.
         final String tooLongMessage = FakeData.stringWithLength(
                 Comment.MESSAGE_MAX_LENGTH+1);
-        final CommentInput input = this.getCommentInputBuilder()
+        final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .message(tooLongMessage).build();
 
         // Act and assert.
@@ -72,7 +70,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
         // Arrange.
         final String longMessage = FakeData.stringWithLength(
                 Comment.MESSAGE_MAX_LENGTH);
-        final CommentInput input = this.getCommentInputBuilder()
+        final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .message(longMessage).build();
 
         // Act.
@@ -84,7 +82,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_name_is_null_expect_ValidationException() {
         // Arrange.
-        final CommentInput input = this.getCommentInputBuilder()
+        final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .name(null).build();
 
         // Act and assert.
@@ -97,17 +95,11 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_message_is_null_expect_ValidationException() {
         // Arrange.
-        final CommentInput input = this.getCommentInputBuilder()
+        final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .message(null).build();
 
         // Act and assert.
         thrown.expect(ValidationException.class);
         this.commentsApi.createComment(input);
-    }
-
-
-    private CommentInputBuilder getCommentInputBuilder() {
-        return new CommentInputBuilder()
-                .name(ANON_NAME).message(MESSAGE);
     }
 }

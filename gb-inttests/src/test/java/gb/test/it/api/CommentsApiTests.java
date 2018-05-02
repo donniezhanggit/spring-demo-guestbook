@@ -2,8 +2,9 @@ package gb.test.it.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import static gb.test.it.api.CommentsFixtures.*;
+
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,34 +17,19 @@ import gb.api.CommentsApi;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import gb.model.Comment;
-import gb.model.CommentBuilder;
 import gb.repos.CommentsRepository;
-import gb.test.dto.CommentInputBuilder;
 import gb.test.it.common.RecreatePerClassITCase;
 
 
 public class CommentsApiTests extends RecreatePerClassITCase {
-    private static final Long NON_EXISTENT_ID = Long.MAX_VALUE;
-    private static final String ANON_NAME = "anon";
-    private static final String MESSAGE = "message";
-    private static final LocalDateTime CREATED1 =
-            LocalDateTime.of(2017, 9, 1, 12, 34, 16);
-    private static final LocalDateTime CREATED2 =
-            LocalDateTime.of(2017, 9, 1, 12, 33, 19);
-    private static final LocalDateTime CREATED3 =
-            LocalDateTime.of(2017, 9, 1, 12, 37, 31);
+    @Autowired
+    private CommentsFixtures commentFixtures;
 
     @Autowired
     private CommentsApi commentsApi;
 
     @Autowired
     private CommentsRepository commentRepo;
-
-
-    @Override
-    public void predefinedData() {
-        commentRepo.save(this.buildCommentsList());
-    }
 
 
     @Test
@@ -61,7 +47,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_comment_by_id_should_be_fetched() {
         // Arrange.
-        final long commentId = this.commentsApi.getComments().get(0).getId();
+        final long commentId = this.commentFixtures.existingCommentId();
 
         // Act.
         final Optional<CommentEntry> comment = this.commentsApi
@@ -78,7 +64,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     public void When_comment_isnt_exist_an_empty_optional_should_returned() {
         // Arrange and act.
         final Optional<CommentEntry> actual = this.commentsApi
-                .getComment(NON_EXISTENT_ID);
+                .getComment(CommentsFixtures.NON_EXISTENT_ID);
 
         // Assert.
         assertThat(actual.isPresent()).isFalse();
@@ -89,7 +75,8 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_new_comment_should_be_persisted() {
         // Arrange.
-        final CommentInput input = this.getCommentInputBuilder().build();
+        final CommentInput input = commentInputBuilderWithNameAndMessage()
+                        .build();
 
         // Act.
         final long id = this.commentsApi.createComment(input);
@@ -105,7 +92,10 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     @Test
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_list_of_comments_should_be_ordered_by_date() {
-        // Arrange and act.
+        // Arrange.
+        this.commentFixtures.savedCommentList();
+
+        // Act.
         final List<LocalDateTime> dates = this.commentsApi.getComments()
                 .stream().map(CommentEntry::getCreated)
                 .collect(Collectors.toList());
@@ -119,7 +109,8 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_comment_should_be_removed() {
         // Arrange.
-        final long existingCommentId = this.savedComment().getId();
+        final long existingCommentId = this.commentFixtures
+                        .savedComment().getId();
 
         // Act.
         this.commentsApi.removeComment(existingCommentId);
@@ -143,34 +134,5 @@ public class CommentsApiTests extends RecreatePerClassITCase {
         assertThat(actual.getMessage()).isEqualTo(MESSAGE);
         assertThat(actual.getAnonName()).isEqualTo(ANON_NAME);
         assertThat(actual.getUsername()).isNull();
-    }
-
-
-    private CommentInputBuilder getCommentInputBuilder() {
-        return new CommentInputBuilder()
-                .name(ANON_NAME).message(MESSAGE);
-    }
-
-
-    private List<Comment> buildCommentsList() {
-        final CommentBuilder cb = this.withNameAndMessage();
-        final Comment comment1 = cb.created(CREATED1).build();
-        final Comment comment2 = cb.created(CREATED2).build();
-        final Comment comment3 = cb.created(CREATED3).build();
-
-        return Arrays.asList(comment1, comment2, comment3);
-    }
-
-
-    private Comment savedComment() {
-        final CommentBuilder cb = this.withNameAndMessage();
-        final Comment comment = cb.created(CREATED1).build();
-
-        return this.commentRepo.save(comment);
-    }
-
-
-    private CommentBuilder withNameAndMessage() {
-        return new CommentBuilder().name(ANON_NAME).message(MESSAGE);
     }
 }
