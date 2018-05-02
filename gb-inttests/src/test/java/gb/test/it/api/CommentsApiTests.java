@@ -1,5 +1,7 @@
 package gb.test.it.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +20,6 @@ import gb.model.CommentBuilder;
 import gb.repos.CommentsRepository;
 import gb.test.dto.CommentInputBuilder;
 import gb.test.it.common.RecreatePerClassITCase;
-
-import static org.assertj.core.api.Assertions.*;
 
 
 public class CommentsApiTests extends RecreatePerClassITCase {
@@ -47,6 +47,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Comments_should_be_fetched() {
         // Arrange and act.
         final List<CommentEntry> actual = this.commentsApi.getComments();
@@ -57,6 +58,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_comment_by_id_should_be_fetched() {
         // Arrange.
         final long commentId = this.commentsApi.getComments().get(0).getId();
@@ -72,6 +74,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_comment_isnt_exist_an_empty_optional_should_returned() {
         // Arrange and act.
         final Optional<CommentEntry> actual = this.commentsApi
@@ -100,6 +103,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_list_of_comments_should_be_ordered_by_date() {
         // Arrange and act.
         final List<LocalDateTime> dates = this.commentsApi.getComments()
@@ -108,6 +112,28 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
         // Assert.
         assertThat(dates).isSorted();
+    }
+
+
+    @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
+    public void A_comment_should_be_removed() {
+        // Arrange.
+        final long existingCommentId = this.savedComment().getId();
+
+        // Act.
+        this.commentsApi.removeComment(existingCommentId);
+
+        // Assert.
+        assertThatCommentRemoved(existingCommentId);
+    }
+
+
+    private void assertThatCommentRemoved(long commentId) {
+        Optional<Comment> removedComment = this.commentRepo
+                        .findOne(commentId);
+
+        assertThat(removedComment.isPresent()).isFalse();
     }
 
 
@@ -127,13 +153,24 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     private List<Comment> buildCommentsList() {
-        final CommentBuilder cb = new CommentBuilder()
-                .name(ANON_NAME).message(MESSAGE);
-
+        final CommentBuilder cb = this.withNameAndMessage();
         final Comment comment1 = cb.created(CREATED1).build();
         final Comment comment2 = cb.created(CREATED2).build();
         final Comment comment3 = cb.created(CREATED3).build();
 
         return Arrays.asList(comment1, comment2, comment3);
+    }
+
+
+    private Comment savedComment() {
+        final CommentBuilder cb = this.withNameAndMessage();
+        final Comment comment = cb.created(CREATED1).build();
+
+        return this.commentRepo.save(comment);
+    }
+
+
+    private CommentBuilder withNameAndMessage() {
+        return new CommentBuilder().name(ANON_NAME).message(MESSAGE);
     }
 }
