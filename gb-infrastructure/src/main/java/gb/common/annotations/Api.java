@@ -15,18 +15,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 
+/**
+ * This annotation is signaling that annotated class is an entry point
+ * for an API service layer.
+ *
+ * @author Whitesquall
+ *
+ */
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, ANNOTATION_TYPE })
 @Service
 @Validated
-/**
- * This annotation is signaling that annotated class is an entry point
- * for an API.
- *
- * @author Whitesquall
- *
- */
 public @interface Api {
 
 }

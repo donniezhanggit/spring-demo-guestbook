@@ -2,8 +2,6 @@ package gb.common.config;
 
 import java.text.SimpleDateFormat;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -12,13 +10,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 @Configuration
 @EnableCaching
 public class MainConfig {
-    private static final Logger LOG = LoggerFactory
-            .getLogger(MainConfig.class);
-
     private static final String JACKSON_DATE_TIME_FORMAT =
             "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
@@ -40,7 +38,7 @@ public class MainConfig {
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
         }
 
-        LOG.info("Configuring of ObjectMapper finished");
+        log.info("Configuring of ObjectMapper finished");
 
         return mapper;
     }

@@ -6,18 +6,21 @@ import java.time.LocalDateTime;
 import javax.annotation.Nonnull;
 
 import gb.model.Comment;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.val;
+import lombok.experimental.FieldDefaults;
 
 
 @Data
+@FieldDefaults(level=AccessLevel.PRIVATE)
 public class CommentEntry {
-    private Long id;
-    private Short version;
-    private LocalDateTime created;
-    private String anonName;
-    private String message;
-    private String username;
+    Long id;
+    Short version;
+    LocalDateTime created;
+    String anonName;
+    String message;
+    String username;
 
 
     public static CommentEntry from(@Nonnull final Comment comment) {

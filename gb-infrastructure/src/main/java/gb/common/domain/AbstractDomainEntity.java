@@ -10,7 +10,10 @@ import javax.persistence.Version;
 import org.hibernate.annotations.*;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
+import lombok.Getter;
 
+
+@Getter
 @MappedSuperclass
 public abstract class AbstractDomainEntity 
 extends AbstractAggregateRoot
@@ -35,15 +38,4 @@ implements Serializable {
 
     @Version
     protected Short version;
-
-
-    protected AbstractDomainEntity() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public Short getVersion() {
-        return version;
-    }
 }
