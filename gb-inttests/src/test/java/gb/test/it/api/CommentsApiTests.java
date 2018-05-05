@@ -122,7 +122,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
     private void assertThatCommentRemoved(long commentId) {
         Optional<Comment> removedComment = this.commentRepo
-                        .findOne(commentId);
+                .findOneById(commentId);
 
         assertThat(removedComment.isPresent()).isFalse();
     }

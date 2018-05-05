@@ -1,7 +1,7 @@
 package gb.test.it.endpoints;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -12,10 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.junit.Test;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 
 import gb.api.CommentsApi;
@@ -26,7 +23,6 @@ import gb.test.dto.CommentInputBuilder;
 import gb.test.it.common.EndpointITCase;
 
 
-@Import(MainControllerTests.Config.class)
 public class MainControllerTests extends EndpointITCase {
     private static final Long ID = 1L;
     private static final Short VERSION = 0;
@@ -83,14 +79,5 @@ public class MainControllerTests extends EndpointITCase {
     private CommentInput buildAnonCommentInput() {
         return new CommentInputBuilder()
                 .name(NAME).message(MESSAGE).build();
-    }
-
-
-    @TestConfiguration
-    public static class Config {
-        @Bean
-        public CommentsApi commentsApi() {
-            return mock(CommentsApi.class);
-        }
     }
 }

@@ -26,7 +26,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 //import gb.Application;
@@ -34,11 +33,13 @@ import gb.common.config.GuestBookProfiles;
 import gb.common.config.MainConfig;
 import gb.common.config.SecurityConfig;
 //import gb.common.config.WebConfig;
+import gb.config.WebConfig;
+import lombok.SneakyThrows;
 
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles(profiles=GuestBookProfiles.NO_DB_INTEGRATION_TESTING)
-@Import({MainConfig.class, SecurityConfig.class /*, WebConfig.class*/})
+@Import({MainConfig.class, SecurityConfig.class, WebConfig.class})
 @ComponentScan(basePackages="gb")
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK)
 public abstract class BaseEndpointITCase {
@@ -73,18 +74,8 @@ public abstract class BaseEndpointITCase {
     }
 
 
+    @SneakyThrows
     protected String jsonify(final Object o) {
-        try {
-            return this.jsonifyOrThrow(o);
-        } catch (JsonProcessingException e) {
-            // Do not force an end user to handle exceptions.
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    private String jsonifyOrThrow(final Object o)
-            throws JsonProcessingException {
         final String json = this.objectMapper.writeValueAsString(o);
 
         logger.info("Object as JSON:\n" + json);

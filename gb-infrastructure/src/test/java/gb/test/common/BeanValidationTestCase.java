@@ -8,7 +8,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 
-public class BeanValidationTestCase extends JUnitTestCase {
+public abstract class BeanValidationTestCase extends JUnitTestCase {
         protected <T> Set<ConstraintViolation<T>> validate(T bean) {
                 final ValidatorFactory factory =
                                 Validation.buildDefaultValidatorFactory();

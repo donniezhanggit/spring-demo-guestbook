@@ -18,8 +18,7 @@ import org.springframework.data.repository.Repository;
  *
  */
 @NoRepositoryBean
-public interface DataRepository<T>
-    extends Repository<T, Long> {
+public interface DataRepository<T> extends Repository<T, Long> {
     /**
      * Saves a given entity. Use the returned instance for further
      * operations as the save operation might have changed the entity
@@ -39,7 +38,7 @@ public interface DataRepository<T>
      * @throws IllegalArgumentException in case the given entity is
      * {@literal null}.
      */
-    <S extends T> Iterable<S> save(@Nonnull Iterable<S> entities);
+    //<S extends T> Iterable<S> save(@Nonnull Iterable<S> entities);
 
 
     /**
@@ -58,7 +57,7 @@ public interface DataRepository<T>
      * @return the Optional of entity with the given id or
      *         Optional.empty if none found
      */
-    Optional<T> findOne(long id);
+    Optional<T> findOneById(Long id);
 
 
     /**
@@ -69,7 +68,7 @@ public interface DataRepository<T>
      * @return the Optional of entity with the given id or
      *         Optional.empty if none found.
      */
-    <S> Optional<S> findOneById(long id, Class<S> type);
+    <S> Optional<S> findOneById(Long id, Class<S> type);
 
 
     /**
@@ -91,7 +90,7 @@ public interface DataRepository<T>
      *         otherwise
      * @throws IllegalArgumentException if {@code id} is {@literal null}
      */
-    boolean exists(long id);
+    //boolean exists(long id);
 
 
     /**
@@ -108,7 +107,7 @@ public interface DataRepository<T>
      * @param ids
      * @return
      */
-    List<T> findAll(@Nonnull Iterable<Long> ids);
+    //List<T> findAll(@Nonnull Iterable<Long> ids);
 
 
     /**
@@ -126,7 +125,7 @@ public interface DataRepository<T>
      * @throws IllegalArgumentException in case the given {@code id} is
      *         {@literal null}
      */
-    void delete(long id);
+    //void delete(long id);
 
 
     /**
@@ -146,7 +145,7 @@ public interface DataRepository<T>
      * @throws IllegalArgumentException in case the given {@link Iterable}
      *         is {@literal null}
      */
-    void delete(@Nonnull Iterable<? extends T> entities);
+    //void delete(@Nonnull Iterable<? extends T> entities);
 
 
     /**

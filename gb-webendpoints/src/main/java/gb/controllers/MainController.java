@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import gb.api.CommentsApi;
 import gb.dto.CommentInput;
@@ -20,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-public class MainController extends WebMvcConfigurerAdapter {
+public class MainController {
     private final DateTimeFormatter dateFormat =
         DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
     private final CommentsApi commentsApi;

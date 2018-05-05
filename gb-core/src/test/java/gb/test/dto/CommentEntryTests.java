@@ -54,8 +54,7 @@ public class CommentEntryTests extends JUnitTestCase {
     private void assertCommentEntry(
             final CommentEntry expected, final CommentEntry actual) {
         assertThat(actual.getId()).isEqualTo(expected.getId());
-        assertThat(actual.getCreated())
-            .isEqualByComparingTo(expected.getCreated());
+        assertThat(actual.getCreated()).isEqualTo(expected.getCreated());
         assertThat(actual.getAnonName()).isEqualTo(expected.getAnonName());
         assertThat(actual.getMessage()).isEqualTo(expected.getMessage());
         assertThat(actual.getUsername()).isEqualTo(expected.getUsername());

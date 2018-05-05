@@ -8,15 +8,14 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
 import org.hibernate.annotations.*;
-import org.springframework.data.domain.AbstractAggregateRoot;
+//import org.springframework.data.domain.AbstractAggregateRoot;
 
 import lombok.Getter;
 
 
 @Getter
 @MappedSuperclass
-public abstract class AbstractDomainEntity 
-extends AbstractAggregateRoot
+public abstract class AbstractDomainEntity
 implements Serializable {
     private static final long serialVersionUID = 1L;
 
