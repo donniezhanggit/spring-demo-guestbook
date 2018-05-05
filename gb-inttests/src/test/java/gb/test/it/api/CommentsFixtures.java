@@ -31,9 +31,7 @@ public class CommentsFixtures {
 
 
     public void savedCommentList() {
-        List<Comment> comments = buildCommentsList();
-
-        comments.forEach(this.commentsRepo::save);
+        this.commentsRepo.saveAll(buildCommentsList());
     }
 
 

@@ -15,6 +15,8 @@ import org.springframework.data.repository.Repository;
 /**
  * Interface for generic CRUD operations on a repository
  * for a specific type.
+ * For all available methods visit
+ * https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/support/SimpleJpaRepository.html
  *
  */
 @NoRepositoryBean
@@ -38,7 +40,13 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @throws IllegalArgumentException in case the given entity is
      * {@literal null}.
      */
-    //<S extends T> Iterable<S> save(@Nonnull Iterable<S> entities);
+    <S extends T> Iterable<S> saveAll(@Nonnull Iterable<S> entities);
+
+
+    /**
+     * Flushed all pending changes to the database.
+     */
+    void flush();
 
 
     /**
@@ -57,7 +65,7 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @return the Optional of entity with the given id or
      *         Optional.empty if none found
      */
-    Optional<T> findOneById(Long id);
+    Optional<T> findOneById(long id);
 
 
     /**
@@ -68,7 +76,7 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @return the Optional of entity with the given id or
      *         Optional.empty if none found.
      */
-    <S> Optional<S> findOneById(Long id, Class<S> type);
+    <S> Optional<S> findOneById(long id, Class<S> type);
 
 
     /**
@@ -88,9 +96,8 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @param id must not be {@literal null}.
      * @return true if an entity with the given id exists, {@literal false}
      *         otherwise
-     * @throws IllegalArgumentException if {@code id} is {@literal null}
      */
-    //boolean exists(long id);
+    boolean existsById(long id);
 
 
     /**
@@ -107,7 +114,7 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @param ids
      * @return
      */
-    //List<T> findAll(@Nonnull Iterable<Long> ids);
+    List<T> findAllById(@Nonnull Iterable<Long> ids);
 
 
     /**
@@ -125,7 +132,7 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @throws IllegalArgumentException in case the given {@code id} is
      *         {@literal null}
      */
-    //void delete(long id);
+    void deleteById(long id);
 
 
     /**
@@ -145,7 +152,7 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @throws IllegalArgumentException in case the given {@link Iterable}
      *         is {@literal null}
      */
-    //void delete(@Nonnull Iterable<? extends T> entities);
+    void deleteInBatch(@Nonnull Iterable<? extends T> entities);
 
 
     /**
