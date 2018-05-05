@@ -68,9 +68,9 @@ public class CommentsApi {
     @CacheEvict(allEntries=true)
     @PreAuthorize("hasRole('ADMIN')")
     public void removeComment(long id) {
-        final Optional<Comment> comment = this.commentRepo.findOne(id);
+        final Comment comment = this.commentRepo.getOne(id);
 
-        comment.ifPresent(c -> this.commentRepo.delete(c));
+        this.commentRepo.delete(comment);
     }
 
 
