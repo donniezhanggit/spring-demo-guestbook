@@ -11,9 +11,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -68,6 +70,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    public PasswordEncoder passwordEncoder() {
 //        return new BCryptPasswordEncoder();
 //    }
+
+    // Copy-pasted from {@link NoOpPasswordEncoder}. I know about deprecation.
+    // But still want to get plain text password for testing purposes.
+    // It is not production ready!
+    @Bean
+    @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
+    public PasswordEncoder passwordEncoder() {
+        return new PasswordEncoder() {
+                @Override
+                public String encode(CharSequence rawPassword) {
+                        return rawPassword.toString();
+                }
+
+                @Override
+                public boolean matches(CharSequence rawPassword, String encodedPassword) {
+                        return rawPassword.toString().equals(encodedPassword);
+                }
+        };
+    }
 
 
     @Bean
