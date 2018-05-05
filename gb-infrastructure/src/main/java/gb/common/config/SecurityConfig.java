@@ -1,7 +1,5 @@
 package gb.common.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,14 +14,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
+@Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final Logger LOG = LoggerFactory
-            .getLogger(SecurityConfig.class);
-
     @Autowired
     public UserDetailsService userDetailsService;
 
@@ -33,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         throws Exception {
         auth.userDetailsService(this.userDetailsService);
 
-        LOG.info("Configuring of AuthenticationManagerBuilder finished");
+        log.debug("Configured AuthenticationManagerBuilder");
     }
 
 
@@ -51,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .and()
             .logout().permitAll();
 
-        LOG.info("Configuring of HttpSecurity finished");
+        log.debug("Configured HttpSecurity");
     }
 
 

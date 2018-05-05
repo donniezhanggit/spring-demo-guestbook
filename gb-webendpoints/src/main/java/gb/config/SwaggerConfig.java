@@ -3,14 +3,13 @@ package gb.config;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import gb.common.config.GuestBookProfiles;
+import lombok.extern.slf4j.Slf4j;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -24,14 +23,11 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
+@Slf4j
 @Configuration
 @EnableSwagger2
 @Profile(GuestBookProfiles.DEVELOPMENT)
 public class SwaggerConfig {
-    private static final Logger LOG = LoggerFactory
-            .getLogger(SwaggerConfig.class);
-
-
     /** The title for the spring boot service to be displayed on swagger UI.  */
     @Value("${swagger.title:spring.application.name:app_title}")
     private String title;
@@ -117,7 +113,7 @@ public class SwaggerConfig {
                 .build()
                 .apiInfo(this.apiEndPointsInfo());
 
-        LOG.info(String.format("Configured SWAGGER Group: [%s]", docket.getGroupName()));
+        log.debug("Configured SWAGGER Group: [{}]", docket.getGroupName());
 
         return docket;
     }
