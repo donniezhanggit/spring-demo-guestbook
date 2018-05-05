@@ -42,7 +42,9 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
     @Override
     public void predefinedData() {
-        commentRepo.save(this.buildCommentsList());
+        this.buildCommentsList().forEach(comment ->
+            this.commentRepo.save(comment)
+        );
     }
 
 
