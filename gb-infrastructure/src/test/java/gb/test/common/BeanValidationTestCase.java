@@ -9,11 +9,11 @@ import javax.validation.ValidatorFactory;
 
 
 public abstract class BeanValidationTestCase extends JUnitTestCase {
-        protected <T> Set<ConstraintViolation<T>> validate(T bean) {
-                final ValidatorFactory factory =
-                                Validation.buildDefaultValidatorFactory();
-                final Validator validator = factory.getValidator();
+    protected <T> Set<ConstraintViolation<T>> validate(T bean) {
+        final ValidatorFactory factory =
+                Validation.buildDefaultValidatorFactory();
+        final Validator validator = factory.getValidator();
 
-                return validator.validate(bean);
-        }
+        return validator.validate(bean);
+    }
 }
