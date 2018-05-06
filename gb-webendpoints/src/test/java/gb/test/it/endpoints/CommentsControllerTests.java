@@ -130,11 +130,11 @@ public class CommentsControllerTests extends EndpointITCase {
     @Test
     public void Creating_a_new_comment_should_return_201() throws Exception {
         // Arrange.
-        final String jsonComment = jsonify(buildAnonCommentInput());
+        final String jsonCommentInput = jsonify(buildAnonCommentInput());
 
         // Act and assert.
         this.mockMvc.perform(post(COMMENTS_API_URL)
-                .content(jsonComment)
+                .content(jsonCommentInput)
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
             .andExpect(status().isCreated())
             .andExpect(content()
@@ -146,12 +146,11 @@ public class CommentsControllerTests extends EndpointITCase {
     public void Creating_a_new_comment_should_call_APIs_createComment()
             throws Exception {
         // Arrange.
-        final CommentInput input = buildAnonCommentInput();
-        final String jsonComment = jsonify(input);
+        final String jsonCommentInput = jsonify(buildAnonCommentInput());
 
         // Act.
         this.mockMvc.perform(post(COMMENTS_API_URL)
-                .content(jsonComment)
+                .content(jsonCommentInput)
                 .contentType(MediaType.APPLICATION_JSON_UTF8));
 
         // Assert.
