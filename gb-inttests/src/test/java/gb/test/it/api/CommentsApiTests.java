@@ -1,8 +1,9 @@
 package gb.test.it.api;
 
+import static gb.test.it.api.CommentsFixtures.ANON_NAME;
+import static gb.test.it.api.CommentsFixtures.MESSAGE;
+import static gb.test.it.api.CommentsFixtures.commentInputBuilderWithNameAndMessage;
 import static org.assertj.core.api.Assertions.assertThat;
-
-import static gb.test.it.api.CommentsFixtures.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +17,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import gb.api.CommentsApi;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
-import gb.model.Comment;
 import gb.repos.CommentsRepository;
 import gb.test.it.common.RecreatePerClassITCase;
 
