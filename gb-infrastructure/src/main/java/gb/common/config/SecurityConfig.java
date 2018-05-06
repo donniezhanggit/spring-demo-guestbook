@@ -57,10 +57,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private
     SecurityExpressionHandler<FilterInvocation> webExpressionHandler() {
-        DefaultWebSecurityExpressionHandler handler =
+        final DefaultWebSecurityExpressionHandler handler =
                         new DefaultWebSecurityExpressionHandler();
 
         handler.setRoleHierarchy(this.roleHierarchy());
+
+        log.info("Configured DefaultWebSecurityExpressionHandler"
+                + " to use roleHierarchy");
 
         return handler;
     }
@@ -77,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
     public PasswordEncoder passwordEncoder() {
-        return new PasswordEncoder() {
+        final PasswordEncoder passwordEncoder = new PasswordEncoder() {
                 @Override
                 public String encode(CharSequence rawPassword) {
                         return rawPassword.toString();
@@ -88,14 +91,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         return rawPassword.toString().equals(encodedPassword);
                 }
         };
+
+        log.info("Configured passwordEncoder");
+
+        return passwordEncoder;
     }
 
 
     @Bean
     public RoleHierarchyImpl roleHierarchy() {
-        RoleHierarchyImpl rh = new RoleHierarchyImpl();
+        final RoleHierarchyImpl rh = new RoleHierarchyImpl();
 
         rh.setHierarchy("ROLE_ADMIN > ROLE_USER");
+
+        log.info("Configured RoleHierarchyImpl");
 
         return rh;
     }
