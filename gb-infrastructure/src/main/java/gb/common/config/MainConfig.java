@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -17,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @EnableCaching
 public class MainConfig {
-    private static final String JACKSON_DATE_TIME_FORMAT =
+    private static final String ISO_DATETIME_WITHOUT_TIMEZONE =
             "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
 
@@ -28,10 +29,11 @@ public class MainConfig {
     @Bean
     public ObjectMapper objectMapper() {
         final ObjectMapper mapper = new ObjectMapper();
+        val dateFormat = new SimpleDateFormat(ISO_DATETIME_WITHOUT_TIMEZONE);
 
         // Serialize LocalDateTime to format available for javascript.
         mapper.registerModule(new JavaTimeModule());
-        mapper.setDateFormat(new SimpleDateFormat(JACKSON_DATE_TIME_FORMAT));
+        mapper.setDateFormat(dateFormat);
 
         // Enable pretty print.
         if(this.prettyPrint) {

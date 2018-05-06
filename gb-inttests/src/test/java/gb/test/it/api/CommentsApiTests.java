@@ -2,6 +2,7 @@ package gb.test.it.api;
 
 import static gb.test.fixtures.CommentsFixtures.ANON_NAME;
 import static gb.test.fixtures.CommentsFixtures.MESSAGE;
+import static gb.test.fixtures.CommentsFixtures.NON_EXISTENT_ID;
 import static gb.test.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,7 +37,10 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     @Test
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Comments_should_be_fetched() {
-        // Arrange and act.
+        // Arrange.
+        this.commentFixtures.savedCommentList();
+
+        // Act.
         final List<CommentEntry> actual = this.commentsApi.getComments();
 
         // Assert.
@@ -65,7 +69,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     public void When_comment_isnt_exist_an_empty_optional_should_returned() {
         // Arrange and act.
         final Optional<CommentEntry> actual = this.commentsApi
-                .getComment(CommentsFixtures.NON_EXISTENT_ID);
+                .getComment(NON_EXISTENT_ID);
 
         // Assert.
         assertThat(actual.isPresent()).isFalse();

@@ -1,14 +1,14 @@
 package gb.test.it.common;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 
-@Service
+@Component
 final class InitOnceChecker {
     private boolean isInitialized = false;
 
 
-    public synchronized boolean getAndSet() {
+    public synchronized boolean getAndSetTrue() {
         final boolean previousState = this.isInitialized;
         this.isInitialized = true;
 
