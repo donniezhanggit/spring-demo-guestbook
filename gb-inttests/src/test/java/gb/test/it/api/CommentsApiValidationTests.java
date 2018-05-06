@@ -1,7 +1,7 @@
 package gb.test.it.api;
 
 import static gb.test.common.FakeData.stringWithLength;
-import static gb.test.it.api.CommentsFixtures.commentInputBuilderWithNameAndMessage;
+import static gb.test.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
 
 import javax.validation.ValidationException;
 

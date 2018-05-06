@@ -1,8 +1,8 @@
 package gb.test.it.api;
 
-import static gb.test.it.api.CommentsFixtures.ANON_NAME;
-import static gb.test.it.api.CommentsFixtures.MESSAGE;
-import static gb.test.it.api.CommentsFixtures.commentInputBuilderWithNameAndMessage;
+import static gb.test.fixtures.CommentsFixtures.ANON_NAME;
+import static gb.test.fixtures.CommentsFixtures.MESSAGE;
+import static gb.test.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
@@ -18,6 +18,7 @@ import gb.api.CommentsApi;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import gb.repos.CommentsRepository;
+import gb.test.fixtures.CommentsFixtures;
 import gb.test.it.common.RecreatePerClassITCase;
 
 

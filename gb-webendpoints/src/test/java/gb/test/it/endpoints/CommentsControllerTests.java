@@ -1,10 +1,19 @@
 package gb.test.it.endpoints;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static gb.test.fixtures.CommentsFixtures.EXISTING_ID;
+import static gb.test.fixtures.CommentsFixtures.NON_EXISTENT_ID;
+import static gb.test.fixtures.CommentsFixtures.buildAnonCommentEntry;
+import static gb.test.fixtures.CommentsFixtures.buildAnonCommentInput;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -15,18 +24,10 @@ import org.springframework.http.MediaType;
 import gb.api.CommentsApi;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
-import gb.test.dto.CommentEntryBuilder;
-import gb.test.dto.CommentInputBuilder;
 import gb.test.it.common.EndpointITCase;
 
 
 public class CommentsControllerTests extends EndpointITCase {
-    private static final long EXISTING_ID = 1L;
-    private static final long NON_EXISTENT_ID = Long.MAX_VALUE;
-    private static final short VERSION = 0;
-    private static final String NAME = "anon";
-    private static final String MESSAGE = "message";
-    private static final LocalDateTime CREATED = LocalDateTime.now();
     private static final String COMMENTS_API_URL = "/api/comments/";
 
     @MockBean
@@ -35,7 +36,7 @@ public class CommentsControllerTests extends EndpointITCase {
 
     @Override
     public void setup() {
-        final CommentEntry commentEntry = this.buildAnonCommentEntry();
+        final CommentEntry commentEntry = buildAnonCommentEntry();
 
         when(this.commentsApi.createComment(any(CommentInput.class)))
             .thenReturn(EXISTING_ID);
@@ -129,7 +130,7 @@ public class CommentsControllerTests extends EndpointITCase {
     @Test
     public void Creating_a_new_comment_should_return_201() throws Exception {
         // Arrange.
-        final String jsonComment = this.jsonify(this.buildAnonCommentInput());
+        final String jsonComment = jsonify(buildAnonCommentInput());
 
         // Act and assert.
         this.mockMvc.perform(post(COMMENTS_API_URL)
@@ -145,8 +146,8 @@ public class CommentsControllerTests extends EndpointITCase {
     public void Creating_a_new_comment_should_call_APIs_createComment()
             throws Exception {
         // Arrange.
-        final CommentInput input = this.buildAnonCommentInput();
-        final String jsonComment = this.jsonify(input);
+        final CommentInput input = buildAnonCommentInput();
+        final String jsonComment = jsonify(input);
 
         // Act.
         this.mockMvc.perform(post(COMMENTS_API_URL)
@@ -157,19 +158,5 @@ public class CommentsControllerTests extends EndpointITCase {
         verify(this.commentsApi, times(1))
             .createComment(any(CommentInput.class));
         verifyNoMoreInteractions(this.commentsApi);
-    }
-
-
-    private CommentEntry buildAnonCommentEntry() {
-        return new CommentEntryBuilder()
-                .id(EXISTING_ID).created(CREATED).version(VERSION)
-                .anonName(NAME).message(MESSAGE).username(null)
-                .build();
-    }
-
-
-    private CommentInput buildAnonCommentInput() {
-        return new CommentInputBuilder()
-                .name(NAME).message(MESSAGE).build();
     }
 }

@@ -1,4 +1,4 @@
-package gb.test.it.api;
+package gb.test.fixtures;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -7,15 +7,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import gb.dto.CommentEntry;
+import gb.dto.CommentInput;
 import gb.model.Comment;
 import gb.model.CommentBuilder;
 import gb.repos.CommentsRepository;
+import gb.test.dto.CommentEntryBuilder;
 import gb.test.dto.CommentInputBuilder;
 
 
 @Service
 public class CommentsFixtures {
-    public static final Long NON_EXISTENT_ID = Long.MAX_VALUE;
+    public static final long EXISTING_ID = 1L;
+    public static final long NON_EXISTENT_ID = Long.MAX_VALUE;
+    public static final short VERSION_JUST_CREATED = 0;
     public static final String ANON_NAME = "anon";
     public static final String MESSAGE = "message";
     public static final LocalDateTime CREATED1 =
@@ -72,8 +77,21 @@ public class CommentsFixtures {
     }
 
 
+    public static CommentInput buildAnonCommentInput() {
+        return commentInputBuilderWithNameAndMessage().build();
+    }
+
+
     public static CommentInputBuilder commentInputBuilderWithNameAndMessage() {
         return new CommentInputBuilder()
                 .name(ANON_NAME).message(MESSAGE);
+    }
+
+
+    public static CommentEntry buildAnonCommentEntry() {
+        return new CommentEntryBuilder()
+                .id(EXISTING_ID).version(VERSION_JUST_CREATED)
+                .created(CREATED1).anonName(ANON_NAME).message(MESSAGE)
+                .username(null).build();
     }
 }
