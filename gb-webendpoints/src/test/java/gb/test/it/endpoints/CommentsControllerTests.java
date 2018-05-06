@@ -18,15 +18,19 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import org.junit.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import gb.api.CommentsApi;
+import gb.controllers.CommentsController;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import gb.test.it.common.EndpointITCase;
 
 
+@WebMvcTest(CommentsController.class)
 public class CommentsControllerTests extends EndpointITCase {
     private static final String COMMENTS_API_URL = "/api/comments/";
 
@@ -50,6 +54,7 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Getting_a_list_of_comments_should_return_200()
             throws Exception {
         this.mockMvc.perform(get(COMMENTS_API_URL))
@@ -60,6 +65,7 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Getting_a_list_of_comments_should_call_APIs_getComments()
             throws Exception {
         // Arrange and act.
@@ -72,6 +78,7 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Getting_an_existing_comment_should_return_200()
             throws Exception {
         // Arrange.
@@ -86,6 +93,7 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Getting_an_existing_comment_should_call_APIs_getComment()
             throws Exception {
         // Arrange.
@@ -101,6 +109,7 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Getting_a_non_existent_comment_should_return_404()
             throws Exception {
         // Arrange.
@@ -113,6 +122,7 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Getting_a_non_existent_comment_should_call_APIs_getComment()
             throws Exception {
         // Arrange.
@@ -128,6 +138,7 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Creating_a_new_comment_should_return_201() throws Exception {
         // Arrange.
         final String jsonCommentInput = jsonify(buildAnonCommentInput());
@@ -143,6 +154,7 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Creating_a_new_comment_should_call_APIs_createComment()
             throws Exception {
         // Arrange.

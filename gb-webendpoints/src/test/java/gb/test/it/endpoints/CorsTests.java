@@ -4,10 +4,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.security.test.context.support.WithMockUser;
 
+import gb.controllers.PingController;
 import gb.test.it.common.EndpointITCase;
 
 
+@WebMvcTest(PingController.class)
 public class CorsTests extends EndpointITCase {
     private static final String PING_API_URL = "/api/ping";
     private static final String ORIGIN_HEADER = "Origin";
@@ -16,6 +20,7 @@ public class CorsTests extends EndpointITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Request_with_wrong_origin_should_return_403()
             throws Exception {
         this.mockMvc.perform(get(PING_API_URL)
@@ -25,6 +30,7 @@ public class CorsTests extends EndpointITCase {
 
 
     @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Request_with_right_origin_should_return_200()
             throws Exception {
         this.mockMvc.perform(get(PING_API_URL)
