@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth)
         throws Exception {
-        auth.userDetailsService(this.userDetailsService);
+        auth.userDetailsService(userDetailsService);
 
         log.info("Configuring of AuthenticationManagerBuilder finished");
     }
@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
           .csrf().disable()
           .authorizeRequests()
-            .expressionHandler(this.webExpressionHandler())
+            .expressionHandler(webExpressionHandler())
             .antMatchers("/api/comments").hasRole("USER")
             .antMatchers("/", "/css/**", "/images/**").permitAll()
             .anyRequest().authenticated()
@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         final DefaultWebSecurityExpressionHandler handler =
                         new DefaultWebSecurityExpressionHandler();
 
-        handler.setRoleHierarchy(this.roleHierarchy());
+        handler.setRoleHierarchy(roleHierarchy());
 
         log.info("Configured DefaultWebSecurityExpressionHandler"
                 + " to use roleHierarchy");

@@ -62,20 +62,20 @@ public class Comment extends AbstractDomainEntity {
 
 
     public Comment(@Nonnull final CommentInput input) {
-        this.name = input.getName();
-        this.message = input.getMessage();
+        name = input.getName();
+        message = input.getMessage();
     }
 
 
     public Comment(@Nonnull final CommentBuilder cb) {
-        this.created = cb.created;
-        this.name    = cb.name;
-        this.message = cb.message;
-        this.user    = cb.user;
+        created = cb.created;
+        name    = cb.name;
+        message = cb.message;
+        user    = cb.user;
     }
 
 
     public Optional<User> getUser() {
-        return Optional.ofNullable(this.user);
+        return Optional.ofNullable(user);
     }
 }

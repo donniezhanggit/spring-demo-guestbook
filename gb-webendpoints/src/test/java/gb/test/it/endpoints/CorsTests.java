@@ -23,7 +23,7 @@ public class CorsTests extends EndpointITCase {
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Request_with_wrong_origin_should_return_403()
             throws Exception {
-        this.mockMvc.perform(get(PING_API_URL)
+        mockMvc.perform(get(PING_API_URL)
                 .header(ORIGIN_HEADER, WRONG_ORIGIN_URL))
             .andExpect(status().isForbidden());
     }
@@ -33,7 +33,7 @@ public class CorsTests extends EndpointITCase {
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Request_with_right_origin_should_return_200()
             throws Exception {
-        this.mockMvc.perform(get(PING_API_URL)
+        mockMvc.perform(get(PING_API_URL)
                 .header(ORIGIN_HEADER, RIGHT_ORIGIN_URL))
             .andExpect(status().isOk());
     }

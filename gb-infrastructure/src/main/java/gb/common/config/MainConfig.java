@@ -36,7 +36,7 @@ public class MainConfig {
         mapper.setDateFormat(dateFormat);
 
         // Enable pretty print.
-        if(this.prettyPrint) {
+        if(prettyPrint) {
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
         }
 

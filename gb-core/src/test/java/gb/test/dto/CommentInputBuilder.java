@@ -10,18 +10,18 @@ public class CommentInputBuilder {
 
 
     public CommentInputBuilder name(@NotNull String name) {
-        this.input.setName(name);
+        input.setName(name);
         return this;
     }
 
 
     public CommentInputBuilder message(@NotNull String message) {
-        this.input.setMessage(message);
+        input.setMessage(message);
         return this;
     }
 
 
     public CommentInput build() {
-        return this.input;
+        return input;
     }
 }

@@ -31,7 +31,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
         // Act and assert.
         thrown.expect(ValidationException.class);
-        this.commentsApi.createComment(input);
+        commentsApi.createComment(input);
     }
 
 
@@ -45,7 +45,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
                 .name(longName).build();
 
         // Act.
-        this.commentsApi.createComment(input);
+        commentsApi.createComment(input);
     }
 
 
@@ -60,7 +60,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
         // Act and assert.
         thrown.expect(ValidationException.class);
-        this.commentsApi.createComment(input);
+        commentsApi.createComment(input);
     }
 
 
@@ -74,7 +74,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
                 .message(longMessage).build();
 
         // Act.
-        this.commentsApi.createComment(input);
+        commentsApi.createComment(input);
     }
 
 
@@ -87,7 +87,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
         // Act and assert.
         thrown.expect(ValidationException.class);
-        this.commentsApi.createComment(input);
+        commentsApi.createComment(input);
     }
 
 
@@ -100,6 +100,6 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
         // Act and assert.
         thrown.expect(ValidationException.class);
-        this.commentsApi.createComment(input);
+        commentsApi.createComment(input);
     }
 }

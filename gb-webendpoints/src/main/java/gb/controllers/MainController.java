@@ -35,8 +35,8 @@ public class MainController {
         final ModelAndView view = new ModelAndView(viewname);
 
         view.addObject("commentForm", commentForm);
-        view.addObject("comments", this.commentsApi.getComments());
-        view.addObject("dateFormat", this.dateFormat);
+        view.addObject("comments", commentsApi.getComments());
+        view.addObject("dateFormat", dateFormat);
 
         return view;
     }
@@ -44,7 +44,7 @@ public class MainController {
 
     @GetMapping(value="/")
     public ModelAndView listComments() {
-        return this.generateView("list", new CommentInput());
+        return generateView("list", new CommentInput());
     }
 
 
@@ -52,9 +52,9 @@ public class MainController {
     public ModelAndView addComment(@Valid final CommentInput commentInput,
             final BindingResult bindingResult, final HttpServletRequest request) {
         if(bindingResult.hasErrors())
-            return this.generateView("list", commentInput);
+            return generateView("list", commentInput);
 
-        this.commentsApi.createComment(commentInput);
+        commentsApi.createComment(commentInput);
 
         log.info("Comment {} has been added from ip: {}",
                         commentInput,

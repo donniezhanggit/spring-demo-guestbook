@@ -40,9 +40,9 @@ public class MainControllerTests extends EndpointITCase {
     public void setup() {
         final CommentEntry commentEntry = buildAnonCommentEntry();
 
-        when(this.commentsApi.createComment(any(CommentInput.class)))
+        when(commentsApi.createComment(any(CommentInput.class)))
             .thenReturn(EXISTING_ID);
-        when(this.commentsApi.getComments())
+        when(commentsApi.getComments())
             .thenReturn(Arrays.asList(commentEntry));
     }
 
@@ -51,7 +51,7 @@ public class MainControllerTests extends EndpointITCase {
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Getting_a_list_of_comments()
             throws Exception {
-        this.mockMvc.perform(get(ROOT_URL))
+        mockMvc.perform(get(ROOT_URL))
             .andExpect(status().isOk())
             .andExpect(content().contentType(HTML_UTF8));
     }
@@ -62,7 +62,7 @@ public class MainControllerTests extends EndpointITCase {
     public void Creating_a_new_comment() throws Exception {
         final String jsonComment = jsonify(buildAnonCommentInput());
 
-        this.mockMvc.perform(post(ROOT_URL)
+        mockMvc.perform(post(ROOT_URL)
                 .content(jsonComment)
                 .contentType(MediaType.TEXT_PLAIN))
             .andExpect(status().is2xxSuccessful());

@@ -26,28 +26,28 @@ public class CommentEntryTests extends JUnitTestCase {
     @Test
     public void testAnonymousCommentMapping() {
         // Arrange.
-        final Comment comment = this.buildAnonComment();
-        final CommentEntry expected = this.buildAnonCommentEntry();
+        final Comment comment = buildAnonComment();
+        final CommentEntry expected = buildAnonCommentEntry();
 
         // Act.
         final CommentEntry actual = CommentEntry.from(comment);
 
         // Assert.
-        this.assertCommentEntry(expected, actual);
+        assertCommentEntry(expected, actual);
     }
 
 
     @Test
     public void testUserCommentMapping() {
         // Arrange.
-        final Comment comment = this.buildUserComment();
-        final CommentEntry expected = this.buildUserCommentEntry();
+        final Comment comment = buildUserComment();
+        final CommentEntry expected = buildUserCommentEntry();
 
         // Act.
         final CommentEntry actual = CommentEntry.from(comment);
 
         // Assert.
-        this.assertCommentEntry(expected, actual);
+        assertCommentEntry(expected, actual);
     }
 
 
@@ -75,14 +75,14 @@ public class CommentEntryTests extends JUnitTestCase {
 
 
     private Comment buildAnonComment() {
-        return this.getCommentBuilder().user(null).build();
+        return getCommentBuilder().user(null).build();
     }
 
 
     private Comment buildUserComment() {
-        return this.getCommentBuilder()
+        return getCommentBuilder()
                 .name(null)
-                .user(this.buildUser())
+                .user(buildUser())
                 .build();
     }
 

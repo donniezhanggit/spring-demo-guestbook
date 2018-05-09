@@ -69,25 +69,25 @@ public class User extends AbstractDomainEntity {
 
 
     public User(@Valid @Nonnull UserBuilder ub) {
-        this.username = ub.username;
-        this.password = ub.password;
-        this.email    = ub.email;
-        this.created  = ub.created;
-        this.active   = ub.active;
+        username = ub.username;
+        password = ub.password;
+        email    = ub.email;
+        created  = ub.created;
+        active   = ub.active;
     }
 
 
     public void addComment(@Nonnull Comment comment) {
-        this.comments.add(comment);
+        comments.add(comment);
         comment.setUser(this);
     }
 
     public void removeComment(@Nonnull Comment comment) {
-        this.comments.remove(comment);
+        comments.remove(comment);
         comment.setUser(null);
     }
 
     public void removeAllComments() {
-        this.comments.clear();
+        comments.clear();
     }
 }

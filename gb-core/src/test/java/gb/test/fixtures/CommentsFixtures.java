@@ -36,12 +36,12 @@ public class CommentsFixtures {
 
 
     public void savedCommentList() {
-        this.commentsRepo.saveAll(buildCommentsList());
+        commentsRepo.saveAll(buildCommentsList());
     }
 
 
     public long existingCommentId() {
-        return this.existingComment().getId();
+        return existingComment().getId();
     }
 
 
@@ -50,7 +50,7 @@ public class CommentsFixtures {
                         .created(CREATED1)
                         .build();
 
-        return this.commentsRepo.save(comment);
+        return commentsRepo.save(comment);
     }
 
 
@@ -58,7 +58,7 @@ public class CommentsFixtures {
         final CommentBuilder cb = commentWithNameAndMessage();
         final Comment comment = cb.created(CREATED1).build();
 
-        return this.commentsRepo.save(comment);
+        return commentsRepo.save(comment);
     }
 
 

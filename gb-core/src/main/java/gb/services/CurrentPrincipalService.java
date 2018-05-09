@@ -21,7 +21,7 @@ public class CurrentPrincipalService {
 
 
     public Optional<User> getCurrentUser() {
-        final Object principal = this.getCurrentAuth()
+        final Object principal = getCurrentAuth()
                 .get().getPrincipal();
 
         if(principal instanceof CustomUserDetails) {

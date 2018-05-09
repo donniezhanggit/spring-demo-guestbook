@@ -38,7 +38,7 @@ public class CommentsApi {
 
     @Cacheable
     public List<CommentEntry> getComments() {
-        final List<CommentEntry> comments = this.commentRepo
+        final List<CommentEntry> comments = commentRepo
             .findAllByOrderByCreatedAsc(CommentEntry.class);
 
         return comments;
@@ -46,7 +46,7 @@ public class CommentsApi {
 
 
     public Optional<CommentEntry> getComment(final long id) {
-        final Optional<CommentEntry> entry = this.commentRepo
+        final Optional<CommentEntry> entry = commentRepo
                 .findOneById(id, CommentEntry.class);
 
         return entry;
@@ -57,8 +57,8 @@ public class CommentsApi {
     @CacheEvict(allEntries=true)
     @PreAuthorize("hasRole('USER')")
     public Long createComment(@Nonnull @Valid final CommentInput input) {
-        final Comment comment = this.commentRepo.save(
-                this.buildCommentFromInput(input));
+        final Comment comment = commentRepo.save(
+                buildCommentFromInput(input));
 
         return comment.getId();
     }
@@ -68,14 +68,14 @@ public class CommentsApi {
     @CacheEvict(allEntries=true)
     @PreAuthorize("hasRole('ADMIN')")
     public void removeComment(long id) {
-        final Comment comment = this.commentRepo.getOne(id);
+        final Comment comment = commentRepo.getOne(id);
 
-        this.commentRepo.delete(comment);
+        commentRepo.delete(comment);
     }
 
 
     private Comment buildCommentFromInput(@Nonnull final CommentInput input) {
-        final Optional<User> currentUser = this.getUser();
+        final Optional<User> currentUser = getUser();
 
         val comment = new Comment(input);
 
@@ -89,6 +89,6 @@ public class CommentsApi {
 
 
     private Optional<User> getUser() {
-        return this.currentPrincipalService.getCurrentUser();
+        return currentPrincipalService.getCurrentUser();
     }
 }
