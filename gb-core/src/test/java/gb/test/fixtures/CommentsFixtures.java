@@ -1,5 +1,7 @@
 package gb.test.fixtures;
 
+import static gb.test.fixtures.UsersFixtures.buildUser;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +23,9 @@ public class CommentsFixtures {
     public static final long EXISTING_ID = 1L;
     public static final long NON_EXISTENT_ID = Long.MAX_VALUE;
     public static final short VERSION_JUST_CREATED = 0;
-    public static final String ANON_NAME = "anon";
-    public static final String MESSAGE = "message";
+    public static final String ANON_NAME = "A test anon";
+    public static final String MESSAGE = "A test message";
+    public static final String USERNAME = "user";
     public static final LocalDateTime CREATED1 =
             LocalDateTime.of(2017, 9, 1, 12, 34, 16);
     public static final LocalDateTime CREATED2 =
@@ -93,5 +96,30 @@ public class CommentsFixtures {
                 .id(EXISTING_ID).version(VERSION_JUST_CREATED)
                 .created(CREATED1).anonName(ANON_NAME).message(MESSAGE)
                 .username(null).build();
+    }
+
+
+    public static CommentEntry buildUserCommentEntry() {
+        return new CommentEntryBuilder()
+                .anonName(null).created(CREATED1).message(MESSAGE)
+                .username(USERNAME).build();
+    }
+
+    public static CommentBuilder getCommentBuilder() {
+        return new CommentBuilder()
+                .created(CREATED1).name(ANON_NAME).message(MESSAGE);
+    }
+
+
+    public static Comment buildAnonComment() {
+        return getCommentBuilder().user(null).build();
+    }
+
+
+    public static Comment buildUserComment() {
+        return getCommentBuilder()
+                .name(null)
+                .user(buildUser())
+                .build();
     }
 }
