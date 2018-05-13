@@ -2,6 +2,8 @@ package gb.test.it.api;
 
 import static gb.test.common.FakeData.stringWithLength;
 import static gb.test.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 import javax.validation.ValidationException;
 
@@ -13,6 +15,7 @@ import gb.api.CommentsApi;
 import gb.dto.CommentInput;
 import gb.model.Comment;
 import gb.test.it.common.RecreatePerClassITCase;
+import lombok.val;
 
 
 public class CommentsApiValidationTests extends RecreatePerClassITCase {
@@ -29,9 +32,11 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .name(tooLongName).build();
 
-        // Act and assert.
-        thrown.expect(ValidationException.class);
-        commentsApi.createComment(input);
+        // Act.
+        val throwable = catchThrowable(() -> commentsApi.createComment(input));
+
+        // Assert.
+        assertThat(throwable).isInstanceOf(ValidationException.class);
     }
 
 
@@ -59,8 +64,10 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
                 .message(tooLongMessage).build();
 
         // Act and assert.
-        thrown.expect(ValidationException.class);
-        commentsApi.createComment(input);
+        val throwable = catchThrowable(() -> commentsApi.createComment(input));
+
+        // Assert.
+        assertThat(throwable).isInstanceOf(ValidationException.class);
     }
 
 
@@ -85,9 +92,11 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .name(null).build();
 
-        // Act and assert.
-        thrown.expect(ValidationException.class);
-        commentsApi.createComment(input);
+        // Act.
+        val throwable = catchThrowable(() -> commentsApi.createComment(input));
+
+        // Assert.
+        assertThat(throwable).isInstanceOf(ValidationException.class);
     }
 
 
@@ -98,8 +107,10 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .message(null).build();
 
-        // Act and assert.
-        thrown.expect(ValidationException.class);
-        commentsApi.createComment(input);
+        // Act.
+        val throwable = catchThrowable(() -> commentsApi.createComment(input));
+
+        // Assert.
+        assertThat(throwable).isInstanceOf(ValidationException.class);
     }
 }
