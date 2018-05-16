@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
-import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +36,7 @@ public class CommentsController extends BaseController {
     @GetMapping
     @ApiOperation(nickname="getComments", value="List all comments")
     public ResponseEntity<List<CommentEntry>> getComments() {
-        final List<CommentEntry> comments = this.commentsApi.getComments();
+        final List<CommentEntry> comments = commentsApi.getComments();
 
         return ResponseEntity.ok(comments);
     }
@@ -47,7 +46,7 @@ public class CommentsController extends BaseController {
     @ApiOperation(nickname="getComment", value="Get comment by ID")
     public ResponseEntity<CommentEntry>
     getComment(@PathVariable final Long id) {
-        final Optional<CommentEntry> entry = this.commentsApi.getComment(id);
+        final Optional<CommentEntry> entry = commentsApi.getComment(id);
 
         return responseFrom(entry);
     }
@@ -56,8 +55,8 @@ public class CommentsController extends BaseController {
     @PostMapping
     @ApiOperation(nickname="createComment", value="Create a new comment")
     public ResponseEntity<Long>
-    createComment(@Valid @RequestBody final CommentInput input) {
-        final long id = this.commentsApi.createComment(input);
+    createComment(@RequestBody final CommentInput input) {
+        final long id = commentsApi.createComment(input);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(id);
     }
@@ -68,7 +67,7 @@ public class CommentsController extends BaseController {
         value="Remove an existing comment by ID")
     public ResponseEntity<Void>
     removeComment(@PathVariable final Long id) {
-        this.commentsApi.removeComment(id);
+        commentsApi.removeComment(id);
 
         return ResponseEntity.noContent().build();
     }

@@ -9,8 +9,8 @@ final class InitOnceChecker {
 
 
     public synchronized boolean getAndSetTrue() {
-        final boolean previousState = this.isInitialized;
-        this.isInitialized = true;
+        final boolean previousState = isInitialized;
+        isInitialized = true;
 
         return previousState;
     }

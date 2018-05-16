@@ -37,6 +37,6 @@ extends org.springframework.security.core.userdetails.User {
 
 
     public User getUser() {
-        return this.user;
+        return user;
     }
 }

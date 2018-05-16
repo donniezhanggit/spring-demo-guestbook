@@ -30,17 +30,17 @@ public abstract class BaseDbITCase extends JUnitTestCase {
 
     @PostConstruct
     private void runPostConstruct() {
-        if(this.initOnceChecker.getAndSetTrue()) return;
+        if(initOnceChecker.getAndSetTrue()) return;
 
         log.info("Setting up predefined data for {}",
                 getClass().getSimpleName());
 
-        this.predefinedData();
+        predefinedData();
     }
 
 
     protected <T> T withTransaction(final Supplier<T> supplier) {
-        return this.delegateApi.doWithTransaction(supplier);
+        return delegateApi.doWithTransaction(supplier);
     }
 
 

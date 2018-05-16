@@ -31,7 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @SuppressWarnings("serial")
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final Optional<User> user = this.usersRepository.findByUsername(username);
+        final Optional<User> user = usersRepository.findByUsername(username);
 
         if(user.isPresent()) {
             return new CustomUserDetails(user.get(), Arrays.asList(

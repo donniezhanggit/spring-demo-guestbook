@@ -40,9 +40,9 @@ public class UserBuilder {
 
 
     public User build() {
-        Preconditions.checkNotNull(this.username);
-        Preconditions.checkNotNull(this.password);
-        Preconditions.checkNotNull(this.email);
+        Preconditions.checkNotNull(username);
+        Preconditions.checkNotNull(password);
+        Preconditions.checkNotNull(email);
 
         return new User(this);
     }

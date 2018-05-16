@@ -92,12 +92,12 @@ public class SwaggerConfig {
      */
     private ApiInfo apiEndPointsInfo() {
         return new ApiInfoBuilder()
-                .title(this.title)
-                .description(this.description)
-                .contact(new Contact(this.contactName, this.contactURL, this.contactEmail))
-                .license(this.license)
-                .licenseUrl(this.licenseURL)
-                .version(this.version)
+                .title(title)
+                .description(description)
+                .contact(new Contact(contactName, contactURL, contactEmail))
+                .license(license)
+                .licenseUrl(licenseURL)
+                .version(version)
                 .build();
     }
 
@@ -105,13 +105,13 @@ public class SwaggerConfig {
     @Bean
     public Docket guestBookApi() {
         final Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .globalOperationParameters(this.listDocketParameters)
+                .globalOperationParameters(listDocketParameters)
                 .groupName("guestBookApi")
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.regex("/api/.*"))
                 .build()
-                .apiInfo(this.apiEndPointsInfo());
+                .apiInfo(apiEndPointsInfo());
 
         log.debug("Configured SWAGGER Group: [{}]", docket.getGroupName());
 

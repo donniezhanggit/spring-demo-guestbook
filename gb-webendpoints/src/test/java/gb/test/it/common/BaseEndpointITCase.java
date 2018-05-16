@@ -52,14 +52,14 @@ public abstract class BaseEndpointITCase {
 
     @Before
     public void before() {
-        this.setupAuthentication();
-        this.setup();
+        setupAuthentication();
+        setup();
     }
 
 
     @SneakyThrows
     protected String jsonify(final Object o) {
-        final String json = this.objectMapper.writeValueAsString(o);
+        final String json = objectMapper.writeValueAsString(o);
 
         log.info("Object as JSON:\n {}", json);
 
@@ -77,7 +77,7 @@ public abstract class BaseEndpointITCase {
 
         SecurityContextHolder.setContext(securityContext);
 
-//        when(this.userDetailsService.loadUserByUsername(any()))
+//        when(userDetailsService.loadUserByUsername(any()))
 //            .thenReturn(null);
     }
 

@@ -39,8 +39,8 @@ public class CommentBuilder {
 
 
     public Comment build() {
-        Preconditions.checkNotNull(this.message);
-        Preconditions.checkNotNull(this.created);
+        Preconditions.checkNotNull(message);
+        Preconditions.checkNotNull(created);
 
         return new Comment(this);
     }

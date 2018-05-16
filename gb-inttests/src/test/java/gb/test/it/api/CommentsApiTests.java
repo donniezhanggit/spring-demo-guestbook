@@ -38,10 +38,10 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Comments_should_be_fetched() {
         // Arrange.
-        this.commentFixtures.savedCommentList();
+        commentFixtures.savedCommentList();
 
         // Act.
-        final List<CommentEntry> actual = this.commentsApi.getComments();
+        final List<CommentEntry> actual = commentsApi.getComments();
 
         // Assert.
         assertThat(actual.size()).isGreaterThan(0);
@@ -52,10 +52,10 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_comment_by_id_should_be_fetched() {
         // Arrange.
-        final long commentId = this.commentFixtures.existingCommentId();
+        final long commentId = commentFixtures.existingCommentId();
 
         // Act.
-        final Optional<CommentEntry> comment = this.commentsApi
+        final Optional<CommentEntry> comment = commentsApi
                 .getComment(commentId);
 
         // Assert.
@@ -68,7 +68,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_comment_isnt_exist_an_empty_optional_should_returned() {
         // Arrange and act.
-        final Optional<CommentEntry> actual = this.commentsApi
+        final Optional<CommentEntry> actual = commentsApi
                 .getComment(NON_EXISTENT_ID);
 
         // Assert.
@@ -84,9 +84,8 @@ public class CommentsApiTests extends RecreatePerClassITCase {
                         .build();
 
         // Act.
-        final long id = this.commentsApi.createComment(input);
-        final Optional<CommentEntry> actual = this.commentsApi
-                .getComment(id);
+        final long id = commentsApi.createComment(input);
+        final Optional<CommentEntry> actual = commentsApi.getComment(id);
 
         // Assert.
         assertThat(actual.isPresent()).isTrue();
@@ -98,10 +97,10 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_list_of_comments_should_be_ordered_by_date() {
         // Arrange.
-        this.commentFixtures.savedCommentList();
+        commentFixtures.savedCommentList();
 
         // Act.
-        final List<LocalDateTime> dates = this.commentsApi.getComments()
+        final List<LocalDateTime> dates = commentsApi.getComments()
                 .stream().map(CommentEntry::getCreated)
                 .collect(Collectors.toList());
 
@@ -114,11 +113,11 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_comment_should_be_removed() {
         // Arrange.
-        final long existingCommentId = this.commentFixtures
+        final long existingCommentId = commentFixtures
                         .savedComment().getId();
 
         // Act.
-        this.commentsApi.removeComment(existingCommentId);
+        commentsApi.removeComment(existingCommentId);
 
         // Assert.
         assertThatCommentRemoved(existingCommentId);
@@ -126,7 +125,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     private void assertThatCommentRemoved(long commentId) {
-        assertThat(this.commentRepo.existsById(commentId)).isFalse();
+        assertThat(commentRepo.existsById(commentId)).isFalse();
     }
 
 
