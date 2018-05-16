@@ -18,8 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @EnableCaching
 public class MainConfig {
-    private static final String ISO_DATETIME_WITHOUT_TIMEZONE =
-            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    private static final String ISO_LOCAL_DATE_TIME =
+            "yyyy-MM-dd'T'HH:mm:ss.SSS";
 
 
     @Value("${spring.jackson.serialization.INDENT_OUTPUT:false}")
@@ -29,7 +29,7 @@ public class MainConfig {
     @Bean
     public ObjectMapper objectMapper() {
         final ObjectMapper mapper = new ObjectMapper();
-        val dateFormat = new SimpleDateFormat(ISO_DATETIME_WITHOUT_TIMEZONE);
+        val dateFormat = new SimpleDateFormat(ISO_LOCAL_DATE_TIME);
 
         // Serialize LocalDateTime to format available for javascript.
         mapper.registerModule(new JavaTimeModule());
