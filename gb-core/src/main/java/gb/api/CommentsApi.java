@@ -1,7 +1,10 @@
 package gb.api;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import java.util.List;
 import java.util.Optional;
+
 import javax.annotation.Nonnull;
 import javax.validation.Valid;
 
@@ -15,24 +18,24 @@ import gb.common.annotations.Api;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import gb.model.Comment;
-import gb.model.User;
 import gb.repos.CommentsRepository;
-import gb.services.CurrentPrincipalService;
-import lombok.val;
+import gb.services.CommentMapper;
+import lombok.experimental.FieldDefaults;
 
 
 @Api
 @Transactional(readOnly=true)
 @CacheConfig(cacheNames="comments")
+@FieldDefaults(level=PRIVATE, makeFinal=true)
 public class CommentsApi {
-    private final CommentsRepository commentRepo;
-    private final CurrentPrincipalService currentPrincipalService;
+    CommentsRepository commentRepo;
+    CommentMapper commentMapper;
 
 
     public CommentsApi(@Nonnull final CommentsRepository commentRepo,
-            @Nonnull final CurrentPrincipalService currentPrincipalService) {
+            @Nonnull final CommentMapper commentMapper) {
         this.commentRepo = commentRepo;
-        this.currentPrincipalService = currentPrincipalService;
+        this.commentMapper = commentMapper;
     }
 
 
@@ -57,8 +60,7 @@ public class CommentsApi {
     @CacheEvict(allEntries=true)
     @PreAuthorize("hasRole('USER')")
     public Long createComment(@Nonnull @Valid final CommentInput input) {
-        final Comment comment = commentRepo.save(
-                buildCommentFromInput(input));
+        final Comment comment = commentRepo.save(commentMapper.from(input));
 
         return comment.getId();
     }
@@ -71,24 +73,5 @@ public class CommentsApi {
         final Optional<Comment> comment = commentRepo.findOneById(id);
 
         comment.ifPresent(commentRepo::delete);
-    }
-
-
-    private Comment buildCommentFromInput(@Nonnull final CommentInput input) {
-        final Optional<User> currentUser = getUser();
-
-        val comment = new Comment(input);
-
-        currentUser.ifPresent(user -> {
-            comment.setName(null);
-            comment.setUser(user);
-        });
-
-        return comment;
-    }
-
-
-    private Optional<User> getUser() {
-        return currentPrincipalService.getCurrentUser();
     }
 }

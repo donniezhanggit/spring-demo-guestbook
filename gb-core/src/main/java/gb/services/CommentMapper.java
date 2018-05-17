@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import gb.dto.CommentInput;
 import gb.model.Comment;
+import gb.model.CommentBuilder;
 import gb.model.User;
 import lombok.val;
 import lombok.experimental.FieldDefaults;
@@ -29,7 +30,10 @@ public class CommentMapper {
     public Comment from(@Nonnull final CommentInput input) {
         final Optional<User> currentUser = currentPrincipalService
                 .getCurrentUser();
-        val newComment = new Comment(input);
+        val newComment = new CommentBuilder()
+        		.name(input.getName())
+        		.message(input.getMessage())
+        		.build();
 
         currentUser.ifPresent(u -> {
         	newComment.setUser(u);

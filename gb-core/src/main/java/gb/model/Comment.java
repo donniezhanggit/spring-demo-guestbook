@@ -15,7 +15,6 @@ import org.hibernate.annotations.Immutable;
 import org.hibernate.validator.constraints.Length;
 
 import gb.common.domain.AbstractDomainEntity;
-import gb.dto.CommentInput;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -59,12 +58,6 @@ public class Comment extends AbstractDomainEntity {
 
 
     protected Comment() {}
-
-
-    public Comment(@Nonnull final CommentInput input) {
-        name = input.getName();
-        message = input.getMessage();
-    }
 
 
     public Comment(@Nonnull final CommentBuilder cb) {
