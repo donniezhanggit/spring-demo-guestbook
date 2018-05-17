@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
@@ -36,8 +37,11 @@ public class MainConfig {
         // to javac and jackson-module-parameter-names as a dependency.
         mapper.registerModule(new ParameterNamesModule(PROPERTIES));
 
-        // make private fields of classes visible to Jackson.
+        // Make private fields of classes visible to Jackson.
         mapper.setVisibility(FIELD, ANY);
+
+        // Ignore unknown fields.
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         log.info("Configuring of ObjectMapper finished");
 
