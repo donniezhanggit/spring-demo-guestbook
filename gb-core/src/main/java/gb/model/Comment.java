@@ -62,9 +62,13 @@ public class Comment extends AbstractDomainEntity {
 
     public Comment(@Nonnull final CommentBuilder cb) {
         created = cb.created;
-        name    = cb.name;
         message = cb.message;
-        user    = cb.user;
+
+        if(cb.user != null) {
+            user = cb.user;
+        } else {
+            name = cb.name;
+        }
     }
 
 

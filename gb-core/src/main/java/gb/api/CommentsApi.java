@@ -28,20 +28,20 @@ import lombok.experimental.FieldDefaults;
 @CacheConfig(cacheNames="comments")
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class CommentsApi {
-    CommentsRepository commentRepo;
+    CommentsRepository commentsRepo;
     CommentMapper commentMapper;
 
 
     public CommentsApi(@Nonnull final CommentsRepository commentRepo,
             @Nonnull final CommentMapper commentMapper) {
-        this.commentRepo = commentRepo;
+        this.commentsRepo = commentRepo;
         this.commentMapper = commentMapper;
     }
 
 
     @Cacheable
     public List<CommentEntry> getComments() {
-        final List<CommentEntry> comments = commentRepo
+        final List<CommentEntry> comments = commentsRepo
             .findAllByOrderByCreatedAsc(CommentEntry.class);
 
         return comments;
@@ -49,7 +49,7 @@ public class CommentsApi {
 
 
     public Optional<CommentEntry> getComment(final long id) {
-        final Optional<CommentEntry> entry = commentRepo
+        final Optional<CommentEntry> entry = commentsRepo
                 .findOneById(id, CommentEntry.class);
 
         return entry;
@@ -60,7 +60,7 @@ public class CommentsApi {
     @CacheEvict(allEntries=true)
     @PreAuthorize("hasRole('USER')")
     public Long createComment(@Nonnull @Valid final CommentInput input) {
-        final Comment comment = commentRepo.save(commentMapper.from(input));
+        final Comment comment = commentsRepo.save(commentMapper.from(input));
 
         return comment.getId();
     }
@@ -70,8 +70,8 @@ public class CommentsApi {
     @CacheEvict(allEntries=true)
     @PreAuthorize("hasRole('ADMIN')")
     public void removeComment(long id) {
-        final Optional<Comment> comment = commentRepo.findOneById(id);
+        final Optional<Comment> comment = commentsRepo.findOneById(id);
 
-        comment.ifPresent(commentRepo::delete);
+        comment.ifPresent(commentsRepo::delete);
     }
 }
