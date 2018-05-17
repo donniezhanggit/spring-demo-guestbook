@@ -80,6 +80,11 @@ public class CommentsFixtures {
     }
 
 
+    public static CommentInput buildCommentInputWithMessage() {
+        return new CommentInputBuilder().message(MESSAGE).build();
+    }
+
+
     public static CommentInput buildAnonCommentInput() {
         return commentInputBuilderWithNameAndMessage().build();
     }
