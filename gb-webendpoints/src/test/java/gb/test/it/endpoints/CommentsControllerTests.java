@@ -5,7 +5,6 @@ import static gb.test.fixtures.CommentsFixtures.NON_EXISTENT_ID;
 import static gb.test.fixtures.CommentsFixtures.buildAnonCommentEntry;
 import static gb.test.fixtures.CommentsFixtures.buildAnonCommentInput;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
