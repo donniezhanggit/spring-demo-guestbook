@@ -38,7 +38,7 @@ public class Comment extends AbstractDomainEntity {
     public static final int MESSAGE_MIN_LENGTH = 1;
     public static final int MESSAGE_MAX_LENGTH = 2048;
 
-    @Setter(onParam=@__(@Nonnull))
+    @Setter(value=AccessLevel.NONE)
     @NotNull
     private LocalDateTime created = LocalDateTime.now();
 

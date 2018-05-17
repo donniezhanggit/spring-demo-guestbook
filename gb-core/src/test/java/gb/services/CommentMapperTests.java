@@ -2,6 +2,8 @@ package gb.services;
 
 import static gb.test.fixtures.CommentsFixtures.buildAnonCommentInput;
 import static gb.test.fixtures.CommentsFixtures.buildCommentInputWithMessage;
+import static gb.test.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
+import static gb.test.fixtures.UsersFixtures.buildUser;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -17,14 +19,12 @@ import gb.dto.CommentInput;
 import gb.model.Comment;
 import gb.model.User;
 import gb.test.common.JUnitTestCase;
-import gb.test.fixtures.CommentsFixtures;
-import gb.test.fixtures.UsersFixtures;
 import lombok.val;
 import lombok.experimental.FieldDefaults;
 
 
 @FieldDefaults(level=PRIVATE, makeFinal=true)
-public class CommentMapperTest extends JUnitTestCase {
+public class CommentMapperTests extends JUnitTestCase {
     CurrentPrincipalService currentPrincipalService =
             mock(CurrentPrincipalService.class);
 
@@ -86,6 +86,21 @@ public class CommentMapperTest extends JUnitTestCase {
     }
 
 
+    @Test
+    public void A_CommentInput_of_logged_user_maps_ignoring_name() {
+        // Arrange.
+        final CommentInput commentInputWithName =
+                        commentInputBuilderWithNameAndMessage().build();
+        stubCurrentUserAsLoggedUser();
+
+        // Act.
+        final Comment newComment = mapper.from(commentInputWithName);
+
+        // Assert.
+        assertThat(newComment.getName()).isNull();
+    }
+
+
     private void assertAnonComment(final Comment actual,
             final CommentInput expected) {
         assertThat(actual.getName()).isEqualTo(expected.getName());
@@ -105,7 +120,7 @@ public class CommentMapperTest extends JUnitTestCase {
 
 
     private User stubCurrentUserAsLoggedUser() {
-        val user = UsersFixtures.buildUser();
+        val user = buildUser();
 
         stubCurrentUser(user);
 

@@ -31,7 +31,10 @@ public class CommentMapper {
                 .getCurrentUser();
         val newComment = new Comment(input);
 
-        currentUser.ifPresent(newComment::setUser);
+        currentUser.ifPresent(u -> {
+        	newComment.setUser(u);
+        	newComment.setName(null);
+        });
 
         return newComment;
     }
