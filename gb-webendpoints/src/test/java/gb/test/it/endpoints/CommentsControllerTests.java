@@ -5,10 +5,13 @@ import static gb.test.fixtures.CommentsFixtures.NON_EXISTENT_ID;
 import static gb.test.fixtures.CommentsFixtures.buildAnonCommentEntry;
 import static gb.test.fixtures.CommentsFixtures.buildAnonCommentInput;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -31,6 +34,7 @@ import gb.test.it.common.EndpointITCase;
 
 
 @WebMvcTest(CommentsController.class)
+@WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
 public class CommentsControllerTests extends EndpointITCase {
     private static final String COMMENTS_API_URL = "/api/comments/";
 
@@ -50,11 +54,11 @@ public class CommentsControllerTests extends EndpointITCase {
             .thenReturn(Optional.of(commentEntry));
         when(commentsApi.getComment(NON_EXISTENT_ID))
             .thenReturn(Optional.empty());
+        doNothing().when(commentsApi).removeComment(EXISTING_ID);
     }
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Getting_a_list_of_comments_should_return_200()
             throws Exception {
         mockMvc.perform(get(COMMENTS_API_URL))
@@ -65,7 +69,6 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Getting_a_list_of_comments_should_call_APIs_getComments()
             throws Exception {
         // Arrange and act.
@@ -78,7 +81,6 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Getting_an_existing_comment_should_return_200()
             throws Exception {
         // Arrange.
@@ -93,7 +95,6 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Getting_an_existing_comment_should_call_APIs_getComment()
             throws Exception {
         // Arrange.
@@ -109,7 +110,6 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Getting_a_non_existent_comment_should_return_404()
             throws Exception {
         // Arrange.
@@ -122,7 +122,6 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Getting_a_non_existent_comment_should_call_APIs_getComment()
             throws Exception {
         // Arrange.
@@ -138,7 +137,6 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Creating_a_new_comment_should_return_201() throws Exception {
         // Arrange.
         final String jsonCommentInput = jsonify(buildAnonCommentInput());
@@ -154,7 +152,6 @@ public class CommentsControllerTests extends EndpointITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Creating_a_new_comment_should_call_APIs_createComment()
             throws Exception {
         // Arrange.
@@ -168,6 +165,32 @@ public class CommentsControllerTests extends EndpointITCase {
         // Assert.
         verify(commentsApi, times(1))
             .createComment(any(CommentInput.class));
+        verifyNoMoreInteractions(commentsApi);
+    }
+
+
+    @Test
+    public void Removing_a_comment_should_return_204() throws Exception {
+        // Arrange.
+        final String url = COMMENTS_API_URL + EXISTING_ID;
+
+        // Act and assert.
+        mockMvc.perform(delete(url))
+                .andExpect(status().isNoContent());
+    }
+
+
+    @Test
+    public void Removing_a_comment_should_call_APIs_removeComment()
+            throws Exception {
+        // Arrange.
+        final String url = COMMENTS_API_URL + EXISTING_ID;
+
+        // Act.
+        mockMvc.perform(delete(url));
+
+        // Assert.
+        verify(commentsApi, times(1)).removeComment(EXISTING_ID);
         verifyNoMoreInteractions(commentsApi);
     }
 }
