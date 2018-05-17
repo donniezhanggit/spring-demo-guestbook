@@ -5,6 +5,7 @@ import static gb.test.fixtures.UsersFixtures.buildUser;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,6 +81,11 @@ public class CommentsFixtures {
     }
 
 
+    public static CommentInput buildCommentInputWithMessage() {
+        return new CommentInputBuilder().message(MESSAGE).build();
+    }
+
+
     public static CommentInput buildAnonCommentInput() {
         return commentInputBuilderWithNameAndMessage().build();
     }
@@ -112,7 +118,7 @@ public class CommentsFixtures {
 
 
     public static Comment buildAnonComment() {
-        return getCommentBuilder().user(null).build();
+        return getCommentBuilder().user(Optional.empty()).build();
     }
 
 

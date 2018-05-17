@@ -2,16 +2,12 @@ package gb.model;
 
 import java.time.LocalDateTime;
 
-import com.google.common.base.Preconditions;
-
 
 public class UserBuilder {
     String username;
     String password;
     String email;
-
     LocalDateTime created = LocalDateTime.now();
-
     boolean active = true;
 
 
@@ -40,10 +36,6 @@ public class UserBuilder {
 
 
     public User build() {
-        Preconditions.checkNotNull(username);
-        Preconditions.checkNotNull(password);
-        Preconditions.checkNotNull(email);
-
         return new User(this);
     }
 }

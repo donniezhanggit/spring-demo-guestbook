@@ -1,10 +1,10 @@
 package gb.model;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.google.common.base.Preconditions;
 
 
 public class CommentBuilder {
@@ -38,10 +38,13 @@ public class CommentBuilder {
     }
 
 
-    public Comment build() {
-        Preconditions.checkNotNull(message);
-        Preconditions.checkNotNull(created);
+    public CommentBuilder user(@Nonnull Optional<User> user) {
+        this.user = user.orElse(null);
+        return this;
+    }
 
+
+    public Comment build() {
         return new Comment(this);
     }
 }

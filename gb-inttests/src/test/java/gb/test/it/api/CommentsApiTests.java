@@ -23,6 +23,7 @@ import gb.test.fixtures.CommentsFixtures;
 import gb.test.it.common.RecreatePerClassITCase;
 
 
+@WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
 public class CommentsApiTests extends RecreatePerClassITCase {
     @Autowired
     private CommentsFixtures commentFixtures;
@@ -35,7 +36,6 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void Comments_should_be_fetched() {
         // Arrange.
         commentFixtures.savedCommentList();
@@ -49,7 +49,6 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_comment_by_id_should_be_fetched() {
         // Arrange.
         final long commentId = commentFixtures.existingCommentId();
@@ -65,7 +64,6 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_comment_isnt_exist_an_empty_optional_should_returned() {
         // Arrange and act.
         final Optional<CommentEntry> actual = commentsApi
@@ -77,7 +75,6 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_new_comment_should_be_persisted() {
         // Arrange.
         final CommentInput input = commentInputBuilderWithNameAndMessage()
@@ -94,7 +91,6 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_list_of_comments_should_be_ordered_by_date() {
         // Arrange.
         commentFixtures.savedCommentList();
@@ -110,7 +106,6 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_comment_should_be_removed() {
         // Arrange.
         final long existingCommentId = commentFixtures
@@ -125,7 +120,6 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void A_removing_of_a_non_existent_comment_should_not_throw() {
         // Act.
         commentsApi.removeComment(NON_EXISTENT_ID);
