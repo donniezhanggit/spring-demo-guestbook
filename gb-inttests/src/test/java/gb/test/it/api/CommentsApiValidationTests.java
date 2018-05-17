@@ -18,13 +18,14 @@ import gb.test.it.common.RecreatePerClassITCase;
 import lombok.val;
 
 
+
+@WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
 public class CommentsApiValidationTests extends RecreatePerClassITCase {
     @Autowired
     private CommentsApi commentsApi;
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_name_is_too_long_expect_ValidationException() {
         // Arrange.
         final String tooLongName = stringWithLength(
@@ -41,7 +42,6 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_name_length_is_max_comment_should_be_saved() {
         //Arrange.
         final String longName = stringWithLength(
@@ -55,7 +55,6 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_message_is_too_long_expect_ValidationException() {
         // Arrange.
         final String tooLongMessage = stringWithLength(
@@ -72,7 +71,6 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_message_length_is_max_comment_should_be_saved() {
         // Arrange.
         final String longMessage = stringWithLength(
@@ -86,7 +84,6 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_name_is_null_expect_ValidationException() {
         // Arrange.
         final CommentInput input = commentInputBuilderWithNameAndMessage()
@@ -101,7 +98,6 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
 
     @Test
-    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
     public void When_message_is_null_expect_ValidationException() {
         // Arrange.
         final CommentInput input = commentInputBuilderWithNameAndMessage()
