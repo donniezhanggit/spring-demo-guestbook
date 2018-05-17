@@ -5,8 +5,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolationException;
 
-import com.google.common.collect.Lists;
-
 import lombok.AccessLevel;
 import lombok.Value;
 import lombok.val;
@@ -28,10 +26,5 @@ public class Errors {
                                 cv.getPropertyPath().toString(),
                                 cv.getMessage()
                 )).collect(Collectors.toList());
-    }
-
-
-    protected List<String> splitErrors(Throwable throwable) {
-        return Lists.newArrayList(throwable.getMessage().split(","));
     }
 }
