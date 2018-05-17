@@ -12,13 +12,11 @@ import com.google.common.base.Preconditions;
 
 import gb.common.domain.AbstractDomainEntity;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 
 @Entity
 @Table(name="gbuser")
-@Setter
 @Getter
 @FieldDefaults(level=PRIVATE)
 public class User extends AbstractDomainEntity {
