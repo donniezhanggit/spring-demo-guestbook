@@ -1,39 +1,28 @@
 package gb.model;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
+import com.google.common.base.Preconditions;
 
 import gb.common.domain.AbstractDomainEntity;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 
 @Entity
 @Table(name="gbuser")
 @Setter
 @Getter
+@FieldDefaults(level=PRIVATE)
 public class User extends AbstractDomainEntity {
     private static final long serialVersionUID = 1L;
-
-    public static final String USERNAME_PROPERTY = "username";
-    public static final String PASSWORD_PROPERTY = "password";
-    public static final String EMAIL_PROPERTY = "email";
-    public static final String CREATED_PROPERTY = "created";
-    public static final String ACTIVE_PROPERTY = "active";
-    public static final String COMMENTS_PROPERTY = "comments";
 
     public static final int USERNAME_MIN_LENGTH = 2;
     public static final int USERNAME_MAX_LENGTH = 40;
@@ -42,52 +31,26 @@ public class User extends AbstractDomainEntity {
     public static final int EMAIL_MIN_LENGTH = 4;
     public static final int EMAIL_MAX_LENGTH = 40;
 
-    @NotNull
-    @Length(min=USERNAME_MIN_LENGTH, max=USERNAME_MAX_LENGTH)
-    private String username;
 
-    @NotNull
-    @Length(min=PASSWORD_MIN_LENGTH, max=PASSWORD_MAX_LENGTH)
-    private String password;
-
-    @NotNull
-    @Email
-    @Length(min=EMAIL_MIN_LENGTH, max=EMAIL_MAX_LENGTH)
-    private String email;
-
-    @NotNull
-    private LocalDateTime created = LocalDateTime.now();
-
+    String username;
+    String password;
+    String email;
+    LocalDateTime created = LocalDateTime.now();
     boolean active = true;
-
-    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL,
-            orphanRemoval=true, mappedBy="user")
-    Set<Comment> comments = new HashSet<>();
 
 
     protected User() {}
 
 
-    public User(@Valid @Nonnull UserBuilder ub) {
+    public User(@Nonnull UserBuilder ub) {
+        Preconditions.checkNotNull(ub.username);
+        Preconditions.checkNotNull(ub.password);
+        Preconditions.checkNotNull(ub.email);
+
         username = ub.username;
         password = ub.password;
         email    = ub.email;
         created  = ub.created;
         active   = ub.active;
-    }
-
-
-    public void addComment(@Nonnull Comment comment) {
-        comments.add(comment);
-        comment.setUser(this);
-    }
-
-    public void removeComment(@Nonnull Comment comment) {
-        comments.remove(comment);
-        comment.setUser(null);
-    }
-
-    public void removeAllComments() {
-        comments.clear();
     }
 }

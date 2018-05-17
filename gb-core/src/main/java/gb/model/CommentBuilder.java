@@ -6,8 +6,6 @@ import java.util.Optional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.google.common.base.Preconditions;
-
 
 public class CommentBuilder {
     LocalDateTime created = LocalDateTime.now();
@@ -47,9 +45,6 @@ public class CommentBuilder {
 
 
     public Comment build() {
-        Preconditions.checkNotNull(message);
-        Preconditions.checkNotNull(created);
-
         return new Comment(this);
     }
 }
