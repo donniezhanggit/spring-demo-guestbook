@@ -44,7 +44,7 @@ public class MainController {
 
     @GetMapping(value="/")
     public ModelAndView listComments() {
-        return generateView("list", new CommentInput());
+        return generateView("list", CommentInput.empty());
     }
 
 

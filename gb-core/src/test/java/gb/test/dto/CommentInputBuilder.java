@@ -6,22 +6,23 @@ import gb.dto.CommentInput;
 
 
 public class CommentInputBuilder {
-    private CommentInput input = new CommentInput();
+    private String name;
+    private String message;
 
 
     public CommentInputBuilder name(@NotNull String name) {
-        input.setName(name);
+        this.name = name;
         return this;
     }
 
 
     public CommentInputBuilder message(@NotNull String message) {
-        input.setMessage(message);
+        this.message = message;
         return this;
     }
 
 
     public CommentInput build() {
-        return input;
+        return new CommentInput(name, message);
     }
 }

@@ -6,11 +6,11 @@ import org.hibernate.validator.constraints.Length;
 
 import gb.model.Comment;
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Value;
 import lombok.experimental.FieldDefaults;
 
 
-@Data
+@Value
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class CommentInput {
     @NotNull
@@ -20,4 +20,9 @@ public class CommentInput {
     @NotNull
     @Length(min=Comment.MESSAGE_MIN_LENGTH, max=Comment.MESSAGE_MAX_LENGTH)
     String message;
+
+
+    public static CommentInput empty() {
+        return new CommentInput(null, null);
+    }
 }
