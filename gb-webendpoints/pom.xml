@@ -32,6 +32,7 @@
             <arg>-Xlint:all</arg>
             <arg>-Xlint:unchecked</arg>
             <arg>-Werror</arg>
+            <arg>-parameters</arg>
           </compilerArgs>
         </configuration>
       </plugin>

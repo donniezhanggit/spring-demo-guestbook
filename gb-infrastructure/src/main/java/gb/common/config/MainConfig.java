@@ -1,14 +1,17 @@
 package gb.common.config;
 
-import java.text.SimpleDateFormat;
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
+import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
+import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 import lombok.val;
 import lombok.extern.slf4j.Slf4j;
@@ -18,27 +21,23 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @EnableCaching
 public class MainConfig {
-    private static final String ISO_DATETIME_WITHOUT_TIMEZONE =
-            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-
-
     @Value("${spring.jackson.serialization.INDENT_OUTPUT:false}")
     private boolean prettyPrint;
 
 
     @Bean
     public ObjectMapper objectMapper() {
-        final ObjectMapper mapper = new ObjectMapper();
-        val dateFormat = new SimpleDateFormat(ISO_DATETIME_WITHOUT_TIMEZONE);
+        val mapper = new ObjectMapper();
 
-        // Serialize LocalDateTime to format available for javascript.
-        mapper.registerModule(new JavaTimeModule());
-        mapper.setDateFormat(dateFormat);
+        mapper.disable(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS);
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, prettyPrint);
 
-        // Enable pretty print.
-        if(prettyPrint) {
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        }
+        // Avoid having to annotate classes. Requires Java 8, pass -parameters
+        // to javac and jackson-module-parameter-names as a dependency.
+        mapper.registerModule(new ParameterNamesModule(PROPERTIES));
+
+        // make private fields of classes visible to Jackson.
+        mapper.setVisibility(FIELD, ANY);
 
         log.info("Configuring of ObjectMapper finished");
 

@@ -124,6 +124,14 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     }
 
 
+    @Test
+    @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
+    public void A_removing_of_a_non_existent_comment_should_not_throw() {
+        // Act.
+        commentsApi.removeComment(NON_EXISTENT_ID);
+    }
+
+
     private void assertThatCommentRemoved(long commentId) {
         assertThat(commentRepo.existsById(commentId)).isFalse();
     }
