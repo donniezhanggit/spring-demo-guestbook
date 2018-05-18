@@ -1,5 +1,7 @@
 package gb.services;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -15,12 +17,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gb.model.User;
 import gb.repos.UsersRepository;
 import gb.security.CustomUserDetails;
+import lombok.experimental.FieldDefaults;
 
 
 @Service("userDetailsService")
+@FieldDefaults(level=PRIVATE, makeFinal=true)
 @SuppressFBWarnings(value="SIC_INNER_SHOULD_BE_STATIC_ANON")
 public class CustomUserDetailsService implements UserDetailsService {
-    private final UsersRepository usersRepository;
+    UsersRepository usersRepository;
 
 
     public CustomUserDetailsService(@Nonnull final UsersRepository usersRepository) {
@@ -28,8 +32,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
 
-    @SuppressWarnings("serial")
     @Override
+    @SuppressWarnings("serial")
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final Optional<User> user = usersRepository.findByUsername(username);
 
@@ -57,5 +61,4 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return null;
     }
-
 }

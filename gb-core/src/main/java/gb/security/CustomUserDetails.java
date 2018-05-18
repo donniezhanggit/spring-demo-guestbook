@@ -1,19 +1,23 @@
 package gb.security;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 
 import gb.model.User;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.FieldDefaults;
 
 
 @EqualsAndHashCode(callSuper=true)
+@FieldDefaults(level=PRIVATE, makeFinal=true)
 public class CustomUserDetails
 extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = -2595723933003639235L;
 
-    private User user;
+    User user;
 
 
     public CustomUserDetails(User user,
