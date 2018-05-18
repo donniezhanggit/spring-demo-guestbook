@@ -46,8 +46,7 @@ public class CommentEntry {
 
 
     public CommentEntry withUsernameOf(Optional<User> user) {
-        final String username = user.isPresent() ?
-                user.get().getUsername() : null;
+        final String username = user.map(User::getUsername).orElse(null);
 
         return new CommentEntry(id, version, created, anonName,
                 message, username);

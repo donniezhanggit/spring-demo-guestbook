@@ -1,15 +1,15 @@
 package gb.common.endpoint;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 
 public abstract class BaseController {
     protected <T> ResponseEntity<T> responseFrom(final Optional<T> entry) {
-        return entry.isPresent()
-                ? ResponseEntity.ok(entry.get())
-                : ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        return entry.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(NOT_FOUND).body(null));
     }
 }
