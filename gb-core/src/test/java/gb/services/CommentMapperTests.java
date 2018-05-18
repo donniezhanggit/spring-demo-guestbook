@@ -1,9 +1,9 @@
 package gb.services;
 
-import static gb.test.fixtures.CommentsFixtures.buildAnonCommentInput;
-import static gb.test.fixtures.CommentsFixtures.buildCommentInputWithMessage;
-import static gb.test.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
-import static gb.test.fixtures.UsersFixtures.buildUser;
+import static gb.fixtures.CommentsFixtures.buildAnonCommentInput;
+import static gb.fixtures.CommentsFixtures.buildCommentInputWithMessage;
+import static gb.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
+import static gb.fixtures.UsersFixtures.buildUser;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -15,10 +15,10 @@ import javax.annotation.Nullable;
 
 import org.junit.Test;
 
+import gb.common.JUnitTestCase;
 import gb.dto.CommentInput;
 import gb.model.Comment;
 import gb.model.User;
-import gb.test.common.JUnitTestCase;
 import lombok.val;
 import lombok.experimental.FieldDefaults;
 
