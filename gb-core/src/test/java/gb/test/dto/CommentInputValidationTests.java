@@ -4,13 +4,11 @@ import static gb.model.Comment.MESSAGE_MAX_LENGTH;
 import static gb.model.Comment.NAME_MAX_LENGTH;
 import static gb.test.common.FakeData.stringWithLength;
 import static gb.test.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
 import gb.dto.CommentInput;
 import gb.test.common.BeanValidationTestCase;
-import lombok.val;
 
 
 public class CommentInputValidationTests extends BeanValidationTestCase {
@@ -21,11 +19,8 @@ public class CommentInputValidationTests extends BeanValidationTestCase {
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .message(tooLongMessage).build();
 
-        // Act.
-        val errors = validate(input);
-
-        // Assert.
-        assertThat(errors).hasSize(1);
+        // Act and assert.
+        check(input).hasOnlyOneError();
     }
 
 
@@ -36,11 +31,8 @@ public class CommentInputValidationTests extends BeanValidationTestCase {
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .message(longMessage).build();
 
-        // Act.
-        val errors = validate(input);
-
-        // Assert.
-        assertThat(errors).hasSize(0);
+        // Act and assert.
+        check(input).hasNoErrors();
     }
 
 
@@ -51,11 +43,8 @@ public class CommentInputValidationTests extends BeanValidationTestCase {
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .name(tooLongName).build();
 
-        // Act.
-        val errors = validate(input);
-
-        // Assert.
-        assertThat(errors).hasSize(1);
+        // Act and assert.
+        check(input).hasOnlyOneError();
     }
 
 
@@ -66,11 +55,8 @@ public class CommentInputValidationTests extends BeanValidationTestCase {
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .message(longName).build();
 
-        // Act.
-        val errors = validate(input);
-
-        // Assert.
-        assertThat(errors).hasSize(0);
+        // Act and assert.
+        check(input).hasNoErrors();
     }
 
 
@@ -80,11 +66,8 @@ public class CommentInputValidationTests extends BeanValidationTestCase {
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .name(null).build();
 
-        // Act.
-        val errors = validate(input);
-
-        // Assert.
-        assertThat(errors).hasSize(1);
+        // Act and assert.
+        check(input).hasOnlyOneError();
     }
 
 
@@ -94,10 +77,7 @@ public class CommentInputValidationTests extends BeanValidationTestCase {
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .message(null).build();
 
-        // Act.
-        val errors = validate(input);
-
-        // Assert.
-        assertThat(errors).hasSize(1);
+        // Act and assert.
+        check(input).hasOnlyOneError();
     }
 }
