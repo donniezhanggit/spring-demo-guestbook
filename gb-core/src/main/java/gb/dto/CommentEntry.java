@@ -1,19 +1,28 @@
 package gb.dto;
 
 
+import static lombok.AccessLevel.PRIVATE;
+
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
 import gb.model.Comment;
-import lombok.AccessLevel;
-import lombok.Data;
+import gb.model.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.val;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.Wither;
 
 
-@Data
-@FieldDefaults(level=AccessLevel.PRIVATE)
+@Getter
+@Wither
+@NoArgsConstructor(access=PRIVATE)
+@FieldDefaults(level=PRIVATE)
+@AllArgsConstructor
 public class CommentEntry {
     Long id;
     Short version;
@@ -24,18 +33,23 @@ public class CommentEntry {
 
 
     public static CommentEntry from(@Nonnull final Comment comment) {
-        val entry = new CommentEntry();
-
-        entry.setId(comment.getId());
-        entry.setVersion(comment.getVersion());
-        entry.setCreated(comment.getCreated());
-        entry.setMessage(comment.getMessage());
-        entry.setAnonName(comment.getName());
-
-        comment.getUser().ifPresent(user ->
-            entry.setUsername(user.getUsername())
-        );
+        val entry = new CommentEntry()
+                .withId(comment.getId())
+                .withVersion(comment.getVersion())
+                .withCreated(comment.getCreated())
+                .withMessage(comment.getMessage())
+                .withAnonName(comment.getName())
+                .withUsernameOf(comment.getUser());
 
         return entry;
+    }
+
+
+    public CommentEntry withUsernameOf(Optional<User> user) {
+        final String username = user.isPresent() ?
+                user.get().getUsername() : null;
+
+        return new CommentEntry(id, version, created, anonName,
+                message, username);
     }
 }

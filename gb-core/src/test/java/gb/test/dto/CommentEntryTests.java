@@ -49,5 +49,4 @@ public class CommentEntryTests extends JUnitTestCase {
         assertThat(actual.getMessage()).isEqualTo(expected.getMessage());
         assertThat(actual.getUsername()).isEqualTo(expected.getUsername());
     }
-
 }

@@ -1,51 +1,61 @@
 package gb.test.dto;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import java.time.LocalDateTime;
 
 import gb.dto.CommentEntry;
+import lombok.experimental.FieldDefaults;
 
 
+@FieldDefaults(level=PRIVATE)
 public class CommentEntryBuilder {
-    private CommentEntry entry = new CommentEntry();
+    Long id;
+    Short version;
+    LocalDateTime created;
+    String anonName;
+    String message;
+    String username;
 
 
     public CommentEntryBuilder id(Long id) {
-        entry.setId(id);
+        this.id = id;
         return this;
     }
 
 
     public CommentEntryBuilder version(Short version) {
-        entry.setVersion(version);
+        this.version = version;
         return this;
     }
 
 
     public CommentEntryBuilder created(LocalDateTime created) {
-        entry.setCreated(created);
+        this.created = created;
         return this;
     }
 
 
     public CommentEntryBuilder anonName(String anonName) {
-        entry.setAnonName(anonName);
+        this.anonName = anonName;
         return this;
     }
 
 
     public CommentEntryBuilder message(String message) {
-        entry.setMessage(message);
+        this.message = message;
         return this;
     }
 
 
     public CommentEntryBuilder username(String username) {
-        entry.setUsername(username);
+        this.username = username;
         return this;
     }
 
 
     public CommentEntry build() {
-        return entry;
+        return new CommentEntry(id, version, created, anonName,
+                message, username);
     }
 }
