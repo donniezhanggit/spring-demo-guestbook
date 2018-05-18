@@ -1,5 +1,7 @@
 package gb.controllers;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import java.time.format.DateTimeFormatter;
 
 import javax.annotation.Nonnull;
@@ -9,20 +11,23 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import gb.api.CommentsApi;
 import gb.dto.CommentInput;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
+@FieldDefaults(level=PRIVATE, makeFinal=true)
 @Controller
 public class MainController {
-    private final DateTimeFormatter dateFormat =
+    DateTimeFormatter dateFormat =
         DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
-    private final CommentsApi commentsApi;
+    CommentsApi commentsApi;
 
 
     public MainController(@Nonnull final CommentsApi commentsApi) {
@@ -30,15 +35,13 @@ public class MainController {
     }
 
 
-    public ModelAndView generateView(final String viewname,
-                                     final CommentInput commentForm) {
-        final ModelAndView view = new ModelAndView(viewname);
-
-        view.addObject("commentForm", commentForm);
-        view.addObject("comments", commentsApi.getComments());
-        view.addObject("dateFormat", dateFormat);
-
-        return view;
+    public ModelAndView generateView(
+            @Nonnull final String viewname,
+            @Nonnull final CommentInput commentForm) {
+        return new ModelAndView(viewname)
+                .addObject("commentForm", commentForm)
+                .addObject("comments", commentsApi.getComments())
+                .addObject("dateFormat", dateFormat);
     }
 
 
@@ -49,15 +52,20 @@ public class MainController {
 
 
     @PostMapping(value="/")
-    public ModelAndView addComment(@Valid final CommentInput commentInput,
-            final BindingResult bindingResult, final HttpServletRequest request) {
-        if(bindingResult.hasErrors())
-            return generateView("list", commentInput);
+    public ModelAndView addComment(
+            @ModelAttribute("commentForm")
+            @Valid final CommentInput commentForm,
+            final BindingResult bindingResult,
+            final HttpServletRequest request) {
 
-        commentsApi.createComment(commentInput);
+        if(bindingResult.hasErrors()) {
+            return generateView("list", commentForm);
+        }
+
+        commentsApi.createComment(commentForm);
 
         log.info("Comment {} has been added from ip: {}",
-                        commentInput,
+                        commentForm,
                         request.getRemoteAddr());
 
         return new ModelAndView("redirect:/");
