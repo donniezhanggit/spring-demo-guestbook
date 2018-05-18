@@ -10,7 +10,7 @@ public class UsersFixtures {
     public static final String EMAIL = "user@mail.org";
 
 
-        public static User buildUser() {
+    public static User buildUser() {
         return new UserBuilder()
                 .username(USERNAME).password(PASSWORD).email(EMAIL)
                 .active(true).build();

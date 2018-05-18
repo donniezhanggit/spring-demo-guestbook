@@ -1,10 +1,11 @@
 package gb.common.it;
 
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS;
+
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
 
-@DirtiesContext(classMode=ClassMode.AFTER_CLASS)
+@DirtiesContext(classMode=AFTER_CLASS)
 public abstract class RecreatePerClassITCase extends BaseDbITCase {
     @Override
     protected void predefinedData() {}

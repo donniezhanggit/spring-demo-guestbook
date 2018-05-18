@@ -2,15 +2,19 @@ package gb.common;
 
 import com.google.common.base.Strings;
 
+import lombok.val;
+import lombok.experimental.UtilityClass;
 
+
+@UtilityClass
 public class FakeData {
-    public static String stringWithLength(int length) {
+    public String stringWithLength(final int length) {
         return Strings.repeat("A", length);
     }
 
 
-    public static String emailWithLength(int length) {
-        final StringBuilder sb = new StringBuilder();
+    public String emailWithLength(final int length) {
+        val sb = new StringBuilder();
 
         sb.append(stringWithLength(length));
         sb.setCharAt(length / 2, '@');

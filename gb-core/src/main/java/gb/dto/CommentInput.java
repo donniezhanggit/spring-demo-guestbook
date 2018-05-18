@@ -1,24 +1,28 @@
 package gb.dto;
 
+import static gb.model.Comment.MESSAGE_MAX_LENGTH;
+import static gb.model.Comment.MESSAGE_MIN_LENGTH;
+import static gb.model.Comment.NAME_MAX_LENGTH;
+import static gb.model.Comment.NAME_MIN_LENGTH;
+import static lombok.AccessLevel.PRIVATE;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import gb.model.Comment;
-import lombok.AccessLevel;
 import lombok.Value;
 import lombok.experimental.FieldDefaults;
 
 
 @Value
-@FieldDefaults(level=AccessLevel.PRIVATE)
+@FieldDefaults(level=PRIVATE, makeFinal=true)
 public class CommentInput {
     @NotNull
-    @Length(min=Comment.NAME_MIN_LENGTH, max=Comment.NAME_MAX_LENGTH)
+    @Length(min=NAME_MIN_LENGTH, max=NAME_MAX_LENGTH)
     String name;
 
     @NotNull
-    @Length(min=Comment.MESSAGE_MIN_LENGTH, max=Comment.MESSAGE_MAX_LENGTH)
+    @Length(min=MESSAGE_MIN_LENGTH, max=MESSAGE_MAX_LENGTH)
     String message;
 
 

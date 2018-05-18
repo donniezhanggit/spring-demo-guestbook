@@ -2,6 +2,7 @@ package gb.api;
 
 import static gb.common.FakeData.stringWithLength;
 import static gb.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
+import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
@@ -11,18 +12,19 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 
-import gb.api.CommentsApi;
 import gb.common.it.RecreatePerClassITCase;
 import gb.dto.CommentInput;
 import gb.model.Comment;
 import lombok.val;
+import lombok.experimental.FieldDefaults;
 
 
 
+@FieldDefaults(level=PRIVATE)
 @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
 public class CommentsApiValidationTests extends RecreatePerClassITCase {
     @Autowired
-    private CommentsApi commentsApi;
+    CommentsApi commentsApi;
 
 
     @Test

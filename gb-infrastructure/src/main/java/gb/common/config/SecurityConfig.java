@@ -1,5 +1,7 @@
 package gb.common.config;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,7 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -23,9 +26,10 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
+@FieldDefaults(level=PRIVATE)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    public UserDetailsService userDetailsService;
+    UserDetailsService userDetailsService;
 
 
     @Override

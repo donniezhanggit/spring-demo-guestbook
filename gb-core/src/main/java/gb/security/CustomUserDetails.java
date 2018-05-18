@@ -4,6 +4,8 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+
 import org.springframework.security.core.GrantedAuthority;
 
 import gb.model.User;
@@ -20,8 +22,8 @@ extends org.springframework.security.core.userdetails.User {
     User user;
 
 
-    public CustomUserDetails(User user,
-            Collection<? extends GrantedAuthority> authorities) {
+    public CustomUserDetails(@Nonnull final User user,
+            @Nonnull final Collection<? extends GrantedAuthority> authorities) {
         super(user.getUsername(), user.getPassword(), authorities);
 
         this.user = user;

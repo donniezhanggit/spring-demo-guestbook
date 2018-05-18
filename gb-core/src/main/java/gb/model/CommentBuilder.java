@@ -14,19 +14,19 @@ public class CommentBuilder {
     User user;
 
 
-    public CommentBuilder created(LocalDateTime created) {
+    public CommentBuilder created(@Nonnull LocalDateTime created) {
         this.created = created;
         return this;
     }
 
 
-    public CommentBuilder name(String name) {
+    public CommentBuilder name(@Nullable String name) {
         this.name = name;
         return this;
     }
 
 
-    public CommentBuilder message(String message) {
+    public CommentBuilder message(@Nonnull String message) {
         this.message = message;
         return this;
     }

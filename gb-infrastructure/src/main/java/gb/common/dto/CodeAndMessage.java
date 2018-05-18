@@ -1,7 +1,7 @@
 package gb.common.dto;
 
+import static lombok.AccessLevel.NONE;
 import static lombok.AccessLevel.PRIVATE;
-import static lombok.AccessLevel.PROTECTED;
 
 import javax.annotation.Nonnull;
 import javax.validation.ConstraintViolation;
@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 
 @Value
 @FieldDefaults(level=PRIVATE, makeFinal=true)
-@AllArgsConstructor(access=PROTECTED)
+@AllArgsConstructor(access=NONE)
 public class CodeAndMessage {
     String code;
     String message;

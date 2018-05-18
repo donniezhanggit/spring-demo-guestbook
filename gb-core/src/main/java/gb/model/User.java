@@ -40,7 +40,7 @@ public class User extends AbstractDomainEntity {
     protected User() {}
 
 
-    public User(@Nonnull UserBuilder ub) {
+    public User(@Nonnull final UserBuilder ub) {
         Preconditions.checkNotNull(ub.username);
         Preconditions.checkNotNull(ub.password);
         Preconditions.checkNotNull(ub.email);

@@ -4,6 +4,7 @@ import static gb.fixtures.CommentsFixtures.ANON_NAME;
 import static gb.fixtures.CommentsFixtures.MESSAGE;
 import static gb.fixtures.CommentsFixtures.NON_EXISTENT_ID;
 import static gb.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
+import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
@@ -15,24 +16,25 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 
-import gb.api.CommentsApi;
 import gb.common.it.RecreatePerClassITCase;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import gb.fixtures.CommentsFixtures;
 import gb.repos.CommentsRepository;
+import lombok.experimental.FieldDefaults;
 
 
+@FieldDefaults(level=PRIVATE)
 @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
 public class CommentsApiTests extends RecreatePerClassITCase {
     @Autowired
-    private CommentsFixtures commentFixtures;
+    CommentsFixtures commentFixtures;
 
     @Autowired
-    private CommentsApi commentsApi;
+    CommentsApi commentsApi;
 
     @Autowired
-    private CommentsRepository commentRepo;
+    CommentsRepository commentRepo;
 
 
     @Test

@@ -1,5 +1,7 @@
 package gb.common.domain;
 
+import static lombok.AccessLevel.PROTECTED;
+
 import java.io.Serializable;
 
 import javax.persistence.GeneratedValue;
@@ -7,14 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
-import org.hibernate.annotations.*;
 //import org.springframework.data.domain.AbstractAggregateRoot;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 
 
 @Getter
 @MappedSuperclass
+@FieldDefaults(level=PROTECTED)
 public abstract class AbstractDomainEntity
 implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -33,8 +38,8 @@ implements Serializable {
             }
     )
     @GeneratedValue(generator="hbn_seq")
-    protected Long id;
+    Long id;
 
     @Version
-    protected Short version;
+    Short version;
 }

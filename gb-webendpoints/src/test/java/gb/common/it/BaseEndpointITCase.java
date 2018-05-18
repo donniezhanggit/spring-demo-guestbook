@@ -1,5 +1,6 @@
 package gb.common.it;
 
+import static gb.common.config.GuestBookProfiles.NO_DB_INTEGRATION_TESTING;
 import static org.mockito.Mockito.mock;
 
 import org.junit.Before;
@@ -20,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import gb.common.config.GuestBookProfiles;
 import gb.common.config.MainConfig;
 import gb.common.config.SecurityConfig;
 import gb.config.WebConfig;
@@ -30,12 +30,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RunWith(SpringRunner.class)
-@ActiveProfiles(profiles=GuestBookProfiles.NO_DB_INTEGRATION_TESTING)
-@Import({
-        MainConfig.class,
-        SecurityConfig.class,
-        WebConfig.class
-})
+@ActiveProfiles(NO_DB_INTEGRATION_TESTING)
+@Import({MainConfig.class, SecurityConfig.class, WebConfig.class})
 public abstract class BaseEndpointITCase {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();

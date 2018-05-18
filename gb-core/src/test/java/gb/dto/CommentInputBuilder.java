@@ -1,23 +1,28 @@
 package gb.dto;
 
-import javax.validation.constraints.NotNull;
+import static lombok.AccessLevel.PACKAGE;
 
-import gb.dto.CommentInput;
+import javax.annotation.Nullable;
+
+import lombok.experimental.FieldDefaults;
 
 
+@FieldDefaults(level=PACKAGE)
 public class CommentInputBuilder {
-    private String name;
-    private String message;
+    String name;
+    String message;
 
 
-    public CommentInputBuilder name(@NotNull String name) {
+    public CommentInputBuilder name(@Nullable String name) {
         this.name = name;
+
         return this;
     }
 
 
-    public CommentInputBuilder message(@NotNull String message) {
+    public CommentInputBuilder message(@Nullable String message) {
         this.message = message;
+
         return this;
     }
 

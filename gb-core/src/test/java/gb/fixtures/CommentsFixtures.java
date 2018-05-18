@@ -1,6 +1,7 @@
 package gb.fixtures;
 
 import static gb.fixtures.UsersFixtures.buildUser;
+import static lombok.AccessLevel.PRIVATE;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -17,9 +18,11 @@ import gb.dto.CommentInputBuilder;
 import gb.model.Comment;
 import gb.model.CommentBuilder;
 import gb.repos.CommentsRepository;
+import lombok.experimental.FieldDefaults;
 
 
 @Service
+@FieldDefaults(level=PRIVATE)
 public class CommentsFixtures {
     public static final long EXISTING_ID = 1L;
     public static final long NON_EXISTENT_ID = Long.MAX_VALUE;
@@ -36,7 +39,7 @@ public class CommentsFixtures {
 
 
     @Autowired
-    private CommentsRepository commentsRepo;
+    CommentsRepository commentsRepo;
 
 
     public void savedCommentList() {
@@ -92,8 +95,7 @@ public class CommentsFixtures {
 
 
     public static CommentInputBuilder commentInputBuilderWithNameAndMessage() {
-        return new CommentInputBuilder()
-                .name(ANON_NAME).message(MESSAGE);
+        return new CommentInputBuilder().name(ANON_NAME).message(MESSAGE);
     }
 
 

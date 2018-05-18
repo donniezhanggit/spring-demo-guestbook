@@ -20,36 +20,42 @@ public class CommentEntryBuilder {
 
     public CommentEntryBuilder id(Long id) {
         this.id = id;
+
         return this;
     }
 
 
     public CommentEntryBuilder version(Short version) {
         this.version = version;
+
         return this;
     }
 
 
     public CommentEntryBuilder created(LocalDateTime created) {
         this.created = created;
+
         return this;
     }
 
 
     public CommentEntryBuilder anonName(String anonName) {
         this.anonName = anonName;
+
         return this;
     }
 
 
     public CommentEntryBuilder message(String message) {
         this.message = message;
+
         return this;
     }
 
 
     public CommentEntryBuilder username(String username) {
         this.username = username;
+
         return this;
     }
 

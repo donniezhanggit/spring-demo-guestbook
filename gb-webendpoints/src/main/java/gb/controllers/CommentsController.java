@@ -1,5 +1,7 @@
 package gb.controllers;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -20,12 +22,14 @@ import gb.common.endpoint.BaseController;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import io.swagger.annotations.ApiOperation;
+import lombok.experimental.FieldDefaults;
 
 
+@FieldDefaults(level=PRIVATE, makeFinal=true)
 @RestController
 @RequestMapping("/api/comments")
 public class CommentsController extends BaseController {
-    private final CommentsApi commentsApi;
+    CommentsApi commentsApi;
 
 
     public CommentsController(@Nonnull final CommentsApi commentsApi) {

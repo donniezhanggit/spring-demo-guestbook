@@ -2,6 +2,7 @@ package gb.common.endpoint;
 
 import static org.springframework.http.HttpStatus.PRECONDITION_FAILED;
 
+import javax.annotation.Nonnull;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,8 @@ import gb.common.dto.Errors;
 @ControllerAdvice
 public class ConstraintViolationAdvice {
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Errors> notValid(ConstraintViolationException e) {
+    public ResponseEntity<Errors> notValid(
+            @Nonnull ConstraintViolationException e) {
         return ResponseEntity.status(PRECONDITION_FAILED)
                         .body(new Errors(e));
     }

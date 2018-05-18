@@ -1,10 +1,11 @@
 package gb.common.it;
 
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
+
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
 
-@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode=AFTER_EACH_TEST_METHOD)
 public abstract class RecreatePerMethodITCase extends BaseDbITCase {
     @Override
     protected void predefinedData() {}
