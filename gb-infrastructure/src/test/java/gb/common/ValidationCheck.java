@@ -15,43 +15,48 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class ValidationCheck<T> {
+    public static final String LENGTH_MUST_BE_BETWEEN =
+            "length must be between";
+    public static final String MUST_NOT_BE_NULL =
+            "must not be null";
+
     Set<ConstraintViolation<T>> violations;
 
 
-    public ValidationCheck<T> hasOnlyOneError() {
+    public ValidationError<T> hasOnlyOneError() {
         assertThat(violations.size()).isEqualTo(1);
 
-        return this;
+        return new ValidationError<T>(violations.iterator().next());
     }
 
 
-    public ValidationCheck<T> hasNoErrors() {
+    public void hasNoErrors() {
         assertThat(violations.size()).isZero();
-
-        return this;
     }
 
 
-    public ValidationCheck<T> hasErrorWithText(final String errorText) {
-        // TODO: add assert and return value.
-        throw new UnsupportedOperationException();
-    }
+    @FieldDefaults(level=PRIVATE, makeFinal=true)
+    public static final class ValidationError<T> {
+        ConstraintViolation<T> violation;
 
 
-    public ValidationCheck<T> hasOnlyOneErrorWithText(final String errorText) {
-        return hasOnlyOneError().hasErrorWithText(errorText);
-    }
+        public ValidationError(ConstraintViolation<T> violation) {
+            this.violation = violation;
+        }
 
 
-    public ValidationCheck<T> hasErrorWithTextContaining(
-            final String errorText) {
-        // TODO: add assert and return value.
-        throw new UnsupportedOperationException();
-    }
+        public ValidationError<T> forProperty(final String propertyName) {
+            assertThat(violation.getPropertyPath().toString())
+                .isEqualTo(propertyName);
+
+            return this;
+        }
 
 
-    public ValidationCheck<T> hasOnlyOneErrorWithTextContaining(
-            final String errorText) {
-        return hasOnlyOneError().hasErrorWithTextContaining(errorText);
+        public ValidationError<T> withMessageContaining(final String substr) {
+            assertThat(violation.getMessage()).contains(substr);
+
+            return this;
+        }
     }
 }
