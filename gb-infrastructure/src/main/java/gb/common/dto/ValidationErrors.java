@@ -18,11 +18,11 @@ import lombok.experimental.FieldDefaults;
 @Value
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 @AllArgsConstructor(access=NONE)
-public class Errors {
+public class ValidationErrors {
     List<CodeAndMessage> errors;
 
 
-    public Errors(@Nonnull final ConstraintViolationException e) {
+    public ValidationErrors(@Nonnull final ConstraintViolationException e) {
         errors = e.getConstraintViolations().stream()
             .filter(Objects::nonNull)
             .map(CodeAndMessage::new)
