@@ -1,13 +1,15 @@
 package gb.controllers;
 
 import static lombok.AccessLevel.PRIVATE;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.OK;
 
 import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import gb.api.CommentsApi;
@@ -38,18 +41,17 @@ public class CommentsController extends BaseController {
 
 
     @GetMapping
+    @ResponseStatus(OK)
     @ApiOperation(nickname="getComments", value="List all comments")
-    public ResponseEntity<List<CommentEntry>> getComments() {
-        final List<CommentEntry> comments = commentsApi.getComments();
-
-        return ResponseEntity.ok(comments);
+    public List<CommentEntry> getComments() {
+        return commentsApi.getComments();
     }
 
 
     @GetMapping(value="/{id}")
     @ApiOperation(nickname="getComment", value="Get comment by ID")
     public ResponseEntity<CommentEntry>
-    getComment(@PathVariable final Long id) {
+    getComment(@PathVariable final long id) {
         final Optional<CommentEntry> entry = commentsApi.getComment(id);
 
         return responseFrom(entry);
@@ -57,22 +59,18 @@ public class CommentsController extends BaseController {
 
 
     @PostMapping
+    @ResponseStatus(CREATED)
     @ApiOperation(nickname="createComment", value="Create a new comment")
-    public ResponseEntity<Long>
-    createComment(@RequestBody final CommentInput input) {
-        final long id = commentsApi.createComment(input);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(id);
+    public long createComment(@RequestBody final CommentInput input) {
+        return commentsApi.createComment(input);
     }
 
 
     @DeleteMapping(value="/{id}")
+    @ResponseStatus(NO_CONTENT)
     @ApiOperation(nickname="removeComment",
         value="Remove an existing comment by ID")
-    public ResponseEntity<Void>
-    removeComment(@PathVariable final Long id) {
+    public void removeComment(@PathVariable final long id) {
         commentsApi.removeComment(id);
-
-        return ResponseEntity.noContent().build();
     }
 }

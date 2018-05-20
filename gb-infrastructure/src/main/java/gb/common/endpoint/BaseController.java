@@ -11,10 +11,9 @@ import org.springframework.http.ResponseEntity;
 
 
 public abstract class BaseController {
-    protected <T> ResponseEntity<T> responseFrom(
-            @Nonnull final Optional<T> entry) {
-        return entry
-                .map(ResponseEntity::ok)
+    protected <T> ResponseEntity<T>
+    responseFrom(@Nonnull final Optional<T> entry) {
+        return entry.map(ResponseEntity::ok)
                 .orElse(status(NOT_FOUND).body(null));
     }
 }

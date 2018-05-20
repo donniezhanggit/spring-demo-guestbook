@@ -5,14 +5,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.validation.ConstraintViolation;
 
-import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 
-// TODO: Add detailed fail messages.
-@AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class ValidationCheck<T> {
     public static final String LENGTH_MUST_BE_BETWEEN =
@@ -21,6 +19,12 @@ public class ValidationCheck<T> {
             "must not be null";
 
     Set<ConstraintViolation<T>> violations;
+
+
+    public
+    ValidationCheck(@Nonnull final Set<ConstraintViolation<T>> violations) {
+        this.violations = violations;
+    }
 
 
     public ValidationError<T> hasOnlyOneError() {
@@ -40,12 +44,14 @@ public class ValidationCheck<T> {
         ConstraintViolation<T> violation;
 
 
-        public ValidationError(ConstraintViolation<T> violation) {
+        public
+        ValidationError(@Nonnull final ConstraintViolation<T> violation) {
             this.violation = violation;
         }
 
 
-        public ValidationError<T> forProperty(final String propertyName) {
+        public ValidationError<T>
+        forProperty(@Nonnull final String propertyName) {
             assertThat(violation.getPropertyPath().toString())
                 .isEqualTo(propertyName);
 
@@ -53,7 +59,8 @@ public class ValidationCheck<T> {
         }
 
 
-        public ValidationError<T> withMessageContaining(final String substr) {
+        public ValidationError<T>
+        withMessageContaining(@Nonnull final String substr) {
             assertThat(violation.getMessage()).contains(substr);
 
             return this;

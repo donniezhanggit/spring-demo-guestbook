@@ -17,10 +17,10 @@ import lombok.experimental.Wither;
 
 
 @Getter
-@Wither
+@Wither(value=PRIVATE)
+@AllArgsConstructor
 @NoArgsConstructor(access=PRIVATE)
 @FieldDefaults(level=PRIVATE)
-@AllArgsConstructor
 public class CommentEntry {
     Long id;
     Short version;
