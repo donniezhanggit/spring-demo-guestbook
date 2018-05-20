@@ -27,14 +27,16 @@ public class CustomUserDetailsService implements UserDetailsService {
     UsersRepository usersRepository;
 
 
-    public CustomUserDetailsService(@Nonnull final UsersRepository usersRepository) {
+    public
+    CustomUserDetailsService(@Nonnull final UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
 
 
     @Override
     @SuppressWarnings("serial")
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
         final Optional<User> user = usersRepository.findByUsername(username);
 
         if(user.isPresent()) {
