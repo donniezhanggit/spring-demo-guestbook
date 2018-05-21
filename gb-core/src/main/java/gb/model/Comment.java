@@ -3,6 +3,7 @@ package gb.model;
 import static javax.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.NONE;
 import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.PROTECTED;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import com.google.common.base.Preconditions;
 
 import gb.common.domain.AbstractDomainEntity;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 
@@ -25,6 +27,7 @@ import lombok.experimental.FieldDefaults;
 @Immutable
 @Getter
 @FieldDefaults(level=PRIVATE)
+@NoArgsConstructor(access=PROTECTED)
 public class Comment extends AbstractDomainEntity {
     private static final long serialVersionUID = 1L;
 
@@ -42,9 +45,6 @@ public class Comment extends AbstractDomainEntity {
     @ManyToOne(fetch=LAZY, optional=true, targetEntity=User.class)
     @JoinColumn(name="gbuser_id")
     User user;
-
-
-    protected Comment() {}
 
 
     public Comment(@Nonnull final CommentBuilder cb) {

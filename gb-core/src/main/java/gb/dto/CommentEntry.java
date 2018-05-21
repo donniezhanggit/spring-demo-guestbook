@@ -5,13 +5,12 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnull;
-
 import gb.model.Comment;
 import gb.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.Wither;
 
@@ -30,7 +29,7 @@ public class CommentEntry {
     String username;
 
 
-    public static CommentEntry from(@Nonnull final Comment comment) {
+    public static CommentEntry from(@NonNull final Comment comment) {
         final String username = comment.getUser()
                 .map(User::getUsername).orElse(null);
 

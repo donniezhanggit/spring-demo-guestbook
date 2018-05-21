@@ -1,6 +1,7 @@
 package gb.model;
 
 import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.PROTECTED;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +13,7 @@ import com.google.common.base.Preconditions;
 
 import gb.common.domain.AbstractDomainEntity;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 
@@ -19,6 +21,7 @@ import lombok.experimental.FieldDefaults;
 @Table(name="gbuser")
 @Getter
 @FieldDefaults(level=PRIVATE)
+@NoArgsConstructor(access=PROTECTED)
 public class User extends AbstractDomainEntity {
     private static final long serialVersionUID = 1L;
 
@@ -35,9 +38,6 @@ public class User extends AbstractDomainEntity {
     String email;
     LocalDateTime created = LocalDateTime.now();
     boolean active = true;
-
-
-    protected User() {}
 
 
     public User(@Nonnull final UserBuilder ub) {

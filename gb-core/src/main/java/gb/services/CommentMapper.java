@@ -9,19 +9,16 @@ import org.springframework.stereotype.Service;
 import gb.dto.CommentInput;
 import gb.model.Comment;
 import gb.model.CommentBuilder;
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 
 
 @Service
+@AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class CommentMapper {
-    CurrentPrincipalService currentPrincipalService;
-
-
-    public CommentMapper(
-        @Nonnull final CurrentPrincipalService currentPrincipalService) {
-        this.currentPrincipalService = currentPrincipalService;
-    }
+    @NonNull CurrentPrincipalService currentPrincipalService;
 
 
     public Comment from(@Nonnull final CommentInput input) {

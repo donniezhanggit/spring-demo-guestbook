@@ -8,8 +8,6 @@ import static org.springframework.http.HttpStatus.OK;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,19 +23,17 @@ import gb.common.endpoint.BaseController;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 
 
+@AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 @RestController
 @RequestMapping("/api/comments")
 public class CommentsController extends BaseController {
-    CommentsApi commentsApi;
-
-
-    public CommentsController(@Nonnull final CommentsApi commentsApi) {
-        this.commentsApi = commentsApi;
-    }
+    @NonNull CommentsApi commentsApi;
 
 
     @GetMapping

@@ -20,23 +20,19 @@ import gb.dto.CommentInput;
 import gb.model.Comment;
 import gb.repos.CommentsRepository;
 import gb.services.CommentMapper;
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 
 
 @Api
 @Transactional(readOnly=true)
 @CacheConfig(cacheNames="comments")
+@AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class CommentsApi {
-    CommentsRepository commentsRepo;
-    CommentMapper commentMapper;
-
-
-    public CommentsApi(@Nonnull final CommentsRepository commentRepo,
-            @Nonnull final CommentMapper commentMapper) {
-        this.commentsRepo = commentRepo;
-        this.commentMapper = commentMapper;
-    }
+    @NonNull CommentsRepository commentsRepo;
+    @NonNull CommentMapper commentMapper;
 
 
     @Cacheable

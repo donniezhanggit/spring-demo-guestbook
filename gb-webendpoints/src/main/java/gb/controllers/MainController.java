@@ -17,22 +17,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import gb.api.CommentsApi;
 import gb.dto.CommentInput;
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
 @FieldDefaults(level=PRIVATE, makeFinal=true)
+@AllArgsConstructor
 @Controller
 public class MainController {
     DateTimeFormatter dateFormat =
         DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
-    CommentsApi commentsApi;
-
-
-    public MainController(@Nonnull final CommentsApi commentsApi) {
-        this.commentsApi = commentsApi;
-    }
+    @NonNull CommentsApi commentsApi;
 
 
     public ModelAndView generateView(
