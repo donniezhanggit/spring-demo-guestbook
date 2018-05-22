@@ -2,6 +2,8 @@ package gb.api;
 
 import static gb.common.FakeData.stringWithLength;
 import static gb.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
+import static gb.model.Comment.MESSAGE_MAX_LENGTH;
+import static gb.model.Comment.NAME_MAX_LENGTH;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -14,7 +16,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import gb.common.it.RecreatePerClassITCase;
 import gb.dto.CommentInput;
-import gb.model.Comment;
 import lombok.val;
 import lombok.experimental.FieldDefaults;
 
@@ -30,8 +31,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
     @Test
     public void When_name_is_too_long_expect_ValidationException() {
         // Arrange.
-        final String tooLongName = stringWithLength(
-                Comment.NAME_MAX_LENGTH+1);
+        final String tooLongName = stringWithLength(NAME_MAX_LENGTH+1);
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .name(tooLongName).build();
 
@@ -46,8 +46,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
     @Test
     public void When_name_length_is_max_comment_should_be_saved() {
         //Arrange.
-        final String longName = stringWithLength(
-                Comment.NAME_MAX_LENGTH);
+        final String longName = stringWithLength(NAME_MAX_LENGTH);
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .name(longName).build();
 
@@ -59,8 +58,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
     @Test
     public void When_message_is_too_long_expect_ValidationException() {
         // Arrange.
-        final String tooLongMessage = stringWithLength(
-                Comment.MESSAGE_MAX_LENGTH+1);
+        final String tooLongMessage = stringWithLength(MESSAGE_MAX_LENGTH+1);
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .message(tooLongMessage).build();
 
@@ -75,8 +73,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
     @Test
     public void When_message_length_is_max_comment_should_be_saved() {
         // Arrange.
-        final String longMessage = stringWithLength(
-                Comment.MESSAGE_MAX_LENGTH);
+        final String longMessage = stringWithLength(MESSAGE_MAX_LENGTH);
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .message(longMessage).build();
 
