@@ -4,6 +4,7 @@ package gb.dto;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.time.LocalDateTime;
+import java.util.function.Function;
 
 import gb.model.Comment;
 import gb.model.User;
@@ -26,19 +27,29 @@ public class CommentEntry {
     LocalDateTime created;
     String anonName;
     String message;
-    String username;
 
+    Long userId;
+
+    String userName;
 
     public static CommentEntry from(@NonNull final Comment comment) {
-        final String username = comment.getUser()
-                .map(User::getUsername).orElse(null);
+        final Long userId = getUserFieldBy(comment, User::getId);
+        final String userName = getUserFieldBy(comment, User::getUsername);
 
         return new CommentEntry()
-                .withId(comment.getId())
-                .withVersion(comment.getVersion())
-                .withCreated(comment.getCreated())
-                .withMessage(comment.getMessage())
-                .withAnonName(comment.getName())
-                .withUsername(username);
+            .withId(comment.getId())
+            .withVersion(comment.getVersion())
+            .withCreated(comment.getCreated())
+            .withMessage(comment.getMessage())
+            .withAnonName(comment.getName())
+            .withUserId(userId)
+            .withUserName(userName);
+    }
+
+
+    private static <T> T getUserFieldBy(
+            @NonNull final Comment comment,
+            @NonNull final Function<User, T> userMapper) {
+        return comment.getUser().map(userMapper).orElse(null);
     }
 }

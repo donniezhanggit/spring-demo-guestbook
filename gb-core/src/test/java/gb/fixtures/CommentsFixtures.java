@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ import gb.dto.CommentInput;
 import gb.dto.CommentInputBuilder;
 import gb.model.Comment;
 import gb.model.CommentBuilder;
+import gb.model.User;
 import gb.repos.CommentsRepository;
 import lombok.experimental.FieldDefaults;
 
@@ -103,15 +106,17 @@ public class CommentsFixtures {
         return new CommentEntryBuilder()
                 .id(EXISTING_ID).version(VERSION_JUST_CREATED)
                 .created(CREATED1).anonName(ANON_NAME).message(MESSAGE)
-                .username(null).build();
+                .userId(null).userName(null).build();
     }
 
 
     public static CommentEntry buildUserCommentEntry() {
         return new CommentEntryBuilder()
                 .anonName(null).created(CREATED1).message(MESSAGE)
-                .username(USERNAME).build();
+                .userId(UsersFixtures.EXISTING_ID).userName(USERNAME)
+                .build();
     }
+
 
     public static CommentBuilder getCommentBuilder() {
         return new CommentBuilder()
@@ -125,9 +130,14 @@ public class CommentsFixtures {
 
 
     public static Comment buildUserComment() {
+        return buildCommentFor(buildUser());
+    }
+
+
+    public static Comment buildCommentFor(@Nullable final User user) {
         return getCommentBuilder()
                 .name(null)
-                .user(buildUser())
+                .user(Optional.ofNullable(user))
                 .build();
     }
 }

@@ -15,7 +15,8 @@ public class CommentEntryBuilder {
     LocalDateTime created;
     String anonName;
     String message;
-    String username;
+    Long userId;
+    String userName;
 
 
     public CommentEntryBuilder id(Long id) {
@@ -53,8 +54,15 @@ public class CommentEntryBuilder {
     }
 
 
-    public CommentEntryBuilder username(String username) {
-        this.username = username;
+    public CommentEntryBuilder userId(Long userId) {
+        this.userId = userId;
+
+        return this;
+    }
+
+
+    public CommentEntryBuilder userName(String userName) {
+        this.userName = userName;
 
         return this;
     }
@@ -62,6 +70,6 @@ public class CommentEntryBuilder {
 
     public CommentEntry build() {
         return new CommentEntry(id, version, created, anonName,
-                message, username);
+                message, userId, userName);
     }
 }

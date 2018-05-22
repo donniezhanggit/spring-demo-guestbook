@@ -140,6 +140,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
         assertThat(actual.getCreated()).isNotNull();
         assertThat(actual.getMessage()).isEqualTo(MESSAGE);
         assertThat(actual.getAnonName()).isEqualTo(ANON_NAME);
-        assertThat(actual.getUsername()).isNull();
+        assertThat(actual.getUserId()).isNull();
+        assertThat(actual.getUserName()).isNull();
     }
 }
