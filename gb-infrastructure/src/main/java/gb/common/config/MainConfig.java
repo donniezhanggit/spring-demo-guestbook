@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 import lombok.val;
@@ -25,15 +26,16 @@ import lombok.extern.slf4j.Slf4j;
 @EnableCaching
 @FieldDefaults(level=PRIVATE)
 public class MainConfig {
-    @Value("${spring.jackson.serialization.INDENT_OUTPUT:false}")
-    boolean prettyPrint;
-
-
     @Bean
-    public ObjectMapper objectMapper() {
+    public ObjectMapper objectMapper(
+            @Value("${spring.jackson.serialization.INDENT_OUTPUT:false}")
+            final boolean prettyPrint) {
         val mapper = new ObjectMapper();
 
-        mapper.disable(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS);
+        // Show date/time as ISO8601 by default.
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
         mapper.configure(SerializationFeature.INDENT_OUTPUT, prettyPrint);
 
         // Avoid having to annotate classes. Requires Java 8, pass -parameters
