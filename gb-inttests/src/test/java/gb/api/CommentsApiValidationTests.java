@@ -64,7 +64,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
         final CommentInput input = commentInputBuilderWithNameAndMessage()
                 .message(tooLongMessage).build();
 
-        // Act and assert.
+        // Act.
         val throwable = catchThrowable(() -> commentsApi.createComment(input));
 
         // Assert.
