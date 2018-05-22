@@ -41,6 +41,7 @@
     </notnull.instrumenter.maven.plugin.version>
     <jacoco.maven.plugin.version>0.7.9</jacoco.maven.plugin.version>
     <findbugs.maven.plugin.version>3.0.5</findbugs.maven.plugin.version>
+    <checker.framework.version>2.5.1</checker.framework.version>
   </properties>
 
 
@@ -74,6 +75,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-cache</artifactId>
     </dependency>
 
     <dependency>
@@ -161,6 +167,23 @@
     <dependency>
       <groupId>com.fasterxml.jackson.module</groupId>
       <artifactId>jackson-module-parameter-names</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.hazelcast</groupId>
+      <artifactId>hazelcast</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>checker-qual</artifactId>
+      <version>${checker.framework.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>jdk8</artifactId>
+      <version>${checker.framework.version}</version>
     </dependency>
   </dependencies>
 

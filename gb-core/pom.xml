@@ -131,7 +131,6 @@
           <findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
           <!-- Exclude filter. -->
           <excludeFilterFile>settings/findbugs/findbugs-excludes.xml</excludeFilterFile>
-
         </configuration>
         <executions>
           <!--
