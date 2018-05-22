@@ -6,6 +6,7 @@ import static gb.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage
 import static gb.fixtures.UsersFixtures.buildUser;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -29,6 +30,16 @@ public class CommentMapperTests extends JUnitTestCase {
             mock(CurrentPrincipalService.class);
 
     CommentMapper mapper = new CommentMapper(currentPrincipalService);
+
+
+    @Test
+    public void Mapper_without_dependency_throws_NullPointerException() {
+        // Act.
+        val throwable = catchThrowable(() -> new CommentMapper(null));
+
+        // Assert.
+        assertThat(throwable).isInstanceOf(NullPointerException.class);
+    }
 
 
     @Test
