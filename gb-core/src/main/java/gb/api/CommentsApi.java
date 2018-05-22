@@ -1,73 +1,55 @@
 package gb.api;
 
-import static lombok.AccessLevel.PRIVATE;
-
 import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
 import javax.validation.Valid;
 
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.transaction.annotation.Transactional;
-
-import gb.common.annotations.Api;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
-import gb.model.Comment;
-import gb.repos.CommentsRepository;
-import gb.services.CommentMapper;
-import lombok.AllArgsConstructor;
-import lombok.NonNull;
-import lombok.experimental.FieldDefaults;
 
 
-@Api
-@Transactional(readOnly=true)
-@CacheConfig(cacheNames="comments")
-@AllArgsConstructor
-@FieldDefaults(level=PRIVATE, makeFinal=true)
-public class CommentsApi {
-    @NonNull CommentsRepository commentsRepo;
-    @NonNull CommentMapper commentMapper;
+/**
+ * Public front service of comments.
+ *
+ * @author whitesquall
+ *
+ */
+public interface CommentsApi {
+    /**
+     * Returns a list of all comments ordered by date.
+     *
+     * @return List of mapped comment entries.
+     */
+    List<CommentEntry> getComments();
 
 
-    @Cacheable
-    public List<CommentEntry> getComments() {
-        final List<CommentEntry> comments = commentsRepo
-            .findAllByOrderByCreatedAsc(CommentEntry.class);
-
-        return comments;
-    }
-
-
-    public Optional<CommentEntry> getComment(final long id) {
-        final Optional<CommentEntry> entry = commentsRepo
-                .findOneById(id, CommentEntry.class);
-
-        return entry;
-    }
+    /**
+     * Get comment by ID.
+     *
+     * @param id A unique identifier of comment.
+     * @return if comment with ID exists return filled optional with
+     *         {@link CommentEntry}, otherwise {@code Optional.empty()}
+     */
+    Optional<CommentEntry> getComment(final long id);
 
 
-    @Transactional
-    @CacheEvict(allEntries=true)
-    @PreAuthorize("hasRole('USER')")
-    public Long createComment(@Nonnull @Valid final CommentInput input) {
-        final Comment comment = commentsRepo.save(commentMapper.from(input));
+    /**
+     * Create a new comment by input.
+     *
+     * @param input {@link CommentInput} with comments data
+     * @return ID of just created comment.
+     * @throws {@link ConstraintViolationException} if input is invalid.
+     */
+    Long createComment(@Nonnull @Valid final CommentInput input);
 
-        return comment.getId();
-    }
 
-
-    @Transactional
-    @CacheEvict(allEntries=true)
-    @PreAuthorize("hasRole('ADMIN')")
-    public void removeComment(long id) {
-        final Optional<Comment> comment = commentsRepo.findOneById(id);
-
-        comment.ifPresent(commentsRepo::delete);
-    }
+    /**
+     * Idempotent removing of comment by ID. If comment with ID does not exist
+     * just return silently.
+     *
+     * @param id an identifier of comment to remove.
+     */
+    void removeComment(final long id);
 }
