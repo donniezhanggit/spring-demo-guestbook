@@ -41,7 +41,7 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
 
 
     @Test
-    public void ConstraintViolationException_should_convert_to_405_status()
+    public void ConstraintViolationException_should_convert_to_412_status()
             throws Exception {
         // Arrange.
         val invalidComment = new CommentInput("");
