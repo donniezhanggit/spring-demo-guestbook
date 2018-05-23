@@ -1,9 +1,7 @@
-package gb.fixtures;
+package gb.testlang.fixtures;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import org.springframework.test.util.ReflectionTestUtils;
 
 import gb.model.User;
 import gb.model.UserBuilder;
@@ -27,8 +25,8 @@ public class UsersFixtures {
     public static User buildUserWithId() {
         final User user = buildUser();
 
-        ReflectionTestUtils.setField(user, "id", EXISTING_ID);
-        ReflectionTestUtils.setField(user, "version", JUST_CREATED_VERSION);
+        DomainClassFixtures.setId(user, EXISTING_ID);
+        DomainClassFixtures.setVersion(user, JUST_CREATED_VERSION);
 
         return user;
     }

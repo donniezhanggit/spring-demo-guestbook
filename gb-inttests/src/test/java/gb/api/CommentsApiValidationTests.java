@@ -1,9 +1,9 @@
 package gb.api;
 
 import static gb.common.FakeData.stringWithLength;
-import static gb.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
 import static gb.model.Comment.MESSAGE_MAX_LENGTH;
 import static gb.model.Comment.NAME_MAX_LENGTH;
+import static gb.testlang.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;

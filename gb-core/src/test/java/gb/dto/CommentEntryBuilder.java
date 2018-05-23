@@ -70,6 +70,6 @@ public class CommentEntryBuilder {
 
     public CommentEntry build() {
         return new CommentEntry(id, version, created, anonName,
-                message, userId, userName);
+                message, new SimpleUserEntry(userId, userName));
     }
 }

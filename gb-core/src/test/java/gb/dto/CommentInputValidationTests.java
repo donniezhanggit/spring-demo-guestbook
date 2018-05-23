@@ -3,11 +3,11 @@ package gb.dto;
 import static gb.common.FakeData.stringWithLength;
 import static gb.common.ValidationCheck.LENGTH_MUST_BE_BETWEEN;
 import static gb.common.ValidationCheck.MUST_NOT_BE_NULL;
-import static gb.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
 import static gb.model.Comment.MESSAGE_MAX_LENGTH;
 import static gb.model.Comment.MESSAGE_MIN_LENGTH;
 import static gb.model.Comment.NAME_MAX_LENGTH;
 import static gb.model.Comment.NAME_MIN_LENGTH;
+import static gb.testlang.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
 
 import org.junit.Test;
 

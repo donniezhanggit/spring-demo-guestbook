@@ -1,11 +1,12 @@
 package gb.dto;
 
-import static gb.fixtures.CommentsFixtures.buildAnonComment;
-import static gb.fixtures.CommentsFixtures.buildAnonCommentEntry;
-import static gb.fixtures.CommentsFixtures.buildCommentFor;
-import static gb.fixtures.CommentsFixtures.buildUserCommentEntry;
-import static gb.fixtures.UsersFixtures.stubUser;
-import static org.assertj.core.api.Assertions.assertThat;
+import static gb.testlang.assertions.CommentAssertions.assertAnonCommentEntry;
+import static gb.testlang.assertions.CommentAssertions.assertUserCommentEntry;
+import static gb.testlang.fixtures.CommentsFixtures.buildAnonComment;
+import static gb.testlang.fixtures.CommentsFixtures.buildAnonCommentEntry;
+import static gb.testlang.fixtures.CommentsFixtures.buildCommentFor;
+import static gb.testlang.fixtures.CommentsFixtures.buildUserCommentEntry;
+import static gb.testlang.fixtures.UsersFixtures.stubUser;
 
 import org.junit.Test;
 
@@ -24,7 +25,7 @@ public class CommentEntryTests extends JUnitTestCase {
         final CommentEntry actual = CommentEntry.from(comment);
 
         // Assert.
-        assertCommentEntry(expected, actual);
+        assertAnonCommentEntry(expected, actual);
     }
 
 
@@ -38,16 +39,6 @@ public class CommentEntryTests extends JUnitTestCase {
         final CommentEntry actual = CommentEntry.from(comment);
 
         // Assert.
-        assertCommentEntry(expected, actual);
-    }
-
-
-    private void assertCommentEntry(
-            final CommentEntry expected, final CommentEntry actual) {
-        assertThat(actual.getCreated()).isEqualTo(expected.getCreated());
-        assertThat(actual.getAnonName()).isEqualTo(expected.getAnonName());
-        assertThat(actual.getMessage()).isEqualTo(expected.getMessage());
-        assertThat(actual.getUserId()).isEqualTo(expected.getUserId());
-        assertThat(actual.getUserName()).isEqualTo(expected.getUserName());
+        assertUserCommentEntry(expected, actual);
     }
 }

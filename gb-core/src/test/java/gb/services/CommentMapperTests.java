@@ -1,9 +1,9 @@
 package gb.services;
 
-import static gb.fixtures.CommentsFixtures.buildAnonCommentInput;
-import static gb.fixtures.CommentsFixtures.buildCommentInputWithMessage;
-import static gb.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
-import static gb.fixtures.UsersFixtures.buildUser;
+import static gb.testlang.fixtures.CommentsFixtures.buildAnonCommentInput;
+import static gb.testlang.fixtures.CommentsFixtures.buildCommentInputWithMessage;
+import static gb.testlang.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
+import static gb.testlang.fixtures.UsersFixtures.buildUser;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;

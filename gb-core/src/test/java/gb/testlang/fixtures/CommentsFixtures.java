@@ -1,6 +1,6 @@
-package gb.fixtures;
+package gb.testlang.fixtures;
 
-import static gb.fixtures.UsersFixtures.buildUser;
+import static gb.testlang.fixtures.UsersFixtures.buildUser;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.time.LocalDateTime;
@@ -39,6 +39,12 @@ public class CommentsFixtures {
             LocalDateTime.of(2017, 9, 1, 12, 33, 19);
     public static final LocalDateTime CREATED3 =
             LocalDateTime.of(2017, 9, 1, 12, 37, 31);
+    public static final String USERNAME_DIV_TEXT =
+            "<div class=\"name\">" + USERNAME + "</div>\n" +
+            "          <div class=\"anon\"></div>";
+    public static final String ANON_NAME_DIV_TEXT =
+            "<div class=\"name\"></div>\n" +
+            "          <div class=\"anon\">" + ANON_NAME + "</div>";
 
 
     @Autowired
@@ -79,6 +85,14 @@ public class CommentsFixtures {
         final Comment comment3 = cb.created(CREATED3).build();
 
         return Arrays.asList(comment1, comment2, comment3);
+    }
+
+
+    public static List<CommentEntry> buildCommentEntriesList() {
+        final CommentEntry entry1 = buildAnonCommentEntry();
+        final CommentEntry entry2 = buildUserCommentEntry();
+
+        return Arrays.asList(entry1, entry2);
     }
 
 

@@ -1,9 +1,11 @@
 package gb.endpoints;
 
 
-import static gb.fixtures.CommentsFixtures.EXISTING_ID;
-import static gb.fixtures.CommentsFixtures.buildAnonCommentEntry;
-import static gb.fixtures.CommentsFixtures.buildAnonCommentInput;
+import static gb.testlang.fixtures.CommentsFixtures.ANON_NAME_DIV_TEXT;
+import static gb.testlang.fixtures.CommentsFixtures.EXISTING_ID;
+import static gb.testlang.fixtures.CommentsFixtures.USERNAME_DIV_TEXT;
+import static gb.testlang.fixtures.CommentsFixtures.buildAnonCommentInput;
+import static gb.testlang.fixtures.CommentsFixtures.buildCommentEntriesList;
 import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
@@ -15,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -48,12 +50,12 @@ public class MainControllerTests extends EndpointITCase {
 
     @Override
     public void setup() {
-        final CommentEntry commentEntry = buildAnonCommentEntry();
+        final List<CommentEntry> commentEntries = buildCommentEntriesList();
 
         when(commentsApi.createComment(any(CommentInput.class)))
             .thenReturn(EXISTING_ID);
         when(commentsApi.getComments())
-            .thenReturn(Arrays.asList(commentEntry));
+            .thenReturn(commentEntries);
     }
 
 
@@ -62,7 +64,9 @@ public class MainControllerTests extends EndpointITCase {
             throws Exception {
         mockMvc.perform(get(ROOT_URL))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(HTML_UTF8));
+            .andExpect(content().contentType(HTML_UTF8))
+            .andExpect(content().string(containsString(ANON_NAME_DIV_TEXT)))
+            .andExpect(content().string(containsString(USERNAME_DIV_TEXT)));
     }
 
 

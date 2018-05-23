@@ -1,9 +1,9 @@
 package gb.endpoints;
 
-import static gb.fixtures.CommentsFixtures.EXISTING_ID;
-import static gb.fixtures.CommentsFixtures.NON_EXISTENT_ID;
-import static gb.fixtures.CommentsFixtures.buildAnonCommentEntry;
-import static gb.fixtures.CommentsFixtures.buildAnonCommentInput;
+import static gb.testlang.fixtures.CommentsFixtures.EXISTING_ID;
+import static gb.testlang.fixtures.CommentsFixtures.NON_EXISTENT_ID;
+import static gb.testlang.fixtures.CommentsFixtures.buildAnonCommentEntry;
+import static gb.testlang.fixtures.CommentsFixtures.buildAnonCommentInput;
 import static lombok.AccessLevel.PRIVATE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;

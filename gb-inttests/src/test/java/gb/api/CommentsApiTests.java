@@ -1,9 +1,7 @@
 package gb.api;
 
-import static gb.fixtures.CommentsFixtures.ANON_NAME;
-import static gb.fixtures.CommentsFixtures.MESSAGE;
-import static gb.fixtures.CommentsFixtures.NON_EXISTENT_ID;
-import static gb.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
+import static gb.testlang.fixtures.CommentsFixtures.NON_EXISTENT_ID;
+import static gb.testlang.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,8 +17,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import gb.common.it.RecreatePerClassITCase;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
-import gb.fixtures.CommentsFixtures;
-import gb.repos.CommentsRepository;
+import gb.testlang.assertions.CommentAssertions;
+import gb.testlang.fixtures.CommentsFixtures;
 import lombok.experimental.FieldDefaults;
 
 
@@ -34,7 +32,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     CommentsApi commentsApi;
 
     @Autowired
-    CommentsRepository commentRepo;
+    CommentAssertions assertions;
 
 
     @Test
@@ -61,7 +59,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
         // Assert.
         assertThat(comment.isPresent()).isTrue();
-        comment.ifPresent(this::assertCommentEntry);
+        comment.ifPresent(CommentAssertions::assertCommentEntryIT);
     }
 
 
@@ -88,7 +86,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
         // Assert.
         assertThat(actual.isPresent()).isTrue();
-        actual.ifPresent(this::assertCommentEntry);
+        actual.ifPresent(CommentAssertions::assertCommentEntryIT);
     }
 
 
@@ -117,7 +115,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
         commentsApi.removeComment(existingCommentId);
 
         // Assert.
-        assertThatCommentRemoved(existingCommentId);
+        assertions.assertCommentRemoved(existingCommentId);
     }
 
 
@@ -125,22 +123,5 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     public void A_removing_of_a_non_existent_comment_should_not_throw() {
         // Act.
         commentsApi.removeComment(NON_EXISTENT_ID);
-    }
-
-
-    private void assertThatCommentRemoved(long commentId) {
-        assertThat(commentRepo.existsById(commentId)).isFalse();
-    }
-
-
-    private void assertCommentEntry(final CommentEntry actual) {
-        assertThat(actual).isNotNull();
-        assertThat(actual.getId()).isNotNull();
-        assertThat(actual.getVersion()).isNotNull();
-        assertThat(actual.getCreated()).isNotNull();
-        assertThat(actual.getMessage()).isEqualTo(MESSAGE);
-        assertThat(actual.getAnonName()).isEqualTo(ANON_NAME);
-        assertThat(actual.getUserId()).isNull();
-        assertThat(actual.getUserName()).isNull();
     }
 }

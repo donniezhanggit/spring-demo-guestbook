@@ -4,10 +4,8 @@ package gb.dto;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.time.LocalDateTime;
-import java.util.function.Function;
 
 import gb.model.Comment;
-import gb.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,13 +26,13 @@ public class CommentEntry {
     String anonName;
     String message;
 
-    Long userId;
 
-    String userName;
+    SimpleUserEntry user;
+
 
     public static CommentEntry from(@NonNull final Comment comment) {
-        final Long userId = getUserFieldBy(comment, User::getId);
-        final String userName = getUserFieldBy(comment, User::getUsername);
+        SimpleUserEntry userEntry = comment.getUser()
+                .map(SimpleUserEntry::from).orElse(null);
 
         return new CommentEntry()
             .withId(comment.getId())
@@ -42,14 +40,6 @@ public class CommentEntry {
             .withCreated(comment.getCreated())
             .withMessage(comment.getMessage())
             .withAnonName(comment.getName())
-            .withUserId(userId)
-            .withUserName(userName);
-    }
-
-
-    private static <T> T getUserFieldBy(
-            @NonNull final Comment comment,
-            @NonNull final Function<User, T> userMapper) {
-        return comment.getUser().map(userMapper).orElse(null);
+            .withUser(userEntry);
     }
 }
