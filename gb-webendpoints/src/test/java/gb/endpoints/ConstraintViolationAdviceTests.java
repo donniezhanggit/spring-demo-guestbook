@@ -34,9 +34,9 @@ import lombok.val;
 import lombok.experimental.FieldDefaults;
 
 
-@WebMvcTest(ConstraintViolationAdviceTest.TestController.class)
+@WebMvcTest(ConstraintViolationAdviceTests.TestController.class)
 @WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
-public class ConstraintViolationAdviceTest extends EndpointITCase {
+public class ConstraintViolationAdviceTests extends EndpointITCase {
     private static final String API_URL = "/api/comments";
 
 
