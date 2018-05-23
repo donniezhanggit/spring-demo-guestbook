@@ -44,7 +44,7 @@ public class CommentsController extends BaseController {
     }
 
 
-    @GetMapping(value="/{id}")
+    @GetMapping("/{id}")
     @ApiOperation(nickname="getComment", value="Get comment by ID")
     public ResponseEntity<CommentEntry>
     getComment(@PathVariable final long id) {
@@ -62,7 +62,7 @@ public class CommentsController extends BaseController {
     }
 
 
-    @DeleteMapping(value="/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(NO_CONTENT)
     @ApiOperation(nickname="removeComment",
         value="Remove an existing comment by ID")

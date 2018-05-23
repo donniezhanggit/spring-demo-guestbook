@@ -11,6 +11,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -23,7 +24,6 @@ import java.util.Optional;
 import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import gb.api.CommentsApi;
@@ -66,7 +66,7 @@ public class CommentsControllerTests extends EndpointITCase {
         mockMvc.perform(get(COMMENTS_API_URL))
             .andExpect(status().isOk())
             .andExpect(content()
-                    .contentType(MediaType.APPLICATION_JSON_UTF8));
+                    .contentType(APPLICATION_JSON_UTF8));
     }
 
 
@@ -92,7 +92,7 @@ public class CommentsControllerTests extends EndpointITCase {
         mockMvc.perform(get(url))
             .andExpect(status().isOk())
             .andExpect(content()
-                    .contentType(MediaType.APPLICATION_JSON_UTF8));
+                    .contentType(APPLICATION_JSON_UTF8));
     }
 
 
@@ -146,10 +146,10 @@ public class CommentsControllerTests extends EndpointITCase {
         // Act and assert.
         mockMvc.perform(post(COMMENTS_API_URL)
                 .content(jsonCommentInput)
-                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .contentType(APPLICATION_JSON_UTF8))
             .andExpect(status().isCreated())
             .andExpect(content()
-                    .contentType(MediaType.APPLICATION_JSON_UTF8));
+                    .contentType(APPLICATION_JSON_UTF8));
     }
 
 
@@ -162,7 +162,7 @@ public class CommentsControllerTests extends EndpointITCase {
         // Act.
         mockMvc.perform(post(COMMENTS_API_URL)
                 .content(jsonCommentInput)
-                .contentType(MediaType.APPLICATION_JSON_UTF8));
+                .contentType(APPLICATION_JSON_UTF8));
 
         // Assert.
         verify(commentsApi, times(1))

@@ -16,7 +16,7 @@ import gb.model.Comment;
 
 public class CommentEntryTests extends JUnitTestCase {
     @Test
-    public void testAnonymousCommentMapping() {
+    public void An_anonymous_Comment_should_map_to_CommentEntry() {
         // Arrange.
         final Comment comment = buildAnonComment();
         final CommentEntry expected = buildAnonCommentEntry();
@@ -30,7 +30,7 @@ public class CommentEntryTests extends JUnitTestCase {
 
 
     @Test
-    public void testUserCommentMapping() {
+    public void A_user_Comment_should_map_to_CommentEntry() {
         // Arrange.
         final Comment comment = buildCommentFor(stubUser());
         final CommentEntry expected = buildUserCommentEntry();

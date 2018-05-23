@@ -43,13 +43,13 @@ public class MainController {
     }
 
 
-    @GetMapping(value="/")
+    @GetMapping("/")
     public ModelAndView listComments() {
         return generateView("list", CommentInput.empty());
     }
 
 
-    @PostMapping(value="/")
+    @PostMapping("/")
     public ModelAndView addComment(
             @ModelAttribute("commentForm")
             @Valid final CommentInput commentForm,
@@ -70,7 +70,7 @@ public class MainController {
     }
 
 
-    @GetMapping(value="/login")
+    @GetMapping("/login")
     public ModelAndView login() {
         return new ModelAndView("login");
     }

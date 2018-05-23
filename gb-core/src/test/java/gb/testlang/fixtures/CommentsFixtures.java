@@ -27,7 +27,7 @@ import lombok.experimental.FieldDefaults;
 @Service
 @FieldDefaults(level=PRIVATE)
 public class CommentsFixtures {
-    public static final long EXISTING_ID = 1L;
+    public static final long EXISTING_ID = 12481L;
     public static final long NON_EXISTENT_ID = Long.MAX_VALUE;
     public static final short VERSION_JUST_CREATED = 0;
     public static final String ANON_NAME = "A test anon";
@@ -149,9 +149,6 @@ public class CommentsFixtures {
 
 
     public static Comment buildCommentFor(@Nullable final User user) {
-        return getCommentBuilder()
-                .name(null)
-                .user(Optional.ofNullable(user))
-                .build();
+        return getCommentBuilder().name(null).user(user).build();
     }
 }

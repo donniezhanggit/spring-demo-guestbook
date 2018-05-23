@@ -8,7 +8,7 @@ import gb.model.UserBuilder;
 
 
 public class UsersFixtures {
-    public static final Long EXISTING_ID = 1L;
+    public static final Long EXISTING_ID = 10053L;
     public static final Short JUST_CREATED_VERSION = 0;
     public static final String USERNAME = "user";
     public static final String PASSWORD = "P4ssW0rD";
