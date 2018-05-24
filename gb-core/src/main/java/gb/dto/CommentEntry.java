@@ -25,8 +25,6 @@ public class CommentEntry {
     LocalDateTime created;
     String anonName;
     String message;
-
-
     SimpleUserEntry user;
 
 
