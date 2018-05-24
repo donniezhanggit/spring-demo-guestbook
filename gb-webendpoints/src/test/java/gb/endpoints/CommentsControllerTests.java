@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -51,7 +51,7 @@ public class CommentsControllerTests extends EndpointITCase {
         when(commentsApi.createComment(any(CommentInput.class)))
             .thenReturn(EXISTING_ID);
         when(commentsApi.getComments())
-            .thenReturn(Arrays.asList(commentEntry));
+            .thenReturn(Collections.singletonList(commentEntry));
         when(commentsApi.getComment(EXISTING_ID))
             .thenReturn(Optional.of(commentEntry));
         when(commentsApi.getComment(NON_EXISTENT_ID))
@@ -65,8 +65,7 @@ public class CommentsControllerTests extends EndpointITCase {
             throws Exception {
         mockMvc.perform(get(COMMENTS_API_URL))
             .andExpect(status().isOk())
-            .andExpect(content()
-                    .contentType(APPLICATION_JSON_UTF8));
+            .andExpect(content().contentType(APPLICATION_JSON_UTF8));
     }
 
 
@@ -91,8 +90,7 @@ public class CommentsControllerTests extends EndpointITCase {
         // Act and assert.
         mockMvc.perform(get(url))
             .andExpect(status().isOk())
-            .andExpect(content()
-                    .contentType(APPLICATION_JSON_UTF8));
+            .andExpect(content().contentType(APPLICATION_JSON_UTF8));
     }
 
 
@@ -148,8 +146,7 @@ public class CommentsControllerTests extends EndpointITCase {
                 .content(jsonCommentInput)
                 .contentType(APPLICATION_JSON_UTF8))
             .andExpect(status().isCreated())
-            .andExpect(content()
-                    .contentType(APPLICATION_JSON_UTF8));
+            .andExpect(content().contentType(APPLICATION_JSON_UTF8));
     }
 
 
