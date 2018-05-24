@@ -8,7 +8,7 @@
   <artifactId>gb-core</artifactId>
   <packaging>jar</packaging>
   <name>guestbook module - gb-core</name>
-  <description>Module that contains all Entities</description>
+  <description>Module with core domain logic</description>
 
 
   <parent>
