@@ -20,6 +20,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,8 +29,9 @@ import com.google.common.collect.ImmutableMap;
 
 import gb.common.it.EndpointITCase;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Value;
 import lombok.val;
 import lombok.experimental.FieldDefaults;
 
@@ -44,13 +46,13 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
     public void ConstraintViolationException_should_convert_to_412_status()
             throws Exception {
         // Arrange.
-        val invalidComment = new CommentInput("");
-        final String invalidCommentJson = jsonify(invalidComment);
+        val invalidInput = new TestInput(null);
+        final String invalidInputJson = jsonify(invalidInput);
 
         // Act and assert.
         mockMvc.perform(post(API_URL)
                 .contentType(APPLICATION_JSON_UTF8)
-                .content(invalidCommentJson))
+                .content(invalidInputJson))
             .andExpect(status().isPreconditionFailed());
     }
 
@@ -59,14 +61,14 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
     public void ConstraintViolationException_should_map_to_JSON()
             throws Exception {
         // Arrange.
-        val invalidComment = new CommentInput(null);
-        final String invalidCommentJson = jsonify(invalidComment);
+        val invalidInput = new TestInput(null);
+        final String invalidInputJson = jsonify(invalidInput);
         final String expected = buildExpectedValidationError();
 
         // Act and assert.
         mockMvc.perform(post(API_URL)
                 .contentType(APPLICATION_JSON_UTF8)
-                .content(invalidCommentJson))
+                .content(invalidInputJson))
             .andExpect(content().contentType(APPLICATION_JSON_UTF8))
             .andExpect(content().string(is(expected)));
     }
@@ -82,25 +84,27 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
     }
 
 
-    @Value
-    @FieldDefaults(level=PRIVATE, makeFinal=true)
-    private static class CommentInput {
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @FieldDefaults(level=PRIVATE)
+    public static class TestInput {
         @NotNull
-        String message;
+        private String message;
     }
 
 
     @Service
     @Validated
     public static class TestService {
-        public long createComment(@Valid CommentInput input) {
+        public long createComment(@Valid TestInput input) {
             return 1L;  // Do nothing. Just return dumb id.
         }
     }
 
 
-    @RequestMapping(API_URL)
     @RestController
+    @RequestMapping(API_URL)
     @AllArgsConstructor
     @FieldDefaults(level=PRIVATE, makeFinal=true)
     public static class TestController {
@@ -109,7 +113,7 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
 
         @PostMapping
         @ResponseStatus(OK)
-        public long createComment(final CommentInput input) {
+        public long createComment(@RequestBody final TestInput input) {
             return service.createComment(input);
         }
     }
