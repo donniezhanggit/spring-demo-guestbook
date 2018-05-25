@@ -1,7 +1,7 @@
 package gb.api;
 
 import static gb.testlang.fixtures.CommentsFixtures.NON_EXISTENT_ID;
-import static gb.testlang.fixtures.CommentsFixtures.commentInputBuilderWithNameAndMessage;
+import static gb.testlang.fixtures.CommentsFixtures.filledCommentInputBuilder;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -77,7 +77,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     @Test
     public void A_new_comment_should_be_persisted() {
         // Arrange.
-        final CommentInput input = commentInputBuilderWithNameAndMessage()
+        final CommentInput input = filledCommentInputBuilder()
                         .build();
 
         // Act.
@@ -109,7 +109,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
     public void A_comment_should_be_removed() {
         // Arrange.
         final long existingCommentId = commentFixtures
-                        .savedComment().getId();
+                        .existingCommentId();
 
         // Act.
         commentsApi.removeComment(existingCommentId);

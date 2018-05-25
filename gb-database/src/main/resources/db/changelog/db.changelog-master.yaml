@@ -108,3 +108,13 @@ databaseChangeLog:
                     references: gbuser(id)
                     foreignKeyName: fk_gbuser_comment
                     deleteCascade: true
+
+  - changeSet:
+      id: 2018-05-25-01
+      author: Whitesquall
+      comment: Change name of comment column from name to anon_name
+      changes:
+        - renameColumn:
+            newColumnName: anon_name
+            oldColumnName: name
+            tableName: comment

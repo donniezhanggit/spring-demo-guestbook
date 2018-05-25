@@ -23,7 +23,7 @@ public class CommentMapper {
 
     public Comment from(@Nonnull final CommentInput input) {
         return new CommentBuilder()
-            .name(input.getName())
+            .anonName(input.getAnonName())
             .message(input.getMessage())
             .user(currentPrincipalService.getCurrentUser())
             .build();

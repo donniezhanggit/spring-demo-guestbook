@@ -1,5 +1,6 @@
 package gb.testlang.fixtures;
 
+import static gb.testlang.fixtures.UsersFixtures.USERNAME;
 import static gb.testlang.fixtures.UsersFixtures.buildUser;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -32,7 +33,6 @@ public class CommentsFixtures {
     public static final short VERSION_JUST_CREATED = 0;
     public static final String ANON_NAME = "A test anon";
     public static final String MESSAGE = "A test message";
-    public static final String USERNAME = "user";
     public static final LocalDateTime CREATED1 =
             LocalDateTime.of(2017, 9, 1, 12, 34, 16);
     public static final LocalDateTime CREATED2 =
@@ -62,7 +62,7 @@ public class CommentsFixtures {
 
 
     public Comment existingComment() {
-        final Comment comment = commentWithNameAndMessage()
+        final Comment comment = commentWithAnonNameAndMessage()
                         .created(CREATED1)
                         .build();
 
@@ -70,16 +70,8 @@ public class CommentsFixtures {
     }
 
 
-    public Comment savedComment() {
-        final CommentBuilder cb = commentWithNameAndMessage();
-        final Comment comment = cb.created(CREATED1).build();
-
-        return commentsRepo.save(comment);
-    }
-
-
     public static List<Comment> buildCommentsList() {
-        final CommentBuilder cb = commentWithNameAndMessage();
+        final CommentBuilder cb = commentWithAnonNameAndMessage();
         final Comment comment1 = cb.created(CREATED1).build();
         final Comment comment2 = cb.created(CREATED2).build();
         final Comment comment3 = cb.created(CREATED3).build();
@@ -96,8 +88,8 @@ public class CommentsFixtures {
     }
 
 
-    public static CommentBuilder commentWithNameAndMessage() {
-        return new CommentBuilder().name(ANON_NAME).message(MESSAGE);
+    public static CommentBuilder commentWithAnonNameAndMessage() {
+        return new CommentBuilder().anonName(ANON_NAME).message(MESSAGE);
     }
 
 
@@ -107,12 +99,12 @@ public class CommentsFixtures {
 
 
     public static CommentInput buildAnonCommentInput() {
-        return commentInputBuilderWithNameAndMessage().build();
+        return filledCommentInputBuilder().build();
     }
 
 
-    public static CommentInputBuilder commentInputBuilderWithNameAndMessage() {
-        return new CommentInputBuilder().name(ANON_NAME).message(MESSAGE);
+    public static CommentInputBuilder filledCommentInputBuilder() {
+        return new CommentInputBuilder().anonName(ANON_NAME).message(MESSAGE);
     }
 
 
@@ -134,7 +126,7 @@ public class CommentsFixtures {
 
     public static CommentBuilder getCommentBuilder() {
         return new CommentBuilder()
-                .created(CREATED1).name(ANON_NAME).message(MESSAGE);
+                .created(CREATED1).anonName(ANON_NAME).message(MESSAGE);
     }
 
 
@@ -149,6 +141,6 @@ public class CommentsFixtures {
 
 
     public static Comment buildCommentFor(@Nullable final User user) {
-        return getCommentBuilder().name(null).user(user).build();
+        return getCommentBuilder().anonName(null).user(user).build();
     }
 }

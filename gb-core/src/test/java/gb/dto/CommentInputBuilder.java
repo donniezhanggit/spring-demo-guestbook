@@ -9,12 +9,12 @@ import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level=PACKAGE)
 public class CommentInputBuilder {
-    String name;
+    String anonName;
     String message;
 
 
-    public CommentInputBuilder name(@Nullable String name) {
-        this.name = name;
+    public CommentInputBuilder anonName(@Nullable String name) {
+        this.anonName = name;
 
         return this;
     }
@@ -28,6 +28,6 @@ public class CommentInputBuilder {
 
 
     public CommentInput build() {
-        return new CommentInput(name, message);
+        return new CommentInput(anonName, message);
     }
 }

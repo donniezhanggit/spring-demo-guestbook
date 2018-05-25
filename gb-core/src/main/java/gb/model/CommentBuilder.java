@@ -8,8 +8,8 @@ import javax.annotation.Nullable;
 
 
 public class CommentBuilder {
-    LocalDateTime created = LocalDateTime.now();
-    String name;
+    LocalDateTime created;
+    String anonName;
     String message;
     User user;
 
@@ -20,8 +20,8 @@ public class CommentBuilder {
     }
 
 
-    public CommentBuilder name(@Nullable String name) {
-        this.name = name;
+    public CommentBuilder anonName(@Nullable String anonName) {
+        this.anonName = anonName;
         return this;
     }
 

@@ -85,7 +85,7 @@ public class MainControllerTests extends EndpointITCase {
     @Test
     public void Invalid_form_should_return_main_page() throws Exception {
         final CommentInput invalidInput = new CommentInputBuilder()
-                .name("").message("").build();
+                .anonName("").message("").build();
         final String params = payload(invalidInput);
 
         mockMvc.perform(post(ROOT_URL)
@@ -109,7 +109,7 @@ public class MainControllerTests extends EndpointITCase {
     private String payload(final CommentInput input) {
         return String.format(
                 "name=%s&message=%s",
-                input.getName(),
+                input.getAnonName(),
                 input.getMessage()
         );
     }

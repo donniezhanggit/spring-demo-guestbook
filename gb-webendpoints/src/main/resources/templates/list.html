@@ -33,9 +33,9 @@
 
       <form class="new" th:action="@{/}" th:object="${commentForm}" method="post">
 	<p>Name</p>
-	<p th:if="${#fields.hasErrors('name')}"
-	   th:errors="*{name}" th:errorclass="error">Incorrect name</p>
-	<input type="text" th:field="*{name}" th:errorclass="fieldError" /><br/>
+	<p th:if="${#fields.hasErrors('anonName')}"
+	   th:errors="*{anonName}" th:errorclass="error">Incorrect name</p>
+	<input type="text" th:field="*{anonName}" th:errorclass="fieldError" /><br/>
 
 	<p>Message</p>
 	<p th:if="${#fields.hasErrors('message')}"

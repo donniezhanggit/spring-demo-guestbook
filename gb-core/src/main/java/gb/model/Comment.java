@@ -8,13 +8,13 @@ import static lombok.AccessLevel.PROTECTED;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Immutable;
-
-import com.google.common.base.Preconditions;
+import org.springframework.util.Assert;
 
 import gb.common.domain.AbstractDomainEntity;
 import lombok.Getter;
@@ -31,14 +31,14 @@ import lombok.experimental.FieldDefaults;
 public class Comment extends AbstractDomainEntity {
     private static final long serialVersionUID = 1L;
 
-    public static final int NAME_MIN_LENGTH = 2;
-    public static final int NAME_MAX_LENGTH = 20;
+    public static final int ANON_NAME_MIN_LENGTH = 2;
+    public static final int ANON_NAME_MAX_LENGTH = 20;
     public static final int MESSAGE_MIN_LENGTH = 1;
     public static final int MESSAGE_MAX_LENGTH = 2048;
 
 
     LocalDateTime created = LocalDateTime.now();
-    String name;
+    String anonName;
     String message;
 
     @Getter(value=NONE)
@@ -48,21 +48,32 @@ public class Comment extends AbstractDomainEntity {
 
 
     public Comment(@NonNull final CommentBuilder cb) {
-        Preconditions.checkNotNull(cb.message);
-        Preconditions.checkNotNull(cb.created);
+        Assert.notNull(cb.message, "Message must not be null");
+        throwIfNotProvidedAnonNameAndUserName(cb.anonName, cb.user);
 
-        created = cb.created;
         message = cb.message;
+
+        if(cb.created != null) {
+            created = cb.created;
+        }
 
         if(cb.user != null) {
             user = cb.user;
         } else {
-            name = cb.name;
+            anonName = cb.anonName;
         }
     }
 
 
     public Optional<User> getUser() {
         return Optional.ofNullable(user);
+    }
+
+
+    private static void throwIfNotProvidedAnonNameAndUserName(
+            @Nullable final String anonName,
+            @Nullable final User user) {
+        Assert.isTrue(anonName != null || user != null,
+                "Can not create a new comment without commenter's name");
     }
 }

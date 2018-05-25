@@ -37,7 +37,7 @@ public class CommentEntry {
             .withVersion(comment.getVersion())
             .withCreated(comment.getCreated())
             .withMessage(comment.getMessage())
-            .withAnonName(comment.getName())
+            .withAnonName(comment.getAnonName())
             .withUser(userEntry);
     }
 }
