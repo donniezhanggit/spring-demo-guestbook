@@ -2,12 +2,15 @@ package gb.common.it;
 
 import static gb.common.config.GuestBookProfiles.H2_INTEGRATION_TESTING;
 import static lombok.AccessLevel.PRIVATE;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
 
 import java.util.function.Supplier;
 
 import javax.annotation.PostConstruct;
+import javax.validation.ValidationException;
 
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -45,6 +48,12 @@ public abstract class BaseDbITCase extends JUnitTestCase {
 
     protected <T> T withTransaction(final Supplier<T> supplier) {
         return delegateApi.doWithTransaction(supplier);
+    }
+
+
+    protected void assertThatInvalid(final ThrowingCallable throwingCallable) {
+        assertThatExceptionOfType(ValidationException.class)
+            .isThrownBy(throwingCallable);
     }
 
 

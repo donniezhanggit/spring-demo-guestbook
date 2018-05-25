@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.google.common.base.Preconditions;
+import org.springframework.util.Assert;
 
 import gb.common.domain.AbstractDomainEntity;
 import lombok.Getter;
@@ -41,9 +41,9 @@ public class User extends AbstractDomainEntity {
 
 
     public User(@NonNull final UserBuilder ub) {
-        Preconditions.checkNotNull(ub.username);
-        Preconditions.checkNotNull(ub.password);
-        Preconditions.checkNotNull(ub.email);
+        Assert.notNull(ub.username, "username must not be null");
+        Assert.notNull(ub.password, "password must not be null");
+        Assert.notNull(ub.email, "email must not be null");
 
         username = ub.username;
         password = ub.password;

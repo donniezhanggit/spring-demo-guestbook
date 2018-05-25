@@ -5,8 +5,9 @@ import static gb.testlang.fixtures.CommentsFixtures.filledCommentBuilder;
 import static gb.testlang.fixtures.UsersFixtures.stubUser;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import static org.assertj.core.api.Assertions.byLessThan;
-import static org.assertj.core.api.Assertions.catchThrowable;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -14,17 +15,13 @@ import java.util.Optional;
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
-import lombok.val;
 
 
 public class CommentTests extends JUnitTestCase {
     @Test
     public void Null_as_commentBuilder_should_throw_NPE() {
-        // Act.
-        val throwable = catchThrowable(() -> new Comment(null));
-
-        // Assert.
-        assertThat(throwable).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException()
+            .isThrownBy(() -> new Comment(null));
     }
 
 
@@ -34,11 +31,9 @@ public class CommentTests extends JUnitTestCase {
         final CommentBuilder builder = filledCommentBuilder()
                 .anonName(null).user(Optional.empty());
 
-        // Act.
-        val throwable = catchThrowable(() -> new Comment(builder));
-
-        // Assert.
-        assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        // Act and assert.
+        assertThatIllegalArgumentException()
+            .isThrownBy(() -> new Comment(builder));
     }
 
 

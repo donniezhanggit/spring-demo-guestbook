@@ -6,7 +6,8 @@ import static gb.testlang.fixtures.CommentsFixtures.filledCommentInputBuilder;
 import static gb.testlang.fixtures.UsersFixtures.buildUser;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -34,21 +35,15 @@ public class CommentMapperTests extends JUnitTestCase {
 
     @Test
     public void Mapper_without_dependency_throws_NullPointerException() {
-        // Act.
-        val throwable = catchThrowable(() -> new CommentMapper(null));
-
-        // Assert.
-        assertThat(throwable).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException()
+            .isThrownBy(() -> new CommentMapper(null));
     }
 
 
     @Test
     public void Mapping_of_null_should_throw_IllegalArgumentException() {
-        // Act.
-        val throwable = catchThrowable(() -> mapper.from(null));
-
-        // Assert.
-        assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        assertThatIllegalArgumentException()
+            .isThrownBy(() -> mapper.from(null));
     }
 
 
@@ -103,7 +98,7 @@ public class CommentMapperTests extends JUnitTestCase {
         final Comment newComment = mapper.from(commentInputOfLoggedUser);
 
         // Assert.
-        assertThat(newComment.getUser().orElse(null)).isEqualTo(currentUser);
+        assertThat(newComment.getUser().orElse(null)).isSameAs(currentUser);
     }
 
 

@@ -1,4 +1,4 @@
-package gb.dto;
+package gb.model;
 
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
@@ -6,11 +6,10 @@ import org.junit.Test;
 
 import gb.common.JUnitTestCase;
 
-
-public class SimpleUserEntryTests extends JUnitTestCase {
+public class UserTests extends JUnitTestCase {
     @Test
-    public void Should_throw_NPE_when_User_is_null() {
+    public void Null_builder_should_throw_NPE() {
         assertThatNullPointerException()
-            .isThrownBy(() -> SimpleUserEntry.from(null));
+            .isThrownBy(() -> new User(null));
     }
 }

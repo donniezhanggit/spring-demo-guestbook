@@ -9,8 +9,6 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
-import javax.validation.ValidationException;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -40,11 +38,8 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
         final CommentInput input = filledCommentInputBuilder()
                 .anonName(tooLongName).build();
 
-        // Act.
-        val throwable = catchThrowable(() -> commentsApi.createComment(input));
-
-        // Assert.
-        assertThat(throwable).isInstanceOf(ValidationException.class);
+        // Act and assert.
+        assertThatInvalid(() -> commentsApi.createComment(input));
     }
 
 
@@ -67,11 +62,8 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
         final CommentInput input = filledCommentInputBuilder()
                 .message(tooLongMessage).build();
 
-        // Act.
-        val throwable = catchThrowable(() -> commentsApi.createComment(input));
-
-        // Assert.
-        assertThat(throwable).isInstanceOf(ValidationException.class);
+        // Act and assert.
+        assertThatInvalid(() -> commentsApi.createComment(input));
     }
 
 
@@ -112,10 +104,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
         final CommentInput input = filledCommentInputBuilder()
                 .message(null).build();
 
-        // Act.
-        val throwable = catchThrowable(() -> commentsApi.createComment(input));
-
-        // Assert.
-        assertThat(throwable).isInstanceOf(ValidationException.class);
+        // Act and assert.
+        assertThatInvalid(() -> commentsApi.createComment(input));
     }
 }
