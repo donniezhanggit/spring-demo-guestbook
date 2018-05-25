@@ -43,20 +43,6 @@ public class CommentTests extends JUnitTestCase {
 
 
     @Test
-    public void Comment_should_fill_date_created_when_builder_has_no_value() {
-        // Arrange.
-        final CommentBuilder builder = filledCommentBuilder().created(null);
-
-        // Act.
-        final Comment newComment = new Comment(builder);
-
-        // Assert.
-        assertThat(newComment.getCreated())
-            .isCloseTo(LocalDateTime.now(), byLessThan(1, SECONDS));
-    }
-
-
-    @Test
     public void When_user_was_provided_getting_anonName_should_return_null() {
         // Arrange.
         final CommentBuilder builder = filledCommentBuilder()
@@ -67,5 +53,19 @@ public class CommentTests extends JUnitTestCase {
 
         // Assert.
         assertThat(newComment.getAnonName()).isNull();
+    }
+
+
+    @Test
+    public void Comment_should_fill_date_created_when_builder_has_no_value() {
+        // Arrange.
+        final CommentBuilder builder = filledCommentBuilder().created(null);
+
+        // Act.
+        final Comment newComment = new Comment(builder);
+
+        // Assert.
+        assertThat(newComment.getCreated())
+            .isCloseTo(LocalDateTime.now(), byLessThan(1, SECONDS));
     }
 }
