@@ -43,6 +43,17 @@ public class CommentMapperTests extends JUnitTestCase {
 
 
     @Test
+    public void Mapping_of_null_should_throw_IllegalArgumentException() {
+        // Act.
+        val throwable = catchThrowable(() -> mapper.from(null));
+
+        // Assert.
+        assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+
+    }
+
+
+    @Test
     public void Mapper_should_instantiate_a_new_Comment() {
         // Arrange.
         final CommentInput input = buildAnonCommentInput();
