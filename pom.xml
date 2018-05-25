@@ -39,7 +39,7 @@
     <notnull.instrumenter.maven.plugin.version>
       0.6.6
     </notnull.instrumenter.maven.plugin.version>
-    <jacoco.maven.plugin.version>0.7.9</jacoco.maven.plugin.version>
+    <jacoco.maven.plugin.version>0.8.1</jacoco.maven.plugin.version>
     <findbugs.maven.plugin.version>3.0.5</findbugs.maven.plugin.version>
     <checker.framework.version>2.5.1</checker.framework.version>
     <springfox.version>2.7.0</springfox.version>
