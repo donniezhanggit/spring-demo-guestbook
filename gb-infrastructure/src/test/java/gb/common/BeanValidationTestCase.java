@@ -1,12 +1,12 @@
 package gb.common;
 
+import static javax.validation.Validation.buildDefaultValidatorFactory;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
 
 import lombok.experimental.FieldDefaults;
@@ -14,8 +14,7 @@ import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public abstract class BeanValidationTestCase extends JUnitTestCase {
-    Validator validator = Validation
-            .buildDefaultValidatorFactory().getValidator();
+    Validator validator = buildDefaultValidatorFactory().getValidator();
 
 
     protected <T> Set<ConstraintViolation<T>> validate(
