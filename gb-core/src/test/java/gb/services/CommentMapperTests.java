@@ -49,7 +49,6 @@ public class CommentMapperTests extends JUnitTestCase {
 
         // Assert.
         assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
-
     }
 
 

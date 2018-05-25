@@ -14,7 +14,7 @@ public class CommentBuilder {
     User user;
 
 
-    public CommentBuilder created(@Nonnull LocalDateTime created) {
+    public CommentBuilder created(@Nullable LocalDateTime created) {
         this.created = created;
         return this;
     }

@@ -124,14 +124,14 @@ public class CommentsFixtures {
     }
 
 
-    public static CommentBuilder getCommentBuilder() {
+    public static CommentBuilder filledCommentBuilder() {
         return new CommentBuilder()
                 .created(CREATED1).anonName(ANON_NAME).message(MESSAGE);
     }
 
 
     public static Comment buildAnonComment() {
-        return getCommentBuilder().user(Optional.empty()).build();
+        return filledCommentBuilder().user(Optional.empty()).build();
     }
 
 
@@ -141,6 +141,6 @@ public class CommentsFixtures {
 
 
     public static Comment buildCommentFor(@Nullable final User user) {
-        return getCommentBuilder().anonName(null).user(user).build();
+        return filledCommentBuilder().anonName(null).user(user).build();
     }
 }
