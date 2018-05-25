@@ -5,7 +5,6 @@ import static lombok.AccessLevel.PROTECTED;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnull;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -14,6 +13,7 @@ import com.google.common.base.Preconditions;
 import gb.common.domain.AbstractDomainEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 
 
@@ -40,7 +40,7 @@ public class User extends AbstractDomainEntity {
     boolean active = true;
 
 
-    public User(@Nonnull final UserBuilder ub) {
+    public User(@NonNull final UserBuilder ub) {
         Preconditions.checkNotNull(ub.username);
         Preconditions.checkNotNull(ub.password);
         Preconditions.checkNotNull(ub.email);

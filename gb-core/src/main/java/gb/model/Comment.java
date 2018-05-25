@@ -8,7 +8,6 @@ import static lombok.AccessLevel.PROTECTED;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +19,7 @@ import com.google.common.base.Preconditions;
 import gb.common.domain.AbstractDomainEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 
 
@@ -47,7 +47,7 @@ public class Comment extends AbstractDomainEntity {
     User user;
 
 
-    public Comment(@Nonnull final CommentBuilder cb) {
+    public Comment(@NonNull final CommentBuilder cb) {
         Preconditions.checkNotNull(cb.message);
         Preconditions.checkNotNull(cb.created);
 
