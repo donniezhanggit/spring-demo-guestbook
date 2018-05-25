@@ -1,6 +1,8 @@
 package gb.model;
 
+import static gb.testlang.fixtures.CommentsFixtures.ANON_NAME;
 import static gb.testlang.fixtures.CommentsFixtures.filledCommentBuilder;
+import static gb.testlang.fixtures.UsersFixtures.stubUser;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.byLessThan;
@@ -51,5 +53,19 @@ public class CommentTests extends JUnitTestCase {
         // Assert.
         assertThat(newComment.getCreated())
             .isCloseTo(LocalDateTime.now(), byLessThan(1, SECONDS));
+    }
+
+
+    @Test
+    public void When_user_was_provided_getting_anonName_should_return_null() {
+        // Arrange.
+        final CommentBuilder builder = filledCommentBuilder()
+                .anonName(ANON_NAME).user(stubUser());
+
+        // Act.
+        final Comment newComment = new Comment(builder);
+
+        // Assert.
+        assertThat(newComment.getAnonName()).isNull();
     }
 }
