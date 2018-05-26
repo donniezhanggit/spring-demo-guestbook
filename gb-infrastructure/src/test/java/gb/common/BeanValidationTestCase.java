@@ -17,8 +17,8 @@ public abstract class BeanValidationTestCase extends JUnitTestCase {
     Validator validator = buildDefaultValidatorFactory().getValidator();
 
 
-    protected <T> Set<ConstraintViolation<T>> validate(
-            @Nonnull final T bean) {
+    protected <T> Set<ConstraintViolation<T>>
+    validate(@Nonnull final T bean) {
         return validator.validate(bean);
     }
 

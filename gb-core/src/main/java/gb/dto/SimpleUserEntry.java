@@ -19,7 +19,7 @@ public class SimpleUserEntry {
     String userName;
 
 
-    public static SimpleUserEntry from(@NonNull User user) {
+    public static SimpleUserEntry from(@NonNull final User user) {
         return new SimpleUserEntry(user.getId(), user.getUsername());
     }
 }
