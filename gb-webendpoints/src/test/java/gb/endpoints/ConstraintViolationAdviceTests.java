@@ -2,7 +2,7 @@ package gb.endpoints;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -112,7 +112,7 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
 
 
         @PostMapping
-        @ResponseStatus(OK)
+        @ResponseStatus(CREATED)
         public long createComment(@RequestBody final TestInput input) {
             return service.createComment(input);
         }
