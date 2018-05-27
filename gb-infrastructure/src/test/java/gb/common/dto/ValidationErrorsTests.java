@@ -2,6 +2,7 @@ package gb.common.dto;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -11,6 +12,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Path;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
@@ -22,7 +24,15 @@ import lombok.experimental.FieldDefaults;
 // TODO: need to rework
 public class ValidationErrorsTests extends JUnitTestCase {
     @Test
-    public void test() {
+    public void
+    When_exception_is_null_should_throw_IllegalArgumentException() {
+        assertThatIllegalArgumentException()
+            .isThrownBy(() -> new ValidationErrors(null));
+    }
+
+
+    @Test
+    public void ConstraintViolationException_should_map_to_list_of_errors() {
         String path = "message";
         String message = "must not be null";
         val violation = buildConstraintViolationStub(
