@@ -29,33 +29,30 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
     @Override
-    @SuppressWarnings("serial")
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
         final Optional<User> user = usersRepository.findByUsername(username);
 
         if(user.isPresent()) {
             return new CustomUserDetails(user.get(), Arrays.asList(
-                new GrantedAuthority() {
-                    @Override
-                    public String getAuthority() {
-                        return "ROLE_USER";
-                    }
-                },
-                new GrantedAuthority() {
-                    @Override
-                    public String getAuthority() {
-                        return "ROLE_ADMIN";
-                    }
-                },
-                new GrantedAuthority() {
-                    @Override
-                    public String getAuthority() {
-                        return "ROLE_ACTUATOR";
-                    }
-                }));
+                grantedAuthorityOf("ROLE_USER"),
+                grantedAuthorityOf("ROLE_ADMIN"),
+                grantedAuthorityOf("ROLE_ACTUATOR")
+            ));
         }
 
-        return null;
+        throw new UsernameNotFoundException(
+                "Can not find user by username: " + username);
+    }
+
+
+    @SuppressWarnings("serial")
+    private GrantedAuthority grantedAuthorityOf(String role) {
+        return new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                return role;
+            }
+        };
     }
 }

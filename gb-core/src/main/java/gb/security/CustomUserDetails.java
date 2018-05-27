@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import gb.model.User;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 
@@ -19,6 +20,7 @@ public class CustomUserDetails
 extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = -2595723933003639235L;
 
+    @Getter
     User user;
 
 
@@ -39,10 +41,5 @@ extends org.springframework.security.core.userdetails.User {
                 accountNonLocked, authorities);
 
         this.user = user;
-    }
-
-
-    public User getUser() {
-        return user;
     }
 }
