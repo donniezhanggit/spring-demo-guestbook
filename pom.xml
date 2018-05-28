@@ -18,6 +18,7 @@
     <module>gb-core</module>
     <module>gb-coveragereport</module>
     <module>gb-database</module>
+    <module>gb-functests</module>
     <module>gb-infrastructure</module>
     <module>gb-inttests</module>
     <!-- <module>gb-webclient</module> -->
