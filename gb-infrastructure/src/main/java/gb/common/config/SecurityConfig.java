@@ -1,10 +1,16 @@
 package gb.common.config;
 
+import static gb.common.config.GuestBookProfiles.DEVELOPMENT;
+import static gb.common.config.GuestBookProfiles.H2_INTEGRATION_TESTING;
+import static gb.common.config.GuestBookProfiles.NO_DB_INTEGRATION_TESTING;
+import static gb.common.config.GuestBookProfiles.PG_INTEGRATION_TESTING;
+import static gb.common.config.GuestBookProfiles.PRODUCTION;
 import static lombok.AccessLevel.PRIVATE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.access.expression.SecurityExpressionHandler;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -27,6 +33,11 @@ import lombok.extern.slf4j.Slf4j;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 @FieldDefaults(level=PRIVATE)
+@Profile(value={
+        DEVELOPMENT, H2_INTEGRATION_TESTING,
+        NO_DB_INTEGRATION_TESTING, PG_INTEGRATION_TESTING,
+        PRODUCTION
+})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;

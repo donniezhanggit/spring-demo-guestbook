@@ -1,29 +1,47 @@
 package gb.common.ft;
 
-import static gb.common.config.GuestBookProfiles.H2_INTEGRATION_TESTING;
+import static gb.common.config.GuestBookProfiles.FUNCTIONAL_TESTING;
+import static gb.testlang.fixtures.UsersFixtures.USERNAME;
+import static org.mockito.Mockito.when;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.WebApplicationContext;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gb.Application;
+import gb.services.CurrentPrincipalService;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 
-@ActiveProfiles(profiles=H2_INTEGRATION_TESTING)
+@Slf4j
+@ActiveProfiles(profiles=FUNCTIONAL_TESTING)
 @ComponentScan(basePackageClasses=Application.class)
 @SpringBootTest(webEnvironment=DEFINED_PORT)
+@WithMockUser(username=USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public abstract class CucumberFTCase {
-    static ResponseResults latestResponse = null;
+    protected static ResponseResults latestResponse = null;
 
     @LocalServerPort
     Integer serverPort;
@@ -31,8 +49,31 @@ public abstract class CucumberFTCase {
     //@Autowired
     RestTemplate restTemplate = new RestTemplate();
 
+    @Autowired
+    protected WebApplicationContext wac;
 
-    protected void executeGet(String url) throws IOException {
+    @Autowired
+    private ObjectMapper objectMapper;
+
+
+    protected MockMvc mockMvc;
+
+    @MockBean
+    public CurrentPrincipalService currentPrincipalService;
+
+
+    @SneakyThrows
+    protected String jsonify(final Object o) {
+        final String json = objectMapper.writeValueAsString(o);
+
+        log.info("Object as JSON:\n {}", json);
+
+        return json;
+    }
+
+
+    @SneakyThrows
+    protected void executeGet(String url) {
         final Map<String, String> headers = new HashMap<>();
         headers.put("Accept", "application/json");
         final HeaderSettingRequestCallback requestCallback = new HeaderSettingRequestCallback(headers);
@@ -48,11 +89,14 @@ public abstract class CucumberFTCase {
         });
     }
 
-    protected void executePost() throws IOException {
+
+    @SneakyThrows
+    protected void executePost(String url, String body) {
+        final ResponseResultErrorHandler errorHandler = new ResponseResultErrorHandler();
         final Map<String, String> headers = new HashMap<>();
         headers.put("Accept", "application/json");
         final HeaderSettingRequestCallback requestCallback = new HeaderSettingRequestCallback(headers);
-        final ResponseResultErrorHandler errorHandler = new ResponseResultErrorHandler();
+        requestCallback.setBody(body);
 
         if (restTemplate == null) {
             restTemplate = new RestTemplate();
@@ -60,7 +104,7 @@ public abstract class CucumberFTCase {
 
         restTemplate.setErrorHandler(errorHandler);
         latestResponse = restTemplate
-          .execute("http://localhost:8082/baeldung", HttpMethod.POST, requestCallback, response -> {
+          .execute(url, HttpMethod.POST, requestCallback, response -> {
               if (errorHandler.hadError) {
                   return (errorHandler.getResults());
               } else {
@@ -86,6 +130,16 @@ public abstract class CucumberFTCase {
         @Override
         public void handleError(ClientHttpResponse response) throws IOException {
             results = new ResponseResults(response);
+        }
+    }
+
+
+    @TestConfiguration
+    public static class Config {
+        @Bean
+        private void currentPrincipalService() {
+            CurrentPrincipalService cps = Mockito.mock(CurrentPrincipalService.class);
+            when(cps.getCurrentUser()).thenReturn(Optional.ofNullable(null));
         }
     }
 }

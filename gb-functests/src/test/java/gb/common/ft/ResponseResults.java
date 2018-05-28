@@ -13,7 +13,7 @@ public class ResponseResults {
     private final ClientHttpResponse theResponse;
     private final String body;
 
-    ResponseResults(final ClientHttpResponse response) throws IOException {
+    public ResponseResults(final ClientHttpResponse response) throws IOException {
         this.theResponse = response;
         final InputStream bodyInputStream = response.getBody();
         final StringWriter stringWriter = new StringWriter();
@@ -21,11 +21,11 @@ public class ResponseResults {
         this.body = stringWriter.toString();
     }
 
-    ClientHttpResponse getTheResponse() {
+    public ClientHttpResponse getTheResponse() {
         return theResponse;
     }
 
-    String getBody() {
+    public String getBody() {
         return body;
     }
 }

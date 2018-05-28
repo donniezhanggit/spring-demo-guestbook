@@ -1,5 +1,8 @@
-Feature: Just first test of cucumber
-        Scenario: test scenario
-        Given you are in Given annotation
-        When you are in When annotation
-        Then you are in Then annotation
+Feature: Comments
+    Scenario: Creating a new comment
+        Given a comment input
+        And anon name 'Vasya'
+        And message 'Pupkin'
+        When I submit the comment input
+        Then response has status CREATED
+        And response body has ID of created comment
