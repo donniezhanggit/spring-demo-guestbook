@@ -5,9 +5,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import cucumber.api.CucumberOptions;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -46,13 +49,13 @@ public class CommentsSteps extends CucumberFTCase {
     }
 
 
-    @And("anon name {string}")
+    @And("anon name is {string}")
     public void and_anon_name(final String anonName) {
         commentInputBuilder.anonName(anonName);
     }
 
 
-    @And("message {string}")
+    @And("message is {string}")
     public void and_message(final String message) {
         commentInputBuilder.message(message);
     }
@@ -60,7 +63,7 @@ public class CommentsSteps extends CucumberFTCase {
 
     @And("no message")
     public void no_message() {
-        commentInputBuilder.anonName(null);
+        commentInputBuilder.message(null);
     }
 
 
@@ -75,16 +78,32 @@ public class CommentsSteps extends CucumberFTCase {
 
 
     @Then("response has status CREATED")
-    public void response_has_status_CREATED() throws Throwable {
+    public void response_has_status_CREATED() throws Exception {
         lastAction.andExpect(status().isCreated());
     }
 
 
-    @And("response body has ID of created comment")
-    public void response_has_ID_of_created_comment() throws Throwable {
+    @Then("response has status PRECONDITION_FAILED")
+    public void response_has_status_precondition_failed() throws Exception {
+        lastAction.andExpect(status().isPreconditionFailed());
+    }
+
+
+    @Then("response body has ID of created comment")
+    public void response_has_ID_of_created_comment() throws Exception {
         final String content = lastAction.andReturn()
                 .getResponse().getContentAsString();
 
         assertThat(content).matches("\\d+");
+    }
+
+
+    @And("response body contains {string}")
+    public void response_body_contans(final String substring)
+            throws Exception {
+        final String content = lastAction.andReturn()
+                .getResponse().getContentAsString();
+
+        assertThat(content).contains(substring);
     }
 }
