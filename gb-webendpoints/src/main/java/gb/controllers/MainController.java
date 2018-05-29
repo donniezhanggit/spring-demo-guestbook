@@ -4,7 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.time.format.DateTimeFormatter;
 
-import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -34,8 +33,8 @@ public class MainController {
 
 
     public ModelAndView generateView(
-            @Nonnull final String viewname,
-            @Nonnull final CommentInput commentForm) {
+            @NonNull final String viewname,
+            @NonNull final CommentInput commentForm) {
         return new ModelAndView(viewname)
                 .addObject("commentForm", commentForm)
                 .addObject("comments", commentsApi.getComments())
