@@ -33,8 +33,8 @@ public class MainController {
 
 
     public ModelAndView generateView(
-            @NonNull final String viewname,
-            @NonNull final CommentInput commentForm) {
+            final String viewname,
+            final CommentInput commentForm) {
         return new ModelAndView(viewname)
                 .addObject("commentForm", commentForm)
                 .addObject("comments", commentsApi.getComments())
