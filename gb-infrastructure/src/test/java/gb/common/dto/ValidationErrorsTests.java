@@ -2,7 +2,7 @@ package gb.common.dto;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -24,8 +24,8 @@ import lombok.experimental.FieldDefaults;
 public class ValidationErrorsTests extends JUnitTestCase {
     @Test
     public void
-    When_exception_is_null_should_throw_IllegalArgumentException() {
-        assertThatIllegalArgumentException()
+    When_exception_is_null_should_throw_NPE() {
+        assertThatNullPointerException()
             .isThrownBy(() -> new ValidationErrors(null));
     }
 

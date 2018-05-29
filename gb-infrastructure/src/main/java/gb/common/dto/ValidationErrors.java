@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nonnull;
 import javax.validation.ConstraintViolationException;
 
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.Value;
 import lombok.experimental.FieldDefaults;
 
@@ -22,7 +22,7 @@ public class ValidationErrors {
     List<CodeAndMessage> errors;
 
 
-    public ValidationErrors(@Nonnull final ConstraintViolationException e) {
+    public ValidationErrors(@NonNull final ConstraintViolationException e) {
         errors = e.getConstraintViolations().stream()
             .filter(Objects::nonNull)
             .map(CodeAndMessage::new)

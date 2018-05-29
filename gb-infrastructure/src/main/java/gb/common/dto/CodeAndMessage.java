@@ -3,10 +3,10 @@ package gb.common.dto;
 import static lombok.AccessLevel.NONE;
 import static lombok.AccessLevel.PRIVATE;
 
-import javax.annotation.Nonnull;
 import javax.validation.ConstraintViolation;
 
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.Value;
 import lombok.experimental.FieldDefaults;
 
@@ -19,7 +19,7 @@ public class CodeAndMessage {
     String message;
 
 
-    public CodeAndMessage(@Nonnull final ConstraintViolation<?> cv) {
+    public CodeAndMessage(@NonNull final ConstraintViolation<?> cv) {
         code = cv.getPropertyPath().toString();
         message = cv.getMessage();
     }
