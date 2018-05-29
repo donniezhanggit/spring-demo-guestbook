@@ -8,18 +8,19 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.springframework.util.Assert;
-
 import gb.common.domain.AbstractDomainEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.PackagePrivate;
 
 
 @Entity
 @Table(name="gbuser")
 @Getter
+@Setter(value=PROTECTED)
 @FieldDefaults(level=PRIVATE)
 @NoArgsConstructor(access=PROTECTED)
 public class User extends AbstractDomainEntity {
@@ -33,22 +34,19 @@ public class User extends AbstractDomainEntity {
     public static final int EMAIL_MAX_LENGTH = 40;
 
 
-    String username;
-    String password;
-    String email;
+    @NonNull String username;
+    @NonNull String password;
+    @NonNull String email;
     LocalDateTime created = LocalDateTime.now();
     boolean active = true;
 
 
-    public User(@NonNull final UserBuilder ub) {
-        Assert.notNull(ub.username, "username must not be null");
-        Assert.notNull(ub.password, "password must not be null");
-        Assert.notNull(ub.email, "email must not be null");
-
-        username = ub.username;
-        password = ub.password;
-        email    = ub.email;
-        created  = ub.created;
-        active   = ub.active;
+    @PackagePrivate
+    User(@NonNull final UserBuilder ub) {
+        setUsername(ub.username);
+        setPassword(ub.password);
+        setEmail(ub.email);
+        setCreated(ub.created);
+        setActive(ub.active);
     }
 }

@@ -20,7 +20,9 @@ import gb.common.domain.AbstractDomainEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.PackagePrivate;
 
 
 @Entity
@@ -39,6 +41,9 @@ public class Comment extends AbstractDomainEntity {
 
     LocalDateTime created = LocalDateTime.now();
     String anonName;
+
+    @NonNull
+    @Setter(value=PROTECTED)
     String message;
 
     @Getter(value=NONE)
@@ -47,11 +52,11 @@ public class Comment extends AbstractDomainEntity {
     User user;
 
 
-    public Comment(@NonNull final CommentBuilder cb) {
-        Assert.notNull(cb.message, "Message must not be null");
+    @PackagePrivate
+    Comment(@NonNull final CommentBuilder cb) {
         throwIfNotProvidedAnonNameAndUserName(cb.anonName, cb.user);
 
-        message = cb.message;
+        setMessage(cb.message);
 
         if(cb.created != null) {
             created = cb.created;
