@@ -3,7 +3,7 @@ package gb.common.ft;
 import static gb.common.config.GuestBookProfiles.FUNCTIONAL_TESTING;
 import static gb.testlang.fixtures.UsersFixtures.USERNAME;
 import static org.mockito.Mockito.when;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.MOCK;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpMethod;
@@ -38,13 +37,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ActiveProfiles(profiles=FUNCTIONAL_TESTING)
 @ComponentScan(basePackageClasses=Application.class)
-@SpringBootTest(webEnvironment=DEFINED_PORT)
+@SpringBootTest(webEnvironment=MOCK)
 @WithMockUser(username=USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public abstract class CucumberFTCase {
     protected static ResponseResults latestResponse = null;
-
-    @LocalServerPort
-    Integer serverPort;
 
     //@Autowired
     RestTemplate restTemplate = new RestTemplate();
