@@ -1,9 +1,8 @@
 package gb.endpoints;
 
-import static gb.common.ValidationSubstrings.MUST_NOT_BE_NULL;
 import static gb.testlang.fixtures.UsersFixtures.USERNAME;
 import static lombok.AccessLevel.PRIVATE;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -79,7 +78,7 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
     private String buildExpectedValidationError() {
         final Map<String, String> error = ImmutableMap.of(
                 "code", "createComment.input.message",
-                "message", MUST_NOT_BE_NULL
+                "message", "must not be null"
         );
 
         return jsonify(ImmutableMap.of("errors", Arrays.asList(error)));
