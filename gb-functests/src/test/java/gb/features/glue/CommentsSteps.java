@@ -1,4 +1,4 @@
-package gb.features.comments;
+package gb.features.glue;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
