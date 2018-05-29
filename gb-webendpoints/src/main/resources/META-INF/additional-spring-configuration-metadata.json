@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "spring.security.cors.api.origin",
+  "type": "java.lang.String",
+  "description": "CORS origins"
+}]}

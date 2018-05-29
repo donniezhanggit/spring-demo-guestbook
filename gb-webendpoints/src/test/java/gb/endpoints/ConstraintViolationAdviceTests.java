@@ -1,5 +1,7 @@
 package gb.endpoints;
 
+import static gb.common.ValidationSubstrings.MUST_NOT_BE_NULL;
+import static gb.testlang.fixtures.UsersFixtures.USERNAME;
 import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -37,7 +39,7 @@ import lombok.experimental.FieldDefaults;
 
 
 @WebMvcTest(ConstraintViolationAdviceTests.TestController.class)
-@WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
+@WithMockUser(username=USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public class ConstraintViolationAdviceTests extends EndpointITCase {
     private static final String API_URL = "/api/comments";
 
@@ -77,7 +79,7 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
     private String buildExpectedValidationError() {
         final Map<String, String> error = ImmutableMap.of(
                 "code", "createComment.input.message",
-                "message", "must not be null"
+                "message", MUST_NOT_BE_NULL
         );
 
         return jsonify(ImmutableMap.of("errors", Arrays.asList(error)));

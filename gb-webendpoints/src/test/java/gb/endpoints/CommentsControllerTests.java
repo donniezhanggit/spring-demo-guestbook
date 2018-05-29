@@ -4,6 +4,7 @@ import static gb.testlang.fixtures.CommentsFixtures.EXISTING_ID;
 import static gb.testlang.fixtures.CommentsFixtures.NON_EXISTENT_ID;
 import static gb.testlang.fixtures.CommentsFixtures.buildAnonCommentEntry;
 import static gb.testlang.fixtures.CommentsFixtures.buildAnonCommentInput;
+import static gb.testlang.fixtures.UsersFixtures.USERNAME;
 import static lombok.AccessLevel.PRIVATE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
@@ -36,7 +37,7 @@ import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level=PRIVATE)
 @WebMvcTest(CommentsController.class)
-@WithMockUser(username="testUser", roles={"USER", "ADMIN", "ACTUATOR"})
+@WithMockUser(username=USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public class CommentsControllerTests extends EndpointITCase {
     private static final String COMMENTS_API_URL = "/api/comments/";
 
