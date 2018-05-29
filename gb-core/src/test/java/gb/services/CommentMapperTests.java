@@ -6,7 +6,6 @@ import static gb.testlang.fixtures.CommentsFixtures.filledCommentInputBuilder;
 import static gb.testlang.fixtures.UsersFixtures.buildUser;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -34,15 +33,15 @@ public class CommentMapperTests extends JUnitTestCase {
 
 
     @Test
-    public void Mapper_without_dependency_throws_NullPointerException() {
+    public void Mapper_without_dependency_throws_NPE() {
         assertThatNullPointerException()
             .isThrownBy(() -> new CommentMapper(null));
     }
 
 
     @Test
-    public void Mapping_of_null_should_throw_IllegalArgumentException() {
-        assertThatIllegalArgumentException()
+    public void Mapping_of_null_should_throw_NPE() {
+        assertThatNullPointerException()
             .isThrownBy(() -> mapper.from(null));
     }
 

@@ -2,8 +2,6 @@ package gb.services;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import javax.annotation.Nonnull;
-
 import org.springframework.stereotype.Service;
 
 import gb.dto.CommentInput;
@@ -21,7 +19,7 @@ public class CommentMapper {
     @NonNull CurrentPrincipalService currentPrincipalService;
 
 
-    public Comment from(@Nonnull final CommentInput input) {
+    public Comment from(@NonNull final CommentInput input) {
         return new CommentBuilder()
             .anonName(input.getAnonName())
             .message(input.getMessage())

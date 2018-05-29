@@ -44,10 +44,15 @@ public class UsersFixtures {
     }
 
 
-    public static User buildUser() {
+    public static UserBuilder getFilledUserBuilder() {
         return new UserBuilder()
-                .username(USERNAME).password(PASSWORD).email(EMAIL)
-                .active(true).build();
+                .username(USERNAME).password(PASSWORD)
+                .email(EMAIL).active(true);
+    }
+
+
+    public static User buildUser() {
+        return getFilledUserBuilder().build();
     }
 
 
