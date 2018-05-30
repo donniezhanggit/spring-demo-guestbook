@@ -37,4 +37,10 @@ public class GuardTests extends JUnitTestCase {
         assertThatThrownBy(() -> Guard.that(false, CODE, MESSAGE))
             .isEqualToComparingFieldByField(expected);
     }
+
+
+    @Test
+    public void Truthy_condition_should_not_throw() {
+        Guard.that(true, CODE, MESSAGE);
+    }
 }
