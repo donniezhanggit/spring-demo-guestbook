@@ -63,8 +63,7 @@ public class CommentsFixtures {
 
     public Comment existingComment() {
         final Comment comment = commentWithAnonNameAndMessage()
-                        .created(CREATED1)
-                        .build();
+                .created(CREATED1).build();
 
         return commentsRepo.save(comment);
     }
@@ -76,7 +75,7 @@ public class CommentsFixtures {
         final Comment comment2 = cb.created(CREATED2).build();
         final Comment comment3 = cb.created(CREATED3).build();
 
-        return Arrays.asList(comment1, comment2, comment3);
+        return Arrays.asList(comment2, comment1, comment3);
     }
 
 

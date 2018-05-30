@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import java.time.LocalDateTime;
 
 import gb.dto.CommentEntry;
+import lombok.val;
 import lombok.experimental.FieldDefaults;
 
 
@@ -69,7 +70,9 @@ public class CommentEntryBuilder {
 
 
     public CommentEntry build() {
+        val simpleUserEntry = new SimpleUserEntry(userId, userName);
+
         return new CommentEntry(id, version, created, anonName,
-                message, new SimpleUserEntry(userId, userName));
+                message, simpleUserEntry);
     }
 }

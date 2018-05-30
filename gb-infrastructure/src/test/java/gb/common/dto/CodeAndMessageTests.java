@@ -2,6 +2,8 @@ package gb.common.dto;
 
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+import javax.validation.ConstraintViolation;
+
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
@@ -10,8 +12,10 @@ import gb.common.JUnitTestCase;
 public class CodeAndMessageTests extends JUnitTestCase {
     @Test
     public void
-    When_constraint_violation_is_null_should_throw_NPE() {
+    When_ConstraintViolation_is_null_should_throw_NPE() {
+        ConstraintViolation<?> _null = (ConstraintViolation<?>) null;
+
         assertThatNullPointerException()
-            .isThrownBy(() -> new CodeAndMessage(null));
+            .isThrownBy(() -> new CodeAndMessage(_null));
     }
 }

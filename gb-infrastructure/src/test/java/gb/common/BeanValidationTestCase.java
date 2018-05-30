@@ -5,10 +5,10 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 
 
@@ -18,12 +18,12 @@ public abstract class BeanValidationTestCase extends JUnitTestCase {
 
 
     protected <T> Set<ConstraintViolation<T>>
-    validate(@Nonnull final T bean) {
+    validate(@NonNull final T bean) {
         return validator.validate(bean);
     }
 
 
-    protected <T> ValidationCheck<T> check(@Nonnull final T bean) {
+    protected <T> ValidationCheck<T> check(@NonNull final T bean) {
         return new ValidationCheck<T>(validate(bean));
     }
 }

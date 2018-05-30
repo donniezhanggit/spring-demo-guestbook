@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.core.Authentication;
@@ -29,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
+@WebMvcTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles(NO_DB_INTEGRATION_TESTING)
 @Import({MainConfig.class, SecurityConfig.class, WebConfig.class})
