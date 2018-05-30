@@ -79,6 +79,6 @@ public class Comment extends AbstractDomainEntity {
             @Nullable final String anonName,
             @Nullable final User user) {
         Assert.isTrue(anonName != null || user != null,
-                "Can not create a new comment without commenter's name");
+                "Can not create new comment without commenter's name");
     }
 }

@@ -24,3 +24,21 @@ Feature: Comments
         Then response has status PRECONDITION_FAILED
         And response body contains 'anonName'
         And response body contains 'length must be between'
+
+    Scenario: Submit a new comment without anon name
+        Given a comment input
+        And no anon name
+        And message is 'Hack this world!'
+        When I submit the comment input
+        Then response has status BAD_REQUEST
+        And response body contains 'BAD_REQUEST'
+        And response body contains 'Can not create new comment without commenter\'s name'
+
+    Scenario: Submit a new comment with empty message
+        Given a comment input
+        And anon name is 'Foo'
+        And message is ''
+        When I submit the comment input
+        Then response has status PRECONDITION_FAILED
+        And response body contains 'message'
+        And response body contains 'length must be between'

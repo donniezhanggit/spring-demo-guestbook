@@ -86,6 +86,12 @@ public class CommentsSteps extends CucumberFTCase {
     }
 
 
+    @Then("response has status BAD_REQUEST")
+    public void response_has_status_bad_request() throws Exception {
+        lastAction.andExpect(status().isBadRequest());
+    }
+
+
     @Then("response body has ID of created comment")
     public void response_has_ID_of_created_comment() throws Exception {
         final String content = lastAction.andReturn()
