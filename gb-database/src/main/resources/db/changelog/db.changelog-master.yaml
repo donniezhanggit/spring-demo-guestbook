@@ -118,3 +118,18 @@ databaseChangeLog:
             newColumnName: anon_name
             oldColumnName: name
             tableName: comment
+
+  - changeSet:
+      id: 2018-05-31-01
+      author: Whitesquall
+      comment: Add first_name and last_name to user table
+      changes:
+        - addColumn:
+            tableName: gbuser
+            columns:
+              - column:
+                  name: first_name
+                  type: varchar(60)
+              - column:
+                  name: last_name
+                  type: varchar(60)

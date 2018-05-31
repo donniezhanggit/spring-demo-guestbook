@@ -2,9 +2,11 @@ package gb.model;
 
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
+import static lombok.AccessLevel.PUBLIC;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -43,6 +45,10 @@ public class User extends AbstractDomainEntity {
     LocalDateTime created = LocalDateTime.now();
     boolean active = true;
 
+    @Setter(value=PUBLIC)
+    @Embedded
+    FullName fullName;
+
 
     @PackagePrivate
     User(@NonNull final UserBuilder ub) {
@@ -51,5 +57,6 @@ public class User extends AbstractDomainEntity {
         setEmail(ub.email);
         setCreated(ub.created);
         setActive(ub.active);
+        setFullName(ub.fullName);
     }
 }

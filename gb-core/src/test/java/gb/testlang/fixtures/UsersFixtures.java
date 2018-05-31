@@ -21,6 +21,8 @@ public class UsersFixtures {
     public static final String USERNAME = "testUser";
     public static final String PASSWORD = "P4ssW0rD";
     public static final String EMAIL = "user@mail.org";
+    public static final String FIRST_NAME = "John";
+    public static final String LAST_NAME = "Dow";
 
 
     @Autowired(required=false)
@@ -47,7 +49,7 @@ public class UsersFixtures {
     public static UserBuilder getFilledUserBuilder() {
         return new UserBuilder()
                 .username(USERNAME).password(PASSWORD)
-                .email(EMAIL).active(true);
+                .email(EMAIL).fullName(FIRST_NAME, LAST_NAME).active(true);
     }
 
 
