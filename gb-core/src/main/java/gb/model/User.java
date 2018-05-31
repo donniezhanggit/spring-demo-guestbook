@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PROTECTED;
 import static lombok.AccessLevel.PUBLIC;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -58,5 +59,10 @@ public class User extends AbstractDomainEntity {
         setCreated(ub.created);
         setActive(ub.active);
         setFullName(ub.fullName);
+    }
+
+
+    public Optional<FullName> getFullName() {
+    	return Optional.ofNullable(fullName);
     }
 }
