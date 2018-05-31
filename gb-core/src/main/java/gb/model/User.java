@@ -35,6 +35,7 @@ public class User extends AbstractDomainEntity {
     public static final int EMAIL_MIN_LENGTH = 4;
     public static final int EMAIL_MAX_LENGTH = 40;
 
+
     @NaturalId
     @NonNull String username;
     @NonNull String password;
