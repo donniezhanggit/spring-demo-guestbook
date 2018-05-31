@@ -4,20 +4,16 @@ import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Value;
 import lombok.experimental.FieldDefaults;
 
 
-@Getter
-@NoArgsConstructor(access=PROTECTED)
+@Value
 @AllArgsConstructor
 @FieldDefaults(level=PRIVATE)
-@Builder
-@EqualsAndHashCode
+@NoArgsConstructor(access=PROTECTED)
 public final class FullName {
     public static final int FIRST_NAME_MIN_LENGTH = 2;
     public static final int FIRST_NAME_MAX_LENGTH = 60;
