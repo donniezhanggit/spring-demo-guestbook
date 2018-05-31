@@ -1,7 +1,6 @@
 package gb.common.dto;
 
 import static lombok.AccessLevel.NONE;
-import static lombok.AccessLevel.PRIVATE;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,11 +11,9 @@ import javax.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;
-import lombok.experimental.FieldDefaults;
 
 
 @Value
-@FieldDefaults(level=PRIVATE, makeFinal=true)
 @AllArgsConstructor(access=NONE)
 public class ValidationErrors {
     List<CodeAndMessage> errors;

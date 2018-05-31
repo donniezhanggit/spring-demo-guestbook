@@ -1,18 +1,12 @@
 package gb.dto;
 
-import static lombok.AccessLevel.PRIVATE;
-
 import gb.model.User;
 import io.swagger.annotations.ApiModel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NonNull;
-import lombok.experimental.FieldDefaults;
+import lombok.Value;
 
 
-@Getter
-@AllArgsConstructor
-@FieldDefaults(level=PRIVATE, makeFinal=true)
+@Value
 @ApiModel(value="SimpleUser", description="Simple user model")
 public class SimpleUserEntry {
     Long id;
