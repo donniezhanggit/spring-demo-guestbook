@@ -7,18 +7,16 @@ import java.time.LocalDateTime;
 
 import gb.model.Comment;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.experimental.FieldDefaults;
+import lombok.Value;
 import lombok.experimental.Wither;
 
 
-@Getter
+@Value
 @Wither(value=PRIVATE)
 @AllArgsConstructor
-@NoArgsConstructor(access=PRIVATE)
-@FieldDefaults(level=PRIVATE)
+@NoArgsConstructor(access=PRIVATE, force=true)
 public class CommentEntry {
     Long id;
     Short version;
