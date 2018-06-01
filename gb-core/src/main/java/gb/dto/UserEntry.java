@@ -23,10 +23,11 @@ public class UserEntry {
     Long id;
     Short version;
     String userName;
-    String email;
-    LocalDate registeredAt;
     String firstName;
     String lastName;
+    String email;
+    LocalDate registeredAt;
+    Boolean active;
 
 
     public static UserEntry from(@NonNull final User user) {
@@ -37,10 +38,11 @@ public class UserEntry {
                 .withId(user.getId())
                 .withVersion(user.getVersion())
                 .withUserName(user.getUsername())
+                .withFirstName(firstName)
+                .withLastName(lastName)
                 .withEmail(user.getEmail())
                 .withRegisteredAt(user.getCreated().toLocalDate())
-                .withFirstName(firstName)
-                .withLastName(lastName);
+                .withActive(user.isActive());
     }
 
 
