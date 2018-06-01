@@ -34,7 +34,6 @@ import gb.dto.UserEntry;
 import lombok.experimental.FieldDefaults;
 
 
-
 @FieldDefaults(level=PRIVATE)
 @WebMvcTest(UsersController.class)
 @WithMockUser(username=EXISTING_USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})

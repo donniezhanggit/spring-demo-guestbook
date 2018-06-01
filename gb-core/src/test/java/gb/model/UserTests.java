@@ -3,7 +3,7 @@ package gb.model;
 import static gb.testlang.fixtures.FullNameFixtures.FIRST_NAME;
 import static gb.testlang.fixtures.FullNameFixtures.LAST_NAME;
 import static gb.testlang.fixtures.UsersFixtures.buildUser;
-import static gb.testlang.fixtures.UsersFixtures.getFilledUserBuilder;
+import static gb.testlang.fixtures.UsersFixtures.filledUserBuilder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
@@ -25,7 +25,7 @@ public class UserTests extends JUnitTestCase {
     @Test
     public void Can_not_instantiate_user_without_username() {
         // Arrange.
-        final UserBuilder ub = getFilledUserBuilder().username(null);
+        final UserBuilder ub = filledUserBuilder().username(null);
 
         // Act and assert.
         assertThatNullPointerException()
@@ -36,7 +36,7 @@ public class UserTests extends JUnitTestCase {
     @Test
     public void Can_not_instantiate_user_without_password() {
         // Arrange.
-        final UserBuilder ub = getFilledUserBuilder().password(null);
+        final UserBuilder ub = filledUserBuilder().password(null);
 
         // Act and assert.
         assertThatNullPointerException()
@@ -47,7 +47,7 @@ public class UserTests extends JUnitTestCase {
     @Test
     public void Can_not_instantiate_user_without_email() {
         // Arrange.
-        final UserBuilder ub = getFilledUserBuilder().email(null);
+        final UserBuilder ub = filledUserBuilder().email(null);
 
         // Act and assert.
         assertThatNullPointerException()
@@ -58,7 +58,7 @@ public class UserTests extends JUnitTestCase {
     @Test
     public void User_without_fullName_should_return_empty_optional() {
         // Arrange.
-        final User user = getFilledUserBuilder().fullName(null).build();
+        final User user = filledUserBuilder().fullName(null).build();
 
         // Act.
         final Optional<FullName> fullName = user.getFullName();
@@ -71,7 +71,7 @@ public class UserTests extends JUnitTestCase {
     @Test
     public void User_with_fullName_should_return_filled_optional() {
         // Arrange.
-        final User user = getFilledUserBuilder()
+        final User user = filledUserBuilder()
                 .fullName(FIRST_NAME, LAST_NAME).build();
 
         // Act.
@@ -115,7 +115,7 @@ public class UserTests extends JUnitTestCase {
     @Test
     public void Ability_to_change_name() {
         // Arrange.
-        final User user = getFilledUserBuilder().fullName(null).build();
+        final User user = filledUserBuilder().fullName(null).build();
         final FullName name = new FullName(FIRST_NAME, LAST_NAME);
 
         // Act.

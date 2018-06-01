@@ -37,44 +37,47 @@ public class UsersFixtures {
 
 
     public void prepareUser() {
-        existingUser();
+        recreateExistingUser();
     }
 
 
-    public User existingActiveUser() {
-        final User user = existingUser();
+    public User recreateExistingActiveUser() {
+        usersRepo.deleteAll();
 
-        user.activate();
+        final User user = filledUserBuilder().active(true).build();
 
-        usersRepo.save(user);
-
-        return user;
+        return usersRepo.save(user);
     }
 
 
-    public User prepareInactiveUser() {
-        final User user = existingUser();
+    public User recreateExistingInactiveUser() {
+        usersRepo.deleteAll();
 
-        user.deactivate();
+        final User user = filledUserBuilder().active(false).build();
 
-        return user;
+        return usersRepo.save(user);
     }
 
 
-    public User existingUser() {
-        return usersRepo.findByUsername(EXISTING_USERNAME)
-                .orElseGet(this::createUser);
+    public User recreateUserWithoutFullName() {
+        usersRepo.deleteAll();
+
+        final User user = filledUserBuilder().fullName(null).build();
+
+        return usersRepo.save(user);
     }
 
 
-    public User createUser() {
+    public User recreateExistingUser() {
+        usersRepo.deleteAll();
+
         final User newUser = buildUser();
 
         return usersRepo.save(newUser);
     }
 
 
-    public static UserBuilder getFilledUserBuilder() {
+    public static UserBuilder filledUserBuilder() {
         return new UserBuilder()
                 .username(EXISTING_USERNAME).password(PASSWORD)
                 .email(EMAIL).fullName(FIRST_NAME, LAST_NAME).active(true);
@@ -82,7 +85,7 @@ public class UsersFixtures {
 
 
     public static User buildUser() {
-        return getFilledUserBuilder().build();
+        return filledUserBuilder().build();
     }
 
 

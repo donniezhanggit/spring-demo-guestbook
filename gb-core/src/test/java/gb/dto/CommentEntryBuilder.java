@@ -4,8 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.time.LocalDateTime;
 
-import gb.dto.CommentEntry;
-import lombok.val;
 import lombok.experimental.FieldDefaults;
 
 

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gb.model.FullName;
 import gb.model.User;
 import gb.repos.UsersRepository;
 
@@ -22,5 +23,22 @@ public class UsersAssertions {
 
         assertThat(user.isPresent()).isTrue();
         assertThat(user.get().isActive()).isFalse();
+    }
+
+
+    public void assertUserActive(final String userName) {
+        final Optional<User> user = usersRepo.findByUsername(userName);
+
+        assertThat(user.isPresent()).isTrue();
+        assertThat(user.get().isActive()).isTrue();
+    }
+
+
+    public void assertUsersFullName(final String userName,
+            final FullName expectedFullName) {
+        final Optional<User> user = usersRepo.findByUsername(userName);
+
+        assertThat(user.flatMap(User::getFullName).orElse(null))
+            .isEqualTo(expectedFullName);
     }
 }

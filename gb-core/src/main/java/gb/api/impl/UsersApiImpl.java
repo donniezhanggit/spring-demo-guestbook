@@ -4,6 +4,8 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,7 +58,7 @@ public class UsersApiImpl implements UsersApi {
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
-    public void changeName(String userName, FullNameInput input) {
+    public void changeName(String userName, @Valid FullNameInput input) {
         final Optional<User> user = usersRepo.findByUsername(userName);
         val newName = FullName.of(input);
 
