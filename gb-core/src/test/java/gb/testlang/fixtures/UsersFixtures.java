@@ -1,5 +1,7 @@
 package gb.testlang.fixtures;
 
+import static gb.testlang.fixtures.FullNameFixtures.FIRST_NAME;
+import static gb.testlang.fixtures.FullNameFixtures.LAST_NAME;
 import static lombok.AccessLevel.PRIVATE;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -21,8 +23,6 @@ public class UsersFixtures {
     public static final String USERNAME = "testUser";
     public static final String PASSWORD = "P4ssW0rD";
     public static final String EMAIL = "user@mail.org";
-    public static final String FIRST_NAME = "John";
-    public static final String LAST_NAME = "Dow";
 
 
     @Autowired(required=false)

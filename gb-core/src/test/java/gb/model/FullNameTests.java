@@ -1,12 +1,15 @@
 package gb.model;
 
-import static gb.testlang.fixtures.UsersFixtures.FIRST_NAME;
-import static gb.testlang.fixtures.UsersFixtures.LAST_NAME;
+import static gb.testlang.fixtures.FullNameFixtures.FIRST_NAME;
+import static gb.testlang.fixtures.FullNameFixtures.LAST_NAME;
+import static gb.testlang.fixtures.FullNameFixtures.buildFullName;
+import static gb.testlang.fixtures.FullNameFixtures.buildFullNameInput;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
+import gb.dto.FullNameInput;
 import lombok.val;
 
 
@@ -32,5 +35,19 @@ public class FullNameTests extends JUnitTestCase {
         // Assert.
         assertThat(actual.getFirstName()).isEqualTo(FIRST_NAME);
         assertThat(actual.getLastName()).isEqualTo(LAST_NAME);
+    }
+
+
+    @Test
+    public void A_FullName_of_FullNameInput() {
+        // Arrange.
+        final FullNameInput input = buildFullNameInput();
+        final FullName expected = buildFullName();
+
+        // Act.
+        final FullName actual = FullName.of(input);
+
+        // Assert.
+        assertThat(actual).isEqualTo(expected);
     }
 }

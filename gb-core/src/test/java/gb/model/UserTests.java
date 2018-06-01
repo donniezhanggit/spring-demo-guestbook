@@ -1,7 +1,8 @@
 package gb.model;
 
-import static gb.testlang.fixtures.UsersFixtures.FIRST_NAME;
-import static gb.testlang.fixtures.UsersFixtures.LAST_NAME;
+import static gb.testlang.fixtures.FullNameFixtures.FIRST_NAME;
+import static gb.testlang.fixtures.FullNameFixtures.LAST_NAME;
+import static gb.testlang.fixtures.UsersFixtures.buildUser;
 import static gb.testlang.fixtures.UsersFixtures.getFilledUserBuilder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
@@ -82,5 +83,46 @@ public class UserTests extends JUnitTestCase {
                 assertThat(fn.getFirstName()).isEqualTo(FIRST_NAME);
                 assertThat(fn.getLastName()).isEqualTo(LAST_NAME);
         });
+    }
+
+
+    @Test
+    public void Deactivating_user_should_change_active_field() {
+        // Arrange.
+        final User user = buildUser();
+
+        // Act.
+        user.deactivate();
+
+        // Assert.
+        assertThat(user.isActive()).isFalse();
+    }
+
+
+    @Test
+    public void Activating_user_should_change_active_field() {
+        // Arrange.
+        final User user = buildUser();
+
+        // Act.
+        user.activate();
+
+        // Assert.
+        assertThat(user.isActive()).isTrue();
+    }
+
+
+    @Test
+    public void Ability_to_change_name() {
+        // Arrange.
+        final User user = getFilledUserBuilder().fullName(null).build();
+        final FullName name = new FullName(FIRST_NAME, LAST_NAME);
+
+        // Act.
+        user.changeName(name);
+
+        // Assert.
+        assertThat(user.getFullName().isPresent()).isTrue();
+        assertThat(user.getFullName().get()).isEqualTo(name);
     }
 }
