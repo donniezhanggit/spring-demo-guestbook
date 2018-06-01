@@ -41,9 +41,29 @@ public class UsersFixtures {
     }
 
 
+    public User existingActiveUser() {
+        final User user = existingUser();
+
+        user.activate();
+
+        usersRepo.save(user);
+
+        return user;
+    }
+
+
+    public User prepareInactiveUser() {
+        final User user = existingUser();
+
+        user.deactivate();
+
+        return user;
+    }
+
+
     public User existingUser() {
         return usersRepo.findByUsername(EXISTING_USERNAME)
-                .orElse(createUser());
+                .orElseGet(this::createUser);
     }
 
 

@@ -28,9 +28,8 @@ public class CommentAssertions {
     public static void assertCommentEntry(
             final CommentEntry expected, final CommentEntry actual) {
         assertThat(actual).isNotNull();
-        assertThat(actual.getCreated()).isEqualTo(expected.getCreated());
-        assertThat(actual.getAnonName()).isEqualTo(expected.getAnonName());
-        assertThat(actual.getMessage()).isEqualTo(expected.getMessage());
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(expected, "id", "version");
     }
 
 

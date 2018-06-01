@@ -69,10 +69,17 @@ public class CommentEntryBuilder {
     }
 
 
-    public CommentEntry build() {
-        val simpleUserEntry = new SimpleUserEntry(userId, userName);
+    private SimpleUserEntry buildSimpleUserEntry() {
+        if(userId == null && userName == null) {
+            return null;
+        }
 
+        return new SimpleUserEntry(userId, userName);
+    }
+
+
+    public CommentEntry build() {
         return new CommentEntry(id, version, created, anonName,
-                message, simpleUserEntry);
+                message, buildSimpleUserEntry());
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import gb.common.it.RecreatePerClassITCase;
 import gb.dto.UserEntry;
+import gb.testlang.assertions.UsersAssertions;
 import gb.testlang.fixtures.UsersFixtures;
 import lombok.experimental.FieldDefaults;
 
@@ -25,6 +26,9 @@ public class UsersApiTests extends RecreatePerClassITCase {
     @Autowired
     UsersApi usersApi;
 
+    @Autowired
+    UsersAssertions assertions;
+
 
     @Test
     public void A_user_should_be_fetched_by_userName() {
@@ -37,5 +41,19 @@ public class UsersApiTests extends RecreatePerClassITCase {
 
         // Assert.
         Assertions.assertThat(entry.isPresent()).isTrue();
+    }
+
+
+    @Test
+    public void A_user_should_be_deactivated() {
+        // Arrange.
+        final String existingUserName = usersFixtures.existingActiveUser()
+                .getUsername();
+
+        // Act.
+        usersApi.deactivateUser(existingUserName);
+
+        // Assert.
+        assertions.assertUserInactive(existingUserName);
     }
 }
