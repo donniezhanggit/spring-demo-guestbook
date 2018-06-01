@@ -82,7 +82,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
     @Test
     public void When_name_is_null_expect_IllegalArgumentException() {
         // Arrange.
-        usersFixtures.prepareUser();
+        usersFixtures.recreateExistingUser();
 
         final CommentInput input = filledCommentInputBuilder()
                 .anonName(null).build();

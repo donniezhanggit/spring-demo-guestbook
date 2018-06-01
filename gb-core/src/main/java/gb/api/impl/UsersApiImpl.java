@@ -33,14 +33,14 @@ public class UsersApiImpl implements UsersApi {
     @Override
     @PreAuthorize("hasRole('USER')")
     @Transactional(readOnly=true)
-    public Optional<UserEntry> getUser(String userName) {
+    public Optional<UserEntry> getUser(@NonNull String userName) {
         return usersRepo.findByUsername(userName, UserEntry.class);
     }
 
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
-    public void deactivateUser(String userName) {
+    public void deactivateUser(@NonNull String userName) {
         final Optional<User> user = usersRepo.findByUsername(userName);
 
         user.ifPresent(User::deactivate);
@@ -49,7 +49,7 @@ public class UsersApiImpl implements UsersApi {
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
-    public void activateUser(String userName) {
+    public void activateUser(@NonNull String userName) {
         final Optional<User> user = usersRepo.findByUsername(userName);
 
         user.ifPresent(User::activate);
@@ -58,7 +58,8 @@ public class UsersApiImpl implements UsersApi {
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
-    public void changeName(String userName, @Valid FullNameInput input) {
+    public void changeName(@NonNull String userName,
+            @NonNull @Valid FullNameInput input) {
         final Optional<User> user = usersRepo.findByUsername(userName);
         val newName = FullName.of(input);
 

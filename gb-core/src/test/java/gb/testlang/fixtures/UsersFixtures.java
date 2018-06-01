@@ -36,11 +36,6 @@ public class UsersFixtures {
     UsersRepository usersRepo;
 
 
-    public void prepareUser() {
-        recreateExistingUser();
-    }
-
-
     public User recreateExistingActiveUser() {
         usersRepo.deleteAll();
 
@@ -79,8 +74,12 @@ public class UsersFixtures {
 
     public static UserBuilder filledUserBuilder() {
         return new UserBuilder()
-                .username(EXISTING_USERNAME).password(PASSWORD)
-                .email(EMAIL).fullName(FIRST_NAME, LAST_NAME).active(true);
+                .username(EXISTING_USERNAME)
+                .password(PASSWORD)
+                .email(EMAIL)
+                .created(CREATED)
+                .fullName(FIRST_NAME, LAST_NAME)
+                .active(true);
     }
 
 

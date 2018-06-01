@@ -33,6 +33,13 @@ public class UserBuilder {
     }
 
 
+    public UserBuilder created(final LocalDateTime created) {
+        this.created = created;
+
+        return this;
+    }
+
+
     public UserBuilder active(final boolean active) {
         this.active = active;
 

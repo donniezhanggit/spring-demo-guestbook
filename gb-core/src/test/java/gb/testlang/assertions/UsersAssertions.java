@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gb.dto.UserEntry;
 import gb.model.FullName;
 import gb.model.User;
 import gb.repos.UsersRepository;
@@ -40,5 +41,13 @@ public class UsersAssertions {
 
         assertThat(user.flatMap(User::getFullName).orElse(null))
             .isEqualTo(expectedFullName);
+    }
+
+
+    public static void assertUserEntry(final UserEntry expected,
+            final UserEntry actual) {
+        assertThat(actual).isNotNull();
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(expected, "id", "version");
     }
 }

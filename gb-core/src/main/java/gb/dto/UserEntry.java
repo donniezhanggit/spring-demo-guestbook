@@ -13,11 +13,9 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;
 import lombok.val;
-import lombok.experimental.Wither;
 
 
 @Value
-@Wither(value=PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor(access=PRIVATE, force=true)
 @Builder
