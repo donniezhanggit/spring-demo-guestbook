@@ -21,11 +21,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 
 import org.junit.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import gb.api.CommentsApi;
 import gb.common.it.EndpointITCase;
+import gb.controllers.MainController;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import gb.dto.CommentInputBuilder;
@@ -33,6 +35,7 @@ import lombok.experimental.FieldDefaults;
 
 
 @FieldDefaults(level=PRIVATE)
+@WebMvcTest(MainController.class)
 @WithMockUser(username=USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public class MainControllerTests extends EndpointITCase {
     private static final String ROOT_URL = "/";
