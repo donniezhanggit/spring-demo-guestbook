@@ -2,6 +2,7 @@ package gb.model;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import gb.dto.FullNameInput;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -24,5 +25,10 @@ public final class FullName {
 
     public FullName(final FullName other) {
         this(other.getFirstName(), other.getLastName());
+    }
+
+
+    public static final FullName of(final FullNameInput input) {
+        return new FullName(input.getFirstName(), input.getLastName());
     }
 }

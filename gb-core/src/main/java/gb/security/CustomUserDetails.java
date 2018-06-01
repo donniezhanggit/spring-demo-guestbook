@@ -42,4 +42,10 @@ extends org.springframework.security.core.userdetails.User {
 
         this.user = user;
     }
+
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return user.isActive();
+    }
 }

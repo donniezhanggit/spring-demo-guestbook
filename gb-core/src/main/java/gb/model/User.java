@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.PackagePrivate;
 
@@ -28,6 +29,7 @@ import lombok.experimental.PackagePrivate;
 @Setter(value=PROTECTED)
 @FieldDefaults(level=PRIVATE)
 @NoArgsConstructor(access=PROTECTED)
+@ToString
 public class User extends AbstractDomainEntity {
     private static final long serialVersionUID = 1L;
 
@@ -63,6 +65,21 @@ public class User extends AbstractDomainEntity {
 
 
     public Optional<FullName> getFullName() {
-    	return Optional.ofNullable(fullName);
+        return Optional.ofNullable(fullName);
+    }
+
+
+    public void deactivate() {
+        active = false;
+    }
+
+
+    public void activate() {
+        active = true;
+    }
+
+
+    public void changeName(final FullName newFullName) {
+        fullName = newFullName;
     }
 }
