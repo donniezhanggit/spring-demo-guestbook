@@ -1,7 +1,7 @@
 package gb.common.ft;
 
 import static gb.common.config.GuestBookProfiles.FUNCTIONAL_TESTING;
-import static gb.testlang.fixtures.UsersFixtures.USERNAME;
+import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static org.mockito.Mockito.when;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.MOCK;
 
@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 @ActiveProfiles(profiles=FUNCTIONAL_TESTING)
 @ComponentScan(basePackageClasses=Application.class)
 @SpringBootTest(webEnvironment=MOCK)
-@WithMockUser(username=USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
+@WithMockUser(username=EXISTING_USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public abstract class CucumberFTCase {
     protected static ResponseResults latestResponse = null;
 

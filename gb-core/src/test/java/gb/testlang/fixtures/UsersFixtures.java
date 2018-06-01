@@ -6,9 +6,13 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gb.dto.UserEntry;
 import gb.model.User;
 import gb.model.UserBuilder;
 import gb.repos.UsersRepository;
@@ -20,10 +24,13 @@ import lombok.experimental.FieldDefaults;
 public class UsersFixtures {
     public static final Long EXISTING_ID = 10053L;
     public static final Short JUST_CREATED_VERSION = 0;
-    public static final String USERNAME = "testUser";
+    public static final String EXISTING_USERNAME = "testUser";
+    public static final String NON_EXISTENT_USERNAME = "nobody";
     public static final String PASSWORD = "P4ssW0rD";
     public static final String EMAIL = "user@mail.org";
-
+    public static final LocalDateTime CREATED =
+            LocalDateTime.of(2018, 01, 02, 12, 31, 41);
+    public static final LocalDate REGISTERED_AT = CREATED.toLocalDate();
 
     @Autowired(required=false)
     UsersRepository usersRepo;
@@ -35,7 +42,8 @@ public class UsersFixtures {
 
 
     public User existingUser() {
-        return usersRepo.findByUsername(USERNAME).orElse(createUser());
+        return usersRepo.findByUsername(EXISTING_USERNAME)
+                .orElse(createUser());
     }
 
 
@@ -48,7 +56,7 @@ public class UsersFixtures {
 
     public static UserBuilder getFilledUserBuilder() {
         return new UserBuilder()
-                .username(USERNAME).password(PASSWORD)
+                .username(EXISTING_USERNAME).password(PASSWORD)
                 .email(EMAIL).fullName(FIRST_NAME, LAST_NAME).active(true);
     }
 
@@ -72,8 +80,22 @@ public class UsersFixtures {
         final User stubbedUser = mock(User.class);
 
         when(stubbedUser.getId()).thenReturn(EXISTING_ID);
-        when(stubbedUser.getUsername()).thenReturn(USERNAME);
+        when(stubbedUser.getUsername()).thenReturn(EXISTING_USERNAME);
 
         return stubbedUser;
+    }
+
+
+    public static UserEntry buildUserEntry() {
+        return UserEntry.builder()
+                .id(EXISTING_ID)
+                .version(JUST_CREATED_VERSION)
+                .userName(EXISTING_USERNAME)
+                .firstName(FIRST_NAME)
+                .lastName(LAST_NAME)
+                .email(EMAIL)
+                .registeredAt(REGISTERED_AT)
+                .active(true)
+                .build();
     }
 }

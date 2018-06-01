@@ -8,6 +8,7 @@ import java.util.function.Function;
 import gb.model.FullName;
 import gb.model.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;
@@ -19,6 +20,7 @@ import lombok.experimental.Wither;
 @Wither(value=PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor(access=PRIVATE, force=true)
+@Builder
 public class UserEntry {
     Long id;
     Short version;
@@ -34,15 +36,16 @@ public class UserEntry {
         val firstName = fieldOfOptional(user, FullName::getFirstName);
         val lastName = fieldOfOptional(user, FullName::getLastName);
 
-        return new UserEntry()
-                .withId(user.getId())
-                .withVersion(user.getVersion())
-                .withUserName(user.getUsername())
-                .withFirstName(firstName)
-                .withLastName(lastName)
-                .withEmail(user.getEmail())
-                .withRegisteredAt(user.getCreated().toLocalDate())
-                .withActive(user.isActive());
+        return UserEntry.builder()
+                .id(user.getId())
+                .version(user.getVersion())
+                .userName(user.getUsername())
+                .firstName(firstName)
+                .lastName(lastName)
+                .email(user.getEmail())
+                .registeredAt(user.getCreated().toLocalDate())
+                .active(user.isActive())
+                .build();
     }
 
 

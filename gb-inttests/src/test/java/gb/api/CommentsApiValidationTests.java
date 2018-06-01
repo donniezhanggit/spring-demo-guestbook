@@ -4,7 +4,7 @@ import static gb.common.FakeData.stringWithLength;
 import static gb.model.Comment.ANON_NAME_MAX_LENGTH;
 import static gb.model.Comment.MESSAGE_MAX_LENGTH;
 import static gb.testlang.fixtures.CommentsFixtures.filledCommentInputBuilder;
-import static gb.testlang.fixtures.UsersFixtures.USERNAME;
+import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -22,7 +22,7 @@ import lombok.experimental.FieldDefaults;
 
 
 @FieldDefaults(level=PRIVATE)
-@WithMockUser(username=USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
+@WithMockUser(username=EXISTING_USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public class CommentsApiValidationTests extends RecreatePerClassITCase {
     @Autowired
     CommentsApi commentsApi;

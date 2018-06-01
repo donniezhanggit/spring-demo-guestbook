@@ -1,6 +1,6 @@
 package gb.testlang.fixtures;
 
-import static gb.testlang.fixtures.UsersFixtures.USERNAME;
+import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static gb.testlang.fixtures.UsersFixtures.buildUser;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -40,7 +40,7 @@ public class CommentsFixtures {
     public static final LocalDateTime CREATED3 =
             LocalDateTime.of(2017, 9, 1, 12, 37, 31);
     public static final String USERNAME_DIV_TEXT =
-            "<div class=\"name\">" + USERNAME + "</div>\n" +
+            "<div class=\"name\">" + EXISTING_USERNAME + "</div>\n" +
             "          <div class=\"anon\"></div>";
     public static final String ANON_NAME_DIV_TEXT =
             "<div class=\"name\"></div>\n" +
@@ -118,7 +118,7 @@ public class CommentsFixtures {
     public static CommentEntry buildUserCommentEntry() {
         return new CommentEntryBuilder()
                 .anonName(null).created(CREATED1).message(MESSAGE)
-                .userId(UsersFixtures.EXISTING_ID).userName(USERNAME)
+                .userId(UsersFixtures.EXISTING_ID).userName(EXISTING_USERNAME)
                 .build();
     }
 

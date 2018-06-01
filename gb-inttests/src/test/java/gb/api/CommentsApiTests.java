@@ -2,7 +2,7 @@ package gb.api;
 
 import static gb.testlang.fixtures.CommentsFixtures.NON_EXISTENT_ID;
 import static gb.testlang.fixtures.CommentsFixtures.filledCommentInputBuilder;
-import static gb.testlang.fixtures.UsersFixtures.USERNAME;
+import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,7 +24,7 @@ import lombok.experimental.FieldDefaults;
 
 
 @FieldDefaults(level=PRIVATE)
-@WithMockUser(username=USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
+@WithMockUser(username=EXISTING_USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public class CommentsApiTests extends RecreatePerClassITCase {
     @Autowired
     CommentsFixtures commentFixtures;

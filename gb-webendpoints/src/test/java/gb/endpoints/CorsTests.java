@@ -1,6 +1,6 @@
 package gb.endpoints;
 
-import static gb.testlang.fixtures.UsersFixtures.USERNAME;
+import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -16,7 +16,7 @@ import gb.common.it.EndpointITCase;
 
 
 @WebMvcTest(CorsTests.TestController.class)
-@WithMockUser(username=USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
+@WithMockUser(username=EXISTING_USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public class CorsTests extends EndpointITCase {
     private static final String PING_API_URL = "/api/ping";
     private static final String ORIGIN_HEADER = "Origin";

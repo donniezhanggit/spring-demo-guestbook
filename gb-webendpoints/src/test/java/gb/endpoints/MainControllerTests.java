@@ -6,7 +6,7 @@ import static gb.testlang.fixtures.CommentsFixtures.EXISTING_ID;
 import static gb.testlang.fixtures.CommentsFixtures.USERNAME_DIV_TEXT;
 import static gb.testlang.fixtures.CommentsFixtures.buildAnonCommentInput;
 import static gb.testlang.fixtures.CommentsFixtures.buildCommentEntriesList;
-import static gb.testlang.fixtures.UsersFixtures.USERNAME;
+import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
@@ -36,7 +36,7 @@ import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level=PRIVATE)
 @WebMvcTest(MainController.class)
-@WithMockUser(username=USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
+@WithMockUser(username=EXISTING_USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public class MainControllerTests extends EndpointITCase {
     private static final String ROOT_URL = "/";
     private static final String LOGIN_URL = "/login";

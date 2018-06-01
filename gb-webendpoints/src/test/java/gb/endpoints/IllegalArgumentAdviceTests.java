@@ -1,6 +1,6 @@
 package gb.endpoints;
 
-import static gb.testlang.fixtures.UsersFixtures.USERNAME;
+import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -24,7 +24,7 @@ import lombok.val;
 
 
 @WebMvcTest(IllegalArgumentAdviceTests.TestController.class)
-@WithMockUser(username=USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
+@WithMockUser(username=EXISTING_USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public class IllegalArgumentAdviceTests extends EndpointITCase {
     private static final String ILLEGAL_ARGUMENT_URL =
             "/test/IllegalArgument/messages";

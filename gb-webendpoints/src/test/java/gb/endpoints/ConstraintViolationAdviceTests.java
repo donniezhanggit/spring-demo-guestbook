@@ -1,6 +1,6 @@
 package gb.endpoints;
 
-import static gb.testlang.fixtures.UsersFixtures.USERNAME;
+import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -38,7 +38,7 @@ import lombok.experimental.FieldDefaults;
 
 
 @WebMvcTest(ConstraintViolationAdviceTests.TestController.class)
-@WithMockUser(username=USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
+@WithMockUser(username=EXISTING_USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public class ConstraintViolationAdviceTests extends EndpointITCase {
     private static final String API_URL = "/messages";
 
