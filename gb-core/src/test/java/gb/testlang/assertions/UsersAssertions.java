@@ -1,5 +1,7 @@
 package gb.testlang.assertions;
 
+import static gb.common.domain.AbstractDomainEntity.ID_FIELD;
+import static gb.common.domain.AbstractDomainEntity.VERSION_FIELD;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Optional;
@@ -48,6 +50,6 @@ public class UsersAssertions {
             final UserEntry actual) {
         assertThat(actual).isNotNull();
         assertThat(actual)
-            .isEqualToIgnoringGivenFields(expected, "id", "version");
+            .isEqualToIgnoringGivenFields(expected, ID_FIELD, VERSION_FIELD);
     }
 }

@@ -10,9 +10,11 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import lombok.Value;
+import lombok.experimental.FieldNameConstants;
 
 
 @Value
+@FieldNameConstants
 public class CommentInput {
     @Length(min=ANON_NAME_MIN_LENGTH, max=ANON_NAME_MAX_LENGTH)
     String anonName;

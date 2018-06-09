@@ -2,16 +2,21 @@ package gb.model;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import javax.persistence.Embeddable;
+
 import gb.dto.FullNameInput;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;
+import lombok.experimental.FieldNameConstants;
 
 
 @Value
 @AllArgsConstructor
 @NoArgsConstructor(access=PRIVATE, force=true)
+@FieldNameConstants
+@Embeddable
 public final class FullName {
     public static final int FIRST_NAME_MIN_LENGTH = 2;
     public static final int FIRST_NAME_MAX_LENGTH = 60;
