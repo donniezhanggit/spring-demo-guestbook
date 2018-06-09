@@ -20,6 +20,7 @@ public interface CommentsApi {
     /**
      * Returns a list of all comments ordered by date.
      *
+     * @category query
      * @return List of mapped comment entries.
      */
     List<CommentEntry> getComments();
@@ -28,6 +29,7 @@ public interface CommentsApi {
     /**
      * Get comment by ID.
      *
+     * @category query
      * @param id A unique identifier of comment.
      * @return if comment with ID exists return filled optional with
      *         {@link CommentEntry}, otherwise {@code Optional.empty()}
@@ -38,9 +40,10 @@ public interface CommentsApi {
     /**
      * Create a new comment by input.
      *
+     * @category command
      * @param input {@link CommentInput} with comments data
      * @return ID of just created comment.
-     * @throws {@link ConstraintViolationException} if input is invalid.
+     * @throws ConstraintViolationException if input is invalid.
      */
     Long createComment(@Nonnull @Valid final CommentInput input);
 
@@ -49,6 +52,7 @@ public interface CommentsApi {
      * Idempotent removing of comment by ID. If comment with ID does not exist
      * just return silently.
      *
+     * @category command
      * @param id an identifier of comment to remove.
      */
     void removeComment(final long id);
