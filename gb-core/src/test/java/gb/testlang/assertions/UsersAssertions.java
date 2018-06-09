@@ -37,12 +37,17 @@ public class UsersAssertions {
     }
 
 
-    public void assertUsersFullName(final String userName,
+    public void assertUserHasFullName(final String userName,
             final FullName expectedFullName) {
         final Optional<User> user = usersRepo.findByUsername(userName);
 
         assertThat(user.flatMap(User::getFullName).orElse(null))
             .isEqualTo(expectedFullName);
+    }
+
+
+    public void assertUserHasNoFullName(final String userName) {
+        assertUserHasFullName(userName, null);
     }
 
 

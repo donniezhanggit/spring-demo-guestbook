@@ -63,6 +63,16 @@ public class UsersFixtures {
     }
 
 
+    public User recreateUserWithFullName() {
+        usersRepo.deleteAll();
+
+        final User user = filledUserBuilder()
+                .fullName(FIRST_NAME, LAST_NAME).build();
+
+        return usersRepo.save(user);
+    }
+
+
     public User recreateExistingUser() {
         usersRepo.deleteAll();
 

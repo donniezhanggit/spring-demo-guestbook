@@ -92,12 +92,21 @@ public class UsersApiTests extends RecreatePerClassITCase {
         usersApi.changeName(userWithoutName, aNewName);
 
         // Assert.
-        assertions.assertUsersFullName(userWithoutName, expectedFullName);
+        assertions.assertUserHasFullName(userWithoutName, expectedFullName);
     }
 
 
     @Test
     public void Ability_to_unset_fullName_of_user() {
         // Arrange.
+        final String userWithName = usersFixtures
+                .recreateUserWithFullName()
+                .getUsername();
+
+        // Act.
+        usersApi.deleteName(userWithName);
+
+        // Assert.
+        assertions.assertUserHasNoFullName(userWithName);
     }
 }
