@@ -94,4 +94,10 @@ public class UsersApiTests extends RecreatePerClassITCase {
         // Assert.
         assertions.assertUsersFullName(userWithoutName, expectedFullName);
     }
+
+
+    @Test
+    public void Ability_to_unset_fullName_of_user() {
+        // Arrange.
+    }
 }

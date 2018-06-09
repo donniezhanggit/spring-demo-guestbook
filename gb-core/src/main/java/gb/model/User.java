@@ -82,4 +82,9 @@ public class User extends AbstractDomainEntity {
     public void changeName(final FullName newFullName) {
         fullName = newFullName;
     }
+
+
+    public void deleteName() {
+        fullName = null;
+    }
 }

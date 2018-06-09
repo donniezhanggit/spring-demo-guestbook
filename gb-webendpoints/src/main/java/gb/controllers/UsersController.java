@@ -63,4 +63,11 @@ public class UsersController extends BaseController {
             @RequestBody final FullNameInput input) {
         usersApi.changeName(userName, input);
     }
+
+
+    @DeleteMapping("/{userName}/fullname")
+    @ResponseStatus(NO_CONTENT)
+    public void deleteName(@PathVariable final String userName) {
+        usersApi.deleteName(userName);
+    }
 }
