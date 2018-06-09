@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 import lombok.experimental.PackagePrivate;
 
 
@@ -30,6 +31,7 @@ import lombok.experimental.PackagePrivate;
 @Getter
 @FieldDefaults(level=PRIVATE)
 @NoArgsConstructor(access=PROTECTED)
+@FieldNameConstants
 public class Comment extends AbstractDomainEntity {
     private static final long serialVersionUID = 1L;
 

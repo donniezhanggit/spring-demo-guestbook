@@ -7,7 +7,6 @@ import static lombok.AccessLevel.PUBLIC;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -20,6 +19,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 import lombok.experimental.PackagePrivate;
 
 
@@ -30,6 +30,7 @@ import lombok.experimental.PackagePrivate;
 @FieldDefaults(level=PRIVATE)
 @NoArgsConstructor(access=PROTECTED)
 @ToString
+@FieldNameConstants
 public class User extends AbstractDomainEntity {
     private static final long serialVersionUID = 1L;
 
@@ -49,7 +50,6 @@ public class User extends AbstractDomainEntity {
     boolean active = true;
 
     @Setter(value=PUBLIC)
-    @Embedded
     FullName fullName;
 
 
@@ -81,5 +81,10 @@ public class User extends AbstractDomainEntity {
 
     public void changeName(final FullName newFullName) {
         fullName = newFullName;
+    }
+
+
+    public void deleteName() {
+        fullName = null;
     }
 }

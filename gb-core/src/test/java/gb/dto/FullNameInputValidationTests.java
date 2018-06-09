@@ -3,6 +3,8 @@ package gb.dto;
 import static gb.common.FakeData.stringWithLength;
 import static gb.common.ValidationSubstrings.LENGTH_MUST_BE_BETWEEN;
 import static gb.common.ValidationSubstrings.MUST_NOT_BE_NULL;
+import static gb.dto.FullNameInput.FIRST_NAME_FIELD;
+import static gb.dto.FullNameInput.LAST_NAME_FIELD;
 import static gb.model.FullName.FIRST_NAME_MAX_LENGTH;
 import static gb.model.FullName.FIRST_NAME_MIN_LENGTH;
 import static gb.model.FullName.LAST_NAME_MAX_LENGTH;
@@ -25,7 +27,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
 
         // Act and assert.
         check(input).hasOnlyOneError()
-            .forProperty("firstName")
+            .forProperty(FIRST_NAME_FIELD)
             .withMessageContaining(LENGTH_MUST_BE_BETWEEN);
     }
 
@@ -52,7 +54,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
 
         // Act and assert.
         check(input).hasOnlyOneError()
-            .forProperty("lastName")
+            .forProperty(LAST_NAME_FIELD)
             .withMessageContaining(LENGTH_MUST_BE_BETWEEN);
     }
 
@@ -79,7 +81,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
 
         // Act and assert.
         check(input).hasOnlyOneError()
-            .forProperty("firstName")
+            .forProperty(FIRST_NAME_FIELD)
             .withMessageContaining(LENGTH_MUST_BE_BETWEEN);
     }
 
@@ -107,7 +109,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
 
         // Act and assert.
         check(input).hasOnlyOneError()
-            .forProperty("lastName")
+            .forProperty(LAST_NAME_FIELD)
             .withMessageContaining(LENGTH_MUST_BE_BETWEEN);
     }
 
@@ -133,7 +135,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
 
         // Act and assert.
         check(input).hasOnlyOneError()
-            .forProperty("firstName")
+            .forProperty(FIRST_NAME_FIELD)
             .withMessageContaining(MUST_NOT_BE_NULL);
     }
 
@@ -146,7 +148,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
 
         // Act and assert.
         check(input).hasOnlyOneError()
-            .forProperty("lastName")
+            .forProperty(LAST_NAME_FIELD)
             .withMessageContaining(MUST_NOT_BE_NULL);
     }
 }

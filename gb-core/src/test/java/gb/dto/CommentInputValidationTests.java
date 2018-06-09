@@ -3,6 +3,8 @@ package gb.dto;
 import static gb.common.FakeData.stringWithLength;
 import static gb.common.ValidationSubstrings.LENGTH_MUST_BE_BETWEEN;
 import static gb.common.ValidationSubstrings.MUST_NOT_BE_NULL;
+import static gb.dto.CommentInput.ANON_NAME_FIELD;
+import static gb.dto.CommentInput.MESSAGE_FIELD;
 import static gb.model.Comment.ANON_NAME_MAX_LENGTH;
 import static gb.model.Comment.ANON_NAME_MIN_LENGTH;
 import static gb.model.Comment.MESSAGE_MAX_LENGTH;
@@ -24,7 +26,7 @@ public class CommentInputValidationTests extends BeanValidationTestCase {
 
         // Act and assert.
         check(input).hasOnlyOneError()
-            .forProperty("message")
+            .forProperty(MESSAGE_FIELD)
             .withMessageContaining(LENGTH_MUST_BE_BETWEEN);
     }
 
@@ -50,7 +52,7 @@ public class CommentInputValidationTests extends BeanValidationTestCase {
 
         // Act and assert.
         check(input).hasOnlyOneError()
-            .forProperty("anonName")
+            .forProperty(ANON_NAME_FIELD)
             .withMessageContaining(LENGTH_MUST_BE_BETWEEN);
     }
 
@@ -76,7 +78,7 @@ public class CommentInputValidationTests extends BeanValidationTestCase {
 
         // Act and assert.
         check(input).hasOnlyOneError()
-            .forProperty("message")
+            .forProperty(MESSAGE_FIELD)
             .withMessageContaining(LENGTH_MUST_BE_BETWEEN);
     }
 
@@ -102,7 +104,7 @@ public class CommentInputValidationTests extends BeanValidationTestCase {
 
         // Act and assert.
         check(input).hasOnlyOneError()
-            .forProperty("anonName")
+            .forProperty(ANON_NAME_FIELD)
             .withMessageContaining(LENGTH_MUST_BE_BETWEEN);
     }
 
@@ -139,7 +141,7 @@ public class CommentInputValidationTests extends BeanValidationTestCase {
 
         // Act and assert.
         check(input).hasOnlyOneError()
-            .forProperty("message")
+            .forProperty(MESSAGE_FIELD)
             .withMessageContaining(MUST_NOT_BE_NULL);
     }
 }

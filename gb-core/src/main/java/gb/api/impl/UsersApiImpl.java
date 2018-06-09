@@ -65,4 +65,12 @@ public class UsersApiImpl implements UsersApi {
 
         user.ifPresent(u -> u.changeName(newName));
     }
+
+
+    @Override
+    public void deleteName(@NonNull String userName) {
+        final Optional<User> user = usersRepo.findByUsername(userName);
+
+        user.ifPresent(User::deleteName);
+    }
 }

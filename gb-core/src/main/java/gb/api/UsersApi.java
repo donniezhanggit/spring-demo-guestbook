@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import gb.dto.FullNameInput;
 import gb.dto.UserEntry;
+import lombok.NonNull;
 
 
 /**
@@ -54,4 +55,5 @@ public interface UsersApi {
      * @throws ConstraintViolationException if input is invalid.
      */
     void changeName(final String userName, @Valid final FullNameInput input);
+    void deleteName(@NonNull final String userName);
 }

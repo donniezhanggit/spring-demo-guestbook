@@ -15,17 +15,17 @@ import org.hibernate.annotations.Parameter;
 
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 
 
 @Getter
+@FieldNameConstants
 @MappedSuperclass
 @FieldDefaults(level=PROTECTED)
 public abstract class AbstractDomainEntity
 implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public static final String ID_PROPERTY = "id";
-    public static final String VERSION_PROPERTY = "version";
 
     @Id
     @GenericGenerator(
