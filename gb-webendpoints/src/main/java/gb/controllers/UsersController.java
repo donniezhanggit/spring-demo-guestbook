@@ -65,7 +65,7 @@ public class UsersController extends BaseController {
     }
 
 
-    @DeleteMapping("/{userName}/fullname")
+    @DeleteMapping("/{userName}/fullName")
     @ResponseStatus(NO_CONTENT)
     public void deleteName(@PathVariable final String userName) {
         usersApi.deleteName(userName);

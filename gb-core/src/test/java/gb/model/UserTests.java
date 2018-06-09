@@ -125,4 +125,18 @@ public class UserTests extends JUnitTestCase {
         assertThat(user.getFullName().isPresent()).isTrue();
         assertThat(user.getFullName().get()).isEqualTo(name);
     }
+
+
+    @Test
+    public void Ability_to_unset_fullName_of_user() {
+        // Arrange.
+        final User user = filledUserBuilder()
+                .fullName(FIRST_NAME, LAST_NAME).build();
+
+        // Act.
+        user.deleteName();
+
+        // Assert.
+        assertThat(user.getFullName().isPresent()).isFalse();
+    }
 }

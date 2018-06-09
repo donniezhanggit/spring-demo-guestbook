@@ -57,6 +57,8 @@ public class UsersControllerTests extends EndpointITCase {
         doNothing().when(usersApi).deactivateUser(anyString());
         doNothing().when(usersApi)
             .changeName(anyString(), any(FullNameInput.class));
+        doNothing().when(usersApi)
+            .deleteName(anyString());
     }
 
 
@@ -194,5 +196,31 @@ public class UsersControllerTests extends EndpointITCase {
 
         // Assert.
         verify(usersApi, times(1)).changeName(EXISTING_USERNAME, input);
+    }
+
+
+    @Test
+    public void Removing_fullName_of_user_should_return_204()
+            throws Exception {
+        // Arrange.
+        final String url = USERS_API_URL + EXISTING_USERNAME + "/fullName";
+
+        // Act and assert.
+        mockMvc.perform(delete(url))
+            .andExpect(status().isNoContent());
+    }
+
+
+    @Test
+    public void Removing_fullName_of_user_should_call_APIs_deleteName()
+            throws Exception {
+        // Arrange.
+        final String url = USERS_API_URL + EXISTING_USERNAME + "/fullName";
+
+        // Act.
+        mockMvc.perform(delete(url));
+
+        // Assert.
+        verify(usersApi, times(1)).deleteName(EXISTING_USERNAME);
     }
 }
