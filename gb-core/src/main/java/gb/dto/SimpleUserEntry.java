@@ -14,6 +14,6 @@ public class SimpleUserEntry {
 
 
     public static SimpleUserEntry from(@NonNull final User user) {
-        return new SimpleUserEntry(user.getId(), user.getUsername());
+        return new SimpleUserEntry(user.getId(), user.getUserName());
     }
 }

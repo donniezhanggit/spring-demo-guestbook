@@ -29,9 +29,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username)
+    public UserDetails loadUserByUsername(String userName)
             throws UsernameNotFoundException {
-        final Optional<User> user = usersRepository.findByUsername(username);
+        final Optional<User> user = usersRepository.findByUserName(userName);
 
         if(user.isPresent()) {
             return new CustomUserDetails(user.get(), Arrays.asList(
@@ -42,7 +42,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         throw new UsernameNotFoundException(
-                "Can not find user by username: " + username);
+                "Can not find user by userName: " + userName);
     }
 
 

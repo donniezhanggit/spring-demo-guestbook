@@ -40,7 +40,7 @@ public class UsersApiTests extends RecreatePerClassITCase {
         // Arrange.
         final String existingUserName = usersFixtures
                 .recreateExistingUser()
-                .getUsername();
+                .getUserName();
 
         // Act.
         final Optional<UserEntry> entry = usersApi.getUser(existingUserName);
@@ -56,7 +56,7 @@ public class UsersApiTests extends RecreatePerClassITCase {
         // Arrange.
         final String existingUserName = usersFixtures
                 .recreateExistingActiveUser()
-                .getUsername();
+                .getUserName();
 
         // Act.
         usersApi.deactivateUser(existingUserName);
@@ -71,7 +71,7 @@ public class UsersApiTests extends RecreatePerClassITCase {
         // Arrange.
         final String existingUserName = usersFixtures
                 .recreateExistingInactiveUser()
-                .getUsername();
+                .getUserName();
 
         // Act.
         usersApi.activateUser(existingUserName);
@@ -88,7 +88,7 @@ public class UsersApiTests extends RecreatePerClassITCase {
         final FullName expectedFullName = buildFullName();
         final String userWithoutName = usersFixtures
                 .recreateUserWithoutFullName()
-                .getUsername();
+                .getUserName();
 
         // Act.
         usersApi.changeName(userWithoutName, aNewName);
@@ -103,7 +103,7 @@ public class UsersApiTests extends RecreatePerClassITCase {
         // Arrange.
         final String userWithName = usersFixtures
                 .recreateUserWithFullName()
-                .getUsername();
+                .getUserName();
 
         // Act.
         usersApi.deleteName(userWithName);

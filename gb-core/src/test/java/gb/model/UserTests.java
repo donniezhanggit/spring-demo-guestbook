@@ -25,7 +25,7 @@ public class UserTests extends JUnitTestCase {
     @Test
     public void Can_not_instantiate_user_without_username() {
         // Arrange.
-        final UserBuilder ub = filledUserBuilder().username(null);
+        final UserBuilder ub = filledUserBuilder().userName(null);
 
         // Act and assert.
         assertThatNullPointerException()

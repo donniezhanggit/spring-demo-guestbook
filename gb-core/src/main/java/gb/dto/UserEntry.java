@@ -39,7 +39,7 @@ public class UserEntry {
         return UserEntry.builder()
                 .id(user.getId())
                 .version(user.getVersion())
-                .userName(user.getUsername())
+                .userName(user.getUserName())
                 .firstName(firstName)
                 .lastName(lastName)
                 .email(user.getEmail())

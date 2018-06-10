@@ -26,7 +26,7 @@ extends org.springframework.security.core.userdetails.User {
 
     public CustomUserDetails(@Nonnull final User user,
             @Nonnull final Collection<? extends GrantedAuthority> authorities) {
-        super(user.getUsername(), user.getPassword(), authorities);
+        super(user.getUserName(), user.getPassword(), authorities);
 
         this.user = user;
     }
@@ -36,7 +36,7 @@ extends org.springframework.security.core.userdetails.User {
             boolean accountNonExpired, boolean credentialsNonExpired,
             boolean accountNonLocked,
             Collection<? extends GrantedAuthority> authorities) {
-        super(user.getUsername(), user.getPassword(), enabled,
+        super(user.getUserName(), user.getPassword(), enabled,
                 accountNonExpired, credentialsNonExpired,
                 accountNonLocked, authorities);
 

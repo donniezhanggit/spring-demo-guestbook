@@ -24,7 +24,7 @@ public class UsersAssertions {
 
 
     public void assertUserInactive(final String userName) {
-        final Optional<User> user = usersRepo.findByUsername(userName);
+        final Optional<User> user = usersRepo.findByUserName(userName);
 
         assertThat(user.isPresent()).isTrue();
         assertThat(user.get().isActive()).isFalse();
@@ -32,7 +32,7 @@ public class UsersAssertions {
 
 
     public void assertUserActive(final String userName) {
-        final Optional<User> user = usersRepo.findByUsername(userName);
+        final Optional<User> user = usersRepo.findByUserName(userName);
 
         assertThat(user.isPresent()).isTrue();
         assertThat(user.get().isActive()).isTrue();
@@ -41,7 +41,7 @@ public class UsersAssertions {
 
     public void assertUserHasFullName(final String userName,
             final FullName expectedFullName) {
-        final Optional<User> user = usersRepo.findByUsername(userName);
+        final Optional<User> user = usersRepo.findByUserName(userName);
 
         assertThat(user.flatMap(User::getFullName).orElse(null))
             .isEqualTo(expectedFullName);
