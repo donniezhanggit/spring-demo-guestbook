@@ -43,7 +43,7 @@ public class User extends AbstractDomainEntity {
 
 
     @NaturalId
-    @NonNull String username;
+    @NonNull String userName;
     @NonNull String password;
     @NonNull String email;
     LocalDateTime created = LocalDateTime.now();
@@ -55,7 +55,7 @@ public class User extends AbstractDomainEntity {
 
     @PackagePrivate
     User(@NonNull final UserBuilder ub) {
-        setUsername(ub.username);
+        setUserName(ub.userName);
         setPassword(ub.password);
         setEmail(ub.email);
         setCreated(ub.created);

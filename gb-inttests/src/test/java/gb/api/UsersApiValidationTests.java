@@ -30,7 +30,7 @@ public class UsersApiValidationTests extends RecreatePerClassITCase {
     @Test
     public void When_firstName_is_too_long_expect_ValidationException() {
         // Arrange.
-        final String userName = fixtures.recreateExistingUser().getUsername();
+        final String userName = fixtures.recreateExistingUser().getUserName();
         final String tooLongFirstName =
                 stringWithLength(FIRST_NAME_MAX_LENGTH+1);
         final FullNameInput input = filledFullNameBuilder()
@@ -44,7 +44,7 @@ public class UsersApiValidationTests extends RecreatePerClassITCase {
     @Test
     public void When_firstName_length_is_max_fullName_should_be_changed() {
         // Arrange.
-        final String userName = fixtures.recreateExistingUser().getUsername();
+        final String userName = fixtures.recreateExistingUser().getUserName();
         final String tooLongFirstName =
                 stringWithLength(FIRST_NAME_MAX_LENGTH);
         final FullNameInput input = filledFullNameBuilder()
@@ -58,7 +58,7 @@ public class UsersApiValidationTests extends RecreatePerClassITCase {
     @Test
     public void When_lastName_is_too_long_expect_ValidationException() {
         // Arrange.
-        final String userName = fixtures.recreateExistingUser().getUsername();
+        final String userName = fixtures.recreateExistingUser().getUserName();
         final String tooLongLastName =
                 stringWithLength(LAST_NAME_MAX_LENGTH+1);
         final FullNameInput input = filledFullNameBuilder()
@@ -72,7 +72,7 @@ public class UsersApiValidationTests extends RecreatePerClassITCase {
     @Test
     public void When_lastName_length_is_max_fullName_should_be_changed() {
         // Arrange.
-        final String userName = fixtures.recreateExistingUser().getUsername();
+        final String userName = fixtures.recreateExistingUser().getUserName();
         final String tooLongLastName =
                 stringWithLength(LAST_NAME_MAX_LENGTH);
         final FullNameInput input = filledFullNameBuilder()
@@ -86,7 +86,7 @@ public class UsersApiValidationTests extends RecreatePerClassITCase {
     @Test
     public void When_firstName_is_null_expect_ValidationException() {
         // Arrange.
-        final String userName = fixtures.recreateExistingUser().getUsername();
+        final String userName = fixtures.recreateExistingUser().getUserName();
         final FullNameInput input = filledFullNameBuilder()
                 .firstName(null).build();
 
@@ -98,7 +98,7 @@ public class UsersApiValidationTests extends RecreatePerClassITCase {
     @Test
     public void When_lastName_is_null_expect_ValidationException() {
         // Arrange.
-        final String userName = fixtures.recreateExistingUser().getUsername();
+        final String userName = fixtures.recreateExistingUser().getUserName();
         final FullNameInput input = filledFullNameBuilder()
                 .lastName(null).build();
 

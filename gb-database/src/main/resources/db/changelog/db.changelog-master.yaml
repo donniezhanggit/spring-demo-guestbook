@@ -133,3 +133,13 @@ databaseChangeLog:
               - column:
                   name: last_name
                   type: varchar(60)
+
+  - changeSet:
+      id: 2018-06-10-01
+      author: Whitesquall
+      comment: Rename username column of user to user_name
+      changes:
+        - renameColumn:
+            newColumnName: user_name
+            oldColumnName: username
+            tableName: gbuser

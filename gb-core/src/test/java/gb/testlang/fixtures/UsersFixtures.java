@@ -85,7 +85,7 @@ public class UsersFixtures {
 
     public static UserBuilder filledUserBuilder() {
         return new UserBuilder()
-                .username(EXISTING_USERNAME)
+                .userName(EXISTING_USERNAME)
                 .password(PASSWORD)
                 .email(EMAIL)
                 .created(CREATED)
@@ -113,7 +113,7 @@ public class UsersFixtures {
         final User stubbedUser = mock(User.class);
 
         when(stubbedUser.getId()).thenReturn(EXISTING_ID);
-        when(stubbedUser.getUsername()).thenReturn(EXISTING_USERNAME);
+        when(stubbedUser.getUserName()).thenReturn(EXISTING_USERNAME);
 
         return stubbedUser;
     }

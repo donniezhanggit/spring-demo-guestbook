@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 
 public class UserBuilder {
-    String username;
+    String userName;
     String password;
     String email;
     LocalDateTime created = LocalDateTime.now();
@@ -12,8 +12,8 @@ public class UserBuilder {
     FullName fullName;
 
 
-    public UserBuilder username(final String username) {
-        this.username = username;
+    public UserBuilder userName(final String userName) {
+        this.userName = userName;
 
         return this;
     }
