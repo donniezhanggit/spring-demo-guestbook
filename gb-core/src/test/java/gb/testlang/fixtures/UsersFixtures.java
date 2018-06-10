@@ -28,6 +28,7 @@ public class UsersFixtures {
     public static final String NON_EXISTENT_USERNAME = "nobody";
     public static final String PASSWORD = "P4ssW0rD";
     public static final String EMAIL = "user@mail.org";
+    public static final boolean ACTIVE = true;
     public static final LocalDateTime CREATED =
             LocalDateTime.of(2018, 01, 02, 12, 31, 41);
     public static final LocalDate REGISTERED_AT = CREATED.toLocalDate();
@@ -89,7 +90,7 @@ public class UsersFixtures {
                 .email(EMAIL)
                 .created(CREATED)
                 .fullName(FIRST_NAME, LAST_NAME)
-                .active(true);
+                .active(ACTIVE);
     }
 
 
@@ -127,7 +128,7 @@ public class UsersFixtures {
                 .lastName(LAST_NAME)
                 .email(EMAIL)
                 .registeredAt(REGISTERED_AT)
-                .active(true)
+                .active(ACTIVE)
                 .build();
     }
 }

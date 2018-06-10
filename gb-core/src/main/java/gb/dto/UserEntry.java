@@ -13,12 +13,14 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;
 import lombok.val;
+import lombok.experimental.FieldNameConstants;
 
 
 @Value
 @AllArgsConstructor
 @NoArgsConstructor(access=PRIVATE, force=true)
 @Builder
+@FieldNameConstants
 public class UserEntry {
     Long id;
     Short version;

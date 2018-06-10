@@ -1,13 +1,14 @@
 package gb.api;
 
+import static gb.testlang.assertions.UsersAssertions.assertUserEntryIT;
 import static gb.testlang.fixtures.FullNameFixtures.buildFullName;
 import static gb.testlang.fixtures.FullNameFixtures.buildFullNameInput;
 import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static lombok.AccessLevel.PRIVATE;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Optional;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -45,7 +46,8 @@ public class UsersApiTests extends RecreatePerClassITCase {
         final Optional<UserEntry> entry = usersApi.getUser(existingUserName);
 
         // Assert.
-        Assertions.assertThat(entry.isPresent()).isTrue();
+        assertThat(entry.isPresent()).isTrue();
+        assertUserEntryIT(entry.get());
     }
 
 
