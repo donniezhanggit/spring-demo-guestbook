@@ -1,7 +1,8 @@
 package gb.testlang.assertions;
 
-import static gb.common.domain.AbstractDomainEntity.ID_FIELD;
-import static gb.common.domain.AbstractDomainEntity.VERSION_FIELD;
+import static gb.dto.UserEntry.ID_FIELD;
+import static gb.dto.UserEntry.REGISTERED_AT_FIELD;
+import static gb.dto.UserEntry.VERSION_FIELD;
 import static gb.testlang.fixtures.UsersFixtures.buildUserEntry;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -67,8 +68,6 @@ public class UsersAssertions {
         assertThat(actual).hasNoNullFieldsOrProperties();
         assertThat(actual)
             .isEqualToIgnoringGivenFields(expected,
-                    UserEntry.ID_FIELD,
-                    UserEntry.VERSION_FIELD,
-                    UserEntry.REGISTERED_AT_FIELD);
+                    ID_FIELD, VERSION_FIELD, REGISTERED_AT_FIELD);
     }
 }
