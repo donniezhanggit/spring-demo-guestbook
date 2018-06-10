@@ -18,7 +18,7 @@ import gb.repos.UsersRepository;
 
 
 @Component
-public class UsersAssertions {
+public class UserAssertions {
     @Autowired(required=false)
     UsersRepository usersRepo;
 

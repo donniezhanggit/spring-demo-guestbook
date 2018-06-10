@@ -1,6 +1,6 @@
 package gb.api;
 
-import static gb.testlang.assertions.UsersAssertions.assertUserEntryIT;
+import static gb.testlang.assertions.UserAssertions.assertUserEntryIT;
 import static gb.testlang.fixtures.FullNameFixtures.buildFullName;
 import static gb.testlang.fixtures.FullNameFixtures.buildFullNameInput;
 import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
@@ -17,7 +17,7 @@ import gb.common.it.RecreatePerClassITCase;
 import gb.dto.FullNameInput;
 import gb.dto.UserEntry;
 import gb.model.FullName;
-import gb.testlang.assertions.UsersAssertions;
+import gb.testlang.assertions.UserAssertions;
 import gb.testlang.fixtures.UsersFixtures;
 import lombok.experimental.FieldDefaults;
 
@@ -26,19 +26,19 @@ import lombok.experimental.FieldDefaults;
 @WithMockUser(username=EXISTING_USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public class UsersApiTests extends RecreatePerClassITCase {
     @Autowired
-    UsersFixtures usersFixtures;
+    UsersFixtures fixtures;
 
     @Autowired
     UsersApi usersApi;
 
     @Autowired
-    UsersAssertions assertions;
+    UserAssertions assertions;
 
 
     @Test
     public void A_user_should_be_fetched_by_userName() {
         // Arrange.
-        final String existingUserName = usersFixtures
+        final String existingUserName = fixtures
                 .recreateExistingUser()
                 .getUserName();
 
@@ -54,7 +54,7 @@ public class UsersApiTests extends RecreatePerClassITCase {
     @Test
     public void An_active_user_should_be_deactivated() {
         // Arrange.
-        final String existingUserName = usersFixtures
+        final String existingUserName = fixtures
                 .recreateExistingActiveUser()
                 .getUserName();
 
@@ -69,7 +69,7 @@ public class UsersApiTests extends RecreatePerClassITCase {
     @Test
     public void An_inactive_user_should_be_activated() {
         // Arrange.
-        final String existingUserName = usersFixtures
+        final String existingUserName = fixtures
                 .recreateExistingInactiveUser()
                 .getUserName();
 
@@ -86,7 +86,7 @@ public class UsersApiTests extends RecreatePerClassITCase {
         // Arrange.
         final FullNameInput aNewName = buildFullNameInput();
         final FullName expectedFullName = buildFullName();
-        final String userWithoutName = usersFixtures
+        final String userWithoutName = fixtures
                 .recreateUserWithoutFullName()
                 .getUserName();
 
@@ -101,7 +101,7 @@ public class UsersApiTests extends RecreatePerClassITCase {
     @Test
     public void Ability_to_unset_fullName_of_user() {
         // Arrange.
-        final String userWithName = usersFixtures
+        final String userWithName = fixtures
                 .recreateUserWithFullName()
                 .getUserName();
 

@@ -1,6 +1,6 @@
 package gb.dto;
 
-import static gb.testlang.assertions.UsersAssertions.assertUserEntry;
+import static gb.testlang.assertions.UserAssertions.assertUserEntry;
 import static gb.testlang.fixtures.UsersFixtures.buildUser;
 import static gb.testlang.fixtures.UsersFixtures.buildUserEntry;
 import static gb.testlang.fixtures.UsersFixtures.filledUserBuilder;
