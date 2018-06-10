@@ -119,7 +119,7 @@ public class UsersFixtures {
     }
 
 
-    public static UserEntry buildUserEntry() {
+    public static UserEntry.UserEntryBuilder filledUserEntryBuilder() {
         return UserEntry.builder()
                 .id(EXISTING_ID)
                 .version(JUST_CREATED_VERSION)
@@ -128,7 +128,11 @@ public class UsersFixtures {
                 .lastName(LAST_NAME)
                 .email(EMAIL)
                 .registeredAt(REGISTERED_AT)
-                .active(ACTIVE)
-                .build();
+                .active(ACTIVE);
+    }
+
+
+    public static UserEntry buildUserEntry() {
+        return filledUserEntryBuilder().build();
     }
 }
