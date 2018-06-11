@@ -17,7 +17,7 @@ import lombok.experimental.FieldNameConstants;
 @NoArgsConstructor(access=PRIVATE, force=true)
 @FieldNameConstants
 @Embeddable
-public final class FullName {
+public class FullName {
     public static final int FIRST_NAME_MIN_LENGTH = 2;
     public static final int FIRST_NAME_MAX_LENGTH = 60;
     public static final int LAST_NAME_MIN_LENGTH = 2;

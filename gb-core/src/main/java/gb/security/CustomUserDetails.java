@@ -14,13 +14,13 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 
+@Getter
 @EqualsAndHashCode(callSuper=true)
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class CustomUserDetails
 extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = -2595723933003639235L;
 
-    @Getter
     User user;
 
 

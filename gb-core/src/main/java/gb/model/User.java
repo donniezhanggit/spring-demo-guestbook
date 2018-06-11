@@ -80,11 +80,11 @@ public class User extends AbstractDomainEntity {
 
 
     public void changeName(final FullName newFullName) {
-        fullName = newFullName;
+        setFullName(newFullName);
     }
 
 
     public void deleteName() {
-        fullName = null;
+        changeName(null);
     }
 }
