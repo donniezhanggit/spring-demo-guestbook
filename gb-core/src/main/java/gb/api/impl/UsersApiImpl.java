@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import gb.api.UsersApi;
@@ -31,7 +30,6 @@ public class UsersApiImpl implements UsersApi {
 
 
     @Override
-    @PreAuthorize("hasRole('USER')")
     @Transactional(readOnly=true)
     public Optional<UserEntry> getUser(@NonNull String userName) {
         return usersRepo.findByUserName(userName, UserEntry.class);
@@ -39,7 +37,6 @@ public class UsersApiImpl implements UsersApi {
 
 
     @Override
-    @PreAuthorize("hasRole('ADMIN')")
     public void deactivateUser(@NonNull String userName) {
         final Optional<User> user = usersRepo.findByUserName(userName);
 
@@ -48,7 +45,6 @@ public class UsersApiImpl implements UsersApi {
 
 
     @Override
-    @PreAuthorize("hasRole('ADMIN')")
     public void activateUser(@NonNull String userName) {
         final Optional<User> user = usersRepo.findByUserName(userName);
 
@@ -57,7 +53,6 @@ public class UsersApiImpl implements UsersApi {
 
 
     @Override
-    @PreAuthorize("hasRole('ADMIN')")
     public void changeName(@NonNull String userName,
             @NonNull @Valid FullNameInput input) {
         final Optional<User> user = usersRepo.findByUserName(userName);

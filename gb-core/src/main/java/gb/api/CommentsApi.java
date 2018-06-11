@@ -6,6 +6,11 @@ import java.util.Optional;
 import javax.annotation.Nonnull;
 import javax.validation.Valid;
 
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 
@@ -16,6 +21,7 @@ import gb.dto.CommentInput;
  * @author whitesquall
  *
  */
+@CacheConfig(cacheNames="comments")
 public interface CommentsApi {
     /**
      * Returns a list of all comments ordered by date.
@@ -23,6 +29,7 @@ public interface CommentsApi {
      * @category query
      * @return List of mapped comment entries.
      */
+    @Cacheable
     List<CommentEntry> getComments();
 
 
@@ -45,6 +52,8 @@ public interface CommentsApi {
      * @return ID of just created comment.
      * @throws ConstraintViolationException if input is invalid.
      */
+    @PreAuthorize("hasRole('USER')")
+    @CacheEvict(allEntries=true)
     Long createComment(@Nonnull @Valid final CommentInput input);
 
 
@@ -55,5 +64,7 @@ public interface CommentsApi {
      * @category command
      * @param id an identifier of comment to remove.
      */
+    @PreAuthorize("hasRole('ADMIN')")
+    @CacheEvict(allEntries=true)
     void removeComment(final long id);
 }

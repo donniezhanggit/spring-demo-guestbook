@@ -8,10 +8,6 @@ import java.util.Optional;
 import javax.annotation.Nonnull;
 import javax.validation.Valid;
 
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import gb.api.CommentsApi;
@@ -28,7 +24,6 @@ import lombok.experimental.FieldDefaults;
 
 @Api
 @Transactional(readOnly=true)
-@CacheConfig(cacheNames="comments")
 @AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class CommentsApiImpl
@@ -38,7 +33,6 @@ implements CommentsApi {
 
 
     @Override
-    @Cacheable
     public List<CommentEntry> getComments() {
         final List<CommentEntry> comments = commentsRepo
             .findAllByOrderByCreatedAsc(CommentEntry.class);
@@ -58,8 +52,6 @@ implements CommentsApi {
 
     @Override
     @Transactional
-    @CacheEvict(allEntries=true)
-    @PreAuthorize("hasRole('USER')")
     public Long createComment(@Nonnull @Valid final CommentInput input) {
         final Comment comment = commentsRepo.save(commentMapper.from(input));
 
@@ -69,8 +61,6 @@ implements CommentsApi {
 
     @Override
     @Transactional
-    @CacheEvict(allEntries=true)
-    @PreAuthorize("hasRole('ADMIN')")
     public void removeComment(final long id) {
         final Optional<Comment> comment = commentsRepo.findOneById(id);
 
