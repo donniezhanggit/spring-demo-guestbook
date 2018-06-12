@@ -1,12 +1,15 @@
 package gb.common.guard;
 
+import static lombok.AccessLevel.NONE;
+
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.experimental.UtilityClass;
 
 
-@UtilityClass
-public class Guard {
-    public void that(final boolean assertion, @NonNull final String code,
+@NoArgsConstructor(access=NONE)
+public final class Guard {
+    public static void that(final boolean assertion,
+            @NonNull final String code,
             @NonNull final String message) {
         if(!assertion) {
             throw new InvalidArgumentException(code, message);

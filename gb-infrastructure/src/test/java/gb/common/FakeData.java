@@ -1,19 +1,21 @@
 package gb.common;
 
+import static lombok.AccessLevel.NONE;
+
 import com.google.common.base.Strings;
 
+import lombok.NoArgsConstructor;
 import lombok.val;
-import lombok.experimental.UtilityClass;
 
 
-@UtilityClass
-public class FakeData {
-    public String stringWithLength(final int length) {
+@NoArgsConstructor(access=NONE)
+public final class FakeData {
+    public static String stringWithLength(final int length) {
         return Strings.repeat("A", length);
     }
 
 
-    public String emailWithLength(final int length) {
+    public static String emailWithLength(final int length) {
         val sb = new StringBuilder();
 
         sb.append(stringWithLength(length));
