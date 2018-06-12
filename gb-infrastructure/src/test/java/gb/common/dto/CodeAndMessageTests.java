@@ -8,7 +8,7 @@ import javax.validation.ConstraintViolation;
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
-import gb.common.guard.InvalidArgumentException;
+import gb.common.exceptions.InvalidArgumentException;
 import lombok.val;
 
 

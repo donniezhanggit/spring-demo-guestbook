@@ -13,6 +13,20 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
+/**
+ * Global string trimming of leading and trailing white spaces for JSON
+ * deserialization.
+ * We can throw away validation tests for string inputs with leading and
+ * trailing white spaces.
+ *
+ * Examples:
+ *  - string ' a' becomes 'a';
+ *  - 'a ' -> 'a';
+ *  - '  ab c  ' -> 'ab c';
+ *
+ * @author whitesquall
+ *
+ */
 public class StringTrimmer extends SimpleModule {
     private static final long serialVersionUID = -2075474664226333353L;
 
@@ -23,9 +37,10 @@ public class StringTrimmer extends SimpleModule {
                 new StdScalarDeserializer<String>(String.class) {
             private static final long serialVersionUID = -8510662952179861274L;
 
+
             @Override
             public String
-            deserialize(JsonParser p, DeserializationContext ctxt)
+            deserialize(final JsonParser p, final DeserializationContext ctxt)
                     throws IOException, JsonProcessingException {
                 return StringUtils.trimWhitespace(p.getValueAsString());
             }

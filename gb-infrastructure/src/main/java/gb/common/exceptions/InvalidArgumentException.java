@@ -1,4 +1,4 @@
-package gb.common.guard;
+package gb.common.exceptions;
 
 import static lombok.AccessLevel.PRIVATE;
 

@@ -2,6 +2,7 @@ package gb.common.guard;
 
 import static lombok.AccessLevel.NONE;
 
+import gb.common.exceptions.InvalidArgumentException;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 

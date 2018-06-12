@@ -11,6 +11,6 @@ import gb.model.Comment;
 
 
 @Repository
-public interface CommentsRepository extends DataRepository<Comment> {
+public interface CommentsRepository extends DataRepository<Comment, Long> {
     <T> List<T> findAllByOrderByCreatedAsc(@Nonnull Class<T> type);
 }

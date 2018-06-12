@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import gb.common.dto.CodeAndMessage;
-import gb.common.guard.InvalidArgumentException;
+import gb.common.exceptions.InvalidArgumentException;
 import lombok.NonNull;
 
 

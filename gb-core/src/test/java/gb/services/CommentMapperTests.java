@@ -82,7 +82,7 @@ public class CommentMapperTests extends JUnitTestCase {
         final Comment newComment = mapper.from(anonCommentInput);
 
         // Assert.
-        assertThat(newComment.getUser()).isEqualTo(Optional.empty());
+        assertThat(newComment.getUser().isPresent()).isFalse();
     }
 
 

@@ -24,7 +24,7 @@ import gb.common.exceptions.NotFoundException;
  *
  */
 @NoRepositoryBean
-public interface DataRepository<T> extends Repository<T, Long> {
+public interface DataRepository<T, ID> extends Repository<T, ID> {
     /**
      * Saves a given entity. Use the returned instance for further
      * operations as the save operation might have changed the entity
@@ -59,7 +59,7 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @param id.
      * @return proxy reference.
      */
-    T getOne(long id);
+    T getOne(ID id);
 
 
     /**
@@ -69,7 +69,7 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @return the Optional of entity with the given id or
      *         Optional.empty if none found
      */
-    Optional<T> findOneById(long id);
+    Optional<T> findOneById(ID id);
 
 
     /**
@@ -79,7 +79,7 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @return the requested object.
      * @throws gb.common.exceptions.NotFoundException
      */
-    default T findOneByIdOrThrow(long id) {
+    default T findOneByIdOrThrow(ID id) {
         return findOneById(id).orElseThrow(() -> notFound(id));
     }
 
@@ -92,7 +92,7 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @return the Optional of entity with the given id or
      *         Optional.empty if none found.
      */
-    <S> Optional<S> findOneById(long id, Class<S> type);
+    <S> Optional<S> findOneById(ID id, Class<S> type);
 
 
     /**
@@ -103,7 +103,7 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @return the Optional of entity with the given id and version
      *         or Optional.empty if none found.
      */
-    Optional<T> findOneByIdAndVersion(long id, short version);
+    Optional<T> findOneByIdAndVersion(ID id, short version);
 
 
     /**
@@ -113,7 +113,7 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @return true if an entity with the given id exists, {@literal false}
      *         otherwise
      */
-    boolean existsById(long id);
+    boolean existsById(ID id);
 
 
     /**
@@ -130,7 +130,7 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @param ids
      * @return
      */
-    List<T> findAllById(@Nonnull Iterable<Long> ids);
+    List<T> findAllById(@Nonnull Iterable<ID> ids);
 
 
     /**
@@ -148,7 +148,7 @@ public interface DataRepository<T> extends Repository<T, Long> {
      * @throws IllegalArgumentException in case the given {@code id} is
      *         {@literal null}
      */
-    void deleteById(long id);
+    void deleteById(ID id);
 
 
     /**

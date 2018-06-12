@@ -4,7 +4,7 @@ import static lombok.AccessLevel.NONE;
 
 import javax.validation.ConstraintViolation;
 
-import gb.common.guard.InvalidArgumentException;
+import gb.common.exceptions.InvalidArgumentException;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;
