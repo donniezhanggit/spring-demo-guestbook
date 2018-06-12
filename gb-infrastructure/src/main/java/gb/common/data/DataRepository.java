@@ -1,5 +1,7 @@
 package gb.common.data;
 
+import static gb.common.exceptions.Exceptions.notFound;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
+
+import gb.common.exceptions.NotFoundException;
 
 
 /**
@@ -66,6 +70,18 @@ public interface DataRepository<T> extends Repository<T, Long> {
      *         Optional.empty if none found
      */
     Optional<T> findOneById(long id);
+
+
+    /**
+     * Retrieves an entity by its id. Throws {@link NotFoundException}
+     * if object not found.
+     * @param id a unique identifier of object.
+     * @return the requested object.
+     * @throws gb.common.exceptions.NotFoundException
+     */
+    default T findOneByIdOrThrow(long id) {
+        return findOneById(id).orElseThrow(() -> notFound(id));
+    }
 
 
     /**

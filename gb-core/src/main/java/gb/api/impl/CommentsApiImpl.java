@@ -62,8 +62,8 @@ implements CommentsApi {
     @Override
     @Transactional
     public void removeComment(final long id) {
-        final Optional<Comment> comment = commentsRepo.findOneById(id);
+        final Comment comment = commentsRepo.findOneByIdOrThrow(id);
 
-        comment.ifPresent(commentsRepo::delete);
+        commentsRepo.delete(comment);
     }
 }

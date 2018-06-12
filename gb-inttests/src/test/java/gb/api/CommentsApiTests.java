@@ -5,6 +5,7 @@ import static gb.testlang.fixtures.CommentsFixtures.filledCommentInputBuilder;
 import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import gb.common.exceptions.NotFoundException;
 import gb.common.it.RecreatePerClassITCase;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
@@ -119,7 +121,8 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
 
     @Test
-    public void A_removing_of_a_non_existent_comment_should_not_throw() {
-        commentsApi.removeComment(NON_EXISTENT_ID);
+    public void A_removing_of_non_existent_comment_throws_NotFoundException() {
+        assertThatExceptionOfType(NotFoundException.class)
+            .isThrownBy(() -> commentsApi.removeComment(NON_EXISTENT_ID));
     }
 }

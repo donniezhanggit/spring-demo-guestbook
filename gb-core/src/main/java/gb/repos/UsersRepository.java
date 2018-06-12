@@ -1,5 +1,7 @@
 package gb.repos;
 
+import static gb.common.exceptions.Exceptions.notFound;
+
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
@@ -14,4 +16,10 @@ import gb.model.User;
 public interface UsersRepository extends DataRepository<User> {
     Optional<User> findByUserName(@Nonnull String userName);
     <T> Optional<T> findByUserName(@Nonnull String userName, Class<T> type);
+
+
+    default User findByUserNameOrThrow(@Nonnull String userName) {
+        return findByUserName(userName)
+                .orElseThrow(() -> notFound(userName));
+    }
 }

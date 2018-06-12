@@ -38,34 +38,34 @@ public class UsersApiImpl implements UsersApi {
 
     @Override
     public void deactivateUser(@NonNull String userName) {
-        final Optional<User> user = usersRepo.findByUserName(userName);
+        final User user = usersRepo.findByUserNameOrThrow(userName);
 
-        user.ifPresent(User::deactivate);
+        user.deactivate();
     }
 
 
     @Override
     public void activateUser(@NonNull String userName) {
-        final Optional<User> user = usersRepo.findByUserName(userName);
+        final User user = usersRepo.findByUserNameOrThrow(userName);
 
-        user.ifPresent(User::activate);
+        user.activate();
     }
 
 
     @Override
     public void changeName(@NonNull String userName,
             @NonNull @Valid FullNameInput input) {
-        final Optional<User> user = usersRepo.findByUserName(userName);
+        final User user = usersRepo.findByUserNameOrThrow(userName);
         val newName = FullName.of(input);
 
-        user.ifPresent(u -> u.changeName(newName));
+        user.changeName(newName);
     }
 
 
     @Override
     public void deleteName(@NonNull String userName) {
-        final Optional<User> user = usersRepo.findByUserName(userName);
+        final User user = usersRepo.findByUserNameOrThrow(userName);
 
-        user.ifPresent(User::deleteName);
+        user.deleteName();
     }
 }

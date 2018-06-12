@@ -4,8 +4,10 @@ import static gb.testlang.assertions.UserAssertions.assertUserEntryIT;
 import static gb.testlang.fixtures.FullNameFixtures.buildFullName;
 import static gb.testlang.fixtures.FullNameFixtures.buildFullNameInput;
 import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
+import static gb.testlang.fixtures.UsersFixtures.NON_EXISTENT_USERNAME;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.util.Optional;
 
@@ -13,6 +15,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import gb.common.exceptions.NotFoundException;
 import gb.common.it.RecreatePerClassITCase;
 import gb.dto.FullNameInput;
 import gb.dto.UserEntry;
@@ -36,7 +39,7 @@ public class UsersApiTests extends RecreatePerClassITCase {
 
 
     @Test
-    public void A_user_should_be_fetched_by_userName() {
+    public void An_existing_user_should_be_fetched_by_userName() {
         // Arrange.
         final String existingUserName = fixtures
                 .recreateExistingUser()
@@ -48,6 +51,17 @@ public class UsersApiTests extends RecreatePerClassITCase {
         // Assert.
         assertThat(entry.isPresent()).isTrue();
         assertUserEntryIT(entry.get());
+    }
+
+
+    @Test
+    public void Fetching_of_non_existent_user_should_return_empty_optional() {
+        // Act.
+        final Optional<UserEntry> entry =
+                usersApi.getUser(NON_EXISTENT_USERNAME);
+
+        // Assert.
+        assertThat(entry.isPresent()).isFalse();
     }
 
 
@@ -67,6 +81,13 @@ public class UsersApiTests extends RecreatePerClassITCase {
 
 
     @Test
+    public void Deactivating_of_non_existent_user_throws_NotFoundException() {
+        assertThatExceptionOfType(NotFoundException.class)
+            .isThrownBy(() -> usersApi.deactivateUser(NON_EXISTENT_USERNAME));
+    }
+
+
+    @Test
     public void An_inactive_user_should_be_activated() {
         // Arrange.
         final String existingUserName = fixtures
@@ -78,6 +99,13 @@ public class UsersApiTests extends RecreatePerClassITCase {
 
         // Assert.
         assertions.assertUserActive(existingUserName);
+    }
+
+
+    @Test
+    public void Activating_of_non_existent_user_throws_NotFoundException() {
+        assertThatExceptionOfType(NotFoundException.class)
+            .isThrownBy(() -> usersApi.activateUser(NON_EXISTENT_USERNAME));
     }
 
 
@@ -99,6 +127,19 @@ public class UsersApiTests extends RecreatePerClassITCase {
 
 
     @Test
+    public void
+    Changing_fullName_of_non_existent_user_throws_NotFoundException() {
+        // Arrange.
+        final FullNameInput aNewName = buildFullNameInput();
+
+        // Act and assert.
+        assertThatExceptionOfType(NotFoundException.class).isThrownBy(() ->
+            usersApi.changeName(NON_EXISTENT_USERNAME, aNewName)
+        );
+    }
+
+
+    @Test
     public void Ability_to_unset_fullName_of_user() {
         // Arrange.
         final String userWithName = fixtures
@@ -110,5 +151,13 @@ public class UsersApiTests extends RecreatePerClassITCase {
 
         // Assert.
         assertions.assertUserHasNoFullName(userWithName);
+    }
+
+
+    @Test
+    public void
+    Removing_fullName_of_non_existent_user_throws_NotFoundException() {
+        assertThatExceptionOfType(NotFoundException.class)
+            .isThrownBy(() -> usersApi.deleteName(NON_EXISTENT_USERNAME));
     }
 }

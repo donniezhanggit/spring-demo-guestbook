@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
+import gb.common.jackson.StringTrimmer;
 import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +29,10 @@ public class MainConfig {
             @Value("${spring.jackson.serialization.INDENT_OUTPUT:false}")
             final boolean prettyPrint) {
         val mapper = new ObjectMapper();
+
+        // Trim leading/trailing white spaces of string inputs.
+        // We don't want to write tests for this every time.
+        mapper.registerModule(new StringTrimmer());
 
         // Show date/time as ISO8601 by default.
         mapper.registerModule(new JavaTimeModule());
