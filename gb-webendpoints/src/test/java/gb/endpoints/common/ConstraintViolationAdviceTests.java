@@ -1,4 +1,4 @@
-package gb.endpoints;
+package gb.endpoints.common;
 
 import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static lombok.AccessLevel.PRIVATE;
@@ -40,7 +40,7 @@ import lombok.experimental.FieldDefaults;
 @WebMvcTest(ConstraintViolationAdviceTests.TestController.class)
 @WithMockUser(username=EXISTING_USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public class ConstraintViolationAdviceTests extends EndpointITCase {
-    private static final String API_URL = "/messages";
+    private static final String API_URL = "/test/messages";
 
 
     @Test

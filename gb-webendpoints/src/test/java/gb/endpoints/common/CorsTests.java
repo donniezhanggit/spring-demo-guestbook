@@ -1,4 +1,4 @@
-package gb.endpoints;
+package gb.endpoints.common;
 
 import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;

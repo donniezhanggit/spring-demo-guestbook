@@ -1,4 +1,4 @@
-package gb.endpoints;
+package gb.endpoints.common;
 
 import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static org.hamcrest.CoreMatchers.is;

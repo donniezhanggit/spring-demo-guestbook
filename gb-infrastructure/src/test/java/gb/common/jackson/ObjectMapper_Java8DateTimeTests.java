@@ -20,13 +20,13 @@ import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class ObjectMapper_Java8DateTimeTests extends JUnitTestCase {
-    private final static boolean PRETTY_PRINT = false;
-    private final static String LOCAL_DATE = "2018-01-01";
-    private final static String LOCAL_DATE_TIME_WITH_MILLIS =
+    private static final boolean PRETTY_PRINT = false;
+    private static final String LOCAL_DATE = "2018-01-01";
+    private static final String LOCAL_DATE_TIME_WITH_MILLIS =
             "2018-01-01T23:59:59.123";
-    private final static String LOCAL_DATE_TIME_WITHOUT_MILLIS =
+    private static final String LOCAL_DATE_TIME_WITHOUT_MILLIS =
             "2018-01-01T23:59:59";
-    private final static String ZONED_DATE_TIME =
+    private static final String ZONED_DATE_TIME =
             "2018-01-01T00:01:01+05:00";
     private static final String LOCAL_TIME_WITH_MILLIS = "20:30:31.123";
     private static final String LOCAL_TIME_WITHOUT_MILLIS = "20:30:31";

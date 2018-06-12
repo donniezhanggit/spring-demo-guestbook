@@ -2,7 +2,7 @@ package gb.dto;
 
 import static gb.common.FakeData.stringWithLength;
 import static gb.common.ValidationSubstrings.LENGTH_MUST_BE_BETWEEN;
-import static gb.common.ValidationSubstrings.MUST_NOT_BE_NULL;
+import static gb.common.ValidationSubstrings.MUST_NOT_BE_EMPTY;
 import static gb.dto.FullNameInput.FIRST_NAME_FIELD;
 import static gb.dto.FullNameInput.LAST_NAME_FIELD;
 import static gb.model.FullName.FIRST_NAME_MAX_LENGTH;
@@ -136,7 +136,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
         // Act and assert.
         check(input).hasOnlyOneError()
             .forProperty(FIRST_NAME_FIELD)
-            .withMessageContaining(MUST_NOT_BE_NULL);
+            .withMessageContaining(MUST_NOT_BE_EMPTY);
     }
 
 
@@ -149,6 +149,6 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
         // Act and assert.
         check(input).hasOnlyOneError()
             .forProperty(LAST_NAME_FIELD)
-            .withMessageContaining(MUST_NOT_BE_NULL);
+            .withMessageContaining(MUST_NOT_BE_EMPTY);
     }
 }
