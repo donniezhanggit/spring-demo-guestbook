@@ -2,6 +2,8 @@ package gb.model;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 
 import gb.dto.FullNameInput;
@@ -17,7 +19,9 @@ import lombok.experimental.FieldNameConstants;
 @NoArgsConstructor(access=PRIVATE, force=true)
 @FieldNameConstants
 @Embeddable
-public class FullName {
+public class FullName  implements Serializable {
+    private static final long serialVersionUID = 5361206595860713777L;
+
     public static final int FIRST_NAME_MIN_LENGTH = 2;
     public static final int FIRST_NAME_MAX_LENGTH = 60;
     public static final int LAST_NAME_MIN_LENGTH = 2;

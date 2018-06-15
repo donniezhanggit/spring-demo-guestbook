@@ -84,10 +84,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
     // Copy-pasted from {@link NoOpPasswordEncoder}. I know about deprecation.
     // But still want to get plain text password for testing purposes.

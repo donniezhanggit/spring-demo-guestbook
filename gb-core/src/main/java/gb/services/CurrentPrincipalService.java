@@ -22,7 +22,8 @@ public class CurrentPrincipalService {
 
     public Optional<User> getCurrentUser() {
         final Object principal = getCurrentAuth()
-                .get().getPrincipal();
+                .map(Authentication::getPrincipal)
+                .orElse(null);
 
         if(principal instanceof CustomUserDetails) {
             return Optional.of(((CustomUserDetails) principal).getUser());

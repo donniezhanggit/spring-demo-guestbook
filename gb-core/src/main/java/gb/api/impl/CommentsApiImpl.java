@@ -34,19 +34,13 @@ implements CommentsApi {
 
     @Override
     public List<CommentEntry> getComments() {
-        final List<CommentEntry> comments = commentsRepo
-            .findAllByOrderByCreatedAsc(CommentEntry.class);
-
-        return comments;
+        return commentsRepo.findAllByOrderByCreatedAsc(CommentEntry.class);
     }
 
 
     @Override
     public Optional<CommentEntry> getComment(final long id) {
-        final Optional<CommentEntry> entry = commentsRepo
-                .findOneById(id, CommentEntry.class);
-
-        return entry;
+        return commentsRepo.findOneById(id, CommentEntry.class);
     }
 
 

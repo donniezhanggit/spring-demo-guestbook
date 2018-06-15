@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -41,7 +40,7 @@ public class StringTrimmer extends SimpleModule {
             @Override
             public String
             deserialize(final JsonParser p, final DeserializationContext ctxt)
-                    throws IOException, JsonProcessingException {
+                    throws IOException {
                 return StringUtils.trimWhitespace(p.getValueAsString());
             }
         });

@@ -29,8 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String userName)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userName) {
         final Optional<User> user = usersRepository.findByUserName(userName);
 
         if(user.isPresent()) {
@@ -46,13 +45,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
 
-    @SuppressWarnings("serial")
-    private GrantedAuthority grantedAuthorityOf(String role) {
-        return new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return role;
-            }
-        };
+    private static GrantedAuthority grantedAuthorityOf(String role) {
+        return () -> role;
     }
 }
