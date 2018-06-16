@@ -43,7 +43,7 @@ public class UserEntry {
                 .firstName(firstName)
                 .lastName(lastName)
                 .email(user.getEmail())
-                .registeredAt(user.getCreated().toLocalDate())
+                .registeredAt(user.getCreatedAt().toLocalDate())
                 .active(user.isActive())
                 .build();
     }

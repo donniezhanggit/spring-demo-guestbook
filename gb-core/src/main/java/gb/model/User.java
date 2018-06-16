@@ -46,7 +46,7 @@ public class User extends AbstractDomainEntity {
     @NonNull String userName;
     @NonNull String password;
     @NonNull String email;
-    LocalDateTime created = LocalDateTime.now();
+    LocalDateTime createdAt = LocalDateTime.now();
     boolean active = true;
 
     @Setter(value=PUBLIC)
@@ -58,7 +58,7 @@ public class User extends AbstractDomainEntity {
         setUserName(ub.userName);
         setPassword(ub.password);
         setEmail(ub.email);
-        setCreated(ub.created);
+        setCreatedAt(ub.createdAt);
         setActive(ub.active);
         setFullName(ub.fullName);
     }

@@ -7,7 +7,7 @@ public class UserBuilder {
     String userName;
     String password;
     String email;
-    LocalDateTime created = LocalDateTime.now();
+    LocalDateTime createdAt = LocalDateTime.now();
     boolean active = true;
     FullName fullName;
 
@@ -33,8 +33,8 @@ public class UserBuilder {
     }
 
 
-    public UserBuilder created(final LocalDateTime created) {
-        this.created = created;
+    public UserBuilder createdAt(final LocalDateTime createdAt) {
+        this.createdAt = createdAt;
 
         return this;
     }

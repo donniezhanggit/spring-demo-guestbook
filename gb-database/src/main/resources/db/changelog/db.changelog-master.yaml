@@ -147,9 +147,19 @@ databaseChangeLog:
   - changeSet:
       id: 2018-06-16-01
       author: Whitesquall
-      comment: Rename create column of comment to create_at
+      comment: Rename created column of comment to created_at
       changes:
         - renameColumn:
             newColumnName: created_at
             oldColumnName: created
             tableName: comment
+
+  - changeSet:
+      id: 2018-06-16-02
+      author: Whitesquall
+      comment: Rename created column of user to created_at
+      changes:
+        - renameColumn:
+            newColumnName: created_at
+            oldColumnName: created
+            tableName: gbuser

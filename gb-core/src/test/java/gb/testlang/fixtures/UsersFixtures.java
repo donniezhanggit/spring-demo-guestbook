@@ -88,7 +88,7 @@ public class UsersFixtures {
                 .userName(EXISTING_USERNAME)
                 .password(PASSWORD)
                 .email(EMAIL)
-                .created(CREATED)
+                .createdAt(CREATED)
                 .fullName(FIRST_NAME, LAST_NAME)
                 .active(ACTIVE);
     }
