@@ -99,7 +99,7 @@ public class CommentsApiTests extends RecreatePerClassITCase {
 
         // Act.
         final List<LocalDateTime> dates = commentsApi.getComments()
-                .stream().map(CommentEntry::getCreated)
+                .stream().map(CommentEntry::getCreatedAt)
                 .collect(Collectors.toList());
 
         // Assert.

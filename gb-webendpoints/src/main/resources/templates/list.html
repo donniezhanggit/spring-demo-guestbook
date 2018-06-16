@@ -12,7 +12,7 @@
       <div class="comments">
 
         <div class="comment" th:each="c: ${comments}">
-          <div class="date" th:text="${dateFormat.format(c.created)}">
+          <div class="date" th:text="${dateFormat.format(c.createdAt)}">
             2000-01-01 00:00:00
           </div><!-- date -->
           <div class="name" th:text="${c.user?.userName}">name</div>

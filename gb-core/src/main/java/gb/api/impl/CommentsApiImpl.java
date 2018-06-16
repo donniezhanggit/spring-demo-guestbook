@@ -34,7 +34,7 @@ implements CommentsApi {
 
     @Override
     public List<CommentEntry> getComments() {
-        return commentsRepo.findAllByOrderByCreatedAsc(CommentEntry.class);
+        return commentsRepo.findAllByOrderByCreatedAtAsc(CommentEntry.class);
     }
 
 

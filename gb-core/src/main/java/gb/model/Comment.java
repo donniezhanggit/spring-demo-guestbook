@@ -40,7 +40,7 @@ public class Comment extends AbstractDomainEntity {
     public static final int MESSAGE_MAX_LENGTH = 2048;
 
 
-    LocalDateTime created = LocalDateTime.now();
+    LocalDateTime createdAt = LocalDateTime.now();
     String anonName;
 
     @NonNull
@@ -58,7 +58,7 @@ public class Comment extends AbstractDomainEntity {
         throwIfNotProvidedAnonNameAndUserName(cb.anonName, cb.user);
 
         setUserOrAnonName(cb.user, cb.anonName);
-        setCreatedIfNotNull(cb.created);
+        setCreatedAtIfNotNull(cb.createdAt);
         setMessage(cb.message);
     }
 
@@ -77,9 +77,9 @@ public class Comment extends AbstractDomainEntity {
 
 
     protected void
-    setCreatedIfNotNull(@Nullable final LocalDateTime created) {
-        if(created != null) {
-            this.created = created;
+    setCreatedAtIfNotNull(@Nullable final LocalDateTime createdAt) {
+        if(createdAt != null) {
+            this.createdAt = createdAt;
         }
     }
 

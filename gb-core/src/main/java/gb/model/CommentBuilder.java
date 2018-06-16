@@ -1,18 +1,19 @@
 package gb.model;
 
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 
 public class CommentBuilder {
-    LocalDateTime created;
+    LocalDateTime createdAt;
     String anonName;
     String message;
     User user;
 
 
-    public CommentBuilder created(LocalDateTime created) {
-        this.created = created;
+    public CommentBuilder createdAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
         return this;
     }
 

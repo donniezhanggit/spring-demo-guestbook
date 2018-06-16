@@ -20,7 +20,7 @@ import lombok.experimental.Wither;
 public class CommentEntry {
     Long id;
     Short version;
-    LocalDateTime created;
+    LocalDateTime createdAt;
     String anonName;
     String message;
     SimpleUserEntry user;
@@ -33,7 +33,7 @@ public class CommentEntry {
         return new CommentEntry()
             .withId(comment.getId())
             .withVersion(comment.getVersion())
-            .withCreated(comment.getCreated())
+            .withCreatedAt(comment.getCreatedAt())
             .withMessage(comment.getMessage())
             .withAnonName(comment.getAnonName())
             .withUser(userEntry);

@@ -58,7 +58,7 @@ public class CommentAssertions {
         assertThat(actual).isNotNull();
         assertThat(actual.getId()).isNotNull();
         assertThat(actual.getVersion()).isNotNull();
-        assertThat(actual.getCreated()).isNotNull();
+        assertThat(actual.getCreatedAt()).isNotNull();
         assertThat(actual.getMessage()).isEqualTo(MESSAGE);
         assertThat(actual.getAnonName()).isEqualTo(ANON_NAME);
         assertThat(actual.getUser()).isNull();

@@ -54,13 +54,13 @@ public class CommentTests extends JUnitTestCase {
     @Test
     public void Comment_should_fill_date_created_when_builder_has_no_value() {
         // Arrange.
-        final CommentBuilder builder = filledCommentBuilder().created(null);
+        final CommentBuilder builder = filledCommentBuilder().createdAt(null);
 
         // Act.
         final Comment newComment = new Comment(builder);
 
         // Assert.
-        assertThat(newComment.getCreated())
+        assertThat(newComment.getCreatedAt())
             .isCloseTo(LocalDateTime.now(), byLessThan(1, SECONDS));
     }
 }

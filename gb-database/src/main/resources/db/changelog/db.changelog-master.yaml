@@ -143,3 +143,13 @@ databaseChangeLog:
             newColumnName: user_name
             oldColumnName: username
             tableName: gbuser
+
+  - changeSet:
+      id: 2018-06-16-01
+      author: Whitesquall
+      comment: Rename create column of comment to create_at
+      changes:
+        - renameColumn:
+            newColumnName: created_at
+            oldColumnName: created
+            tableName: comment
