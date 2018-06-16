@@ -8,7 +8,7 @@ import lombok.NonNull;
 
 
 @NoArgsConstructor(access=NONE)
-public final class Guard {
+public final class Guard { // NOSONAR
     public static void that(final boolean assertion,
             @NonNull final String code,
             @NonNull final String message) {

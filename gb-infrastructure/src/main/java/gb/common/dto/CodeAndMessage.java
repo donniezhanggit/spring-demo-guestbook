@@ -13,6 +13,9 @@ import lombok.Value;
 @Value
 @AllArgsConstructor(access=NONE)
 public class CodeAndMessage {
+    private static final String BAD_REQUEST_CODE = "BAD_REQUEST";
+
+
     String code;
     String message;
 
@@ -30,7 +33,7 @@ public class CodeAndMessage {
 
 
     public CodeAndMessage(@NonNull final IllegalArgumentException e) {
-        code = "BAD_REQUEST";
+        code = BAD_REQUEST_CODE;
         message = e.getMessage();
     }
 }

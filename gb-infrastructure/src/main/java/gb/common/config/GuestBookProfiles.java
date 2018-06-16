@@ -1,7 +1,12 @@
 package gb.common.config;
 
+import static lombok.AccessLevel.NONE;
 
-public class GuestBookProfiles {
+import lombok.NoArgsConstructor;
+
+
+@NoArgsConstructor(access=NONE)
+public final class GuestBookProfiles { // NOSONAR
     public static final String DEVELOPMENT = "dev";
     public static final String PRODUCTION = "prod";
     public static final String PG_INTEGRATION_TESTING = "pgit";

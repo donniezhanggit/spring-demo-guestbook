@@ -2,6 +2,7 @@ package gb.common.exceptions;
 
 import javax.annotation.Nullable;
 
+
 public class NotFoundException extends RuntimeException {
     private static final long serialVersionUID = 7005398038018870026L;
 

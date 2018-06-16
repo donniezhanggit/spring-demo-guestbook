@@ -2,6 +2,7 @@ package gb.api;
 
 import java.util.Optional;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.cache.annotation.CacheConfig;
@@ -9,6 +10,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import gb.common.exceptions.NotFoundException;
 import gb.dto.FullNameInput;
 import gb.dto.UserEntry;
 import lombok.NonNull;
@@ -41,6 +43,7 @@ public interface UsersApi {
      *
      * @category command
      * @param userName a unique user name of given user.
+     * @throws NotFoundException if user by userName not found.
      */
     @CacheEvict(key="{#userName}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -52,6 +55,7 @@ public interface UsersApi {
      *
      * @category command
      * @param userName a unique user name of given user.
+     * @throws NotFoundException if user by userName not found.
      */
     @CacheEvict(key="{#userName}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -65,6 +69,7 @@ public interface UsersApi {
      * @param userName a unique user name of given user.
      * @param input new first name and last name.
      * @throws ConstraintViolationException if input is invalid.
+     * @throws NotFoundException if user by userName not found.
      */
     @CacheEvict(key="{#userName}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -76,6 +81,7 @@ public interface UsersApi {
      *
      * @category command
      * @param userName a unique user name of given user.
+     * @throws NotFoundException if user by userName not found.
      */
     @CacheEvict(key="{#userName}")
     @PreAuthorize("hasRole('ADMIN')")

@@ -1,6 +1,5 @@
 package gb.model;
 
-import static javax.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.NONE;
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
@@ -49,7 +48,7 @@ public class Comment extends AbstractDomainEntity {
     String message;
 
     @Getter(value=NONE)
-    @ManyToOne(fetch=LAZY, optional=true, targetEntity=User.class)
+    @ManyToOne(optional=true)
     @JoinColumn(name="gbuser_id")
     User user;
 
@@ -58,17 +57,9 @@ public class Comment extends AbstractDomainEntity {
     Comment(@NonNull final CommentBuilder cb) {
         throwIfNotProvidedAnonNameAndUserName(cb.anonName, cb.user);
 
+        setUserOrAnonName(cb.user, cb.anonName);
+        setCreatedIfNotNull(cb.created);
         setMessage(cb.message);
-
-        if(cb.created != null) {
-            created = cb.created;
-        }
-
-        if(cb.user != null) {
-            user = cb.user;
-        } else {
-            anonName = cb.anonName;
-        }
     }
 
 
@@ -82,5 +73,24 @@ public class Comment extends AbstractDomainEntity {
             @Nullable final User user) {
         Assert.isTrue(anonName != null || user != null,
                 "Can not create new comment without commenter's name");
+    }
+
+
+    protected void
+    setCreatedIfNotNull(@Nullable final LocalDateTime created) {
+        if(created != null) {
+            this.created = created;
+        }
+    }
+
+
+    protected void setUserOrAnonName(
+            @Nullable final User user,
+            @Nullable final String anonName) {
+        if(user != null) {
+            this.user = user;
+        } else {
+            this.anonName = anonName;
+        }
     }
 }

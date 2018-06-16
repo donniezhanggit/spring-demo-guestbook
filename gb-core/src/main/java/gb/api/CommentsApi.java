@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.cache.annotation.CacheConfig;
@@ -11,6 +12,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import gb.common.exceptions.NotFoundException;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 
@@ -58,11 +60,11 @@ public interface CommentsApi {
 
 
     /**
-     * Idempotent removing of comment by ID. If comment with ID does not exist
-     * just return silently.
+     * Idempotent removing of comment by ID.
      *
      * @category command
      * @param id an identifier of comment to remove.
+     * @throws NotFoundException if comment by id not found
      */
     @PreAuthorize("hasRole('ADMIN')")
     @CacheEvict(allEntries=true)

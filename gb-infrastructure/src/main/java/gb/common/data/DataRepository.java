@@ -20,7 +20,7 @@ import gb.common.exceptions.NotFoundException;
  * Interface for generic CRUD operations on a repository
  * for a specific type.
  * For all available methods visit
- * https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/support/SimpleJpaRepository.html
+ * https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/support/SimpleJpaRepository.html NOSONAR
  *
  */
 @NoRepositoryBean

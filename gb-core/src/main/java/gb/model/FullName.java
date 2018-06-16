@@ -19,7 +19,7 @@ import lombok.experimental.FieldNameConstants;
 @NoArgsConstructor(access=PRIVATE, force=true)
 @FieldNameConstants
 @Embeddable
-public class FullName  implements Serializable {
+public class FullName implements Serializable {
     private static final long serialVersionUID = 5361206595860713777L;
 
     public static final int FIRST_NAME_MIN_LENGTH = 2;
