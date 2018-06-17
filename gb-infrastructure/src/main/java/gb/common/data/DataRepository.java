@@ -24,7 +24,7 @@ import gb.common.exceptions.NotFoundException;
  *
  */
 @NoRepositoryBean
-public interface DataRepository<T, ID> extends Repository<T, ID> {
+public interface DataRepository<T, ID> extends Repository<T, ID> { // NOSONAR
     /**
      * Saves a given entity. Use the returned instance for further
      * operations as the save operation might have changed the entity

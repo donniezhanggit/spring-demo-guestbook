@@ -4,11 +4,11 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.time.format.DateTimeFormatter;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,8 +52,8 @@ public class MainController {
     public ModelAndView addComment(
             @ModelAttribute("commentForm")
             @Valid final CommentInput commentForm,
-            final BindingResult bindingResult,
-            final HttpServletRequest request) {
+            final Errors bindingResult,
+            final ServletRequest request) {
 
         if(bindingResult.hasErrors()) {
             return generateView("list", commentForm);
