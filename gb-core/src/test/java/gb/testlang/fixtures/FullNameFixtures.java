@@ -1,7 +1,6 @@
 package gb.testlang.fixtures;
 
 import gb.dto.FullNameInput;
-import gb.dto.FullNameInputBuilder;
 import gb.model.FullName;
 
 
@@ -10,15 +9,16 @@ public class FullNameFixtures {
     public static final String LAST_NAME = "Dow";
 
 
-    public static FullNameInputBuilder filledFullNameBuilder() {
-        return new FullNameInputBuilder()
+    public static FullNameInput.FullNameInputBuilder
+    filledFullNameInputBuilder() {
+        return FullNameInput.builder()
                 .firstName(FIRST_NAME)
                 .lastName(LAST_NAME);
     }
 
 
     public static FullNameInput buildFullNameInput() {
-        return filledFullNameBuilder().build();
+        return filledFullNameInputBuilder().build();
     }
 
 

@@ -9,11 +9,13 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import lombok.Builder;
 import lombok.Value;
 import lombok.experimental.FieldNameConstants;
 
 
 @Value
+@Builder
 @FieldNameConstants
 public class FullNameInput {
     @NotEmpty

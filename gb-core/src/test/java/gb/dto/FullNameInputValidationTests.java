@@ -9,7 +9,7 @@ import static gb.model.FullName.FIRST_NAME_MAX_LENGTH;
 import static gb.model.FullName.FIRST_NAME_MIN_LENGTH;
 import static gb.model.FullName.LAST_NAME_MAX_LENGTH;
 import static gb.model.FullName.LAST_NAME_MIN_LENGTH;
-import static gb.testlang.fixtures.FullNameFixtures.filledFullNameBuilder;
+import static gb.testlang.fixtures.FullNameFixtures.filledFullNameInputBuilder;
 
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
         // Arrange.
         final String tooLongFirstName =
                 stringWithLength(FIRST_NAME_MAX_LENGTH+1);
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .firstName(tooLongFirstName).build();
 
         // Act and assert.
@@ -36,7 +36,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
     public void When_firstName_is_max_expect_no_validation_errors() {
         // Arrange.
         final String longFirstName = stringWithLength(FIRST_NAME_MAX_LENGTH);
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .firstName(longFirstName).build();
 
         // Act and assert.
@@ -49,7 +49,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
         // Arrange.
         final String tooLongLastName =
                 stringWithLength(LAST_NAME_MAX_LENGTH+1);
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .lastName(tooLongLastName).build();
 
         // Act and assert.
@@ -63,7 +63,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
     public void When_lastName_is_max_expect_no_validation_errors() {
         // Arrange.
         final String longLastName = stringWithLength(LAST_NAME_MAX_LENGTH);
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .lastName(longLastName).build();
 
         // Act and assert.
@@ -76,7 +76,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
         // Arrange.
         final String tooShortFirstName =
                 stringWithLength(FIRST_NAME_MIN_LENGTH-1);
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .firstName(tooShortFirstName).build();
 
         // Act and assert.
@@ -91,7 +91,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
         // Arrange.
         final String shortFirstName =
                 stringWithLength(FIRST_NAME_MIN_LENGTH);
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .firstName(shortFirstName).build();
 
         // Act and assert.
@@ -104,7 +104,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
         // Arrange.
         final String tooShortLastName =
                 stringWithLength(LAST_NAME_MIN_LENGTH-1);
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .lastName(tooShortLastName).build();
 
         // Act and assert.
@@ -119,7 +119,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
         // Arrange.
         final String shortLastName =
                 stringWithLength(LAST_NAME_MIN_LENGTH);
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .lastName(shortLastName).build();
 
         // Act and assert.
@@ -130,7 +130,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
     @Test
     public void When_firstName_is_null_expect_validation_error() {
         // Arrange.
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .firstName(null).build();
 
         // Act and assert.
@@ -143,7 +143,7 @@ public class FullNameInputValidationTests extends BeanValidationTestCase {
     @Test
     public void When_lastName_is_null_expect_validation_error() {
         // Arrange.
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .lastName(null).build();
 
         // Act and assert.

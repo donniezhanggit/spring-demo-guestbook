@@ -30,7 +30,6 @@ import gb.common.it.EndpointITCase;
 import gb.controllers.MainController;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
-import gb.dto.CommentInputBuilder;
 import lombok.experimental.FieldDefaults;
 
 
@@ -85,7 +84,7 @@ public class MainControllerTests extends EndpointITCase {
 
     @Test
     public void Invalid_form_should_return_main_page() throws Exception {
-        final CommentInput invalidInput = new CommentInputBuilder()
+        final CommentInput invalidInput = CommentInput.builder()
                 .anonName("").message("").build();
         final String params = payload(invalidInput);
 

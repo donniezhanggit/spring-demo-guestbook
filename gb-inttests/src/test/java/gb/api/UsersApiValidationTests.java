@@ -3,7 +3,7 @@ package gb.api;
 import static gb.common.FakeData.stringWithLength;
 import static gb.model.FullName.FIRST_NAME_MAX_LENGTH;
 import static gb.model.FullName.LAST_NAME_MAX_LENGTH;
-import static gb.testlang.fixtures.FullNameFixtures.filledFullNameBuilder;
+import static gb.testlang.fixtures.FullNameFixtures.filledFullNameInputBuilder;
 import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -33,7 +33,7 @@ public class UsersApiValidationTests extends RecreatePerClassITCase {
         final String userName = fixtures.recreateExistingUser().getUserName();
         final String tooLongFirstName =
                 stringWithLength(FIRST_NAME_MAX_LENGTH+1);
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .firstName(tooLongFirstName).build();
 
         // Act and assert.
@@ -47,7 +47,7 @@ public class UsersApiValidationTests extends RecreatePerClassITCase {
         final String userName = fixtures.recreateExistingUser().getUserName();
         final String tooLongFirstName =
                 stringWithLength(FIRST_NAME_MAX_LENGTH);
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .firstName(tooLongFirstName).build();
 
         // Act. Must not throw.
@@ -61,7 +61,7 @@ public class UsersApiValidationTests extends RecreatePerClassITCase {
         final String userName = fixtures.recreateExistingUser().getUserName();
         final String tooLongLastName =
                 stringWithLength(LAST_NAME_MAX_LENGTH+1);
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .lastName(tooLongLastName).build();
 
         // Act and assert.
@@ -75,7 +75,7 @@ public class UsersApiValidationTests extends RecreatePerClassITCase {
         final String userName = fixtures.recreateExistingUser().getUserName();
         final String tooLongLastName =
                 stringWithLength(LAST_NAME_MAX_LENGTH);
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .firstName(tooLongLastName).build();
 
         // Act. Must not throw.
@@ -87,7 +87,7 @@ public class UsersApiValidationTests extends RecreatePerClassITCase {
     public void When_firstName_is_null_expect_ValidationException() {
         // Arrange.
         final String userName = fixtures.recreateExistingUser().getUserName();
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .firstName(null).build();
 
         // Act and assert.
@@ -99,7 +99,7 @@ public class UsersApiValidationTests extends RecreatePerClassITCase {
     public void When_lastName_is_null_expect_ValidationException() {
         // Arrange.
         final String userName = fixtures.recreateExistingUser().getUserName();
-        final FullNameInput input = filledFullNameBuilder()
+        final FullNameInput input = filledFullNameInputBuilder()
                 .lastName(null).build();
 
         // Act and assert.

@@ -14,7 +14,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import gb.common.ft.CucumberFTCase;
-import gb.dto.CommentInputBuilder;
+import gb.dto.CommentInput;
 import lombok.val;
 
 
@@ -24,7 +24,7 @@ public class CommentsSteps extends CucumberFTCase {
             "http://localhost:8080/api/comments/";
 
 
-    private CommentInputBuilder commentInputBuilder;
+    private CommentInput.CommentInputBuilder commentInputBuilder;
     private ResultActions lastAction;
 
 
@@ -36,7 +36,7 @@ public class CommentsSteps extends CucumberFTCase {
 
     @Given("a comment input")
     public void a_comment_input() {
-        commentInputBuilder = new CommentInputBuilder();
+        commentInputBuilder = CommentInput.builder();
     }
 
 

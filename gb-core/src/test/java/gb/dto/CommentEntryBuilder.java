@@ -67,6 +67,7 @@ public class CommentEntryBuilder {
     }
 
 
+    // TODO: revise this hackish code.
     private SimpleUserEntry buildSimpleUserEntry() {
         if(userId == null && userName == null) {
             return null;

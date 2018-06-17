@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import gb.dto.CommentEntry;
 import gb.dto.CommentEntryBuilder;
 import gb.dto.CommentInput;
-import gb.dto.CommentInputBuilder;
 import gb.model.Comment;
 import gb.model.CommentBuilder;
 import gb.model.User;
@@ -93,7 +92,9 @@ public class CommentsFixtures {
 
 
     public static CommentInput buildCommentInputWithMessage() {
-        return new CommentInputBuilder().message(MESSAGE).build();
+        return CommentInput.builder()
+                .message(MESSAGE)
+                .build();
     }
 
 
@@ -102,8 +103,11 @@ public class CommentsFixtures {
     }
 
 
-    public static CommentInputBuilder filledCommentInputBuilder() {
-        return new CommentInputBuilder().anonName(ANON_NAME).message(MESSAGE);
+    public static
+    CommentInput.CommentInputBuilder filledCommentInputBuilder() {
+        return CommentInput.builder()
+                .anonName(ANON_NAME)
+                .message(MESSAGE);
     }
 
 
