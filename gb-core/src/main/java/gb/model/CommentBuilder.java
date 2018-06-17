@@ -2,7 +2,6 @@ package gb.model;
 
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 
 public class CommentBuilder {
@@ -32,12 +31,6 @@ public class CommentBuilder {
 
     public CommentBuilder user(User user) {
         this.user = user;
-        return this;
-    }
-
-
-    public CommentBuilder user(Optional<User> user) {
-        this.user = user.orElse(null);
         return this;
     }
 

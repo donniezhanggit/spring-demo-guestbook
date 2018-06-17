@@ -17,9 +17,9 @@ import lombok.experimental.FieldNameConstants;
 
 
 @Value
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access=PRIVATE, force=true)
-@Builder
 @FieldNameConstants
 public class UserEntry {
     Long id;

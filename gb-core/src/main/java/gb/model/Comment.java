@@ -52,7 +52,6 @@ public class Comment extends AbstractDomainEntity {
     @JoinColumn(name="gbuser_id")
     User user;
 
-
     @PackagePrivate
     Comment(@NonNull final CommentBuilder cb) {
         throwIfNotProvidedAnonNameAndUserName(cb.anonName, cb.user);
@@ -92,5 +91,10 @@ public class Comment extends AbstractDomainEntity {
         } else {
             this.anonName = anonName;
         }
+    }
+
+
+    public static CommentBuilder builder() {
+        return new CommentBuilder();
     }
 }

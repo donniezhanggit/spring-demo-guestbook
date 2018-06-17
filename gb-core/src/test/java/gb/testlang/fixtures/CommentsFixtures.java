@@ -7,7 +7,6 @@ import static lombok.AccessLevel.PRIVATE;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -134,7 +133,7 @@ public class CommentsFixtures {
 
 
     public static Comment buildAnonComment() {
-        return filledCommentBuilder().user(Optional.empty()).build();
+        return filledCommentBuilder().user(null).build();
     }
 
 

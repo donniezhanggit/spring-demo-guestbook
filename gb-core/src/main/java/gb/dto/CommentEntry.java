@@ -7,14 +7,14 @@ import java.time.LocalDateTime;
 
 import gb.model.Comment;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;
-import lombok.experimental.Wither;
 
 
 @Value
-@Wither(value=PRIVATE)
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access=PRIVATE, force=true)
 public class CommentEntry {
@@ -30,12 +30,13 @@ public class CommentEntry {
         SimpleUserEntry userEntry = comment.getUser()
                 .map(SimpleUserEntry::from).orElse(null);
 
-        return new CommentEntry()
-            .withId(comment.getId())
-            .withVersion(comment.getVersion())
-            .withCreatedAt(comment.getCreatedAt())
-            .withMessage(comment.getMessage())
-            .withAnonName(comment.getAnonName())
-            .withUser(userEntry);
+        return CommentEntry.builder()
+            .id(comment.getId())
+            .version(comment.getVersion())
+            .createdAt(comment.getCreatedAt())
+            .message(comment.getMessage())
+            .anonName(comment.getAnonName())
+            .user(userEntry)
+            .build();
     }
 }

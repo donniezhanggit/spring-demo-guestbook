@@ -10,7 +10,6 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import static org.assertj.core.api.Assertions.byLessThan;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import org.junit.Test;
 
@@ -29,7 +28,7 @@ public class CommentTests extends JUnitTestCase {
     public void No_anonName_and_no_username_throws_IllegalArgumentException() {
         // Arrange.
         final CommentBuilder builder = filledCommentBuilder()
-                .anonName(null).user(Optional.empty());
+                .anonName(null).user(null);
 
         // Act and assert.
         assertThatIllegalArgumentException()
