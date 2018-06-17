@@ -42,7 +42,7 @@ public class NotFoundAdviceTests extends EndpointITCase {
     public static class TestController {
         @DeleteMapping("/{id}")
         @ResponseStatus(NO_CONTENT)
-        public void createComment(@PathVariable long id) {
+        public void deleteMessage(@PathVariable long id) {
             throw notFound(id);
         }
     }
