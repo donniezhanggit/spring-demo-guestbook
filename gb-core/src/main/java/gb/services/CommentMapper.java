@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import gb.dto.CommentInput;
 import gb.model.Comment;
+import gb.model.User;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
@@ -22,7 +23,12 @@ public class CommentMapper {
         return Comment.builder()
             .anonName(input.getAnonName())
             .message(input.getMessage())
-            .user(currentPrincipalService.getCurrentUser().orElse(null))
+            .user(getCurrentUserIfPresent())
             .build();
+    }
+
+
+    private User getCurrentUserIfPresent() {
+        return currentPrincipalService.getCurrentUser().orElse(null);
     }
 }
