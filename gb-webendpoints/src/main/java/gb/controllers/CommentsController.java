@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import gb.api.CommentsApi;
-import gb.common.endpoint.BaseController;
+import gb.common.endpoint.ResponseUtils;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import io.swagger.annotations.ApiOperation;
@@ -32,7 +32,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 @RestController
 @RequestMapping("/api/comments")
-public class CommentsController extends BaseController {
+public class CommentsController {
     @NonNull CommentsApi commentsApi;
 
 
@@ -50,7 +50,7 @@ public class CommentsController extends BaseController {
     getComment(@PathVariable final long id) {
         final Optional<CommentEntry> entry = commentsApi.getComment(id);
 
-        return responseFrom(entry);
+        return ResponseUtils.wrapOrNotFound(entry);
     }
 
 

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import gb.api.UsersApi;
-import gb.common.endpoint.BaseController;
+import gb.common.endpoint.ResponseUtils;
 import gb.dto.FullNameInput;
 import gb.dto.UserEntry;
 import lombok.AllArgsConstructor;
@@ -29,7 +29,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 @RestController
 @RequestMapping("/api/users")
-public class UsersController extends BaseController {
+public class UsersController {
     @NonNull UsersApi usersApi;
 
 
@@ -39,7 +39,7 @@ public class UsersController extends BaseController {
     getUser(@PathVariable final String userName) {
         final Optional<UserEntry> entry = usersApi.getUser(userName);
 
-        return responseFrom(entry);
+        return ResponseUtils.wrapOrNotFound(entry);
     }
 
 
