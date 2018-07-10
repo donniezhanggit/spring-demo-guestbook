@@ -12,7 +12,6 @@ import javax.annotation.Nullable;
 import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,22 +22,12 @@ import gb.common.it.EndpointITCase;
 import lombok.val;
 
 
-@WebMvcTest(IllegalArgumentAdviceTests.TestController.class)
+@WebMvcTest(InvalidArgumentAdviceTests.TestController.class)
 @WithMockUser(username=EXISTING_USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
-public class IllegalArgumentAdviceTests extends EndpointITCase {
-    private static final String ILLEGAL_ARGUMENT_URL =
-            "/test/IllegalArgument/messages";
+public class InvalidArgumentAdviceTests extends EndpointITCase {
     private static final String INVALID_ARGUMENT_URL =
             "/test/InvalidArgument/messages";
     private static final String MESSAGE = "message must not be null or empty";
-
-
-    @Test
-    public void IllegalArgumentException_should_convert_to_400_status()
-            throws Exception {
-        mockMvc.perform(get(ILLEGAL_ARGUMENT_URL))
-            .andExpect(status().isBadRequest());
-    }
 
 
     @Test
@@ -46,20 +35,6 @@ public class IllegalArgumentAdviceTests extends EndpointITCase {
             throws Exception {
         mockMvc.perform(get(INVALID_ARGUMENT_URL))
             .andExpect(status().isBadRequest());
-    }
-
-
-    @Test
-    public void IllegalArgumentException_should_map_to_JSON()
-            throws Exception {
-        // Arrange.
-        val code = "BAD_REQUEST";
-        final String expected = buildExpectedJsonError(code, MESSAGE);
-
-        // Act and assert.
-        mockMvc.perform(get(ILLEGAL_ARGUMENT_URL))
-            .andExpect(content().contentType(APPLICATION_JSON_UTF8))
-            .andExpect(content().string(is(expected)));
     }
 
 
@@ -90,12 +65,6 @@ public class IllegalArgumentAdviceTests extends EndpointITCase {
 
     @RestController
     public static class TestController {
-        @GetMapping(ILLEGAL_ARGUMENT_URL)
-        public void throwIllegalArgumentException() {
-            Assert.isTrue(false, MESSAGE);
-        }
-
-
         @GetMapping(INVALID_ARGUMENT_URL)
         public void throwInvalidArgumentException() {
             Guard.that(false, "BLANK_MESSAGE", MESSAGE);

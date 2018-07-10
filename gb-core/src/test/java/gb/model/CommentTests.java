@@ -5,7 +5,7 @@ import static gb.testlang.fixtures.CommentsFixtures.filledCommentBuilder;
 import static gb.testlang.fixtures.UsersFixtures.stubUser;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import static org.assertj.core.api.Assertions.byLessThan;
 
@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
+import gb.common.exceptions.InvalidArgumentException;
 
 
 public class CommentTests extends JUnitTestCase {
@@ -25,13 +26,13 @@ public class CommentTests extends JUnitTestCase {
 
 
     @Test
-    public void No_anonName_and_no_username_throws_IllegalArgumentException() {
+    public void No_anonName_and_no_username_throws_InvalidArgumentException() {
         // Arrange.
         final CommentBuilder builder = filledCommentBuilder()
                 .anonName(null).user(null);
 
         // Act and assert.
-        assertThatIllegalArgumentException()
+        assertThatExceptionOfType(InvalidArgumentException.class)
             .isThrownBy(() -> new Comment(builder));
     }
 

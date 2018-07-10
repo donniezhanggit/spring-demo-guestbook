@@ -13,9 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Immutable;
-import org.springframework.util.Assert;
 
 import gb.common.domain.AbstractDomainEntity;
+import gb.common.guard.Guard;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -70,8 +70,9 @@ public class Comment extends AbstractDomainEntity {
     private static void throwIfNotProvidedAnonNameAndUserName(
             @Nullable final String anonName,
             @Nullable final User user) {
-        Assert.isTrue(anonName != null || user != null,
-                "Can not create new comment without commenter's name");
+        Guard.that(anonName != null || user != null,
+                "EMPTY_AUTHOR",
+                "Can not create new comment without author's name");
     }
 
 

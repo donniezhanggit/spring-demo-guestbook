@@ -13,14 +13,7 @@ import lombok.NonNull;
 
 
 @ControllerAdvice
-public class IllegalArgumentAdvice {
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<CodeAndMessage>
-    notValid(@NonNull final IllegalArgumentException e) {
-        return status(BAD_REQUEST).body(new CodeAndMessage(e));
-    }
-
-
+public class InvalidArgumentAdvice {
     @ExceptionHandler(InvalidArgumentException.class)
     public ResponseEntity<CodeAndMessage>
     notValid(@NonNull final InvalidArgumentException e) {

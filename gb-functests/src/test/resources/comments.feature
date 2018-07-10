@@ -31,8 +31,8 @@ Feature: Comments
         And message is 'Hack this world!'
         When I submit the comment input
         Then response has status BAD_REQUEST
-        And response body contains 'BAD_REQUEST'
-        And response body contains 'Can not create new comment without commenter\'s name'
+        And response body contains 'EMPTY_AUTHOR'
+        And response body contains 'Can not create new comment without author\'s name'
 
     Scenario: Submit a new comment with empty message
         Given a comment input

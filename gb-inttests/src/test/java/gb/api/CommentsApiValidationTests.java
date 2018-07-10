@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import gb.common.exceptions.InvalidArgumentException;
 import gb.common.it.RecreatePerClassITCase;
 import gb.dto.CommentInput;
 import gb.testlang.fixtures.UsersFixtures;
@@ -80,7 +81,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
 
 
     @Test
-    public void When_name_is_null_expect_IllegalArgumentException() {
+    public void When_name_is_null_expect_InvalidArgumentException() {
         // Arrange.
         usersFixtures.recreateExistingUser();
 
@@ -94,7 +95,7 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
         // TODO: Does not exactly right. Should create a comment, because
         // current user is authenticated, but still thinking how to setup
         // security context in base class of integration tests.
-        assertThat(throwable).isInstanceOf(IllegalArgumentException.class);
+        assertThat(throwable).isInstanceOf(InvalidArgumentException.class);
     }
 
 
