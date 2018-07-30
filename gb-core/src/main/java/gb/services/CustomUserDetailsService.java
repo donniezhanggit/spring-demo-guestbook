@@ -2,10 +2,9 @@ package gb.services;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import java.util.Arrays;
 import java.util.Optional;
 
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,19 +32,13 @@ public class CustomUserDetailsService implements UserDetailsService {
         final Optional<User> user = usersRepository.findByUserName(userName);
 
         if(user.isPresent()) {
-            return new CustomUserDetails(user.get(), Arrays.asList(
-                grantedAuthorityOf("ROLE_USER"),
-                grantedAuthorityOf("ROLE_ADMIN"),
-                grantedAuthorityOf("ROLE_ACTUATOR")
-            ));
+            return new CustomUserDetails(user.get(),
+                    AuthorityUtils.createAuthorityList(
+                        "ROLE_USER", "ROLE_ADMIN", "ROLE_ACTUATOR"
+                    ));
         }
 
         throw new UsernameNotFoundException(
                 "Can not find user by userName: " + userName);
-    }
-
-
-    private static GrantedAuthority grantedAuthorityOf(String role) {
-        return () -> role;
     }
 }
