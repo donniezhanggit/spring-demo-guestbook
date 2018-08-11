@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import gb.model.FullName;
 import lombok.Builder;
 import lombok.Value;
 import lombok.experimental.FieldNameConstants;
@@ -25,4 +26,9 @@ public class FullNameInput {
     @NotEmpty
     @Length(min=LAST_NAME_MIN_LENGTH, max=LAST_NAME_MAX_LENGTH)
     String lastName;
+
+
+    public FullName toFullName() {
+        return new FullName(firstName, lastName);
+    }
 }

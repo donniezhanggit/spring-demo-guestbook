@@ -1,5 +1,6 @@
 package gb.model;
 
+import static javax.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.NONE;
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
@@ -48,7 +49,7 @@ public class Comment extends AbstractDomainEntity {
     String message;
 
     @Getter(value=NONE)
-    @ManyToOne(optional=true)
+    @ManyToOne(fetch=LAZY, optional=true)
     @JoinColumn(name="gbuser_id")
     User user;
 

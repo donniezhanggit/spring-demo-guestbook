@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 
-import gb.dto.FullNameInput;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -34,10 +33,5 @@ public class FullName implements Serializable {
 
     public FullName(final FullName other) {
         this(other.getFirstName(), other.getLastName());
-    }
-
-
-    public static final FullName of(final FullNameInput input) {
-        return new FullName(input.getFirstName(), input.getLastName());
     }
 }

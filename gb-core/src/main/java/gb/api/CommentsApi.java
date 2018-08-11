@@ -11,6 +11,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 
 import gb.common.exceptions.NotFoundException;
 import gb.dto.CommentEntry;
@@ -23,6 +24,7 @@ import gb.dto.CommentInput;
  * @author whitesquall
  *
  */
+@Validated
 @CacheConfig(cacheNames="comments")
 public interface CommentsApi {
     /**

@@ -12,7 +12,6 @@ import gb.api.UsersApi;
 import gb.common.annotations.Api;
 import gb.dto.FullNameInput;
 import gb.dto.UserEntry;
-import gb.model.FullName;
 import gb.model.User;
 import gb.repos.UsersRepository;
 import lombok.AllArgsConstructor;
@@ -56,7 +55,7 @@ public class UsersApiImpl implements UsersApi {
     public void changeName(@NonNull String userName,
             @NonNull @Valid FullNameInput input) {
         final User user = usersRepo.findByUserNameOrThrow(userName);
-        val newName = FullName.of(input);
+        val newName = input.toFullName();
 
         user.changeName(newName);
     }

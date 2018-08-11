@@ -10,7 +10,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 
 /**
@@ -26,7 +25,6 @@ import org.springframework.validation.annotation.Validated;
 @Retention(RUNTIME)
 @Target({ TYPE, ANNOTATION_TYPE })
 @Service
-@Validated
 public @interface Api {
 
 }

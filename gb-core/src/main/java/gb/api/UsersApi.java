@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 
 import gb.common.exceptions.NotFoundException;
 import gb.dto.FullNameInput;
@@ -20,8 +21,8 @@ import lombok.NonNull;
  * Public front service of users.
  *
  * @author whitesquall
- *
  */
+@Validated
 @CacheConfig(cacheNames="users")
 public interface UsersApi {
     /**
