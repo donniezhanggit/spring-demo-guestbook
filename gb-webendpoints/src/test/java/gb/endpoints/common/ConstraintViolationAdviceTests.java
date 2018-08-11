@@ -2,15 +2,13 @@ package gb.endpoints.common;
 
 import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static lombok.AccessLevel.PRIVATE;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Arrays;
-import java.util.Map;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -26,8 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.common.collect.ImmutableMap;
-
 import gb.common.it.EndpointITCase;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,6 +37,10 @@ import lombok.experimental.FieldDefaults;
 @WithMockUser(username=EXISTING_USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public class ConstraintViolationAdviceTests extends EndpointITCase {
     private static final String API_URL = "/test/messages";
+    private static final String CODE_PATH = "$.errors[0].code";
+    private static final String CODE_VALUE = "createComment.input.message";
+    private static final String MESSAGE_PATH = "$.errors[0].message";
+    private static final String MESSAGE_VALUE = "must not be null";
 
 
     @Test
@@ -64,24 +64,14 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
         // Arrange.
         val invalidInput = new TestInput(null);
         final String invalidInputJson = jsonify(invalidInput);
-        final String expected = buildExpectedValidationError();
 
         // Act and assert.
         mockMvc.perform(post(API_URL)
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(invalidInputJson))
-            .andExpect(content().contentType(APPLICATION_JSON_UTF8))
-            .andExpect(content().string(is(expected)));
-    }
-
-
-    private String buildExpectedValidationError() {
-        final Map<String, String> error = ImmutableMap.of(
-                "code", "createComment.input.message",
-                "message", "must not be null"
-        );
-
-        return jsonify(ImmutableMap.of("errors", Arrays.asList(error)));
+                .andExpect(content().contentType(APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath(CODE_PATH, is(CODE_VALUE)))
+                .andExpect(jsonPath(MESSAGE_PATH, is(MESSAGE_VALUE)));
     }
 
 
