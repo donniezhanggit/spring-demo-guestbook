@@ -64,7 +64,7 @@ public class CommentsController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(NO_CONTENT)
-    @ApiOperation(value="Remove an existing comment by ID", 
+    @ApiOperation(value="Remove an existing comment by ID",
         nickname="removeComment")
     public void removeComment(@PathVariable final long id) {
         commentsApi.removeComment(id);

@@ -20,6 +20,8 @@ public class CurrentPrincipalService {
     }
 
 
+    // TODO: add another method which will throw an exception that current
+    // user can not be identified and we should return 304 forbidden.
     public Optional<User> getCurrentUser() {
         final Object principal = getCurrentAuth()
                 .map(Authentication::getPrincipal)
