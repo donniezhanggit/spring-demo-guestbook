@@ -138,6 +138,7 @@ public class UsersControllerTests extends EndpointITCase {
 
         // Assert.
         verify(usersApi, times(1)).deactivateUser(EXISTING_USERNAME);
+        verifyNoMoreInteractions(usersApi);
     }
 
 
@@ -163,6 +164,7 @@ public class UsersControllerTests extends EndpointITCase {
 
         // Assert.
         verify(usersApi, times(1)).activateUser(EXISTING_USERNAME);
+        verifyNoMoreInteractions(usersApi);
     }
 
 
@@ -196,6 +198,7 @@ public class UsersControllerTests extends EndpointITCase {
 
         // Assert.
         verify(usersApi, times(1)).changeName(EXISTING_USERNAME, input);
+        verifyNoMoreInteractions(usersApi);
     }
 
 
@@ -222,5 +225,6 @@ public class UsersControllerTests extends EndpointITCase {
 
         // Assert.
         verify(usersApi, times(1)).deleteName(EXISTING_USERNAME);
+        verifyNoMoreInteractions(usersApi);
     }
 }
