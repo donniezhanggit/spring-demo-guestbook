@@ -22,4 +22,10 @@ public interface UsersRepository extends DataRepository<User, Long> {
         return findByUserName(userName)
                 .orElseThrow(() -> notFound(userName));
     }
+
+
+    default <T> T findByUserNameOrThrow(String userName, Class<T> type) {
+        return findByUserName(userName, type)
+                .orElseThrow(() -> notFound(userName));
+    }
 }
