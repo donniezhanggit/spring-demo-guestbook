@@ -38,14 +38,14 @@ public class CommentsController {
 
     @GetMapping
     @ResponseStatus(OK)
-    @ApiOperation(nickname="getComments", value="List all comments")
+    @ApiOperation(value="List all comments", nickname="getComments")
     public List<CommentEntry> getComments() {
         return commentsApi.getComments();
     }
 
 
     @GetMapping("/{id}")
-    @ApiOperation(nickname="getComment", value="Get comment by ID")
+    @ApiOperation(value="Get comment by ID", nickname="getComment")
     public ResponseEntity<CommentEntry>
     getComment(@PathVariable final long id) {
         final Optional<CommentEntry> entry = commentsApi.getComment(id);
@@ -56,7 +56,7 @@ public class CommentsController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    @ApiOperation(nickname="createComment", value="Create a new comment")
+    @ApiOperation(value="Create a new comment", nickname="createComment")
     public long createComment(@RequestBody final CommentInput input) {
         return commentsApi.createComment(input);
     }
@@ -64,8 +64,8 @@ public class CommentsController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(NO_CONTENT)
-    @ApiOperation(nickname="removeComment",
-        value="Remove an existing comment by ID")
+    @ApiOperation(value="Remove an existing comment by ID", 
+        nickname="removeComment")
     public void removeComment(@PathVariable final long id) {
         commentsApi.removeComment(id);
     }
