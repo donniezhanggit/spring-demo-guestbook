@@ -16,7 +16,7 @@ import gb.common.exceptions.NotFoundException;
 public class NotFoundAdvice {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Void>
-    notValid(@Nonnull final NotFoundException e) {
+    notFound(@Nonnull final NotFoundException e) {
         return status(NOT_FOUND).build();
     }
 }
