@@ -163,3 +163,22 @@ databaseChangeLog:
             newColumnName: created_at
             oldColumnName: created
             tableName: gbuser
+
+  - changeSet:
+      id: 2018-08-21-01
+      author: Whitesquall
+      dbms: postgresql
+      comment: Increate sequence acquired value for batch optimizations
+      changes:
+        - alterSequence:
+            incrementBy: 30
+            sequenceName: hibernate_sequence
+
+  - changeSet:
+      id: 2018-08-22-01
+      author: Whitesquall
+      dbms: h2
+      comment: Increate sequence acquired value for batch optimizations - workaround for h2
+      changes:
+        - sql:
+           sql: ALTER SEQUENCE hibernate_sequence INCREMENT BY 30;

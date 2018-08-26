@@ -2,9 +2,8 @@ package gb.repos;
 
 import static gb.common.exceptions.Exceptions.notFound;
 
+import java.util.List;
 import java.util.Optional;
-
-import javax.annotation.Nonnull;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,11 +13,12 @@ import gb.model.User;
 
 @Repository
 public interface UsersRepository extends DataRepository<User, Long> {
-    Optional<User> findByUserName(@Nonnull String userName);
-    <T> Optional<T> findByUserName(@Nonnull String userName, Class<T> type);
+    <T> List<T> findAllByOrderByCreatedAtAsc(Class<T> type);
+    Optional<User> findByUserName(String userName);
+    <T> Optional<T> findByUserName(String userName, Class<T> type);
 
 
-    default User findByUserNameOrThrow(@Nonnull String userName) {
+    default User findByUserNameOrThrow(String userName) {
         return findByUserName(userName)
                 .orElseThrow(() -> notFound(userName));
     }

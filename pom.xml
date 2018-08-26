@@ -45,6 +45,7 @@
     <checker.framework.version>2.5.1</checker.framework.version>
     <springfox.version>2.9.0</springfox.version>
     <lombok.version>1.18.0</lombok.version>
+    <datasource-proxy.version>1.4.7</datasource-proxy.version>
   </properties>
 
 
@@ -202,6 +203,20 @@
       <groupId>org.checkerframework</groupId>
       <artifactId>jdk8</artifactId>
       <version>${checker.framework.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.ttddyy</groupId>
+      <artifactId>datasource-proxy</artifactId>
+      <version>${datasource-proxy.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>net.ttddyy</groupId>
+      <artifactId>datasource-assert</artifactId>
+      <version>1.0</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
