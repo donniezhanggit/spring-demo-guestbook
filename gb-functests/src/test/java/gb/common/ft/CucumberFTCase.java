@@ -62,7 +62,7 @@ public abstract class CucumberFTCase {
     protected String jsonify(final Object o) {
         final String json = objectMapper.writeValueAsString(o);
 
-        log.info("Object as JSON:\n {}", json);
+        log.info("Object as JSON:\n{}", json);
 
         return json;
     }

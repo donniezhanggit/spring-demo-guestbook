@@ -21,7 +21,7 @@ import lombok.experimental.FieldNameConstants;
 @FieldNameConstants
 @MappedSuperclass
 @FieldDefaults(level=PROTECTED)
-public abstract class AbstractDomainEntity
+public abstract class SequenceStyleConcurrentDomainEntity
 implements Serializable {
     private static final long serialVersionUID = 1L;
 
