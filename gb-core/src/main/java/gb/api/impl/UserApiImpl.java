@@ -1,15 +1,12 @@
-/**
- *
- */
 package gb.api.impl;
 
+import static gb.common.exceptions.Exceptions.notFound;
 import static lombok.AccessLevel.PRIVATE;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import gb.api.UserApi;
 import gb.common.annotations.Api;
-import gb.common.exceptions.Exceptions;
 import gb.dto.FullNameInput;
 import gb.dto.UserEntry;
 import gb.model.FullName;
@@ -32,8 +29,7 @@ public class UserApiImpl implements UserApi {
 
     @Override
     public UserEntry getCurrentUser() {
-        final String currentUserName = getCurrentLoggedUserOrThrow()
-                .getUserName();
+        final String currentUserName = getCurrentLoggedUserNameOrThrow();
 
         return usersRepo
                 .findByUserNameOrThrow(currentUserName, UserEntry.class);
@@ -41,15 +37,26 @@ public class UserApiImpl implements UserApi {
 
     @Override
     public void changeNameOfCurrentUser(FullNameInput newNameInput) {
-        final User currentUser = getCurrentLoggedUserOrThrow();
+        final String username = getCurrentLoggedUserNameOrThrow();
+        final User currentUser = usersRepo.findByUserNameOrThrow(username);
         final FullName newName = newNameInput.toFullName();
 
         currentUser.changeName(newName);
     }
 
 
-    private User getCurrentLoggedUserOrThrow() {
+    @Override
+    public void deleteNameOfCurrentUser() {
+        final String username = getCurrentLoggedUserNameOrThrow();
+        final User currentUser = usersRepo.findByUserNameOrThrow(username);
+
+        currentUser.deleteName();
+    }
+
+
+    private String getCurrentLoggedUserNameOrThrow() {
         return currentPrincipalService.getCurrentUser()
-                .orElseThrow(() -> Exceptions.notFound(null));
+                .orElseThrow(() -> notFound(null))
+                .getUserName();
     }
 }

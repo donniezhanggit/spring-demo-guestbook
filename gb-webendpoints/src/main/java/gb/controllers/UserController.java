@@ -3,6 +3,7 @@ package gb.controllers;
 import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,5 +37,12 @@ public class UserController {
     @ResponseStatus(NO_CONTENT)
     public void changeName(@RequestBody final FullNameInput newName) {
         userApi.changeNameOfCurrentUser(newName);
+    }
+
+
+    @DeleteMapping
+    @ResponseStatus(NO_CONTENT)
+    public void deleteName() {
+        userApi.deleteNameOfCurrentUser();
     }
 }

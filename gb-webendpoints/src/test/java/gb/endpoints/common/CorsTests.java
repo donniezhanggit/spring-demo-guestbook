@@ -44,7 +44,7 @@ public class CorsTests extends EndpointITCase {
 
     @RestController
     public static class TestController {
-        @GetMapping(path=PING_API_URL, produces=APPLICATION_JSON_UTF8_VALUE)
+        @GetMapping(value=PING_API_URL, produces=APPLICATION_JSON_UTF8_VALUE)
         public ResponseEntity<String> pong() {
             return ResponseEntity.ok(null);
         }

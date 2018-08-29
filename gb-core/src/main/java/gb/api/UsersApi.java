@@ -14,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import gb.common.exceptions.NotFoundException;
 import gb.dto.FullNameInput;
 import gb.dto.UserEntry;
-import lombok.NonNull;
 
 
 /**
@@ -35,7 +34,7 @@ public interface UsersApi {
      */
     @Cacheable(key="{#userName}")
     @PreAuthorize("hasRole('USER')")
-    Optional<UserEntry> getUser(final String userName);
+    Optional<UserEntry> getUser(String userName);
 
 
     /**
@@ -48,7 +47,7 @@ public interface UsersApi {
      */
     @CacheEvict(key="{#userName}")
     @PreAuthorize("hasRole('ADMIN')")
-    void deactivateUser(final String userName);
+    void deactivateUser(String userName);
 
 
     /**
@@ -60,7 +59,7 @@ public interface UsersApi {
      */
     @CacheEvict(key="{#userName}")
     @PreAuthorize("hasRole('ADMIN')")
-    void activateUser(final String userName);
+    void activateUser(String userName);
 
 
     /**
@@ -74,7 +73,7 @@ public interface UsersApi {
      */
     @CacheEvict(key="{#userName}")
     @PreAuthorize("hasRole('ADMIN')")
-    void changeName(final String userName, @Valid final FullNameInput input);
+    void changeName(String userName, @Valid FullNameInput input);
 
 
     /**
@@ -86,5 +85,5 @@ public interface UsersApi {
      */
     @CacheEvict(key="{#userName}")
     @PreAuthorize("hasRole('ADMIN')")
-    void deleteName(@NonNull final String userName);
+    void deleteName(String userName);
 }

@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.validation.ValidationException;
 
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +21,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import gb.common.JUnitTestCase;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import net.ttddyy.dsproxy.QueryCountHolder;
+import net.ttddyy.dsproxy.asserts.ProxyTestDataSource;
 
 
 @Slf4j
@@ -33,6 +36,16 @@ public abstract class BaseDbITCase extends JUnitTestCase {
 
     @Autowired
     DelegateApi delegateApi;
+
+    @Autowired
+    ProxyTestDataSourceHolder holder;
+
+
+    @Before
+    public void prepareDataSource() {
+        getDs().reset();
+        QueryCountHolder.clear();
+    }
 
 
     @PostConstruct
@@ -54,6 +67,11 @@ public abstract class BaseDbITCase extends JUnitTestCase {
     protected void assertThatInvalid(final ThrowingCallable throwingCallable) {
         assertThatExceptionOfType(ValidationException.class)
             .isThrownBy(throwingCallable);
+    }
+
+
+    protected ProxyTestDataSource getDs() {
+        return holder.getTestDataSource();
     }
 
 

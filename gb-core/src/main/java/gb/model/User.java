@@ -85,4 +85,9 @@ extends SequenceStyleConcurrentDomainEntity {
     public void deleteName() {
         changeName(null);
     }
+
+
+    public static UserBuilder builder() {
+        return new UserBuilder();
+    }
 }

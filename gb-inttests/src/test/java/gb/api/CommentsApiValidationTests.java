@@ -31,7 +31,6 @@ public class CommentsApiValidationTests extends RecreatePerClassITCase {
     @Autowired
     UsersFixtures usersFixtures;
 
-
     @Test
     public void When_anonName_is_too_long_expect_ValidationException() {
         // Arrange.

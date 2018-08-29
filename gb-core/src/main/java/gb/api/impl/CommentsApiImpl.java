@@ -5,20 +5,23 @@ import static lombok.AccessLevel.PRIVATE;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
 import javax.validation.Valid;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import gb.api.CommentsApi;
 import gb.common.annotations.Api;
+import gb.common.events.EventPublisher;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import gb.model.Comment;
+import gb.model.NewCommentAdded;
+import gb.model.User;
 import gb.repos.CommentsRepository;
 import gb.services.CommentMapper;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import lombok.val;
 import lombok.experimental.FieldDefaults;
 
 
@@ -30,6 +33,7 @@ public class CommentsApiImpl
 implements CommentsApi {
     @NonNull CommentsRepository commentsRepo;
     @NonNull CommentMapper commentMapper;
+    @NonNull EventPublisher eventPublisher;
 
 
     @Override
@@ -46,8 +50,11 @@ implements CommentsApi {
 
     @Override
     @Transactional
-    public Long createComment(@Nonnull @Valid final CommentInput input) {
+    public Long createComment(@NonNull @Valid final CommentInput input) {
         final Comment comment = commentsRepo.save(commentMapper.from(input));
+        final NewCommentAdded event = buildEvent(comment);
+
+        eventPublisher.raise(event);
 
         return comment.getId();
     }
@@ -59,5 +66,18 @@ implements CommentsApi {
         final Comment comment = commentsRepo.findOneByIdOrThrow(id);
 
         commentsRepo.delete(comment);
+    }
+
+
+    private static NewCommentAdded buildEvent(final Comment newComment) {
+        val authorName = newComment.getUser()
+                .map(User::getUserName)
+                .orElse(newComment.getAnonName());
+
+        return NewCommentAdded.builder()
+                .authorName(authorName)
+                .commentId(newComment.getId())
+                .message(newComment.getMessage())
+                .build();
     }
 }

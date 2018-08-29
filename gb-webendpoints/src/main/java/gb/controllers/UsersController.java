@@ -2,7 +2,6 @@ package gb.controllers;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
-import static org.springframework.http.HttpStatus.OK;
 
 import java.util.Optional;
 
@@ -34,7 +33,6 @@ public class UsersController {
 
 
     @GetMapping("/{userName}")
-    @ResponseStatus(OK)
     public ResponseEntity<UserEntry>
     getUser(@PathVariable final String userName) {
         final Optional<UserEntry> entry = usersApi.getUser(userName);

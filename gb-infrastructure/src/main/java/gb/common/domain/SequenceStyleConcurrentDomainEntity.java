@@ -33,7 +33,7 @@ implements Serializable {
             parameters={
                     @Parameter(name="sequence_name",
                             value="hibernate_sequence"),
-                    @Parameter(name="increment_size", value="1")
+                    @Parameter(name="increment_size", value="30")
             }
     )
     @GeneratedValue(generator="hbn_seq")

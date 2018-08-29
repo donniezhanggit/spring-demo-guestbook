@@ -35,4 +35,13 @@ public interface UserApi {
      */
     @PreAuthorize("hasRole('USER')")
     void changeNameOfCurrentUser(FullNameInput newName);
+
+
+    /**
+     * Idempotent deleting current user's full name.
+     *
+     * @category command
+     */
+    @PreAuthorize("hasRole('USER')")
+    void deleteNameOfCurrentUser();
 }
