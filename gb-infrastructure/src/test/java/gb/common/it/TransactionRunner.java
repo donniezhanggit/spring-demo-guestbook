@@ -4,19 +4,21 @@ import java.util.function.Supplier;
 
 import javax.transaction.Transactional;
 
-import gb.common.annotations.Api;
+import org.hibernate.LazyInitializationException;
+import org.springframework.stereotype.Service;
 
 
 /**
- * Dumb API wrapper.
- * Needed for emulation of standard API work flow.
+ * Transactional wrapper.
+ *
  * Mainly used for doing statements with opened hibernate session.
+ *
  * @author whitesquall
  *
  */
-@Api
+@Service
 @Transactional
-public class DelegateApi {
+public class TransactionRunner {
     /**
      * Run statements without closing hibernate session for
      * preventing {@link LazyInitializationException}.
@@ -25,7 +27,7 @@ public class DelegateApi {
      * @param supplier A function which will run with transaction.
      * @return result from supplier.
      */
-    public <T> T doWithTransaction(final Supplier<T> supplier) {
+    public <T> T doInTransaction(final Supplier<T> supplier) {
         return supplier.get();
     }
 }
