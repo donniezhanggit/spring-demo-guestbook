@@ -11,6 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -48,6 +49,8 @@ public class UserControllerTests extends EndpointITCase {
             .thenReturn(userEntry);
         doNothing().when(userApi)
             .changeNameOfCurrentUser(any(FullNameInput.class));
+        doNothing().when(userApi)
+            .deleteNameOfCurrentUser();
     }
 
 
@@ -60,7 +63,7 @@ public class UserControllerTests extends EndpointITCase {
 
 
     @Test
-    public void 
+    public void
     Getting_current_user_should_call_APIs_getCurrentUser() throws Exception {
         // Act.
         mockMvc.perform(get(CURRENT_USER_API_URL));
@@ -72,7 +75,7 @@ public class UserControllerTests extends EndpointITCase {
 
 
     @Test
-    public void 
+    public void
     Changing_name_of_current_user_should_return_204() throws Exception {
         // Arrange.
         final FullNameInput input = buildFullNameInput();
@@ -87,7 +90,7 @@ public class UserControllerTests extends EndpointITCase {
 
 
     @Test
-    public void 
+    public void
     Changing_name_of_current_user_should_APIs_changeNameOfCurrentUser()
             throws Exception {
         // Arrange.
@@ -101,6 +104,40 @@ public class UserControllerTests extends EndpointITCase {
 
         // Assert.
         verify(userApi, times(1)).changeNameOfCurrentUser(input);
+        verifyNoMoreInteractions(userApi);
+    }
+
+
+    @Test
+    public void
+    Removing_name_of_current_user_should_return_204() throws Exception {
+        // Arrange.
+        final FullNameInput input = buildFullNameInput();
+        final String inputAsJson = jsonify(input);
+
+        // Act and assert.
+        mockMvc.perform(delete(CURRENT_USER_API_URL)
+                .content(inputAsJson)
+                .contentType(APPLICATION_JSON_UTF8))
+            .andExpect(status().isNoContent());
+    }
+
+
+    @Test
+    public void
+    Removing_name_of_current_user_should_APIs_changeNameOfCurrentUser()
+            throws Exception {
+        // Arrange.
+        final FullNameInput input = buildFullNameInput();
+        final String inputAsJson = jsonify(input);
+
+        // Act.
+        mockMvc.perform(delete(CURRENT_USER_API_URL)
+                .content(inputAsJson)
+                .contentType(APPLICATION_JSON_UTF8));
+
+        // Assert.
+        verify(userApi, times(1)).deleteNameOfCurrentUser();
         verifyNoMoreInteractions(userApi);
     }
 }
