@@ -2,23 +2,26 @@ package gb.common.events;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.event.TransactionalEventListener;
 
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 
 
 @Service
-@AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class AfterCommitListener {
-    @NonNull EventDelegator delegator;
+    EventDelegator delegator;
 
 
-    @TransactionalEventListener
-    public void passAnyEvent(final Object event) {
+    public AfterCommitListener(@NonNull EventDelegator delegator) {
+        this.delegator = delegator;
+    }
+
+
+    @EventListener
+    public void passAnyEvent(final DomainEvent event) {
         delegator.delegate(event);
     }
 }
