@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Immutable;
 
-import gb.common.domain.AbstractDomainEntity;
+import gb.common.domain.SequenceStyleConcurrentDomainEntity;
 import gb.common.guard.Guard;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +32,8 @@ import lombok.experimental.PackagePrivate;
 @FieldDefaults(level=PRIVATE)
 @NoArgsConstructor(access=PROTECTED)
 @FieldNameConstants
-public class Comment extends AbstractDomainEntity {
+public class Comment
+extends SequenceStyleConcurrentDomainEntity {
     private static final long serialVersionUID = 1L;
 
     public static final int ANON_NAME_MIN_LENGTH = 2;

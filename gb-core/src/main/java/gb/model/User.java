@@ -2,7 +2,6 @@ package gb.model;
 
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
-import static lombok.AccessLevel.PUBLIC;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -12,7 +11,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
-import gb.common.domain.AbstractDomainEntity;
+import gb.common.domain.SequenceStyleConcurrentDomainEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -31,7 +30,8 @@ import lombok.experimental.PackagePrivate;
 @NoArgsConstructor(access=PROTECTED)
 @ToString
 @FieldNameConstants
-public class User extends AbstractDomainEntity {
+public class User
+extends SequenceStyleConcurrentDomainEntity {
     private static final long serialVersionUID = 1L;
 
     public static final int USERNAME_MIN_LENGTH = 2;
@@ -48,8 +48,6 @@ public class User extends AbstractDomainEntity {
     @NonNull String email;
     LocalDateTime createdAt = LocalDateTime.now();
     boolean active = true;
-
-    @Setter(value=PUBLIC)
     FullName fullName;
 
 

@@ -14,7 +14,7 @@
 
 
   <modules>
-    <!-- <module>gb-auth</module> -->
+    <module>gb-auth</module>
     <module>gb-core</module>
     <module>gb-coveragereport</module>
     <module>gb-database</module>

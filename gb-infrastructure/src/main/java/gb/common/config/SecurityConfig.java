@@ -34,8 +34,10 @@ import lombok.extern.slf4j.Slf4j;
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 @FieldDefaults(level=PRIVATE)
 @Profile(value={
-        DEVELOPMENT, H2_INTEGRATION_TESTING,
-        NO_DB_INTEGRATION_TESTING, PG_INTEGRATION_TESTING,
+        DEVELOPMENT,
+        H2_INTEGRATION_TESTING,
+        NO_DB_INTEGRATION_TESTING,
+        PG_INTEGRATION_TESTING,
         PRODUCTION
 })
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

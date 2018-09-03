@@ -4,9 +4,12 @@ import static lombok.AccessLevel.PRIVATE;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionSynchronizationAdapter;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import lombok.val;
 import lombok.experimental.FieldDefaults;
 
 
@@ -19,6 +22,13 @@ class EventPublisherImpl implements EventPublisher {
 
     @Override
     public void raise(@NonNull final Object event) {
-        publisher.publishEvent(event);
+        val adapter = new TransactionSynchronizationAdapter() {
+            @Override
+            public void afterCommit() {
+                publisher.publishEvent(event);
+            }
+        };
+
+        TransactionSynchronizationManager.registerSynchronization(adapter);
     }
 }

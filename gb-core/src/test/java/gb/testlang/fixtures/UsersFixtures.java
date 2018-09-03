@@ -84,7 +84,7 @@ public class UsersFixtures {
 
 
     public static UserBuilder filledUserBuilder() {
-        return new UserBuilder()
+        return User.builder()
                 .userName(EXISTING_USERNAME)
                 .password(PASSWORD)
                 .email(EMAIL)
