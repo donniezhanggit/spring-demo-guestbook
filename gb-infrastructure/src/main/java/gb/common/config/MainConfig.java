@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,5 +54,15 @@ public class MainConfig {
         log.info("Configuring of ObjectMapper finished");
 
         return mapper;
+    }
+
+
+    @Bean
+    public MethodValidationPostProcessor methodValidationPostProcessor() {
+        val processor = new MethodValidationPostProcessor();
+
+        processor.setBeforeExistingAdvisors(true);
+
+        return processor;
     }
 }
