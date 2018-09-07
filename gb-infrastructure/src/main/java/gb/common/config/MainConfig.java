@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.task.TaskExecutor;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Configuration
 @EnableCaching
-@EnableAsync
 public class MainConfig {
     @Bean
     public ObjectMapper objectMapper(
@@ -57,11 +53,5 @@ public class MainConfig {
         log.info("Configuring of ObjectMapper finished");
 
         return mapper;
-    }
-
-
-    @Bean
-    public TaskExecutor taskExecutor() {
-        return new ThreadPoolTaskExecutor();
     }
 }

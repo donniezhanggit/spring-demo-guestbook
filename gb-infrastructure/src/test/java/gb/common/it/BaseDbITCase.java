@@ -35,7 +35,7 @@ public abstract class BaseDbITCase extends JUnitTestCase {
     InitOnceChecker initOnceChecker;
 
     @Autowired
-    DelegateApi delegateApi;
+    TransactionRunner tr;
 
     @Autowired
     ProxyTestDataSourceHolder holder;
@@ -60,7 +60,7 @@ public abstract class BaseDbITCase extends JUnitTestCase {
 
 
     protected <T> T withTransaction(final Supplier<T> supplier) {
-        return delegateApi.doWithTransaction(supplier);
+        return tr.doInTransaction(supplier);
     }
 
 
