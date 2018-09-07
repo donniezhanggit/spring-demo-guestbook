@@ -1,11 +1,10 @@
-package gb.api.impl;
+package gb.api;
 
 import static gb.common.exceptions.Exceptions.notFound;
 import static lombok.AccessLevel.PRIVATE;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import gb.api.UserApi;
 import gb.common.annotations.Api;
 import gb.dto.FullNameInput;
 import gb.dto.UserEntry;
@@ -22,7 +21,7 @@ import lombok.experimental.FieldDefaults;
 @Transactional
 @AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
-public class UserApiImpl implements UserApi {
+class UserApiImpl implements UserApi {
     @NonNull UsersRepository usersRepo;
     @NonNull CurrentPrincipalService currentPrincipalService;
 

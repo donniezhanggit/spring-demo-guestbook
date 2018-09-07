@@ -1,4 +1,4 @@
-package gb.api.impl;
+package gb.api;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import gb.api.UsersApi;
 import gb.common.annotations.Api;
 import gb.dto.FullNameInput;
 import gb.dto.UserEntry;
@@ -24,7 +23,7 @@ import lombok.experimental.FieldDefaults;
 @Transactional
 @AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
-public class UsersApiImpl implements UsersApi {
+class UsersApiImpl implements UsersApi {
     @NonNull UsersRepository usersRepo;
 
 

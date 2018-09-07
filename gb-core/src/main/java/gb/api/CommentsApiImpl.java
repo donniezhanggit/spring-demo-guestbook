@@ -1,4 +1,4 @@
-package gb.api.impl;
+package gb.api;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import gb.api.CommentsApi;
 import gb.common.annotations.Api;
 import gb.common.events.EventPublisher;
 import gb.dto.CommentEntry;
@@ -29,7 +28,7 @@ import lombok.experimental.FieldDefaults;
 @Transactional(readOnly=true)
 @AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
-public class CommentsApiImpl
+class CommentsApiImpl
 implements CommentsApi {
     @NonNull CommentsRepository commentsRepo;
     @NonNull CommentMapper commentMapper;
