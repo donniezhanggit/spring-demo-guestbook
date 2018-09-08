@@ -10,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import gb.model.FullName;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 import lombok.experimental.FieldNameConstants;
@@ -17,6 +18,7 @@ import lombok.experimental.FieldNameConstants;
 
 @Value
 @Builder
+@AllArgsConstructor
 @FieldNameConstants
 public class FullNameInput {
     @NotEmpty
