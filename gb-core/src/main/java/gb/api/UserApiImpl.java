@@ -21,7 +21,7 @@ import lombok.experimental.FieldDefaults;
 @Transactional
 @AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
-class UserApiImpl implements UserApi {
+public class UserApiImpl implements UserApi {
     @NonNull UsersRepository usersRepo;
     @NonNull CurrentPrincipalService currentPrincipalService;
 

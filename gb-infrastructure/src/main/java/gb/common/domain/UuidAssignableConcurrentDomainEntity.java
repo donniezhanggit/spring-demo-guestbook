@@ -17,7 +17,7 @@ import lombok.experimental.FieldNameConstants;
 @Getter
 @FieldNameConstants
 @MappedSuperclass
-@FieldDefaults(level=PROTECTED  )
+@FieldDefaults(level=PROTECTED)
 public abstract class UuidAssignableConcurrentDomainEntity
 implements Serializable {
     private static final long serialVersionUID = 1L;

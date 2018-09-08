@@ -28,8 +28,7 @@ import lombok.experimental.FieldDefaults;
 @Transactional(readOnly=true)
 @AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
-class CommentsApiImpl
-implements CommentsApi {
+public class CommentsApiImpl implements CommentsApi {
     @NonNull CommentsRepository commentsRepo;
     @NonNull CommentMapper commentMapper;
     @NonNull EventPublisher eventPublisher;
