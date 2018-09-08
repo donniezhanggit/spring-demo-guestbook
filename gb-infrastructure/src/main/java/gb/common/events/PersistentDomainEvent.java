@@ -1,8 +1,10 @@
 package gb.common.events;
 
-import static gb.common.events.DomainEventStatus.*;
+import static gb.common.events.DomainEventStatus.PENDING;
+import static gb.common.events.DomainEventStatus.PROCESSED;
 import static javax.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.PROTECTED;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -12,8 +14,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Version;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 
@@ -22,6 +26,8 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @FieldDefaults(level=PRIVATE)
 @Builder
+@NoArgsConstructor(access=PROTECTED)
+@AllArgsConstructor
 class PersistentDomainEvent {
     @Id
     @NonNull
