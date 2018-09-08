@@ -182,3 +182,43 @@ databaseChangeLog:
       changes:
         - sql:
            sql: ALTER SEQUENCE hibernate_sequence INCREMENT BY 30;
+
+  - changeSet:
+      id: 2018-09-04-01
+      author: Whitesquall
+      comments: New table for events store
+      changes:
+        - createTable:
+            tableName: persistent_domain_event
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: version
+                  type: smallint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: payload
+                  type: varchar(8192)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: processed_at
+                  type: timestamp
+                  constraints:
+                    nullable: true

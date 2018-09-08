@@ -53,7 +53,7 @@ implements CommentsApi {
         final Comment comment = commentsRepo.save(commentMapper.from(input));
         final NewCommentAdded event = buildEvent(comment);
 
-        eventPublisher.raise(event);
+        eventPublisher.publishEvent(event);
 
         return comment.getId();
     }
