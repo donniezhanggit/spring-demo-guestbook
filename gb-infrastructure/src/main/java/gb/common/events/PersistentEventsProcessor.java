@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionalEventListener;
 
@@ -41,6 +42,7 @@ public class PersistentEventsProcessor {
     }
 
 
+    @Async
     @Transactional
     @TransactionalEventListener
     public void handleEvent(@NonNull final DomainEvent event) {

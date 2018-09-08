@@ -4,10 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.Optional;
 
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import gb.common.events.PersistentEventHandler;
 import gb.model.Comment;
 import gb.model.NewCommentAdded;
 import gb.repos.CommentsRepository;
@@ -19,15 +18,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-@Transactional(readOnly=true)
 @AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
-public class NewCommentsLogger {
+class NewCommentsLogger implements PersistentEventHandler<NewCommentAdded> {
     @NonNull CommentsRepository commentsRepo;
 
 
-    @EventListener
-    public void delegate(final NewCommentAdded event) {
+    @Override
+    public void handleEvent(final NewCommentAdded event) {
         log.info("Thread name: {}", Thread.currentThread().getName());
         log.info("All events after commit: {}", event);
 
