@@ -1,7 +1,7 @@
 package gb.common.dto;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import javax.validation.ConstraintViolation;
 
@@ -18,19 +18,19 @@ public class CodeAndMessageTests extends JUnitTestCase {
 
 
     @Test
-    public void When_ConstraintViolation_is_null_should_throw_NPE() {
+    public void When_ConstraintViolation_is_null_should_throw_IAE() {
         ConstraintViolation<?> _null = (ConstraintViolation<?>) null;
 
-        assertThatNullPointerException()
+        assertThatIllegalArgumentException()
             .isThrownBy(() -> new CodeAndMessage(_null));
     }
 
 
     @Test
-    public void When_InvalidArgumentException_is_null_should_throw_NPE() {
+    public void When_InvalidArgumentException_is_null_should_throw_IAE() {
         val _null = (InvalidArgumentException) null;
 
-        assertThatNullPointerException()
+        assertThatIllegalArgumentException()
             .isThrownBy(() -> new CodeAndMessage(_null));
     }
 

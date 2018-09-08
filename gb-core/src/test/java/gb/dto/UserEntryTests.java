@@ -5,7 +5,7 @@ import static gb.testlang.fixtures.UsersFixtures.buildUser;
 import static gb.testlang.fixtures.UsersFixtures.buildUserEntry;
 import static gb.testlang.fixtures.UsersFixtures.filledUserBuilder;
 import static gb.testlang.fixtures.UsersFixtures.filledUserEntryBuilder;
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import org.junit.Test;
 
@@ -15,8 +15,8 @@ import gb.model.User;
 
 public class UserEntryTests extends JUnitTestCase {
     @Test
-    public void Mapping_of_null_should_throw_NPE() {
-        assertThatNullPointerException()
+    public void Mapping_of_null_should_throw_IAE() {
+        assertThatIllegalArgumentException()
             .isThrownBy(() -> UserEntry.from(null));
     }
 

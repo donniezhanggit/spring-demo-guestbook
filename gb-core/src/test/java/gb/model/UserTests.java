@@ -5,7 +5,7 @@ import static gb.testlang.fixtures.FullNameFixtures.LAST_NAME;
 import static gb.testlang.fixtures.UsersFixtures.buildUser;
 import static gb.testlang.fixtures.UsersFixtures.filledUserBuilder;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import java.util.Optional;
 
@@ -16,8 +16,8 @@ import gb.common.JUnitTestCase;
 
 public class UserTests extends JUnitTestCase {
     @Test
-    public void Null_builder_should_throw_NPE() {
-        assertThatNullPointerException()
+    public void Null_builder_should_throw_IAE() {
+        assertThatIllegalArgumentException()
             .isThrownBy(() -> new User(null));
     }
 
@@ -28,7 +28,7 @@ public class UserTests extends JUnitTestCase {
         final UserBuilder ub = filledUserBuilder().userName(null);
 
         // Act and assert.
-        assertThatNullPointerException()
+        assertThatIllegalArgumentException()
             .isThrownBy(() -> new User(ub));
     }
 
@@ -39,7 +39,7 @@ public class UserTests extends JUnitTestCase {
         final UserBuilder ub = filledUserBuilder().password(null);
 
         // Act and assert.
-        assertThatNullPointerException()
+        assertThatIllegalArgumentException()
             .isThrownBy(() -> new User(ub));
     }
 
@@ -50,7 +50,7 @@ public class UserTests extends JUnitTestCase {
         final UserBuilder ub = filledUserBuilder().email(null);
 
         // Act and assert.
-        assertThatNullPointerException()
+        assertThatIllegalArgumentException()
             .isThrownBy(() -> new User(ub));
     }
 

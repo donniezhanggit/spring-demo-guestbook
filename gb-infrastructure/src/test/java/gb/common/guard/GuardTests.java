@@ -1,6 +1,6 @@
 package gb.common.guard;
 
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.Test;
@@ -16,21 +16,21 @@ public class GuardTests extends JUnitTestCase {
 
 
     @Test
-    public void Null_code_should_throw_NPE() {
-        assertThatNullPointerException()
+    public void Null_code_should_throw_IAE() {
+        assertThatIllegalArgumentException()
             .isThrownBy(() -> Guard.that(true, null, MESSAGE));
     }
 
 
     @Test
-    public void Null_message_should_throw_NPE() {
-        assertThatNullPointerException()
+    public void Null_message_should_throw_IAE() {
+        assertThatIllegalArgumentException()
             .isThrownBy(() -> Guard.that(true, CODE, null));
     }
 
 
     @Test
-    public void Falsy_condition_should_throw_IllegalArgumentException() {
+    public void Falsy_condition_should_throw_InvalidArgumentException() {
         // Arrange.
         val expected = new InvalidArgumentException(CODE, MESSAGE);
 

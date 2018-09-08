@@ -7,7 +7,7 @@ import static gb.testlang.fixtures.CommentsFixtures.buildAnonCommentEntry;
 import static gb.testlang.fixtures.CommentsFixtures.buildCommentFor;
 import static gb.testlang.fixtures.CommentsFixtures.buildUserCommentEntry;
 import static gb.testlang.fixtures.UsersFixtures.stubUser;
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import org.junit.Test;
 
@@ -45,8 +45,8 @@ public class CommentEntryTests extends JUnitTestCase {
 
 
     @Test
-    public void Mapping_of_null_should_throw_NPE() {
-        assertThatNullPointerException()
+    public void Mapping_of_null_should_throw_IAE() {
+        assertThatIllegalArgumentException()
             .isThrownBy(() -> CommentEntry.from(null));
     }
 }
