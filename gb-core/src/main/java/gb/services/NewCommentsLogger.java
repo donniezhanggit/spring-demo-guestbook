@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional(readOnly=true)
 @AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
-class NewCommentsLogger {
+public class NewCommentsLogger {
     @NonNull CommentsRepository commentsRepo;
 
 
