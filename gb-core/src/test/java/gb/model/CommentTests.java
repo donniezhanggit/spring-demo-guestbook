@@ -6,7 +6,7 @@ import static gb.testlang.fixtures.UsersFixtures.stubUser;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.byLessThan;
 
 import java.time.LocalDateTime;
@@ -19,8 +19,8 @@ import gb.common.exceptions.InvalidArgumentException;
 
 public class CommentTests extends JUnitTestCase {
     @Test
-    public void Null_as_commentBuilder_should_throw_NPE() {
-        assertThatNullPointerException()
+    public void Null_as_commentBuilder_should_throw_IAE() {
+        assertThatIllegalArgumentException()
             .isThrownBy(() -> new Comment(null));
     }
 

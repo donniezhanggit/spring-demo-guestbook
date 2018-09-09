@@ -9,7 +9,7 @@ import gb.common.data.DataRepository;
 
 
 @Repository
-interface DomainEventsJpaRepository
+public interface DomainEventsJpaRepository
 extends DataRepository<PersistentDomainEvent, UUID> {
     Set<PersistentDomainEvent> findAllByStatus(DomainEventStatus status);
 }
