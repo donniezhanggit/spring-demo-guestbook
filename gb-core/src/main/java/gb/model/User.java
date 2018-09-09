@@ -6,6 +6,7 @@ import static lombok.AccessLevel.PROTECTED;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -31,7 +32,7 @@ import lombok.experimental.PackagePrivate;
 @ToString
 @FieldNameConstants
 public class User
-extends SequenceStyleConcurrentDomainEntity {
+extends SequenceStyleConcurrentDomainEntity<User> {
     private static final long serialVersionUID = 1L;
 
     public static final int USERNAME_MIN_LENGTH = 2;
@@ -77,13 +78,17 @@ extends SequenceStyleConcurrentDomainEntity {
     }
 
 
-    public void changeName(final FullName newFullName) {
+    public void changeName(@Nullable final FullName newFullName) {
+        registerEvent(UserFullNameChanged.of(this, newFullName));
+
         setFullName(newFullName);
     }
 
 
     public void deleteName() {
-        changeName(null);
+        registerEvent(UserFullNameDeleted.of(this));
+
+        setFullName(null);
     }
 
 

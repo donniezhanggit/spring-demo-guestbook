@@ -11,6 +11,7 @@ import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.springframework.data.domain.AbstractAggregateRoot;
 
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -21,7 +22,9 @@ import lombok.experimental.FieldNameConstants;
 @FieldNameConstants
 @MappedSuperclass
 @FieldDefaults(level=PROTECTED)
-public abstract class SequenceStyleConcurrentDomainEntity
+public abstract class
+SequenceStyleConcurrentDomainEntity<A extends AbstractAggregateRoot<A>>
+extends AbstractAggregateRoot<A>
 implements Serializable {
     private static final long serialVersionUID = 1L;
 

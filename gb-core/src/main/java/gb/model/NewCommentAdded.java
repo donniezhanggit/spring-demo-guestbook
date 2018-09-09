@@ -11,8 +11,8 @@ import lombok.Value;
 
 @Value
 @Builder
-public class NewCommentAdded implements DomainEvent {
-    UUID id = UUID.randomUUID();
+public final class NewCommentAdded implements DomainEvent {
+    @NonNull UUID id = UUID.randomUUID();
     @NonNull @Builder.Default LocalDateTime createdAt = LocalDateTime.now();
     @NonNull Long commentId;
     @NonNull String message;
