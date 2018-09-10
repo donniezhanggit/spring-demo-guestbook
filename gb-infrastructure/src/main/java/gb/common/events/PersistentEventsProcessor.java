@@ -22,20 +22,21 @@ import lombok.experimental.FieldDefaults;
 @Service
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class PersistentEventsProcessor {
-    Map<Class<DomainEvent>, PersistentEventHandler<DomainEvent>> handlers;
+    Map<Class<? extends DomainEvent>, PersistentEventHandler<DomainEvent>> handlers;
     DomainEventsRepository eventsRepo;
     PersistentEventHandler<DomainEvent> nullHandler;
 
 
+    @SuppressWarnings("unchecked")
     public PersistentEventsProcessor(
-            final Optional<List<PersistentEventHandler<DomainEvent>>> handlers,
+            final Optional<List<PersistentEventHandler<? extends DomainEvent>>> handlers,
             @NonNull final DomainEventsRepository eventsRepo) {
 
         this.handlers = handlers
                 .orElseGet(Collections::emptyList)
                 .stream().collect(Collectors.toMap(
                         PersistentEventHandler::appliesTo,
-                        handler -> handler));
+                        handler -> (PersistentEventHandler<DomainEvent>) handler));
 
         this.eventsRepo = eventsRepo;
         this.nullHandler = new NullEventHandler();

@@ -50,6 +50,8 @@ public class UserApiImpl implements UserApi {
         final User currentUser = usersRepo.findByUserNameOrThrow(username);
 
         currentUser.deleteName();
+
+        usersRepo.save(currentUser);
     }
 
 

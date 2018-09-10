@@ -67,7 +67,12 @@ public class DomainEventsRepository {
 
 
     public Set<DomainEvent> findPendingEvents() {
-        // TODO Auto-generated method stub
-        return Collections.emptySet();
+        // Dumb implementation. Hardcoded now for testing.
+        return jpaEventsRepo.findOneById(UUID
+                .fromString("82ab3634-7676-4e51-a305-68b490a82b87"))
+            .map(PersistentDomainEvent::getPayload)
+            .map(this::objectify)
+            .map(Collections::singleton)
+            .orElseGet(Collections::emptySet);
     }
 }

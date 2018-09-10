@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
-class NewCommentsLogger implements PersistentEventHandler<NewCommentAdded> {
+public class NewCommentsLogger implements PersistentEventHandler<NewCommentAdded> {
     @NonNull CommentsRepository commentsRepo;
 
 
