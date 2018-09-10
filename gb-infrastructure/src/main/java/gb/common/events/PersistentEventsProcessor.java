@@ -1,12 +1,12 @@
 package gb.common.events;
 
+import static java.util.stream.Collectors.groupingBy;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -15,31 +15,36 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import lombok.NonNull;
-import lombok.val;
 import lombok.experimental.FieldDefaults;
 
 
 @Service
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class PersistentEventsProcessor {
-    Map<Class<? extends DomainEvent>, PersistentEventHandler<DomainEvent>> handlers;
+    // For every event type there can be more than one handler.
+    // Let's store it as list of handlers by event type.
+    Map<Class<? extends DomainEvent>,
+        List<PersistentEventHandler<DomainEvent>>> handlers;
     DomainEventsRepository eventsRepo;
-    PersistentEventHandler<DomainEvent> nullHandler;
 
 
+    // Spring does not support to inject empty list, only null for optional
+    // dependencies. But there can be no implementations of
+    // PersistentEventHandler interface.
+    // Let's use trick (hack) with optional dependency.
     @SuppressWarnings("unchecked")
     public PersistentEventsProcessor(
-            final Optional<List<PersistentEventHandler<? extends DomainEvent>>> handlers,
+            final Optional<List<PersistentEventHandler<?
+                    extends DomainEvent>>> handlers,
             @NonNull final DomainEventsRepository eventsRepo) {
 
         this.handlers = handlers
                 .orElseGet(Collections::emptyList)
-                .stream().collect(Collectors.toMap(
-                        PersistentEventHandler::appliesTo,
-                        handler -> (PersistentEventHandler<DomainEvent>) handler));
+                .stream()
+                .map(handler -> (PersistentEventHandler<DomainEvent>) handler)
+                .collect(groupingBy(PersistentEventHandler::appliesTo));
 
         this.eventsRepo = eventsRepo;
-        this.nullHandler = new NullEventHandler();
     }
 
 
@@ -47,9 +52,10 @@ public class PersistentEventsProcessor {
     @Transactional
     @TransactionalEventListener
     public void handleEvent(@NonNull final DomainEvent event) {
-        val handler = handlers.getOrDefault(event.getClass(), nullHandler);
+        final List<PersistentEventHandler<DomainEvent>> eventHandlers =
+                handlers.get(event.getClass());
 
-        handler.handleEvent(event);
+        eventHandlers.forEach(h -> h.handleEvent(event));
 
         eventsRepo.get(event.getId()).markProcessed();
     }
