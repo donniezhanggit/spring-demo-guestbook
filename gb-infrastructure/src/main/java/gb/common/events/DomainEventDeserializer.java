@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+
 public class DomainEventDeserializer
 extends StdDeserializer<DomainEvent> {
     private static final long serialVersionUID = 1L;

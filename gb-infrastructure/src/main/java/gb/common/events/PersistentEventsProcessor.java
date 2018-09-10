@@ -1,5 +1,6 @@
 package gb.common.events;
 
+import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.groupingBy;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -53,7 +54,7 @@ public class PersistentEventsProcessor {
     @TransactionalEventListener
     public void handleEvent(@NonNull final DomainEvent event) {
         final List<PersistentEventHandler<DomainEvent>> eventHandlers =
-                handlers.get(event.getClass());
+                handlers.getOrDefault(event.getClass(), emptyList());
 
         eventHandlers.forEach(h -> h.handleEvent(event));
 
