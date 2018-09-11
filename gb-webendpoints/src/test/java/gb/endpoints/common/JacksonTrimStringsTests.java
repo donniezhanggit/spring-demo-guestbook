@@ -45,7 +45,7 @@ public class JacksonTrimStringsTests extends EndpointITCase {
 
 
     @Test
-    public void Whitespace_string_in_NotEmpty_input_converts_to_412_status()
+    public void Whitespace_string_in_NotEmpty_input_converts_to_422_status()
             throws Exception {
         // Arrange.
         val invalidInput = new TestInput("   ");
@@ -55,7 +55,7 @@ public class JacksonTrimStringsTests extends EndpointITCase {
         mockMvc.perform(post(API_URL)
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(invalidInputJson))
-            .andExpect(status().isPreconditionFailed());
+            .andExpect(status().isUnprocessableEntity());
     }
 
 

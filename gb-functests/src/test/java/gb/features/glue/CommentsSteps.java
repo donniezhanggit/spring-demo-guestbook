@@ -80,9 +80,9 @@ public class CommentsSteps extends CucumberFTCase {
     }
 
 
-    @Then("response has status PRECONDITION_FAILED")
+    @Then("response has status UNPROCESSABLE_ENTITY")
     public void response_has_status_precondition_failed() throws Exception {
-        lastAction.andExpect(status().isPreconditionFailed());
+        lastAction.andExpect(status().isUnprocessableEntity());
     }
 
 

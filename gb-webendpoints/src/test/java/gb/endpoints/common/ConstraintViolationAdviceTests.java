@@ -44,7 +44,7 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
 
 
     @Test
-    public void ConstraintViolationException_should_convert_to_412_status()
+    public void ConstraintViolationException_should_convert_to_422_status()
             throws Exception {
         // Arrange.
         val invalidInput = new TestInput(null);
@@ -54,7 +54,7 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
         mockMvc.perform(post(API_URL)
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(invalidInputJson))
-            .andExpect(status().isPreconditionFailed());
+            .andExpect(status().isUnprocessableEntity());
     }
 
 
