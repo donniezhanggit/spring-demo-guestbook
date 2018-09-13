@@ -1,10 +1,11 @@
 package gb.common.events;
 
+import static gb.common.events.DomainEventStatus.PENDING;
 import static lombok.AccessLevel.PRIVATE;
 
-import java.util.Collections;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -33,12 +34,12 @@ public class DomainEventsRepository {
     public DomainEvent rehydrate(final UUID id) {
         final PersistentDomainEvent event = get(id);
 
-        return objectify(event.getPayload());
+        return rehydrate(event);
     }
 
 
     public DomainEvent rehydrate(final PersistentDomainEvent event) {
-        return rehydrate(event.getId());
+        return objectify(event.getPayload());
     }
 
 
@@ -66,13 +67,10 @@ public class DomainEventsRepository {
     }
 
 
-    public Set<DomainEvent> findPendingEvents() {
-        // Dumb implementation. Hardcoded now for testing.
-        return jpaEventsRepo.findOneById(UUID
-                .fromString("82ab3634-7676-4e51-a305-68b490a82b87"))
-            .map(PersistentDomainEvent::getPayload)
-            .map(this::objectify)
-            .map(Collections::singleton)
-            .orElseGet(Collections::emptySet);
+    public List<DomainEvent> findPendingEvents() {
+        return jpaEventsRepo.findAllByStatusOrderByCreatedAtDesc(PENDING)
+                .stream()
+                .map(this::rehydrate)
+                .collect(Collectors.toList());
     }
 }

@@ -2,7 +2,7 @@ package gb.common.events;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -22,14 +22,13 @@ public class EventsProcessingScheduler {
     @NonNull DomainEventsRepository eventsRepo;
 
 
-    // TODO: Clean code.
     @Scheduled(fixedDelay=3*60*1000)
     public void processUnhandeledEvents() {
         log.info("Started processing pending events.");
 
-        final Set<DomainEvent> pendingEvents = eventsRepo.findPendingEvents();
+        final List<DomainEvent> pendingEvents = eventsRepo.findPendingEvents();
 
-        log.info("Pending events: {}", pendingEvents.iterator().next());
+        log.info("Pending events: {}", pendingEvents);
 
         pendingEvents.forEach(processor::handleEvent);
 

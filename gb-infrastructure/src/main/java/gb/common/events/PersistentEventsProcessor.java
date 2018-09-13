@@ -29,8 +29,8 @@ public class PersistentEventsProcessor {
     DomainEventsRepository eventsRepo;
 
 
-    // Spring does not support to inject empty list, only null for optional
-    // dependencies. But there can be no implementations of
+    // Spring does not support injection of empty list, only null for
+    // optional dependencies. But there can be no implementations of
     // PersistentEventHandler interface.
     // Let's use trick (hack) with optional dependency.
     @SuppressWarnings("unchecked")
