@@ -41,8 +41,6 @@ public class UserApiImpl implements UserApi {
         final FullName newName = newNameInput.toFullName();
 
         currentUser.changeName(newName);
-
-        usersRepo.save(currentUser);
     }
 
 
@@ -52,8 +50,6 @@ public class UserApiImpl implements UserApi {
         final User currentUser = usersRepo.findByUserNameOrThrow(username);
 
         currentUser.deleteName();
-
-        usersRepo.save(currentUser);
     }
 
 

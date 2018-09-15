@@ -20,7 +20,7 @@ public abstract class BaseAggregateRoot
 implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final transient @Transient List<Object> domainEvents =
+    private final transient @Transient List<DomainEvent> domainEvents =
             new ArrayList<>();
 
 
@@ -52,7 +52,7 @@ implements Serializable {
      * All domain events currently captured by the aggregate.
      */
     @DomainEvents
-    public Collection<Object> domainEvents() {
+    public Collection<DomainEvent> domainEvents() {
         return Collections.unmodifiableList(domainEvents);
     }
 }
