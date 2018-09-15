@@ -2,8 +2,6 @@ package gb.common.domain;
 
 import static lombok.AccessLevel.PROTECTED;
 
-import java.io.Serializable;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -22,8 +20,7 @@ import lombok.experimental.FieldNameConstants;
 @MappedSuperclass
 @FieldDefaults(level=PROTECTED)
 public abstract class SequenceStyleConcurrentDomainEntity
-extends BaseAggregateRoot
-implements Serializable {
+extends BaseAggregateRoot {
     private static final long serialVersionUID = 1L;
 
 

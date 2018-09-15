@@ -2,7 +2,6 @@ package gb.common.domain;
 
 import static lombok.AccessLevel.PROTECTED;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Id;
@@ -21,8 +20,7 @@ import lombok.experimental.FieldNameConstants;
 @FieldDefaults(level=PROTECTED)
 @EqualsAndHashCode(of="id", callSuper=false)
 public abstract class UuidAssignableConcurrentDomainEntity
-extends BaseAggregateRoot
-implements Serializable {
+extends BaseAggregateRoot {
     private static final long serialVersionUID = 1L;
 
 
