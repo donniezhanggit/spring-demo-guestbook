@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
@@ -19,11 +19,19 @@ import lombok.experimental.FieldDefaults;
 
 
 @Service
-@AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class DomainEventsRepository {
-    @NonNull DomainEventsJpaRepository jpaEventsRepo;
-    @NonNull ObjectMapper objectMapper;
+    DomainEventsJpaRepository jpaEventsRepo;
+    ObjectMapper eventsMapper;
+
+
+    public DomainEventsRepository(
+            @NonNull final DomainEventsJpaRepository repo,
+            @NonNull @Qualifier("eventsMapper") final ObjectMapper mapper
+            ) {
+        this.jpaEventsRepo = repo;
+        this.eventsMapper = mapper;
+    }
 
 
     public PersistentDomainEvent get(final UUID id) {
@@ -57,13 +65,13 @@ public class DomainEventsRepository {
 
     @SneakyThrows
     private String jsonify(@NonNull final DomainEvent event) {
-        return objectMapper.writeValueAsString(event);
+        return eventsMapper.writeValueAsString(event);
     }
 
 
     @SneakyThrows
     private DomainEvent objectify(@NonNull final String eventJson) {
-        return objectMapper.readValue(eventJson, DomainEvent.class);
+        return eventsMapper.readValue(eventJson, DomainEvent.class);
     }
 
 

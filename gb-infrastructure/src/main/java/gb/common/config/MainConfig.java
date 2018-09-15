@@ -4,27 +4,20 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
 import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
-import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
-import gb.common.events.DomainEvent;
-import gb.common.events.DomainEventDeserializer;
-import gb.common.events.annotations.PersistentDomainEvent;
 import gb.common.jackson.StringTrimmer;
-import gb.common.reflect.AnnotatedClassFinder;
 import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @EnableCaching
 public class MainConfig {
     @Bean
+    @Primary
     public ObjectMapper objectMapper(
             @Value("${spring.jackson.serialization.INDENT_OUTPUT:false}")
             final boolean prettyPrint) {
@@ -59,34 +53,9 @@ public class MainConfig {
         // Ignore unknown fields.
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
-
-        // Register domain event deserializator.
-        mapper.registerModule(prepareEventDeserModule());
-
-        log.info("Configuring of ObjectMapper finished");
+        log.info("Configuring of global objectMapper finished");
 
         return mapper;
-    }
-
-
-    // TODO: Implement different configuration, autoconfiguration and
-    // remove hardcoded options.
-    private static SimpleModule prepareEventDeserModule() {
-        val finder = new AnnotatedClassFinder();
-        final Map<String, Class<?>> eventClasses = finder
-                .buildMapOfNameAndClassAnnotated(
-                        "gb",
-                        PersistentDomainEvent.class);
-
-        val deser = new DomainEventDeserializer(eventClasses);
-
-        final SimpleModule module = new SimpleModule(
-                "DomainEventDeserializer",
-                new Version(0, 0, 1, null, null, null));
-
-        module.addDeserializer(DomainEvent.class, deser);
-
-        return module;
     }
 
 

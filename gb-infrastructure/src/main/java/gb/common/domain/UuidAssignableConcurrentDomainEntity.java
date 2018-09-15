@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
@@ -18,7 +19,9 @@ import lombok.experimental.FieldNameConstants;
 @FieldNameConstants
 @MappedSuperclass
 @FieldDefaults(level=PROTECTED)
+@EqualsAndHashCode(of="id", callSuper=false)
 public abstract class UuidAssignableConcurrentDomainEntity
+extends BaseAggregateRoot
 implements Serializable {
     private static final long serialVersionUID = 1L;
 

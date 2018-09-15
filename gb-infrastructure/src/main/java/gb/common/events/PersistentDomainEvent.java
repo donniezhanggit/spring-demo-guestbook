@@ -16,10 +16,12 @@ import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 
 
 @Entity
@@ -28,6 +30,8 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @NoArgsConstructor(access=PROTECTED)
 @AllArgsConstructor
+@FieldNameConstants
+@EqualsAndHashCode(of="id")
 class PersistentDomainEvent {
     @Id
     @NonNull

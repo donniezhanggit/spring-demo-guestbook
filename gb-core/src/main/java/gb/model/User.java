@@ -32,7 +32,7 @@ import lombok.experimental.PackagePrivate;
 @ToString
 @FieldNameConstants
 public class User
-extends SequenceStyleConcurrentDomainEntity<User> {
+extends SequenceStyleConcurrentDomainEntity {
     private static final long serialVersionUID = 1L;
 
     public static final int USERNAME_MIN_LENGTH = 2;
