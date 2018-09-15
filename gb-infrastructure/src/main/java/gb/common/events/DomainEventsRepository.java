@@ -20,7 +20,7 @@ import lombok.experimental.FieldDefaults;
 
 @Service
 @FieldDefaults(level=PRIVATE, makeFinal=true)
-public class DomainEventsRepository {
+class DomainEventsRepository {
     DomainEventsJpaRepository jpaEventsRepo;
     ObjectMapper eventsMapper;
 

@@ -1,7 +1,7 @@
 package gb.common.events;
 
 
-public enum DomainEventStatus {
+enum DomainEventStatus {
     PENDING,
     PROCESSED
 }

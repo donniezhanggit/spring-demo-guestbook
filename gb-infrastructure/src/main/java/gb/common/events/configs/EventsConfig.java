@@ -25,8 +25,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 import gb.common.events.DomainEvent;
-import gb.common.events.DomainEventDeserializer;
 import gb.common.events.annotations.PersistentDomainEvent;
+import gb.common.events.jackson.DomainEventDeserializer;
 import gb.common.jackson.StringTrimmer;
 import gb.common.reflect.AnnotatedClassFinder;
 import lombok.val;
@@ -96,7 +96,7 @@ public class EventsConfig {
     @EnableScheduling
     @Configuration
     @Profile(value={DEVELOPMENT, PRODUCTION})
-    public static final class AsyncConfig {
+    public static class AsyncConfig {
         @Bean
         public TaskExecutor taskExecutor() {
             val taskExecutor = new ThreadPoolTaskExecutor();

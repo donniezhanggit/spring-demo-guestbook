@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @AllArgsConstructor
 @FieldDefaults(level=PRIVATE, makeFinal=true)
-public class EventsProcessingScheduler {
+class EventsProcessingScheduler {
     @NonNull PersistentEventsProcessor processor;
     @NonNull DomainEventsRepository eventsRepo;
 
