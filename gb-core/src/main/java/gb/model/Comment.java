@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.Immutable;
 
 import gb.common.domain.SequenceStyleConcurrentDomainEntity;
-import gb.common.guard.Guard;
+import gb.common.validation.Check;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -72,7 +72,7 @@ extends SequenceStyleConcurrentDomainEntity {
     private static void throwIfNotProvidedAnonNameAndUserName(
             @Nullable final String anonName,
             @Nullable final User user) {
-        Guard.that(anonName != null || user != null,
+        Check.that(anonName != null || user != null,
                 "EMPTY_AUTHOR",
                 "Can not create new comment without author's name");
     }

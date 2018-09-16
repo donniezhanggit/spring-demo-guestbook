@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.ImmutableMap;
 
-import gb.common.guard.Guard;
 import gb.common.it.EndpointITCase;
+import gb.common.validation.Check;
 import lombok.val;
 
 
@@ -67,7 +67,7 @@ public class InvalidArgumentAdviceTests extends EndpointITCase {
     public static class TestController {
         @GetMapping(INVALID_ARGUMENT_URL)
         public void throwInvalidArgumentException() {
-            Guard.that(false, "BLANK_MESSAGE", MESSAGE);
+            Check.that(false, "BLANK_MESSAGE", MESSAGE);
         }
     }
 }
