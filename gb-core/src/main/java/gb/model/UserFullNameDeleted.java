@@ -12,7 +12,7 @@ import lombok.Value;
 @Builder
 @PersistentDomainEvent
 @EqualsAndHashCode(callSuper=true)
-public final class UserFullNameDeleted  extends BaseDomainEvent {
+public final class UserFullNameDeleted extends BaseDomainEvent {
     Long userId;
     FullName oldName;
 
