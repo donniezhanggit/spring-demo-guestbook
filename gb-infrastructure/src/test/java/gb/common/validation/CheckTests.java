@@ -1,4 +1,4 @@
-package gb.common.guard;
+package gb.common.validation;
 
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
