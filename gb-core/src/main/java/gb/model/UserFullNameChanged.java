@@ -1,5 +1,7 @@
 package gb.model;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import javax.annotation.Nullable;
 
 import gb.common.events.BaseDomainEvent;
@@ -8,12 +10,14 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.Value;
+import lombok.experimental.FieldDefaults;
 
 
 @Value
 @Builder
-@PersistentDomainEvent
+@FieldDefaults(level=PRIVATE, makeFinal=true)
 @EqualsAndHashCode(callSuper=true)
+@PersistentDomainEvent
 public final class UserFullNameChanged extends BaseDomainEvent {
     Long userId;
     FullName oldName;
