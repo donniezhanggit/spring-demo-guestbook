@@ -1,6 +1,7 @@
 package gb.api;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -34,7 +35,7 @@ public interface UserApi {
      * @throws ConstraintViolationException if input is invalid
      */
     @PreAuthorize("hasRole('USER')")
-    void changeNameOfCurrentUser(FullNameInput newName);
+    void changeNameOfCurrentUser(@Valid FullNameInput newName);
 
 
     /**

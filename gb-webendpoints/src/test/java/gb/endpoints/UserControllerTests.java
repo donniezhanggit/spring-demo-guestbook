@@ -80,9 +80,10 @@ public class UserControllerTests extends EndpointITCase {
         // Arrange.
         final FullNameInput input = buildFullNameInput();
         final String inputAsJson = jsonify(input);
+        final String url = CURRENT_USER_API_URL + "/fullName";
 
         // Act and assert.
-        mockMvc.perform(put(CURRENT_USER_API_URL)
+        mockMvc.perform(put(url)
                 .content(inputAsJson)
                 .contentType(APPLICATION_JSON_UTF8))
             .andExpect(status().isNoContent());
@@ -96,9 +97,10 @@ public class UserControllerTests extends EndpointITCase {
         // Arrange.
         final FullNameInput input = buildFullNameInput();
         final String inputAsJson = jsonify(input);
+        final String url = CURRENT_USER_API_URL + "/fullName";
 
         // Act.
-        mockMvc.perform(put(CURRENT_USER_API_URL)
+        mockMvc.perform(put(url)
                 .content(inputAsJson)
                 .contentType(APPLICATION_JSON_UTF8));
 
@@ -114,9 +116,10 @@ public class UserControllerTests extends EndpointITCase {
         // Arrange.
         final FullNameInput input = buildFullNameInput();
         final String inputAsJson = jsonify(input);
+        final String url = CURRENT_USER_API_URL + "/fullName";
 
         // Act and assert.
-        mockMvc.perform(delete(CURRENT_USER_API_URL)
+        mockMvc.perform(delete(url)
                 .content(inputAsJson)
                 .contentType(APPLICATION_JSON_UTF8))
             .andExpect(status().isNoContent());
@@ -130,9 +133,10 @@ public class UserControllerTests extends EndpointITCase {
         // Arrange.
         final FullNameInput input = buildFullNameInput();
         final String inputAsJson = jsonify(input);
+        final String url = CURRENT_USER_API_URL + "/fullName";
 
         // Act.
-        mockMvc.perform(delete(CURRENT_USER_API_URL)
+        mockMvc.perform(delete(url)
                 .content(inputAsJson)
                 .contentType(APPLICATION_JSON_UTF8));
 

@@ -3,6 +3,8 @@ package gb.api;
 import static gb.common.exceptions.Exceptions.notFound;
 import static lombok.AccessLevel.PRIVATE;
 
+import javax.validation.Valid;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import gb.common.annotations.Api;
@@ -35,7 +37,7 @@ public class UserApiImpl implements UserApi {
     }
 
     @Override
-    public void changeNameOfCurrentUser(FullNameInput newNameInput) {
+    public void changeNameOfCurrentUser(@Valid FullNameInput newNameInput) {
         final String username = getCurrentLoggedUserNameOrThrow();
         final User currentUser = usersRepo.findByUserNameOrThrow(username);
         final FullName newName = newNameInput.toFullName();

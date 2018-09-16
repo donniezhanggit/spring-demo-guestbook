@@ -33,14 +33,14 @@ public class UserController {
     }
 
 
-    @PutMapping
+    @PutMapping("/fullName")
     @ResponseStatus(NO_CONTENT)
     public void changeName(@RequestBody final FullNameInput newName) {
         userApi.changeNameOfCurrentUser(newName);
     }
 
 
-    @DeleteMapping
+    @DeleteMapping("/fullName")
     @ResponseStatus(NO_CONTENT)
     public void deleteName() {
         userApi.deleteNameOfCurrentUser();

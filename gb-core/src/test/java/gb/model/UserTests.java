@@ -1,5 +1,6 @@
 package gb.model;
 
+import static gb.common.DomainEventChecker.checkThat;
 import static gb.testlang.fixtures.FullNameFixtures.FIRST_NAME;
 import static gb.testlang.fixtures.FullNameFixtures.LAST_NAME;
 import static gb.testlang.fixtures.UsersFixtures.buildUser;
@@ -138,5 +139,38 @@ public class UserTests extends JUnitTestCase {
 
         // Assert.
         assertThat(user.getFullName().isPresent()).isFalse();
+    }
+
+
+    @Test
+    public void When_user_changing_name_an_event_should_be_emitted() {
+        // Arrange.
+        final User user = filledUserBuilder().fullName(null).build();
+        final FullName name = new FullName(FIRST_NAME, LAST_NAME);
+
+        // Act.
+        user.changeName(name);
+
+        // Assert.
+        checkThat(user).hasOnlyOneEvent()
+            .whichIsInstanceOf(UserFullNameChanged.class)
+            .hasFieldEquals(UserFullNameChanged::getNewName, name)
+            .hasFieldEquals(UserFullNameChanged::getOldName, null);
+    }
+
+
+    @Test
+    public void When_userName_deleted_an_event_should_be_emitted() {
+        // Arrange.
+        final FullName name = new FullName(FIRST_NAME, LAST_NAME);
+        final User user = filledUserBuilder().fullName(name).build();
+
+        // Act.
+        user.deleteName();
+
+        // Assert.
+        checkThat(user).hasOnlyOneEvent()
+            .whichIsInstanceOf(UserFullNameDeleted.class)
+            .hasFieldEquals(UserFullNameDeleted::getOldName, name);
     }
 }

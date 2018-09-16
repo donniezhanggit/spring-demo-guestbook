@@ -1,11 +1,9 @@
 package gb.model;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
-import gb.common.events.DomainEvent;
+import gb.common.events.BaseDomainEvent;
 import gb.common.events.annotations.PersistentDomainEvent;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.Value;
 
@@ -13,9 +11,8 @@ import lombok.Value;
 @Value
 @Builder
 @PersistentDomainEvent
-public final class UserFullNameDeleted implements DomainEvent {
-    @NonNull UUID id = UUID.randomUUID();
-    @NonNull @Builder.Default LocalDateTime createdAt = LocalDateTime.now();
+@EqualsAndHashCode(callSuper=true)
+public final class UserFullNameDeleted  extends BaseDomainEvent {
     Long userId;
     FullName oldName;
 

@@ -15,12 +15,10 @@ import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import gb.model.Comment;
 import gb.model.NewCommentAdded;
-import gb.model.User;
 import gb.repos.CommentsRepository;
 import gb.services.CommentMapper;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import lombok.val;
 import lombok.experimental.FieldDefaults;
 
 
@@ -50,9 +48,8 @@ public class CommentsApiImpl implements CommentsApi {
     @Transactional
     public Long createComment(@NonNull @Valid final CommentInput input) {
         final Comment comment = commentsRepo.save(commentMapper.from(input));
-        final NewCommentAdded event = buildEvent(comment);
 
-        eventPublisher.publishEvent(event);
+        eventPublisher.publishEvent(NewCommentAdded.of(comment));
 
         return comment.getId();
     }
@@ -64,18 +61,5 @@ public class CommentsApiImpl implements CommentsApi {
         final Comment comment = commentsRepo.findOneByIdOrThrow(id);
 
         commentsRepo.delete(comment);
-    }
-
-
-    private static NewCommentAdded buildEvent(final Comment newComment) {
-        val authorName = newComment.getUser()
-                .map(User::getUserName)
-                .orElse(newComment.getAnonName());
-
-        return NewCommentAdded.builder()
-                .authorName(authorName)
-                .commentId(newComment.getId())
-                .message(newComment.getMessage())
-                .build();
     }
 }

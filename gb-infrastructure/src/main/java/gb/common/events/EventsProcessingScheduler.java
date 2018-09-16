@@ -31,7 +31,5 @@ class EventsProcessingScheduler {
         log.info("Pending events: {}", pendingEvents);
 
         pendingEvents.forEach(processor::handleEvent);
-
-        log.info("Finished processing pending events.");
     }
 }
