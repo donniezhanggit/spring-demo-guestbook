@@ -31,14 +31,17 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.val;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 
 
 @WebMvcTest(ConstraintViolationAdviceTests.TestController.class)
 @WithMockUser(username=EXISTING_USERNAME, roles={"USER", "ADMIN", "ACTUATOR"})
 public class ConstraintViolationAdviceTests extends EndpointITCase {
     private static final String API_URL = "/test/messages";
+    private static final String FIELD_PATH = "$.errors[0].field";
+    private static final String FIELD_VALUE = "message";
     private static final String CODE_PATH = "$.errors[0].code";
-    private static final String CODE_VALUE = "createComment.input.message";
+    private static final String CODE_VALUE = "invalid.field.value";
     private static final String MESSAGE_PATH = "$.errors[0].message";
     private static final String MESSAGE_VALUE = "must not be null";
 
@@ -70,6 +73,7 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(invalidInputJson))
                 .andExpect(content().contentType(APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath(FIELD_PATH, is(FIELD_VALUE)))
                 .andExpect(jsonPath(CODE_PATH, is(CODE_VALUE)))
                 .andExpect(jsonPath(MESSAGE_PATH, is(MESSAGE_VALUE)));
     }
@@ -79,6 +83,7 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
     @NoArgsConstructor
     @AllArgsConstructor
     @FieldDefaults(level=PRIVATE)
+    @FieldNameConstants
     public static class TestInput {
         @NotNull
         private String message;

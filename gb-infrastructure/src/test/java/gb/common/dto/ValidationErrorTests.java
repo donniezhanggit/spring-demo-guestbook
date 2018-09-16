@@ -12,7 +12,7 @@ import gb.common.exceptions.InvalidArgumentException;
 import lombok.val;
 
 
-public class CodeAndMessageTests extends JUnitTestCase {
+public class ValidationErrorTests extends JUnitTestCase {
     private static final String CODE = "code";
     private static final String MESSAGE = "message";
 
@@ -22,7 +22,7 @@ public class CodeAndMessageTests extends JUnitTestCase {
         ConstraintViolation<?> _null = (ConstraintViolation<?>) null;
 
         assertThatIllegalArgumentException()
-            .isThrownBy(() -> new CodeAndMessage(_null));
+            .isThrownBy(() -> new ValidationError(_null));
     }
 
 
@@ -31,14 +31,14 @@ public class CodeAndMessageTests extends JUnitTestCase {
         val _null = (InvalidArgumentException) null;
 
         assertThatIllegalArgumentException()
-            .isThrownBy(() -> new CodeAndMessage(_null));
+            .isThrownBy(() -> new ValidationError(_null));
     }
 
 
     @Test
     public void InvalidArgumentException_shlould_map_to_CodeAndMessage() {
         // Act.
-        val com = new CodeAndMessage(
+        val com = new ValidationError(
                 new InvalidArgumentException(CODE, MESSAGE)
         );
 

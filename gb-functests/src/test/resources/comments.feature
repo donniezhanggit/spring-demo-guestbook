@@ -30,7 +30,7 @@ Feature: Comments
         And no anon name
         And message is 'Hack this world!'
         When I submit the comment input
-        Then response has status BAD_REQUEST
+        Then response has status UNPROCESSABLE_ENTITY
         And response body contains 'EMPTY_AUTHOR'
         And response body contains 'Can not create new comment without author\'s name'
 
