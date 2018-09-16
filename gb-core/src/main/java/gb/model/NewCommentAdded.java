@@ -14,7 +14,7 @@ import lombok.val;
 @PersistentDomainEvent
 @EqualsAndHashCode(callSuper=true)
 public final class NewCommentAdded extends BaseDomainEvent {
-    @NonNull Long commentId;
+    Long commentId;
     @NonNull String message;
     @NonNull String authorName;
 
