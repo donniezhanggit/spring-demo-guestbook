@@ -8,9 +8,13 @@ import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
+import org.hamcrest.Matcher;
+import org.junit.Assert;
+
 import gb.common.domain.BaseAggregateRoot;
 import gb.common.events.DomainEvent;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 
 
@@ -33,7 +37,6 @@ public class DomainEventChecker {
     checkThat(@Nullable final BaseAggregateRoot root) {
         assertThat(root).isNotNull();
 
-
         return new DomainEventChecker(root.domainEvents());
     }
 
@@ -46,7 +49,7 @@ public class DomainEventChecker {
 
         @SuppressWarnings({"rawtypes", "unchecked"})
         public <T extends DomainEvent> DomainEventHolder<T>
-        whichIsInstanceOf(Class<T> clazz) {
+        whichIsInstanceOf(@NonNull final Class<T> clazz) {
             assertThat(uncastedEvent).isInstanceOf(clazz);
 
             return new DomainEventHolder(clazz.cast(uncastedEvent));
@@ -61,12 +64,24 @@ public class DomainEventChecker {
 
 
         public <A> DomainEventHolder<T> hasFieldEquals(
-                final Function<? super T, ? extends A> accessor,
-                final A expected) {
+                @NonNull final Function<? super T, ? extends A> accessor,
+                @Nullable final A expected) {
 
             final A actual = accessor.apply(event);
 
             assertThat(actual).isEqualTo(expected);
+
+            return this;
+        }
+
+
+        public <A> DomainEventHolder<T> hasFieldMatching(
+                @NonNull final Function<? super T, ? extends A> accessor,
+                @NonNull final Matcher<A> matcher) {
+
+            final A actual = accessor.apply(event);
+
+            Assert.assertThat(actual, matcher);
 
             return this;
         }
