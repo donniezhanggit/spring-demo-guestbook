@@ -69,11 +69,15 @@ extends SequenceStyleConcurrentDomainEntity {
 
 
     public void deactivate() {
+        registerEvent(UserDeactivated.of(this));
+
         active = false;
     }
 
 
     public void activate() {
+        registerEvent(UserActivated.of(this));
+
         active = true;
     }
 

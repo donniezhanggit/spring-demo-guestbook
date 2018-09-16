@@ -24,7 +24,7 @@ public final class NewCommentAdded extends BaseDomainEvent {
                 .map(User::getUserName)
                 .orElse(newComment.getAnonName());
 
-        return NewCommentAdded.builder()
+        return builder()
                 .authorName(authorName)
                 .commentId(newComment.getId())
                 .message(newComment.getMessage())

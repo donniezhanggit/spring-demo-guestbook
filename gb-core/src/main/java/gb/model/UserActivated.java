@@ -1,26 +1,26 @@
 package gb.model;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import gb.common.events.BaseDomainEvent;
-import gb.common.events.annotations.PersistentDomainEvent;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.Value;
+import lombok.experimental.FieldDefaults;
 
 
 @Value
 @Builder
-@PersistentDomainEvent
+@FieldDefaults(level=PRIVATE, makeFinal=true)
 @EqualsAndHashCode(callSuper=true)
-public final class UserFullNameDeleted extends BaseDomainEvent {
+public final class UserActivated extends BaseDomainEvent {
     Long userId;
-    FullName oldName;
 
 
-    public static UserFullNameDeleted of(@NonNull final User user) {
+    public static UserActivated of(@NonNull final User user) { // NOSONAR
         return builder()
                 .userId(user.getId())
-                .oldName(user.getFullName().orElse(null))
                 .build();
     }
 }

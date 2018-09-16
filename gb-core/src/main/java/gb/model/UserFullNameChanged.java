@@ -22,7 +22,7 @@ public final class UserFullNameChanged extends BaseDomainEvent {
 
     public static UserFullNameChanged
     of(@NonNull final User user, @Nullable final FullName newName) {
-        return UserFullNameChanged.builder()
+        return builder()
                 .userId(user.getId())
                 .oldName(user.getFullName().orElse(null))
                 .newName(newName)

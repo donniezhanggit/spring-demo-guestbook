@@ -173,4 +173,32 @@ public class UserTests extends JUnitTestCase {
             .whichIsInstanceOf(UserFullNameDeleted.class)
             .hasFieldEquals(UserFullNameDeleted::getOldName, name);
     }
+
+
+    @Test
+    public void Deactivating_of_user_should_emit_event() {
+        // Arrange.
+        final User user = buildUser();
+
+        // Act.
+        user.deactivate();
+
+        // Assert.
+        checkThat(user).hasOnlyOneEvent()
+            .whichIsInstanceOf(UserDeactivated.class);
+    }
+
+
+    @Test
+    public void Activating_of_user_should_emit_event() {
+        // Arrange.
+        final User user = buildUser();
+
+        // Act.
+        user.activate();
+
+        // Assert.
+        checkThat(user).hasOnlyOneEvent()
+            .whichIsInstanceOf(UserActivated.class);
+    }
 }
