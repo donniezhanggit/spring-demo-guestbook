@@ -1,6 +1,8 @@
 package gb.model;
 
+import static gb.common.DomainEventChecker.checkThat;
 import static gb.testlang.fixtures.CommentsFixtures.ANON_NAME;
+import static gb.testlang.fixtures.CommentsFixtures.MESSAGE;
 import static gb.testlang.fixtures.CommentsFixtures.filledCommentBuilder;
 import static gb.testlang.fixtures.UsersFixtures.stubUser;
 import static java.time.temporal.ChronoUnit.SECONDS;
@@ -62,5 +64,22 @@ public class CommentTests extends JUnitTestCase {
         // Assert.
         assertThat(newComment.getCreatedAt())
             .isCloseTo(LocalDateTime.now(), byLessThan(1, SECONDS));
+    }
+
+
+    @Test
+    public void Instantiating_a_comment_should_generate_event() {
+        // Arrange.
+        final CommentBuilder builder = filledCommentBuilder()
+                .anonName(ANON_NAME).message(MESSAGE);
+
+        // Act.
+        final Comment newComment = new Comment(builder);
+
+        //Assert.
+        checkThat(newComment).hasOnlyOneEvent()
+            .whichIsInstanceOf(NewCommentAdded.class)
+            .hasFieldEquals(NewCommentAdded::getAuthorName, ANON_NAME)
+            .hasFieldEquals(NewCommentAdded::getMessage, MESSAGE);
     }
 }

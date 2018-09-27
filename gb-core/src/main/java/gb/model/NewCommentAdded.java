@@ -19,8 +19,8 @@ import lombok.experimental.FieldDefaults;
 @PersistentDomainEvent
 public final class NewCommentAdded extends BaseDomainEvent {
     Long commentId;
-    @NonNull String message;
     @NonNull String authorName;
+    @NonNull String message;
 
 
     public static NewCommentAdded of(@NonNull final Comment newComment) {
@@ -29,8 +29,8 @@ public final class NewCommentAdded extends BaseDomainEvent {
                 .orElse(newComment.getAnonName());
 
         return builder()
-                .authorName(authorName)
                 .commentId(newComment.getId())
+                .authorName(authorName)
                 .message(newComment.getMessage())
                 .build();
     }
