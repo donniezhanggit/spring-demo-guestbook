@@ -10,11 +10,9 @@ import javax.validation.Valid;
 import org.springframework.transaction.annotation.Transactional;
 
 import gb.common.annotations.Api;
-import gb.common.events.EventPublisher;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
 import gb.model.Comment;
-import gb.model.NewCommentAdded;
 import gb.repos.CommentsRepository;
 import gb.services.CommentMapper;
 import lombok.AllArgsConstructor;
@@ -29,7 +27,6 @@ import lombok.experimental.FieldDefaults;
 public class CommentsApiImpl implements CommentsApi {
     @NonNull CommentsRepository commentsRepo;
     @NonNull CommentMapper commentMapper;
-    @NonNull EventPublisher eventPublisher;
 
 
     @Override
@@ -48,8 +45,6 @@ public class CommentsApiImpl implements CommentsApi {
     @Transactional
     public Long createComment(@NonNull @Valid final CommentInput input) {
         final Comment comment = commentsRepo.save(commentMapper.from(input));
-
-        eventPublisher.publishEvent(NewCommentAdded.of(comment));
 
         return comment.getId();
     }

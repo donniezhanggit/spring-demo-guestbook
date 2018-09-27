@@ -32,7 +32,7 @@ import lombok.experimental.PackagePrivate;
 @FieldDefaults(level=PRIVATE)
 @NoArgsConstructor(access=PROTECTED)
 @FieldNameConstants
-public class Comment
+public class Comment // NOSONAR we don't override equals/hashcode.
 extends SequenceStyleConcurrentDomainEntity {
     private static final long serialVersionUID = 1L;
 
@@ -56,11 +56,15 @@ extends SequenceStyleConcurrentDomainEntity {
 
     @PackagePrivate
     Comment(@NonNull final CommentBuilder cb) {
+        super();
+
         throwIfNotProvidedAnonNameAndUserName(cb.anonName, cb.user);
 
         setUserOrAnonName(cb.user, cb.anonName);
         setCreatedAtIfNotNull(cb.createdAt);
         setMessage(cb.message);
+
+        registerEvent(() -> NewCommentAdded.of(this));
     }
 
 

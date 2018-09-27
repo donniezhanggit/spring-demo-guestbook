@@ -5,14 +5,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.data.domain.DomainEvents;
-import org.springframework.util.Assert;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gb.common.events.DomainEvent;
+import lombok.NonNull;
 
 
 @SuppressFBWarnings(value="SE_TRANSIENT_FIELD_NOT_RESTORED")
@@ -23,6 +25,9 @@ implements Serializable {
     private final transient @Transient Set<DomainEvent> domainEvents =
             new HashSet<>();
 
+    private final transient @Transient Set<EventProvider> eventProviders =
+            new HashSet<>();
+
 
     /**
      * Registers the given event object for publication on a call to a
@@ -31,10 +36,13 @@ implements Serializable {
      * @param event must not be {@literal null}.
      * @return the event that has been added.
      */
-    protected void registerEvent(DomainEvent event) {
-        Assert.notNull(event, "Domain event must not be null!");
+    protected void registerEvent(@NonNull final DomainEvent event) {
+        domainEvents.add(event);
+    }
 
-        this.domainEvents.add(event);
+
+    protected void registerEvent(@NonNull final EventProvider eventProvider) {
+        eventProviders.add(eventProvider);
     }
 
 
@@ -44,7 +52,7 @@ implements Serializable {
      */
     @AfterDomainEventPublication
     protected void clearDomainEvents() {
-        this.domainEvents.clear();
+        domainEvents.clear();
     }
 
 
@@ -53,6 +61,15 @@ implements Serializable {
      */
     @DomainEvents
     public Collection<DomainEvent> domainEvents() {
-        return Collections.unmodifiableSet(domainEvents);
+        final Set<DomainEvent> lazyInitialized = eventProviders.stream()
+                .map(EventProvider::buildEvent)
+                .collect(Collectors.toSet());
+
+        final Set<DomainEvent> allEvents = Stream.concat(
+                domainEvents.stream(),
+                lazyInitialized.stream())
+                .collect(Collectors.toSet());
+
+        return Collections.unmodifiableSet(allEvents);
     }
 }
