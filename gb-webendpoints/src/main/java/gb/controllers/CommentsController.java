@@ -22,7 +22,6 @@ import gb.api.CommentsApi;
 import gb.common.endpoint.ResponseUtils;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
-import io.micrometer.core.annotation.Timed;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -40,7 +39,6 @@ public class CommentsController {
     @GetMapping
     @ResponseStatus(OK)
     @ApiOperation(value="List all comments", nickname="getComments")
-    @Timed(value="Comments_getComments")
     public List<CommentEntry> getComments() {
         return commentsApi.getComments();
     }
@@ -48,7 +46,6 @@ public class CommentsController {
 
     @GetMapping("/{id}")
     @ApiOperation(value="Get comment by ID", nickname="getComment")
-    @Timed(value="Comments_getComment")
     public ResponseEntity<CommentEntry>
     getComment(@PathVariable final long id) {
         final Optional<CommentEntry> entry = commentsApi.getComment(id);
@@ -60,7 +57,6 @@ public class CommentsController {
     @PostMapping
     @ResponseStatus(CREATED)
     @ApiOperation(value="Create a new comment", nickname="createComment")
-    @Timed(value="Comments_createComment")
     public long createComment(@RequestBody final CommentInput input) {
         return commentsApi.createComment(input);
     }
@@ -70,7 +66,6 @@ public class CommentsController {
     @ResponseStatus(NO_CONTENT)
     @ApiOperation(value="Remove an existing comment by ID",
         nickname="removeComment")
-    @Timed(value="Comments_removeComment")
     public void removeComment(@PathVariable final long id) {
         commentsApi.removeComment(id);
     }
