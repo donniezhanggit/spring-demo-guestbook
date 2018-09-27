@@ -1,7 +1,7 @@
 package gb.model;
 
 import static gb.common.DomainEventChecker.checkThat;
-import static gb.testlang.fixtures.DomainClassFixtures.ignoringEvents;
+import static gb.testlang.fixtures.DomainClassFixtures.doIgnoringEvents;
 import static gb.testlang.fixtures.FullNameFixtures.FIRST_NAME;
 import static gb.testlang.fixtures.FullNameFixtures.LAST_NAME;
 import static gb.testlang.fixtures.UsersFixtures.EMAIL;
@@ -149,7 +149,7 @@ public class UserTests extends JUnitTestCase {
     @Test
     public void When_user_changing_name_an_event_should_be_emitted() {
         // Arrange.
-        final User user = ignoringEvents(
+        final User user = doIgnoringEvents(
                 filledUserBuilder().fullName(null)::build
         );
         final FullName name = new FullName(FIRST_NAME, LAST_NAME);
@@ -169,7 +169,7 @@ public class UserTests extends JUnitTestCase {
     public void When_userName_deleted_an_event_should_be_emitted() {
         // Arrange.
         final FullName name = new FullName(FIRST_NAME, LAST_NAME);
-        final User user = ignoringEvents(
+        final User user = doIgnoringEvents(
                 filledUserBuilder().fullName(name)::build
         );
 
@@ -186,7 +186,7 @@ public class UserTests extends JUnitTestCase {
     @Test
     public void Deactivating_of_user_should_emit_event() {
         // Arrange.
-        final User user = ignoringEvents(UsersFixtures::buildUser);
+        final User user = doIgnoringEvents(UsersFixtures::buildUser);
 
         // Act.
         user.deactivate();
@@ -200,7 +200,7 @@ public class UserTests extends JUnitTestCase {
     @Test
     public void Activating_of_user_should_emit_event() {
         // Arrange.
-        final User user = ignoringEvents(UsersFixtures::buildUser);
+        final User user = doIgnoringEvents(UsersFixtures::buildUser);
 
         // Act.
         user.activate();

@@ -41,6 +41,32 @@ implements Serializable {
     }
 
 
+    /**
+     * Register the given event object provider for later publication of
+     * event.
+     *
+     * Can be useful when you need a way to get sequence style generated
+     * ID or version in event. Using this method you will get a lazy event
+     * registration during flushing when you will have ability to get ID
+     * and version.
+     *
+     * Example with constructor and static factory method.
+     * <pre>
+     * {@code
+     * class AggregateExample extends BaseAggregateRoot {
+     *     final String name;
+     *
+     *     public AggregateExample(String name) {
+     *         this.name = name;
+     *
+     *         registerEvent(() -> NewAggregateExampleCreated.of(this));
+     *     }
+     * }
+     * }
+     * </pre>
+     *
+     * @param eventProvider event supplier which returns a new event.
+     */
     protected void registerEvent(@NonNull final EventProvider eventProvider) {
         eventProviders.add(eventProvider);
     }

@@ -32,6 +32,12 @@ public final class DomainClassFixtures {
     }
 
 
+    /**
+     * Clear domain events of aggregate using reflection.
+     *
+     * @param aggregate which events of should be removed.
+     * @return processed aggregate
+     */
     public static
     <T extends BaseAggregateRoot> T clearDomainEvents(final T aggregate) {
         try {
@@ -48,8 +54,14 @@ public final class DomainClassFixtures {
     }
 
 
-    public static
-    <T extends BaseAggregateRoot> T ignoringEvents(final Supplier<T> supplier) {
+    /**
+     * Run aggregate supplier with cleaning of domain events after all.
+     *
+     * @param supplier a lambda to run
+     * @return aggregate root with cleared collection of domain events.
+     */
+    public static <T extends BaseAggregateRoot>
+    T doIgnoringEvents(final Supplier<T> supplier) {
         final T aggregate = supplier.get();
 
         clearDomainEvents(aggregate);
