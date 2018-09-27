@@ -11,6 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import lombok.Getter;
+import lombok.val;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 
@@ -39,4 +40,24 @@ extends BaseAggregateRoot {
 
     @Version
     Short version;
+
+
+    @Override
+    public boolean equals(final Object o) {
+        if(this == o) {
+            return false;
+        }
+        if(!(o instanceof SequenceStyleConcurrentDomainEntity)) { // NOSONAR
+            return false;
+        }
+        val other = (SequenceStyleConcurrentDomainEntity) o;
+
+        return id != null && id.equals(other.id);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return 31;
+    }
 }

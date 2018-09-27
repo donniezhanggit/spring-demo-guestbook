@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NaturalId;
 
 import gb.common.domain.SequenceStyleConcurrentDomainEntity;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -31,6 +32,7 @@ import lombok.experimental.PackagePrivate;
 @NoArgsConstructor(access=PROTECTED)
 @ToString
 @FieldNameConstants
+@EqualsAndHashCode(of="userName", callSuper=false)
 public class User
 extends SequenceStyleConcurrentDomainEntity {
     private static final long serialVersionUID = 1L;
