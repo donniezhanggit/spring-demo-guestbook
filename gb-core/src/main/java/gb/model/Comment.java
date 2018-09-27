@@ -64,7 +64,7 @@ extends SequenceStyleConcurrentDomainEntity {
         setCreatedAtIfNotNull(cb.createdAt);
         setMessage(cb.message);
 
-        registerEvent(() -> NewCommentAdded.of(this));
+        registerEvent(() -> NewCommentAdded.of(this)); // NOSONAR
     }
 
 

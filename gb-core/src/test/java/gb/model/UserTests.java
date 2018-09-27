@@ -1,8 +1,11 @@
 package gb.model;
 
 import static gb.common.DomainEventChecker.checkThat;
+import static gb.testlang.fixtures.DomainClassFixtures.ignoringEvents;
 import static gb.testlang.fixtures.FullNameFixtures.FIRST_NAME;
 import static gb.testlang.fixtures.FullNameFixtures.LAST_NAME;
+import static gb.testlang.fixtures.UsersFixtures.EMAIL;
+import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static gb.testlang.fixtures.UsersFixtures.buildUser;
 import static gb.testlang.fixtures.UsersFixtures.filledUserBuilder;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,6 +16,7 @@ import java.util.Optional;
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
+import gb.testlang.fixtures.UsersFixtures;
 
 
 public class UserTests extends JUnitTestCase {
@@ -145,7 +149,9 @@ public class UserTests extends JUnitTestCase {
     @Test
     public void When_user_changing_name_an_event_should_be_emitted() {
         // Arrange.
-        final User user = filledUserBuilder().fullName(null).build();
+        final User user = ignoringEvents(
+                filledUserBuilder().fullName(null)::build
+        );
         final FullName name = new FullName(FIRST_NAME, LAST_NAME);
 
         // Act.
@@ -163,7 +169,9 @@ public class UserTests extends JUnitTestCase {
     public void When_userName_deleted_an_event_should_be_emitted() {
         // Arrange.
         final FullName name = new FullName(FIRST_NAME, LAST_NAME);
-        final User user = filledUserBuilder().fullName(name).build();
+        final User user = ignoringEvents(
+                filledUserBuilder().fullName(name)::build
+        );
 
         // Act.
         user.deleteName();
@@ -178,7 +186,7 @@ public class UserTests extends JUnitTestCase {
     @Test
     public void Deactivating_of_user_should_emit_event() {
         // Arrange.
-        final User user = buildUser();
+        final User user = ignoringEvents(UsersFixtures::buildUser);
 
         // Act.
         user.deactivate();
@@ -192,7 +200,7 @@ public class UserTests extends JUnitTestCase {
     @Test
     public void Activating_of_user_should_emit_event() {
         // Arrange.
-        final User user = buildUser();
+        final User user = ignoringEvents(UsersFixtures::buildUser);
 
         // Act.
         user.activate();
@@ -200,5 +208,22 @@ public class UserTests extends JUnitTestCase {
         // Assert.
         checkThat(user).hasOnlyOneEvent()
             .whichIsInstanceOf(UserActivated.class);
+    }
+
+
+    @Test
+    public void Instantiation_of_user_should_emit_event() {
+        // Arrange.
+        final UserBuilder builder = filledUserBuilder()
+                .userName(EXISTING_USERNAME).email(EMAIL);
+
+        // Act.
+        final User newUser = new User(builder);
+
+        // Assert.
+        checkThat(newUser).hasOnlyOneEvent()
+            .whichIsInstanceOf(NewUserRegistered.class)
+            .hasFieldEquals(NewUserRegistered::getUserName, EXISTING_USERNAME)
+            .hasFieldEquals(NewUserRegistered::getEmail, EMAIL);
     }
 }

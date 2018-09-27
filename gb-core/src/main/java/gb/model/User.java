@@ -62,6 +62,8 @@ extends SequenceStyleConcurrentDomainEntity {
         setCreatedAt(ub.createdAt);
         setActive(ub.active);
         setFullName(ub.fullName);
+
+        registerEvent(() -> NewUserRegistered.of(this)); // NOSONAR
     }
 
 

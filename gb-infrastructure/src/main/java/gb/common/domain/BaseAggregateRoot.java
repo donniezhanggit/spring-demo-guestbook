@@ -53,6 +53,7 @@ implements Serializable {
     @AfterDomainEventPublication
     protected void clearDomainEvents() {
         domainEvents.clear();
+        eventProviders.clear();
     }
 
 
