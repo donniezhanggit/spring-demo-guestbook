@@ -34,7 +34,7 @@ public class DomainEventChecker {
 
 
     public static DomainEventChecker
-    checkThat(@Nullable final BaseAggregateRoot root) {
+    checkThat(@Nullable final BaseAggregateRoot<?> root) {
         assertThat(root).isNotNull();
 
         return new DomainEventChecker(root.domainEvents());

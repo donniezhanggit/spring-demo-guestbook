@@ -37,7 +37,7 @@ public class AggregateRootInterceptor extends EmptyInterceptor {
             return false;
         }
 
-        final BaseAggregateRoot aggregate = (BaseAggregateRoot) entity;
+        final BaseAggregateRoot<?> aggregate = (BaseAggregateRoot<?>) entity;
         final Collection<DomainEvent> domainEvents = aggregate.domainEvents();
 
         if(domainEvents.isEmpty()) {
@@ -54,7 +54,7 @@ public class AggregateRootInterceptor extends EmptyInterceptor {
 
 
     @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
-    private void clearEvents(@NonNull final BaseAggregateRoot aggregate) {
+    private void clearEvents(@NonNull final BaseAggregateRoot<?> aggregate) {
         try {
             final Method clearEvents =
                     findMethod(aggregate.getClass(), "clearDomainEvents");
@@ -62,7 +62,7 @@ public class AggregateRootInterceptor extends EmptyInterceptor {
             makeAccessible(clearEvents);
             invokeMethod(clearEvents, aggregate);
         } catch (Exception e) { // NOSONAR
-            log.error("Something is wrong! {}", e);
+            log.error("Something is wrong!", e);
         }
     }
 

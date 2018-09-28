@@ -4,6 +4,6 @@ import gb.common.events.DomainEvent;
 
 
 @FunctionalInterface
-public interface EventProvider {
-    DomainEvent buildEvent();
+public interface EventProvider<A> {
+    DomainEvent buildEventFromAggregate(A aggregate);
 }

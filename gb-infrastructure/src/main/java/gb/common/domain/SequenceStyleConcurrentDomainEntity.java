@@ -20,8 +20,9 @@ import lombok.experimental.FieldNameConstants;
 @FieldNameConstants
 @MappedSuperclass
 @FieldDefaults(level=PROTECTED)
-public abstract class SequenceStyleConcurrentDomainEntity
-extends BaseAggregateRoot {
+public abstract class
+SequenceStyleConcurrentDomainEntity<A extends BaseAggregateRoot<A>>
+extends BaseAggregateRoot<A> {
     private static final long serialVersionUID = 1L;
 
 
@@ -45,12 +46,15 @@ extends BaseAggregateRoot {
     @Override
     public boolean equals(final Object o) {
         if(this == o) {
-            return false;
+            return true;
         }
+
         if(!(o instanceof SequenceStyleConcurrentDomainEntity)) { // NOSONAR
             return false;
         }
-        val other = (SequenceStyleConcurrentDomainEntity) o;
+
+        @SuppressWarnings("unchecked")
+        val other = (SequenceStyleConcurrentDomainEntity<A>) o;
 
         return id != null && id.equals(other.id);
     }

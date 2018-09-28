@@ -34,7 +34,7 @@ import lombok.experimental.PackagePrivate;
 @FieldNameConstants
 @EqualsAndHashCode(of="userName", callSuper=false)
 public class User
-extends SequenceStyleConcurrentDomainEntity {
+extends SequenceStyleConcurrentDomainEntity<User> {
     private static final long serialVersionUID = 1L;
 
     public static final int USERNAME_MIN_LENGTH = 2;
@@ -63,7 +63,7 @@ extends SequenceStyleConcurrentDomainEntity {
         setActive(ub.active);
         setFullName(ub.fullName);
 
-        registerEvent(() -> NewUserRegistered.of(this)); // NOSONAR
+        registerEventProvider(NewUserRegistered::of);
     }
 
 
@@ -73,14 +73,14 @@ extends SequenceStyleConcurrentDomainEntity {
 
 
     public void deactivate() {
-        registerEvent(UserDeactivated.of(this));
+        registerEventProvider(UserDeactivated::of);
 
         active = false;
     }
 
 
     public void activate() {
-        registerEvent(UserActivated.of(this));
+        registerEventProvider(UserActivated::of);
 
         active = true;
     }

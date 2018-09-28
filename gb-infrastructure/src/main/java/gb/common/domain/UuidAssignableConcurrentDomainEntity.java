@@ -19,8 +19,9 @@ import lombok.experimental.FieldNameConstants;
 @MappedSuperclass
 @FieldDefaults(level=PROTECTED)
 @EqualsAndHashCode(of="id", callSuper=false)
-public abstract class UuidAssignableConcurrentDomainEntity
-extends BaseAggregateRoot {
+public abstract class
+UuidAssignableConcurrentDomainEntity<A extends BaseAggregateRoot<A>>
+extends BaseAggregateRoot<A> {
     private static final long serialVersionUID = 1L;
 
 

@@ -39,7 +39,7 @@ public final class DomainClassFixtures {
      * @return processed aggregate
      */
     public static
-    <T extends BaseAggregateRoot> T clearDomainEvents(final T aggregate) {
+    <T extends BaseAggregateRoot<?>> T clearDomainEvents(final T aggregate) {
         try {
             final Method clearEvents =
                     findMethod(aggregate.getClass(), "clearDomainEvents");
@@ -60,7 +60,7 @@ public final class DomainClassFixtures {
      * @param supplier a lambda to run
      * @return aggregate root with cleared collection of domain events.
      */
-    public static <T extends BaseAggregateRoot>
+    public static <T extends BaseAggregateRoot<?>>
     T doIgnoringEvents(final Supplier<T> supplier) {
         final T aggregate = supplier.get();
 

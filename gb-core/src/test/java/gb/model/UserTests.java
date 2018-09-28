@@ -147,7 +147,7 @@ public class UserTests extends JUnitTestCase {
 
 
     @Test
-    public void When_user_changing_name_an_event_should_be_emitted() {
+    public void When_user_changed_name_an_event_should_be_emitted() {
         // Arrange.
         final User user = doIgnoringEvents(
                 filledUserBuilder().fullName(null)::build

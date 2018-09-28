@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -15,18 +16,19 @@ import org.springframework.data.domain.DomainEvents;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gb.common.events.DomainEvent;
 import lombok.NonNull;
+import lombok.val;
 
 
 @SuppressFBWarnings(value="SE_TRANSIENT_FIELD_NOT_RESTORED")
-public abstract class BaseAggregateRoot
+public abstract class BaseAggregateRoot<A extends BaseAggregateRoot<A>>
 implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final transient @Transient Set<DomainEvent> domainEvents =
-            new HashSet<>();
+    private final transient @Transient
+    Set<DomainEvent> domainEvents = new HashSet<>();
 
-    private final transient @Transient Set<EventProvider> eventProviders =
-            new HashSet<>();
+    private final transient @Transient
+    Set<Supplier<DomainEvent>> eventSuppliers = new HashSet<>();
 
 
     /**
@@ -34,7 +36,6 @@ implements Serializable {
      * Spring Data repository's save methods.
      *
      * @param event must not be {@literal null}.
-     * @return the event that has been added.
      */
     protected void registerEvent(@NonNull final DomainEvent event) {
         domainEvents.add(event);
@@ -67,8 +68,24 @@ implements Serializable {
      *
      * @param eventProvider event supplier which returns a new event.
      */
-    protected void registerEvent(@NonNull final EventProvider eventProvider) {
-        eventProviders.add(eventProvider);
+    protected void
+    registerEventProvider(@NonNull final EventProvider<A> eventProvider) {
+        @SuppressWarnings("unchecked")
+        val provider = (EventProvider<BaseAggregateRoot<A>>) eventProvider;
+
+        eventSuppliers.add(() -> provider.buildEventFromAggregate(this));
+    }
+
+
+    /**
+     * Register the given event object supplier for later publication of
+     * event.
+     *
+     * @param eventSupplier event supplier which returns a new event.
+     */
+    protected void
+    registerEvent(@NonNull final Supplier<DomainEvent> eventSupplier) {
+        eventSuppliers.add(eventSupplier);
     }
 
 
@@ -79,7 +96,7 @@ implements Serializable {
     @AfterDomainEventPublication
     protected void clearDomainEvents() {
         domainEvents.clear();
-        eventProviders.clear();
+        eventSuppliers.clear();
     }
 
 
@@ -88,8 +105,8 @@ implements Serializable {
      */
     @DomainEvents
     public Collection<DomainEvent> domainEvents() {
-        final Set<DomainEvent> lazyInitialized = eventProviders.stream()
-                .map(EventProvider::buildEvent)
+        final Set<DomainEvent> lazyInitialized = eventSuppliers.stream()
+                .map(Supplier::get)
                 .collect(Collectors.toSet());
 
         final Set<DomainEvent> allEvents = Stream.concat(
