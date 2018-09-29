@@ -37,6 +37,11 @@ import lombok.val;
  * {@link #registerEventSupplier(Supplier)} or
  * {@link #registerEventProvider(EventProvider)}
  *
+ * Lazy event registration may be useful when you need a way to register
+ * an event in constructor and getting a sequence style generated ID
+ * or version which you will get only after saving an entity in
+ * repository, but not during aggregate construction.
+ *
  * @param <A> aggregate root class.
  */
 @SuppressFBWarnings(value="SE_TRANSIENT_FIELD_NOT_RESTORED")
@@ -53,9 +58,11 @@ implements Serializable {
 
     /**
      * Registers the given event object for publication on a call to a
-     * Spring Data repository's save methods.
+     * Spring Data repository's save methods or hibernate session flushing.
      *
      * @param event must not be {@literal null}.
+     *
+     * @see AggregateRootInterceptor
      */
     protected void registerEvent(@NonNull final DomainEvent event) {
         domainEvents.add(event);
@@ -74,13 +81,13 @@ implements Serializable {
      * Example with constructor and static factory method.
      * <pre>
      * {@code
-     * class AggregateExample extends BaseAggregateRoot {
+     * class MyAggregate extends BaseAggregateRoot {
      *     final String name;
      *
-     *     public AggregateExample(String name) {
+     *     public MyAggregate(String name) {
      *         this.name = name;
      *
-     *         registerEvent(() -> NewAggregateExampleCreated.of(this));
+     *         registerEventProvider(NewMyAggregateCreated::of);
      *     }
      * }
      * }
@@ -100,6 +107,25 @@ implements Serializable {
     /**
      * Register the given event object supplier for later publication of
      * event.
+     * Can be useful when you need a way to get sequence style generated
+     * ID or version in event. Using this method you will get a lazy event
+     * registration during flushing when you will have ability to get ID
+     * and version.
+     *
+     * Example with constructor and static factory method.
+     * <pre>
+     * {@code
+     * class MyAggregate extends BaseAggregateRoot {
+     *     final String name;
+     *
+     *     public MyAggregate(String name) {
+     *         this.name = name;
+     *
+     *         registerEventSupplier(() -> NewMyAggregateCreated::of(this));
+     *     }
+     * }
+     * }
+     * </pre>
      *
      * @param eventSupplier event supplier which returns a new event.
      */
