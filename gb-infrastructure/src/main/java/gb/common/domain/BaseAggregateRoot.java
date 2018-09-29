@@ -15,6 +15,7 @@ import org.springframework.data.domain.DomainEvents;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gb.common.events.DomainEvent;
+import gb.common.events.hibernate.AggregateRootInterceptor;
 import lombok.NonNull;
 import lombok.val;
 
@@ -23,7 +24,7 @@ import lombok.val;
  *
  * Exposes
  *  - {@link #registerEvent(DomainEvent)},
- *  - {@link #registerEvent(Supplier)} and
+ *  - {@link #registerEventSupplier(Supplier)} and
  *  - {@link #registerEventProvider(EventProvider)}
  * to capture domain events and expose them via {@link #domainEvents())}.
  * The implementation is using the general event publication mechanism
@@ -33,7 +34,7 @@ import lombok.val;
  * {@link #registerEvent(DomainEvent)}.
  * If you want register event lazily (events will be generated when a
  * method annotated with {@link DomainEvents} will be called), then use
- * {@link #registerEvent(Supplier)} or
+ * {@link #registerEventSupplier(Supplier)} or
  * {@link #registerEventProvider(EventProvider)}
  *
  * @param <A> aggregate root class.
@@ -85,7 +86,7 @@ implements Serializable {
      * }
      * </pre>
      *
-     * @param eventProvider event supplier which returns a new event.
+     * @param eventProvider event provider which returns a new event.
      */
     protected void
     registerEventProvider(@NonNull final EventProvider<A> eventProvider) {
@@ -103,7 +104,7 @@ implements Serializable {
      * @param eventSupplier event supplier which returns a new event.
      */
     protected void
-    registerEvent(@NonNull final Supplier<DomainEvent> eventSupplier) {
+    registerEventSupplier(@NonNull final Supplier<DomainEvent> eventSupplier) {
         eventSuppliers.add(eventSupplier);
     }
 
@@ -111,6 +112,8 @@ implements Serializable {
     /**
      * Clears all domain events currently held. Usually invoked by the
      * infrastructure in place in Spring Data repositories.
+     *
+     * @see AggregateRootInterceptor
      */
     @AfterDomainEventPublication
     protected void clearDomainEvents() {

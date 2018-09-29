@@ -13,6 +13,7 @@ import org.hibernate.event.spi.MergeEvent;
 import org.hibernate.type.Type;
 import org.springframework.data.domain.AbstractAggregateRoot;
 import org.springframework.data.repository.core.support.EventPublishingRepositoryProxyPostProcessor;
+import org.springframework.util.Assert;
 
 import gb.common.domain.BaseAggregateRoot;
 import gb.common.events.DomainEvent;
@@ -46,9 +47,10 @@ public class AggregateRootInterceptor extends EmptyInterceptor {
         CLEAR_EVENTS_CACHED_METHOD =
                 findMethod(BaseAggregateRoot.class, METHOD_NAME);
 
-        if(CLEAR_EVENTS_CACHED_METHOD != null) {
-            makeAccessible(CLEAR_EVENTS_CACHED_METHOD);
-        }
+        Assert.notNull(CLEAR_EVENTS_CACHED_METHOD,
+                "CLEAR_EVENTS_CACHED_METHOD must not be null");
+
+        makeAccessible(CLEAR_EVENTS_CACHED_METHOD);
     }
 
 

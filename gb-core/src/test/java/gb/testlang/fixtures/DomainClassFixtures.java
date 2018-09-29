@@ -10,17 +10,19 @@ import java.lang.reflect.Method;
 import javax.annotation.Nonnull;
 
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.util.Assert;
 
 import com.google.common.base.Supplier;
 
 import gb.common.domain.BaseAggregateRoot;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 
-@Slf4j
 @NoArgsConstructor(access=NONE)
 public final class DomainClassFixtures {
+    private static final String CLEAR_EVENTS_METHOD_NAME = "clearDomainEvents";
+
+
     public static void setId(@Nonnull final Object object, final Long id) {
         ReflectionTestUtils.setField(object, "id", id);
     }
@@ -40,15 +42,13 @@ public final class DomainClassFixtures {
      */
     public static
     <T extends BaseAggregateRoot<?>> T clearDomainEvents(final T aggregate) {
-        try {
-            final Method clearEvents =
-                    findMethod(aggregate.getClass(), "clearDomainEvents");
+        final Method clearEvents =
+                findMethod(aggregate.getClass(), CLEAR_EVENTS_METHOD_NAME);
 
-            makeAccessible(clearEvents);
-            invokeMethod(clearEvents, aggregate);
-        } catch (Exception e) { // NOSONAR
-            log.error("Something is wrong! {}", e);
-        }
+        Assert.notNull(clearEvents, "clearEvents must not be null");
+
+        makeAccessible(clearEvents);
+        invokeMethod(clearEvents, aggregate);
 
         return aggregate;
     }
