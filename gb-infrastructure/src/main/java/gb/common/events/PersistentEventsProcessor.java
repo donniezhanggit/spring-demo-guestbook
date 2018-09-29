@@ -33,7 +33,6 @@ public class PersistentEventsProcessor {
     // optional dependencies. But there can be no implementations of
     // PersistentEventHandler interface.
     // Let's use trick (hack) with optional dependency.
-    @SuppressWarnings("unchecked")
     public PersistentEventsProcessor(
             final Optional<List<PersistentEventHandler<?
                     extends DomainEvent>>> handlers,
@@ -42,7 +41,7 @@ public class PersistentEventsProcessor {
         this.handlers = handlers
                 .orElseGet(Collections::emptyList)
                 .stream()
-                .map(handler -> (PersistentEventHandler<DomainEvent>) handler)
+                .map(PersistentEventsProcessor::castHandler)
                 .collect(groupingBy(PersistentEventHandler::appliesTo));
 
         this.eventsRepo = eventsRepo;
@@ -59,5 +58,22 @@ public class PersistentEventsProcessor {
         eventHandlers.forEach(h -> h.handleEvent(event));
 
         eventsRepo.get(event.getId()).markProcessed();
+    }
+
+
+    /**
+     * Hack the compiler to workaround specific domain event handler
+     * calling with {@link DomainEvent} instead of
+     * @{code ? extends DomainEvent}.
+     * We don't know which exact DomainEvent implementation will be passed
+     * into {@link PersistentEventsProcessor#handleEvent(DomainEvent)}.
+     *
+     * @param handler which will be casted.
+     * @return casted handler.
+     */
+    @SuppressWarnings("unchecked")
+    private static PersistentEventHandler<DomainEvent>
+    castHandler(final PersistentEventHandler<? extends DomainEvent> handler) {
+        return (PersistentEventHandler<DomainEvent>) handler;
     }
 }

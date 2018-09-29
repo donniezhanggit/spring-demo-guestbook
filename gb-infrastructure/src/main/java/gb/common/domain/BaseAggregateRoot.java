@@ -18,7 +18,26 @@ import gb.common.events.DomainEvent;
 import lombok.NonNull;
 import lombok.val;
 
-
+/**
+ * Convenience base class for aggregate roots.
+ *
+ * Exposes
+ *  - {@link #registerEvent(DomainEvent)},
+ *  - {@link #registerEvent(Supplier)} and
+ *  - {@link #registerEventProvider(EventProvider)}
+ * to capture domain events and expose them via {@link #domainEvents())}.
+ * The implementation is using the general event publication mechanism
+ * implied by {@link DomainEvents} and {@link AfterDomainEventPublication}.
+ *
+ * If you want register event directly right now, then use
+ * {@link #registerEvent(DomainEvent)}.
+ * If you want register event lazily (events will be generated when a
+ * method annotated with {@link DomainEvents} will be called), then use
+ * {@link #registerEvent(Supplier)} or
+ * {@link #registerEventProvider(EventProvider)}
+ *
+ * @param <A> aggregate root class.
+ */
 @SuppressFBWarnings(value="SE_TRANSIENT_FIELD_NOT_RESTORED")
 public abstract class BaseAggregateRoot<A extends BaseAggregateRoot<A>>
 implements Serializable {

@@ -6,6 +6,12 @@ import gb.common.events.EventPublisher;
 import lombok.NonNull;
 
 
+/**
+ * Helper for getting of EventPublisher in a static way.
+ *
+ * Workaround for {@link AggregateRootInterceptor}.
+ *
+ */
 @Component
 class EventPublisherObtainer {
     private static EventPublisher publisher;

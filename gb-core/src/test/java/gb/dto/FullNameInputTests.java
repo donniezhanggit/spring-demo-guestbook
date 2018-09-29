@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
-import gb.model.FullName;
+import gb.domain.FullName;
 
 public class FullNameInputTests extends JUnitTestCase {
     @Test

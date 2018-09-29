@@ -7,8 +7,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import gb.common.events.PersistentEventHandler;
-import gb.model.Comment;
-import gb.model.NewCommentAdded;
+import gb.domain.Comment;
+import gb.domain.NewCommentAdded;
 import gb.repos.CommentsRepository;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;

@@ -1,6 +1,5 @@
 package gb.common.validation;
 
-import gb.common.exceptions.InvalidArgumentException;
 import lombok.NonNull;
 
 
@@ -23,6 +22,8 @@ import lombok.NonNull;
  * this checker will throw an {@link InvalidArgumentException} which will
  * be converted to an validation error representation according to
  * transport protocol.
+ *
+ * @see InvalidArgumentException
  */
 public final class Check { // NOSONAR
     public static void that(final boolean assertion,

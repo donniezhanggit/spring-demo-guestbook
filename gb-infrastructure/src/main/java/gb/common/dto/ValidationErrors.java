@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolationException;
 
-import gb.common.exceptions.InvalidArgumentException;
+import gb.common.validation.InvalidArgumentException;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;

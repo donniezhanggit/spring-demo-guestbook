@@ -1,15 +1,15 @@
 package gb.dto;
 
-import static gb.model.FullName.FIRST_NAME_MAX_LENGTH;
-import static gb.model.FullName.FIRST_NAME_MIN_LENGTH;
-import static gb.model.FullName.LAST_NAME_MAX_LENGTH;
-import static gb.model.FullName.LAST_NAME_MIN_LENGTH;
+import static gb.domain.FullName.FIRST_NAME_MAX_LENGTH;
+import static gb.domain.FullName.FIRST_NAME_MIN_LENGTH;
+import static gb.domain.FullName.LAST_NAME_MAX_LENGTH;
+import static gb.domain.FullName.LAST_NAME_MIN_LENGTH;
 
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import gb.model.FullName;
+import gb.domain.FullName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;

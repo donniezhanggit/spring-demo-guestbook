@@ -1,7 +1,7 @@
 package gb.testlang.fixtures;
 
+import gb.domain.FullName;
 import gb.dto.FullNameInput;
-import gb.model.FullName;
 
 
 public class FullNameFixtures {

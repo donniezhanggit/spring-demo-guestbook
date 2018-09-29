@@ -3,12 +3,12 @@ package gb.dto;
 import static gb.common.FakeData.stringWithLength;
 import static gb.common.ValidationSubstrings.LENGTH_MUST_BE_BETWEEN;
 import static gb.common.ValidationSubstrings.MUST_NOT_BE_NULL;
+import static gb.domain.Comment.ANON_NAME_MAX_LENGTH;
+import static gb.domain.Comment.ANON_NAME_MIN_LENGTH;
+import static gb.domain.Comment.MESSAGE_MAX_LENGTH;
+import static gb.domain.Comment.MESSAGE_MIN_LENGTH;
 import static gb.dto.CommentInput.ANON_NAME_FIELD;
 import static gb.dto.CommentInput.MESSAGE_FIELD;
-import static gb.model.Comment.ANON_NAME_MAX_LENGTH;
-import static gb.model.Comment.ANON_NAME_MIN_LENGTH;
-import static gb.model.Comment.MESSAGE_MAX_LENGTH;
-import static gb.model.Comment.MESSAGE_MIN_LENGTH;
 import static gb.testlang.fixtures.CommentsFixtures.filledCommentInputBuilder;
 
 import org.junit.Test;

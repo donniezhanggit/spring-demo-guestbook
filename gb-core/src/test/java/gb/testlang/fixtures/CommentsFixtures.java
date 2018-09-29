@@ -13,12 +13,12 @@ import javax.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import gb.domain.Comment;
+import gb.domain.CommentBuilder;
+import gb.domain.User;
 import gb.dto.CommentEntry;
 import gb.dto.CommentEntryBuilder;
 import gb.dto.CommentInput;
-import gb.model.Comment;
-import gb.model.CommentBuilder;
-import gb.model.User;
 import gb.repos.CommentsRepository;
 import lombok.experimental.FieldDefaults;
 

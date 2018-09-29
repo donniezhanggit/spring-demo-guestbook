@@ -5,7 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.time.LocalDateTime;
 
-import gb.model.Comment;
+import gb.domain.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

@@ -9,19 +9,47 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 
 import org.hibernate.EmptyInterceptor;
+import org.hibernate.event.spi.MergeEvent;
 import org.hibernate.type.Type;
+import org.springframework.data.domain.AbstractAggregateRoot;
+import org.springframework.data.repository.core.support.EventPublishingRepositoryProxyPostProcessor;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gb.common.domain.BaseAggregateRoot;
 import gb.common.events.DomainEvent;
 import gb.common.events.EventPublisher;
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 
 
-@Slf4j
+/**
+ * An implementation of Hibernate interceptor for registering domain
+ * events during session flushing.
+ *
+ * According JPA entity state model a managed entity does not require
+ * manual call for merging. Much more, it's considered harmful.
+ * But Spring Data only will register domain events if you call
+ * repositories' save* methods for your entities, and this will produce
+ * a {@link MergeEvent} in Hibernate internals.
+ *
+ * @see BaseAggregateRoot
+ * @see AbstractAggregateRoot
+ * @see EventPublishingRepositoryProxyPostProcessor
+ * @see EventPublisherObtainer
+ */
 public class AggregateRootInterceptor extends EmptyInterceptor {
     private static final long serialVersionUID = 1L;
+
+    private static final String METHOD_NAME = "clearDomainEvents";
+    private static final Method CLEAR_EVENTS_CACHED_METHOD;
+
+
+    static {
+        CLEAR_EVENTS_CACHED_METHOD =
+                findMethod(BaseAggregateRoot.class, METHOD_NAME);
+
+        if(CLEAR_EVENTS_CACHED_METHOD != null) {
+            makeAccessible(CLEAR_EVENTS_CACHED_METHOD);
+        }
+    }
 
 
     @Override
@@ -53,17 +81,9 @@ public class AggregateRootInterceptor extends EmptyInterceptor {
     }
 
 
-    @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
-    private void clearEvents(@NonNull final BaseAggregateRoot<?> aggregate) {
-        try {
-            final Method clearEvents =
-                    findMethod(aggregate.getClass(), "clearDomainEvents");
-
-            makeAccessible(clearEvents);
-            invokeMethod(clearEvents, aggregate);
-        } catch (Exception e) { // NOSONAR
-            log.error("Something is wrong!", e);
-        }
+    private static
+    void clearEvents(@NonNull final BaseAggregateRoot<?> aggregate) {
+        invokeMethod(CLEAR_EVENTS_CACHED_METHOD, aggregate);
     }
 
 

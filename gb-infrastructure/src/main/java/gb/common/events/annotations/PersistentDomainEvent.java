@@ -8,6 +8,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 
+/**
+ * Marks a type that it's a domain event type.
+ *
+ * Every persistent domain event should have this annotation.
+ *
+ */
 @Documented
 @Retention(RUNTIME)
 @Target(TYPE)

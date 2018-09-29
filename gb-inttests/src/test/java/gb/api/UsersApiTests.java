@@ -17,9 +17,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import gb.common.exceptions.NotFoundException;
 import gb.common.it.RecreatePerClassITCase;
+import gb.domain.FullName;
 import gb.dto.FullNameInput;
 import gb.dto.UserEntry;
-import gb.model.FullName;
 import gb.testlang.assertions.UserAssertions;
 import gb.testlang.fixtures.UsersFixtures;
 import lombok.experimental.FieldDefaults;

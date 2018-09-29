@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import gb.common.data.DataRepository;
-import gb.model.User;
+import gb.domain.User;
 
 
 @Repository

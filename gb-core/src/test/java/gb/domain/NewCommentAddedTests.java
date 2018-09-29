@@ -1,4 +1,4 @@
-package gb.model;
+package gb.domain;
 
 import static gb.testlang.fixtures.CommentsFixtures.ANON_NAME;
 import static gb.testlang.fixtures.CommentsFixtures.filledCommentBuilder;

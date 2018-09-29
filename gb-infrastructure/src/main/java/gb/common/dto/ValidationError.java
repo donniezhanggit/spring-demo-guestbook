@@ -10,7 +10,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ElementKind;
 import javax.validation.Path.Node;
 
-import gb.common.exceptions.InvalidArgumentException;
+import gb.common.validation.InvalidArgumentException;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;

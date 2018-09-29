@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
-import gb.model.Comment;
+import gb.domain.Comment;
 
 
 public class CommentEntryTests extends JUnitTestCase {

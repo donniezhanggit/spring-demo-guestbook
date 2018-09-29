@@ -9,9 +9,9 @@ import javax.validation.Valid;
 import org.springframework.transaction.annotation.Transactional;
 
 import gb.common.annotations.Api;
+import gb.domain.User;
 import gb.dto.FullNameInput;
 import gb.dto.UserEntry;
-import gb.model.User;
 import gb.repos.UsersRepository;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;

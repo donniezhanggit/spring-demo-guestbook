@@ -3,12 +3,12 @@ package gb.dto;
 import static gb.common.FakeData.stringWithLength;
 import static gb.common.ValidationSubstrings.LENGTH_MUST_BE_BETWEEN;
 import static gb.common.ValidationSubstrings.MUST_NOT_BE_EMPTY;
+import static gb.domain.FullName.FIRST_NAME_MAX_LENGTH;
+import static gb.domain.FullName.FIRST_NAME_MIN_LENGTH;
+import static gb.domain.FullName.LAST_NAME_MAX_LENGTH;
+import static gb.domain.FullName.LAST_NAME_MIN_LENGTH;
 import static gb.dto.FullNameInput.FIRST_NAME_FIELD;
 import static gb.dto.FullNameInput.LAST_NAME_FIELD;
-import static gb.model.FullName.FIRST_NAME_MAX_LENGTH;
-import static gb.model.FullName.FIRST_NAME_MIN_LENGTH;
-import static gb.model.FullName.LAST_NAME_MAX_LENGTH;
-import static gb.model.FullName.LAST_NAME_MIN_LENGTH;
 import static gb.testlang.fixtures.FullNameFixtures.filledFullNameInputBuilder;
 
 import org.junit.Test;

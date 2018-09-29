@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
-import gb.common.exceptions.InvalidArgumentException;
 import gb.common.validation.Check;
 import lombok.val;
 

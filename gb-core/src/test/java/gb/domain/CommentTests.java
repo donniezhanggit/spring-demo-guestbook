@@ -1,4 +1,4 @@
-package gb.model;
+package gb.domain;
 
 import static gb.common.DomainEventChecker.checkThat;
 import static gb.testlang.fixtures.CommentsFixtures.ANON_NAME;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
-import gb.common.exceptions.InvalidArgumentException;
+import gb.common.validation.InvalidArgumentException;
 
 
 public class CommentTests extends JUnitTestCase {

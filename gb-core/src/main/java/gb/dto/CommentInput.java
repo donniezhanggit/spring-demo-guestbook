@@ -1,9 +1,9 @@
 package gb.dto;
 
-import static gb.model.Comment.ANON_NAME_MAX_LENGTH;
-import static gb.model.Comment.ANON_NAME_MIN_LENGTH;
-import static gb.model.Comment.MESSAGE_MAX_LENGTH;
-import static gb.model.Comment.MESSAGE_MIN_LENGTH;
+import static gb.domain.Comment.ANON_NAME_MAX_LENGTH;
+import static gb.domain.Comment.ANON_NAME_MIN_LENGTH;
+import static gb.domain.Comment.MESSAGE_MAX_LENGTH;
+import static gb.domain.Comment.MESSAGE_MIN_LENGTH;
 
 import javax.validation.constraints.NotNull;
 

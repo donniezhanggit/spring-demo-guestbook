@@ -1,6 +1,6 @@
 package gb.dto;
 
-import gb.model.User;
+import gb.domain.User;
 import io.swagger.annotations.ApiModel;
 import lombok.NonNull;
 import lombok.Value;

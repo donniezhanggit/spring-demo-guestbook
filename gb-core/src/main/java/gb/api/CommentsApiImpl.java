@@ -10,9 +10,9 @@ import javax.validation.Valid;
 import org.springframework.transaction.annotation.Transactional;
 
 import gb.common.annotations.Api;
+import gb.domain.Comment;
 import gb.dto.CommentEntry;
 import gb.dto.CommentInput;
-import gb.model.Comment;
 import gb.repos.CommentsRepository;
 import gb.services.CommentMapper;
 import lombok.AllArgsConstructor;

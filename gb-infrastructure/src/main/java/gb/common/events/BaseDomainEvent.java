@@ -22,10 +22,4 @@ implements DomainEvent {
     public final LocalDateTime getCreatedAt() {
         return createdAt;
     }
-
-
-    @Override
-    public final String getType() {
-        return getClass().getSimpleName();
-    }
 }

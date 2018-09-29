@@ -6,10 +6,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.reflections.Reflections;
-import org.springframework.stereotype.Component;
 
 
-@Component
 public class AnnotatedClassFinder {
     public Set<Class<?>> findAnnotatedClasses(
             String packageToScan, Class<? extends Annotation> annotation) {

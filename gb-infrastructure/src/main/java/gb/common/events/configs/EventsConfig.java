@@ -70,8 +70,7 @@ public class EventsConfig {
     }
 
 
-    // TODO: Implement different configuration, autoconfiguration and
-    // remove hardcoded options.
+    // TODO: Implement autoconfiguration and remove hardcoded options.
     private static SimpleModule prepareEventDeserModule() {
         val finder = new AnnotatedClassFinder();
         final Map<String, Class<?>> eventClasses = finder

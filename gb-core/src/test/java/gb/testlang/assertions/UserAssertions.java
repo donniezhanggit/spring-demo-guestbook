@@ -11,9 +11,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gb.domain.FullName;
+import gb.domain.User;
 import gb.dto.UserEntry;
-import gb.model.FullName;
-import gb.model.User;
 import gb.repos.UsersRepository;
 
 

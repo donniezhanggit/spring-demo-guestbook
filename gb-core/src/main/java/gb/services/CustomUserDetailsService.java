@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import gb.model.User;
+import gb.domain.User;
 import gb.repos.UsersRepository;
 import gb.security.CustomUserDetails;
 import lombok.AllArgsConstructor;

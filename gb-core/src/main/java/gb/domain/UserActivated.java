@@ -1,4 +1,4 @@
-package gb.model;
+package gb.domain;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -16,17 +16,13 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 @EqualsAndHashCode(callSuper=true)
 @PersistentDomainEvent
-public final class NewUserRegistered extends BaseDomainEvent {
+public final class UserActivated extends BaseDomainEvent {
     Long userId;
-    @NonNull String userName;
-    @NonNull String email;
 
 
-    public static NewUserRegistered of(@NonNull final User newUser) {
+    public static UserActivated of(@NonNull final User user) { // NOSONAR
         return builder()
-                .userId(newUser.getId())
-                .userName(newUser.getUserName())
-                .email(newUser.getEmail())
+                .userId(user.getId())
                 .build();
     }
 }

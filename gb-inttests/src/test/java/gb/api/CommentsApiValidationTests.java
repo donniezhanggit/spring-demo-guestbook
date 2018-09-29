@@ -1,8 +1,8 @@
 package gb.api;
 
 import static gb.common.FakeData.stringWithLength;
-import static gb.model.Comment.ANON_NAME_MAX_LENGTH;
-import static gb.model.Comment.MESSAGE_MAX_LENGTH;
+import static gb.domain.Comment.ANON_NAME_MAX_LENGTH;
+import static gb.domain.Comment.MESSAGE_MAX_LENGTH;
 import static gb.testlang.fixtures.CommentsFixtures.filledCommentInputBuilder;
 import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static lombok.AccessLevel.PRIVATE;
@@ -13,8 +13,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 
-import gb.common.exceptions.InvalidArgumentException;
 import gb.common.it.RecreatePerClassITCase;
+import gb.common.validation.InvalidArgumentException;
 import gb.dto.CommentInput;
 import gb.testlang.fixtures.UsersFixtures;
 import lombok.val;

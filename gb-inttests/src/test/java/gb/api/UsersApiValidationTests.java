@@ -1,8 +1,8 @@
 package gb.api;
 
 import static gb.common.FakeData.stringWithLength;
-import static gb.model.FullName.FIRST_NAME_MAX_LENGTH;
-import static gb.model.FullName.LAST_NAME_MAX_LENGTH;
+import static gb.domain.FullName.FIRST_NAME_MAX_LENGTH;
+import static gb.domain.FullName.LAST_NAME_MAX_LENGTH;
 import static gb.testlang.fixtures.FullNameFixtures.filledFullNameInputBuilder;
 import static gb.testlang.fixtures.UsersFixtures.EXISTING_USERNAME;
 import static lombok.AccessLevel.PRIVATE;

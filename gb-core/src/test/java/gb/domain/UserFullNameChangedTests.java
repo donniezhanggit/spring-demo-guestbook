@@ -1,4 +1,4 @@
-package gb.model;
+package gb.domain;
 
 import static gb.testlang.fixtures.FullNameFixtures.FIRST_NAME;
 import static gb.testlang.fixtures.FullNameFixtures.LAST_NAME;

@@ -5,12 +5,12 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
 
-import gb.common.data.DataRepository;
+import gb.common.data.jpa.JpaRepository;
 
 
 @Repository
 public interface DomainEventsJpaRepository
-extends DataRepository<PersistentDomainEvent, UUID> {
+extends JpaRepository<PersistentDomainEvent, UUID> {
     List<PersistentDomainEvent>
     findAllByStatusOrderByCreatedAtDesc(DomainEventStatus status);
 }

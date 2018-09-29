@@ -1,4 +1,4 @@
-package gb.model;
+package gb.domain;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -16,15 +16,13 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 @EqualsAndHashCode(callSuper=true)
 @PersistentDomainEvent
-public final class UserFullNameDeleted extends BaseDomainEvent {
+public final class UserDeactivated extends BaseDomainEvent {
     Long userId;
-    FullName oldName;
 
 
-    public static UserFullNameDeleted of(@NonNull final User user) {
+    public static UserDeactivated of(@NonNull final User user) { // NOSONAR
         return builder()
                 .userId(user.getId())
-                .oldName(user.getFullName().orElse(null))
                 .build();
     }
 }

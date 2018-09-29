@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
-import gb.model.User;
+import gb.domain.User;
 
 
 public class UserEntryTests extends JUnitTestCase {

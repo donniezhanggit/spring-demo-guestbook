@@ -59,27 +59,6 @@
       </plugin>
 
       <plugin>
-        <groupId>se.eris</groupId>
-        <artifactId>notnull-instrumenter-maven-plugin</artifactId>
-        <version>${notnull.instrumenter.maven.plugin.version}</version>
-        <executions>
-          <execution>
-            <id>instrument</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>instrument</goal>
-              <goal>tests-instrument</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <notNull>
-            <param>javax.annotation.Nonnull</param>
-          </notNull>
-        </configuration>
-      </plugin>
-
-      <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco.maven.plugin.version}</version>
@@ -167,20 +146,6 @@
                     <versionRange>[3.0.5,)</versionRange>
                     <goals>
                       <goal>check</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <execute/>
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>se.eris</groupId>
-                    <artifactId>notnull-instrumenter-maven-plugin</artifactId>
-                    <versionRange>[0.6.6,)</versionRange>
-                    <goals>
-                      <goal>instrument</goal>
-                      <goal>tests-instrument</goal>
                     </goals>
                   </pluginExecutionFilter>
                   <action>

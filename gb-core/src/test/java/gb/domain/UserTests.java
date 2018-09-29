@@ -1,4 +1,4 @@
-package gb.model;
+package gb.domain;
 
 import static gb.common.DomainEventChecker.checkThat;
 import static gb.testlang.fixtures.DomainClassFixtures.doIgnoringEvents;

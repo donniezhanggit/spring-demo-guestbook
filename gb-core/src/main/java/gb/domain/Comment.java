@@ -1,4 +1,4 @@
-package gb.model;
+package gb.domain;
 
 import static javax.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.NONE;

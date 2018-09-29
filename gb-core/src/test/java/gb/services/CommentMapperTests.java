@@ -17,9 +17,9 @@ import javax.annotation.Nullable;
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
+import gb.domain.Comment;
+import gb.domain.User;
 import gb.dto.CommentInput;
-import gb.model.Comment;
-import gb.model.User;
 import lombok.val;
 import lombok.experimental.FieldDefaults;
 

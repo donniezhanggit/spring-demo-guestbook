@@ -8,10 +8,10 @@ import javax.validation.Valid;
 import org.springframework.transaction.annotation.Transactional;
 
 import gb.common.annotations.Api;
+import gb.domain.FullName;
+import gb.domain.User;
 import gb.dto.FullNameInput;
 import gb.dto.UserEntry;
-import gb.model.FullName;
-import gb.model.User;
 import gb.repos.UsersRepository;
 import gb.services.CurrentPrincipalService;
 import lombok.AllArgsConstructor;

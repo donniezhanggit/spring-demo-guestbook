@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
 
 import gb.common.data.DataRepository;
-import gb.model.Comment;
+import gb.domain.Comment;
 
 
 @Repository

@@ -5,8 +5,8 @@ import static lombok.AccessLevel.PRIVATE;
 import java.time.LocalDate;
 import java.util.function.Function;
 
-import gb.model.FullName;
-import gb.model.User;
+import gb.domain.FullName;
+import gb.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

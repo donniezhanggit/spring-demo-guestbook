@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import gb.domain.User;
+import gb.domain.UserBuilder;
 import gb.dto.UserEntry;
-import gb.model.User;
-import gb.model.UserBuilder;
 import gb.repos.UsersRepository;
 import lombok.experimental.FieldDefaults;
 

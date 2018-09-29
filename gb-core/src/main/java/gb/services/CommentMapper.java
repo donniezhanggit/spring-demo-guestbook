@@ -4,9 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import org.springframework.stereotype.Service;
 
+import gb.domain.Comment;
+import gb.domain.User;
 import gb.dto.CommentInput;
-import gb.model.Comment;
-import gb.model.User;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;

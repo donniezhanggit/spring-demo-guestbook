@@ -1,4 +1,4 @@
-package gb.common.exceptions;
+package gb.common.validation;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -6,6 +6,14 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 
+/**
+ * An exception for signaling that a passed argument
+ * literally invalid.
+ *
+ * Only for business validation rules.
+ *
+ * @see Check
+ */
 @Getter
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class InvalidArgumentException extends RuntimeException {

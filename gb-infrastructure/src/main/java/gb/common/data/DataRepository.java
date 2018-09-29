@@ -48,21 +48,6 @@ public interface DataRepository<T, ID> extends Repository<T, ID> { // NOSONAR
 
 
     /**
-     * Flushed all pending changes to the database.
-     */
-    void flush();
-
-
-    /**
-     * Retrieves a reference for an entity by its id.
-     *
-     * @param id.
-     * @return proxy reference.
-     */
-    T getOne(ID id);
-
-
-    /**
      * Retrieves an entity by its id.
      *
      * @param id.
@@ -159,16 +144,6 @@ public interface DataRepository<T, ID> extends Repository<T, ID> { // NOSONAR
      *         {@literal null}
      */
     void delete(@Nonnull T entity);
-
-
-    /**
-     * Deletes the given entities.
-     *
-     * @param entities
-     * @throws IllegalArgumentException in case the given {@link Iterable}
-     *         is {@literal null}
-     */
-    void deleteInBatch(@Nonnull Iterable<? extends T> entities);
 
 
     /**

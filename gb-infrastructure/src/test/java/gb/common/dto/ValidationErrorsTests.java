@@ -7,7 +7,7 @@ import javax.validation.ConstraintViolationException;
 import org.junit.Test;
 
 import gb.common.JUnitTestCase;
-import gb.common.exceptions.InvalidArgumentException;
+import gb.common.validation.InvalidArgumentException;
 
 
 public class ValidationErrorsTests extends JUnitTestCase {

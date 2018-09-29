@@ -22,9 +22,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *  - string ' a' becomes 'a';
  *  - 'a ' -> 'a';
  *  - '  ab c  ' -> 'ab c';
- *
- * @author whitesquall
- *
  */
 public class StringTrimmer extends SimpleModule {
     private static final long serialVersionUID = -2075474664226333353L;

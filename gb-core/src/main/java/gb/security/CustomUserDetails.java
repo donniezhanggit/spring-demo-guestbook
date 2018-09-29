@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import gb.model.User;
+import gb.domain.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;

@@ -1,4 +1,4 @@
-package gb.model;
+package gb.domain;
 
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
