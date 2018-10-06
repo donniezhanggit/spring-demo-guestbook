@@ -4,11 +4,14 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
 import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.support.ConversionServiceFactoryBean;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -66,5 +69,16 @@ public class MainConfig {
         processor.setBeforeExistingAdvisors(true);
 
         return processor;
+    }
+
+
+    @Bean
+    @Qualifier("conversionService")
+    public ConversionService conversionService() {
+        val bean = new ConversionServiceFactoryBean();
+
+        bean.afterPropertiesSet();
+
+        return bean.getObject();
     }
 }

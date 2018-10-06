@@ -12,9 +12,9 @@ import gb.domain.User;
 
 
 @Repository
-public interface UsersRepository extends DataRepository<User, Long> {
+public interface UsersRepository
+extends DataRepository<User, Long>, UsersRepositoryCustom {
     <T> List<T> findAllByOrderByCreatedAtAsc(Class<T> type);
-    Optional<User> findByUserName(String userName);
     <T> Optional<T> findByUserName(String userName, Class<T> type);
 
 

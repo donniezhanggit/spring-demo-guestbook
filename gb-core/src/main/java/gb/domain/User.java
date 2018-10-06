@@ -2,6 +2,7 @@ package gb.domain;
 
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
+import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -10,7 +11,9 @@ import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
 
 import gb.common.domain.GeneratedIdDomainEntity;
 import lombok.EqualsAndHashCode;
@@ -33,6 +36,8 @@ import lombok.experimental.PackagePrivate;
 @ToString
 @FieldNameConstants
 @EqualsAndHashCode(of="userName", callSuper=false)
+@NaturalIdCache
+@Cache(usage=READ_WRITE)
 public class User
 extends GeneratedIdDomainEntity<User> {
     private static final long serialVersionUID = 1L;
