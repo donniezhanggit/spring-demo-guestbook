@@ -31,10 +31,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import gb.Application;
 import gb.services.CurrentPrincipalService;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 
-@Slf4j
+@Log4j2
 @ActiveProfiles(profiles=FUNCTIONAL_TESTING)
 @ComponentScan(basePackageClasses=Application.class)
 @SpringBootTest(webEnvironment=MOCK)

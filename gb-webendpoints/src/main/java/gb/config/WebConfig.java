@@ -12,10 +12,10 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 
-@Slf4j
+@Log4j2
 @FieldDefaults(level=PRIVATE)
 @Configuration
 @Profile(value={DEVELOPMENT, NO_DB_INTEGRATION_TESTING, PRODUCTION})

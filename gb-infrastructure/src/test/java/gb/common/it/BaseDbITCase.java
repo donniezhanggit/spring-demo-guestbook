@@ -20,12 +20,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import gb.common.JUnitTestCase;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import net.ttddyy.dsproxy.QueryCountHolder;
 import net.ttddyy.dsproxy.asserts.ProxyTestDataSource;
 
 
-@Slf4j
+@Log4j2
 @FieldDefaults(level=PRIVATE)
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=NONE)

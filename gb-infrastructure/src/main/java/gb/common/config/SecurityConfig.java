@@ -25,10 +25,10 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 
-@Slf4j
+@Log4j2
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)

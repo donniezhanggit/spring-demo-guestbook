@@ -13,7 +13,7 @@ import com.google.common.collect.Lists;
 
 import gb.common.config.GuestBookProfiles;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -27,7 +27,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
-@Slf4j
+@Log4j2
 @FieldDefaults(level=PRIVATE)
 @Configuration
 @EnableSwagger2

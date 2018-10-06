@@ -30,10 +30,10 @@ import gb.common.events.jackson.DomainEventDeserializer;
 import gb.common.jackson.StringTrimmer;
 import gb.common.reflect.AnnotatedClassFinder;
 import lombok.val;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 
-@Slf4j
+@Log4j2
 @Configuration
 public class EventsConfig {
     @Bean("eventsMapper")
@@ -90,7 +90,7 @@ public class EventsConfig {
     }
 
 
-    @Slf4j
+    @Log4j2
     @EnableAsync
     @EnableScheduling
     @Configuration

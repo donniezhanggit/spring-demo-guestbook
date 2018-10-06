@@ -35,7 +35,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.val;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 
 @WebMvcTest(JacksonTrimStringsTests.TestController.class)
@@ -106,7 +106,7 @@ public class JacksonTrimStringsTests extends EndpointITCase {
     }
 
 
-    @Slf4j
+    @Log4j2
     @RestController
     @RequestMapping(API_URL)
     @AllArgsConstructor

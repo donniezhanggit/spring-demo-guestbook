@@ -22,10 +22,10 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 import gb.common.jackson.StringTrimmer;
 import lombok.val;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 
-@Slf4j
+@Log4j2
 @Configuration
 @EnableCaching
 public class MainConfig {
