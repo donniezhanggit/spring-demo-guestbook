@@ -59,13 +59,6 @@ implements BeanPostProcessor, ApplicationContextAware {
     }
 
 
-    @Override
-    public Object
-    postProcessBeforeInitialization(final Object bean, final String beanName) {
-        return bean;
-    }
-
-
     private ProxyDataSourceInterceptor
     buildInterceptorFor(final DataSource ds) {
         return new ProxyDataSourceInterceptor(ds, testDataSource);
@@ -124,7 +117,6 @@ implements BeanPostProcessor, ApplicationContextAware {
 
             return invocation.proceed();
         }
-
     }
 
 
