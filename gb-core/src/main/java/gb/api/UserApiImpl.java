@@ -29,6 +29,7 @@ public class UserApiImpl implements UserApi {
 
 
     @Override
+    @Transactional(readOnly=true)
     public UserEntry getCurrentUser() {
         final String currentUserName = getCurrentLoggedUserNameOrThrow();
 
