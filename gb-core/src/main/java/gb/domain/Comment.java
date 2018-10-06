@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Immutable;
 
-import gb.common.domain.SequenceStyleConcurrentDomainEntity;
+import gb.common.domain.GeneratedIdDomainEntity;
 import gb.common.validation.Check;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +33,7 @@ import lombok.experimental.PackagePrivate;
 @NoArgsConstructor(access=PROTECTED)
 @FieldNameConstants
 public class Comment // NOSONAR we don't override equals/hashcode.
-extends SequenceStyleConcurrentDomainEntity<Comment> {
+extends GeneratedIdDomainEntity<Comment> {
     private static final long serialVersionUID = 1L;
 
     public static final int ANON_NAME_MIN_LENGTH = 2;

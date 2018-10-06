@@ -1,7 +1,7 @@
 package gb.testlang.assertions;
 
-import static gb.common.domain.SequenceStyleConcurrentDomainEntity.ID_FIELD;
-import static gb.common.domain.SequenceStyleConcurrentDomainEntity.VERSION_FIELD;
+import static gb.common.domain.GeneratedIdDomainEntity.ID_FIELD;
+import static gb.common.domain.GeneratedIdDomainEntity.VERSION_FIELD;
 import static gb.testlang.fixtures.CommentsFixtures.ANON_NAME;
 import static gb.testlang.fixtures.CommentsFixtures.MESSAGE;
 import static lombok.AccessLevel.PRIVATE;
