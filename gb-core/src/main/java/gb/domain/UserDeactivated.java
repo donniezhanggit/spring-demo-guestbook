@@ -20,7 +20,7 @@ public final class UserDeactivated extends BaseDomainEvent {
     Long userId;
 
 
-    public static UserDeactivated of(@NonNull final User user) { // NOSONAR
+    public static UserDeactivated of(@NonNull final User user) {
         return builder()
                 .userId(user.getId())
                 .build();

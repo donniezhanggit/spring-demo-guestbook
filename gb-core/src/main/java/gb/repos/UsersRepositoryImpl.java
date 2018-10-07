@@ -17,8 +17,8 @@ import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 
 
-@Transactional
 @Repository
+@Transactional
 @FieldDefaults(level=PRIVATE, makeFinal=true)
 public class UsersRepositoryImpl implements UsersRepositoryCustom {
     @NonNull EntityManager em;
@@ -28,7 +28,7 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
     public UsersRepositoryImpl(
             @NonNull final EntityManager em,
             @NonNull @Qualifier("conversionService")
-            ConversionService converter) {
+            final ConversionService converter) {
 
         this.em = em;
         this.converter = converter;
@@ -36,7 +36,7 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
 
 
     @Override
-    public Optional<User> findByUserName(String userName) {
+    public Optional<User> findByUserName(final String userName) {
         return getSession()
                 .bySimpleNaturalId(User.class)
                 .loadOptional(userName);
@@ -44,8 +44,9 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
 
 
     @Override
-    public <T> Optional<T> findByUserName(String userName, Class<T> type) {
-        Optional<User> user = findByUserName(userName);
+    public <T> Optional<T>
+    findByUserName(final String userName, final Class<T> type) {
+        final Optional<User> user = findByUserName(userName);
 
         return user.map(u -> converter.convert(u, type));
     }

@@ -20,7 +20,7 @@ public final class UserActivated extends BaseDomainEvent {
     Long userId;
 
 
-    public static UserActivated of(@NonNull final User user) { // NOSONAR
+    public static UserActivated of(@NonNull final User user) {
         return builder()
                 .userId(user.getId())
                 .build();

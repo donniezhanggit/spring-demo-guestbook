@@ -54,10 +54,9 @@ extends GeneratedIdDomainEntity<Comment> {
     @JoinColumn(name="gbuser_id")
     User user;
 
+
     @PackagePrivate
     Comment(@NonNull final CommentBuilder cb) {
-        super();
-
         throwIfNotProvidedAnonNameAndUserName(cb.anonName, cb.user);
 
         setUserOrAnonName(cb.user, cb.anonName);
