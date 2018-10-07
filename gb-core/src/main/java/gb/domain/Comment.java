@@ -46,7 +46,7 @@ extends GeneratedIdDomainEntity<Comment> {
     String anonName;
 
     @NonNull
-    @Setter(value=PROTECTED)
+    @Setter(value=PRIVATE)
     String message;
 
     @Getter(value=NONE)
