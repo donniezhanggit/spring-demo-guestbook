@@ -3,6 +3,7 @@ package gb.dto;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import gb.domain.Comment;
@@ -17,7 +18,9 @@ import lombok.Value;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access=PRIVATE, force=true)
-public class CommentEntry {
+public class CommentEntry implements Serializable {
+    private static final long serialVersionUID = -7280241741763657458L;
+
     Long id;
     Short version;
     LocalDateTime createdAt;

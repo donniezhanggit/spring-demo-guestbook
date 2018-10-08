@@ -2,6 +2,7 @@ package gb.dto;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.function.Function;
 
@@ -21,7 +22,9 @@ import lombok.experimental.FieldNameConstants;
 @AllArgsConstructor
 @NoArgsConstructor(access=PRIVATE, force=true)
 @FieldNameConstants
-public class UserEntry {
+public class UserEntry implements Serializable {
+    private static final long serialVersionUID = 6835901904477506890L;
+
     Long id;
     Short version;
     String userName;
