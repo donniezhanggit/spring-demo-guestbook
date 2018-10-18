@@ -1,14 +1,12 @@
 package gb.common.domain;
 
+import static javax.persistence.GenerationType.SEQUENCE;
 import static lombok.AccessLevel.PROTECTED;
 
 import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 import lombok.Getter;
 import lombok.val;
@@ -26,17 +24,8 @@ extends BaseAggregateRoot<A> {
     private static final long serialVersionUID = 1L;
 
 
-    @Id
-    @GenericGenerator(
-            name="hbn_seq",
-            strategy="org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters={
-                    @Parameter(name="sequence_name",
-                            value="hibernate_sequence"),
-                    @Parameter(name="increment_size", value="30")
-            }
-    )
-    @GeneratedValue(generator="hbn_seq")
+    @GeneratedValue(strategy=SEQUENCE, generator="hbn_seq")
+    @SequenceGenerator(name="hbn_seq", allocationSize=30)
     Long id;
 
     @Version
