@@ -19,6 +19,7 @@ import gb.common.domain.BaseAggregateRoot;
 import gb.common.events.DomainEvent;
 import gb.common.events.EventPublisher;
 import lombok.NonNull;
+import lombok.val;
 
 
 /**
@@ -67,7 +68,7 @@ public class AggregateRootInterceptor extends EmptyInterceptor {
             return false;
         }
 
-        final BaseAggregateRoot<?> aggregate = (BaseAggregateRoot<?>) entity;
+        val aggregate = (BaseAggregateRoot<?>) entity;
         final Collection<DomainEvent> domainEvents = aggregate.domainEvents();
 
         if(domainEvents.isEmpty()) {

@@ -23,7 +23,6 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
-import lombok.experimental.PackagePrivate;
 
 
 @Entity
@@ -55,7 +54,6 @@ extends GeneratedIdDomainEntity<Comment> {
     User user;
 
 
-    @PackagePrivate
     Comment(@NonNull final CommentBuilder cb) {
         throwIfNotProvidedAnonNameAndUserName(cb.anonName, cb.user);
 

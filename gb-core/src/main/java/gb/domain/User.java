@@ -24,7 +24,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
-import lombok.experimental.PackagePrivate;
 
 
 @Entity
@@ -35,7 +34,7 @@ import lombok.experimental.PackagePrivate;
 @NoArgsConstructor(access=PROTECTED)
 @ToString
 @FieldNameConstants
-@EqualsAndHashCode(of="userName", callSuper=false)
+@EqualsAndHashCode(callSuper=false, onlyExplicitlyIncluded=true)
 @NaturalIdCache
 @Cache(usage=READ_WRITE)
 public class User
@@ -51,6 +50,7 @@ extends GeneratedIdDomainEntity<User> {
 
 
     @NaturalId
+    @EqualsAndHashCode.Include
     @NonNull String userName;
     @NonNull String password;
     @NonNull String email;
@@ -59,7 +59,6 @@ extends GeneratedIdDomainEntity<User> {
     FullName fullName;
 
 
-    @PackagePrivate
     User(@NonNull final UserBuilder ub) {
         setUserName(ub.userName);
         setPassword(ub.password);
