@@ -96,9 +96,13 @@ public class EventsConfig {
     @Configuration
     @Profile(value={DEVELOPMENT, PRODUCTION})
     public static class AsyncConfig {
+        private static final int POOL_SIZE = 10;
+
+
         @Bean
         public TaskExecutor taskExecutor() {
             val taskExecutor = new ThreadPoolTaskExecutor();
+            taskExecutor.setCorePoolSize(POOL_SIZE);
 
             log.info("Configured taskExecutor");
 
