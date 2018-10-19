@@ -41,7 +41,7 @@ public class ConstraintViolationAdviceTests extends EndpointITCase {
     private static final String FIELD_PATH = "$.errors[0].field";
     private static final String FIELD_VALUE = "message";
     private static final String CODE_PATH = "$.errors[0].code";
-    private static final String CODE_VALUE = "invalid.field.value";
+    private static final String CODE_VALUE = "NotNull";
     private static final String MESSAGE_PATH = "$.errors[0].message";
     private static final String MESSAGE_VALUE = "must not be null";
 

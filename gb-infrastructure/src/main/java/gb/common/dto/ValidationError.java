@@ -19,6 +19,9 @@ import lombok.Value;
 @Value
 @AllArgsConstructor(access=NONE)
 public class ValidationError {
+    private static final String FIELD_SEPARATOR = ".";
+
+
     String field;
     String code;
     String message;
@@ -26,7 +29,7 @@ public class ValidationError {
 
     public ValidationError(@NonNull final ConstraintViolation<?> cv) {
         field = filterPath(cv);
-        code = "invalid.field.value";
+        code = getErrorCode(cv);
         message = cv.getMessage();
     }
 
@@ -50,6 +53,15 @@ public class ValidationError {
 
         return nodes.stream()
                 .map(Node::getName)
-                .collect(Collectors.joining("."));
+                .collect(Collectors.joining(FIELD_SEPARATOR));
+    }
+
+
+    private static String
+    getErrorCode(@NonNull final ConstraintViolation<?> cv) {
+        return cv.getConstraintDescriptor()
+                .getAnnotation()
+                .annotationType()
+                .getSimpleName();
     }
 }

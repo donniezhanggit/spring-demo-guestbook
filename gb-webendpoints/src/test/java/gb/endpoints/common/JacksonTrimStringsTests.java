@@ -79,7 +79,7 @@ public class JacksonTrimStringsTests extends EndpointITCase {
     private String buildExpectedValidationError() {
         final Map<String, String> error = ImmutableMap.of(
                 "field", "message",
-                "code", "invalid.field.value",
+                "code", "NotEmpty",
                 "message", "must not be empty"
         );
 
