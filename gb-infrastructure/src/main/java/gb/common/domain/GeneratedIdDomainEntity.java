@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 import static lombok.AccessLevel.PROTECTED;
 
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
@@ -24,6 +25,7 @@ extends BaseAggregateRoot<A> {
     private static final long serialVersionUID = 1L;
 
 
+    @Id
     @GeneratedValue(strategy=SEQUENCE, generator="hbn_seq")
     @SequenceGenerator(name="hbn_seq", allocationSize=30)
     Long id;
