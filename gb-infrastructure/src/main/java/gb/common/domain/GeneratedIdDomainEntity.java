@@ -27,6 +27,7 @@ extends BaseAggregateRoot<A> {
 
     @Id
     @GeneratedValue(strategy=SEQUENCE, generator="hbn_seq")
+    // TODO: Unusable starting version 5.3.0 of hibernate.
     @SequenceGenerator(name="hbn_seq", allocationSize=30)
     Long id;
 
