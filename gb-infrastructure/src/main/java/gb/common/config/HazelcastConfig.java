@@ -15,10 +15,13 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Configuration
 public class HazelcastConfig {
+    public static final int MAX_FREE_HEAP_SIZE = 200;
+
+
     @Bean
     public Config hazelCastConfig(){
         val maxSizeConfig = new MaxSizeConfig(
-                200,
+                MAX_FREE_HEAP_SIZE,
                 MaxSizeConfig.MaxSizePolicy.FREE_HEAP_SIZE
         );
 
